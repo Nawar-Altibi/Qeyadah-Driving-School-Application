@@ -1,0 +1,53 @@
+{
+  "@@locale": "en",
+  "appName": "Qeyadah Mobile",
+  "welcome": "Welcome",
+  "login": "Login",
+  "logout": "Logout",
+  "email": "Phone number",
+  "password": "Password",
+  "home": "Home",
+  "sampleItemsTitle": "Sample Items",
+  "sampleItemDetails": "Item Details",
+  "retry": "Retry",
+  "errorGeneric": "Something went wrong. Please try again.",
+  "errorNoInternet": "No internet connection. Check your network and try again.",
+  "errorValidation": "Please check your input and try again.",
+  "errorUnauthorized": "Session expired. Please sign in again.",
+  "errorForbidden": "You do not have permission to perform this action.",
+  "errorNotFound": "The requested resource was not found.",
+  "errorServer": "Server error. Please try again later.",
+  "errorFormat": "Unable to process the response.",
+  "errorBusiness": "{message}",
+  "@errorBusiness": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
+  "loginSubtitle": "Sign in to continue your driving lessons",
+  "loginButton": "Sign in",
+  "loginDemoHint": "Demo: 0999400001 / Test@12345",
+  "splashLoading": "Loading...",
+  "offlineQueuePending": "{count} requests pending sync",
+  "@offlineQueuePending": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "offlineQueueSyncing": "Syncing offline requests...",
+  "languageEnglish": "English",
+  "languageArabic": "Arabic",
+  "emptySampleItems": "No items found",
+  "itemIdLabel": "Item #{id}",
+  "@itemIdLabel": {
+    "placeholders": {
+      "id": {
+        "type": "int"
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+import 'package:coore/lib.dart';
+import 'package:flutter/material.dart';
+import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
+import 'package:qeyadah_mobile_app/src/core/error_handling/app_failures.dart';
+
+abstract final class CoreFailureMessageMapper {
+  static String messageFor(Failure failure, AppLocalizations l10n) {
+    return switch (failure) {
+      NoInternetConnectionFailure() => l10n.errorNoInternet,
+      UnauthorizedRequestFailure() || AuthFailure() => l10n.errorUnauthorized,
+      ForbiddenFailure() => l10n.errorForbidden,
+      ValidationFailure() => l10n.errorValidation,
+      NotFoundFailure() => l10n.errorNotFound,
+      FormatFailure() => l10n.errorFormat,
+      BusinessFailure(:final message) =>
+        message != null && message.isNotEmpty ? message : l10n.errorGeneric,
+      InternalServerErrorFailure() ||
+      BadGatewayFailure() ||
+      ServiceUnavailableFailure() ||
+      GatewayTimeoutFailure() => l10n.errorServer,
+      _ => l10n.errorGeneric,
+    };
+  }
+}

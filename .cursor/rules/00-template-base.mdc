@@ -1,0 +1,17 @@
+---
+description: Enterprise Flutter Template base rules
+globs:
+  - lib/**
+alwaysApply: true
+---
+
+# Template App Rules
+
+- Use **coore** for infrastructure (`import 'package:coore/lib.dart';`)
+- Feature-first clean architecture: `presentation → domain → repository → data source`
+- All outward contracts: `Either<Failure, T>` via `fpdart`
+- State: `AppCoreCoreCubit` + `ApiState`; checkout-style coordinators for interactive flows
+- DI: get_it + injectable; never manual `new` for services
+- Navigation: `CoreNavigator` + `AppNavigationConfig`; feature `*Navigation` facades only
+- UI: `AppButton`, `AppInputField`, `AppNetworkImage`; localized strings only
+- New features: copy `sample_items` structure; see `docs/BEST_PRACTICES.md`
