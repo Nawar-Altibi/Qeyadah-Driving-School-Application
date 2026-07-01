@@ -7,15 +7,9 @@ class DioNetworkExceptionMapper implements NetworkExceptionMapper {
   final Map<int, NetworkFailure Function(ErrorResponseModel, StackTrace?)>
   _codeToFailureMap = {
     400: (ErrorResponseModel error, StackTrace? stackTrace) =>
-        BadRequestFailure(
-         error.message,
-          stackTrace: stackTrace,
-        ),
+        BadRequestFailure(error.message, stackTrace: stackTrace),
     401: (ErrorResponseModel error, StackTrace? stackTrace) =>
-        UnauthorizedRequestFailure(
-           error.message,
-          stackTrace: stackTrace,
-        ),
+        UnauthorizedRequestFailure(error.message, stackTrace: stackTrace),
 
     403: (ErrorResponseModel error, StackTrace? stackTrace) =>
         ForbiddenFailure(error.message, stackTrace: stackTrace),
@@ -30,15 +24,19 @@ class DioNetworkExceptionMapper implements NetworkExceptionMapper {
         NotAcceptableFailure(_defaultErrorMessage, stackTrace: stackTrace),
 
     409: (ErrorResponseModel error, StackTrace? stackTrace) =>
-        ConflictFailure(_defaultErrorMessage, stackTrace: stackTrace),
+        ConflictFailure(error.message, stackTrace: stackTrace),
 
     413: (ErrorResponseModel error, StackTrace? stackTrace) =>
         PayloadTooLargeFailure(_defaultErrorMessage, stackTrace: stackTrace),
     422: (ErrorResponseModel error, StackTrace? stackTrace) =>
-        ValidationFailure(errors:  error.errorsMap,message: error.message, stackTrace: stackTrace),
+        ValidationFailure(
+          errors: error.errorsMap,
+          message: error.message,
+          stackTrace: stackTrace,
+        ),
 
     429: (ErrorResponseModel error, StackTrace? stackTrace) =>
-        TooManyRequestsFailure(_defaultErrorMessage, stackTrace: stackTrace),
+        TooManyRequestsFailure(error.message, stackTrace: stackTrace),
 
     418: (ErrorResponseModel error, StackTrace? stackTrace) =>
         TeapotFailure(_defaultErrorMessage, stackTrace: stackTrace),
@@ -119,7 +117,9 @@ class DioNetworkExceptionMapper implements NetworkExceptionMapper {
 
   NetworkFailure _mapBadResponse(Response? response, StackTrace? stackTrace) {
     final errorModel = response?.data is Map
-        ? ErrorResponseModel.fromJson(response?.data as Map<String, dynamic>)
+        ? ErrorResponseModel.fromJson(
+            _normalizeErrorJson(response?.data as Map),
+          )
         : ErrorResponseModel(errorsMap: {}, message: _defaultErrorMessage);
     final statusCode = response?.statusCode ?? 0;
     if (_codeToFailureMap[statusCode] != null) {
@@ -129,6 +129,22 @@ class DioNetworkExceptionMapper implements NetworkExceptionMapper {
       'Invalid status code',
       stackTrace: stackTrace,
     );
+  }
+
+  Map<String, dynamic> _normalizeErrorJson(Map<dynamic, dynamic> json) {
+    final normalized = Map<String, dynamic>.from(json);
+    final message = normalized['message'];
+    if (message is List) {
+      normalized['message'] = message.map((item) => item.toString()).join('\n');
+    } else if (message == null) {
+      normalized['message'] = _defaultErrorMessage;
+    } else {
+      normalized['message'] = message.toString();
+    }
+    normalized['errors'] = normalized['errors'] is Map
+        ? Map<String, dynamic>.from(normalized['errors'] as Map)
+        : <String, String>{};
+    return normalized;
   }
 
   static String get _defaultErrorMessage => 'Error, please try again later';

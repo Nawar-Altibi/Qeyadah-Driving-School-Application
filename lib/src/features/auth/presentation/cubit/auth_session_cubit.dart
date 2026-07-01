@@ -34,6 +34,11 @@ class AuthSessionCubit
     orElse: () => false,
   );
 
+  AuthSessionEntity? get currentSession => state.apiState.maybeWhen(
+    succeeded: (AuthSessionEntity data) => data,
+    orElse: () => null,
+  );
+
   @override
   ApiState<AuthSessionEntity> getApiState(AuthSessionState state) =>
       state.apiState;
@@ -77,12 +82,16 @@ class AuthSessionCubit
     );
   }
 
-  Future<void> login({required String phone, required String password}) async {
+  Future<void> login({
+    required String phone,
+    required String password,
+    String? deviceName,
+  }) async {
     final generation = ++_loginGeneration;
     emit(state.copyWith(isLoggingIn: true, loginEffect: null));
 
     final result = await _loginUseCase(
-      LoginParams(phone: phone, password: password),
+      LoginParams(phone: phone, password: password, deviceName: deviceName),
     );
 
     if (!isActiveGeneration(

@@ -7,7 +7,11 @@ abstract final class CoreFailureMessageMapper {
   static String messageFor(Failure failure, AppLocalizations l10n) {
     return switch (failure) {
       NoInternetConnectionFailure() => l10n.errorNoInternet,
-      UnauthorizedRequestFailure() || AuthFailure() => l10n.errorUnauthorized,
+      UnauthorizedRequestFailure(:final message) ||
+      AuthFailure(:final message) =>
+        message != null && message.isNotEmpty
+            ? message
+            : l10n.errorUnauthorized,
       ForbiddenFailure() => l10n.errorForbidden,
       ValidationFailure() => l10n.errorValidation,
       NotFoundFailure() => l10n.errorNotFound,

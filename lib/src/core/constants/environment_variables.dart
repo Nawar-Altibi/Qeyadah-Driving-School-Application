@@ -10,6 +10,6 @@ abstract final class EnvironmentVariables {
   static String _normalizedApiBaseUrl(String rawBaseUrl) {
     final trimmed = rawBaseUrl.trim();
     if (trimmed.isEmpty) return trimmed;
-    return trimmed.replaceAll(RegExp(r'/+$'), '');
+    return '${trimmed.replaceAll(RegExp(r'/+$'), '')}/';
   }
 }

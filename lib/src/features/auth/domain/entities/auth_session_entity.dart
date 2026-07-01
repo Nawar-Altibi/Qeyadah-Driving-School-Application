@@ -13,6 +13,7 @@ class AuthSessionEntity extends Equatable {
   final String? refreshToken;
 
   bool get isAuthenticated => accessToken.isNotEmpty;
+  bool get canUseMobileApp => user.canUseMobileApp;
 
   @override
   List<Object?> get props => [user, accessToken, refreshToken];

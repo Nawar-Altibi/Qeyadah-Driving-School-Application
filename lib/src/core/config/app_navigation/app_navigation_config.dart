@@ -7,12 +7,15 @@ import 'package:injectable/injectable.dart';
 import 'package:qeyadah_mobile_app/src/core/config/app_navigation/stream_to_listenable.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/presentation/cubit/auth_session_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/presentation/screens/login_screen.dart';
+import 'package:qeyadah_mobile_app/src/features/instructor_home/presentation/screens/instructor_home_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/sample_items/presentation/cubit/sample_items_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/sample_items/presentation/screens/sample_item_details_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/sample_items/presentation/screens/sample_items_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/splash/presentation/cubit/splash_screen_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/splash/presentation/screens/splash_screen.dart';
 import 'package:qeyadah_mobile_app/src/core/offline/presentation/cubit/offline_queue_cubit.dart';
+import 'package:qeyadah_mobile_app/src/features/student_home/presentation/screens/student_home_screen.dart';
+import 'package:qeyadah_mobile_app/src/shared/enums/user_role.dart';
 
 @lazySingleton
 class AppNavigationConfig {
@@ -50,6 +53,18 @@ class AppNavigationConfig {
               FadePage(child: _withSession(const LoginScreen())),
         ),
         GoRoute(
+          path: StudentHomeScreen.routePath,
+          name: StudentHomeScreen.routeName,
+          pageBuilder: (context, state) =>
+              FadePage(child: _withSession(const StudentHomeScreen())),
+        ),
+        GoRoute(
+          path: InstructorHomeScreen.routePath,
+          name: InstructorHomeScreen.routeName,
+          pageBuilder: (context, state) =>
+              FadePage(child: _withSession(const InstructorHomeScreen())),
+        ),
+        GoRoute(
           path: SampleItemsScreen.routePath,
           name: SampleItemsScreen.routeName,
           pageBuilder: (context, state) => FadePage(
@@ -85,6 +100,7 @@ class AppNavigationConfig {
     final splashFinished = _splashScreenCubit.state.animationFinished;
     final authRestoreComplete = _authSessionCubit.hasCompletedInitialRestore;
     final isAuthenticated = _authSessionCubit.isAuthenticated;
+    final session = _authSessionCubit.currentSession;
 
     if (!splashFinished || !authRestoreComplete) {
       return location == SplashScreen.routePath ? null : SplashScreen.routePath;
@@ -97,10 +113,17 @@ class AppNavigationConfig {
     }
 
     if (isAuthRoute || location == SplashScreen.routePath) {
-      return SampleItemsScreen.routePath;
+      return _homePathFor(session?.user.primaryRole);
     }
 
     return null;
+  }
+
+  String _homePathFor(UserRole? role) {
+    return switch (role) {
+      UserRole.instructor => InstructorHomeScreen.routePath,
+      _ => StudentHomeScreen.routePath,
+    };
   }
 
   Widget _withSession(Widget child) {

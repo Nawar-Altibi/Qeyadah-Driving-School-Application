@@ -42,9 +42,11 @@ void main() {
       const session = AuthSessionEntity(
         user: UserEntity(
           id: '1',
-          email: 'demo@qeyadah.local',
+          phone: '0999400001',
           displayName: 'Demo',
-          role: UserRole.user,
+          roles: [UserRole.student],
+          permissions: ['bookings.create'],
+          mustChangePassword: false,
         ),
         accessToken: 'token',
       );
@@ -95,9 +97,11 @@ void main() {
             const AuthSessionEntity(
               user: UserEntity(
                 id: '1',
-                email: 'demo@qeyadah.local',
+                phone: '0999400001',
                 displayName: 'Demo',
-                role: UserRole.user,
+                roles: [UserRole.student],
+                permissions: ['bookings.create'],
+                mustChangePassword: false,
               ),
               accessToken: 'token',
             ),

@@ -196,14 +196,21 @@ class TokenAuthInterceptor extends AuthInterceptor {
       final api = getIt<ApiHandlerInterface>();
       final result = await api.post(
         'auth/refresh',
-        body: {'refresh_token': rt},
-        isAuthorized: true,
+        body: {'refreshToken': rt},
+        isAuthorized: false,
       );
 
       return result.fold((l) => false, (data) async {
+        final payload = data['data'] is Map
+            ? Map<String, dynamic>.from(data['data'] as Map)
+            : data;
         await _tokenManager.setTokens(
-          accessToken: data['data']['access_token'] as String?,
-          refreshToken: data['data']['refresh_token'] as String?,
+          accessToken:
+              (payload['accessToken'] as String?) ??
+              (payload['access_token'] as String?),
+          refreshToken:
+              (payload['refreshToken'] as String?) ??
+              (payload['refresh_token'] as String?),
         );
         return true;
       });
@@ -236,9 +243,14 @@ class CookieAuthInterceptor extends AuthInterceptor {
       final result = await api.post('auth/refresh', isAuthorized: true);
 
       return result.fold((l) => false, (data) async {
+        final payload = data['data'] is Map
+            ? Map<String, dynamic>.from(data['data'] as Map)
+            : data;
         // Server set new cookie; optionally update tokens too
         await _tokenManager.setTokens(
-          accessToken: data['data']['access_token'] as String?,
+          accessToken:
+              (payload['accessToken'] as String?) ??
+              (payload['access_token'] as String?),
         );
         return true;
       });

@@ -1,4 +1,4 @@
-﻿import 'package:qeyadah_mobile_app/src/features/auth/data/models/auth_session_model.dart';
+import 'package:qeyadah_mobile_app/src/features/auth/data/models/auth_session_model.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/domain/entities/auth_session_entity.dart';
 import 'package:qeyadah_mobile_app/src/shared/entities/user_entity.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/user_role.dart';
@@ -7,9 +7,11 @@ AuthSessionEntity authSessionModelToEntity(AuthSessionModel model) {
   return AuthSessionEntity(
     user: UserEntity(
       id: model.userId,
-      email: model.email,
+      phone: model.phone,
       displayName: model.displayName,
-      role: UserRoleX.fromValue(model.role),
+      roles: model.roles.map(UserRoleX.fromValue).toList(growable: false),
+      permissions: model.permissions,
+      mustChangePassword: model.mustChangePassword,
     ),
     accessToken: model.accessToken,
     refreshToken: model.refreshToken,
@@ -19,9 +21,13 @@ AuthSessionEntity authSessionModelToEntity(AuthSessionModel model) {
 AuthSessionModel authSessionEntityToModel(AuthSessionEntity entity) {
   return AuthSessionModel(
     userId: entity.user.id,
-    email: entity.user.email,
+    phone: entity.user.phone,
     displayName: entity.user.displayName,
-    role: entity.user.role.apiValue,
+    roles: entity.user.roles
+        .map((role) => role.apiValue)
+        .toList(growable: false),
+    permissions: entity.user.permissions,
+    mustChangePassword: entity.user.mustChangePassword,
     accessToken: entity.accessToken,
     refreshToken: entity.refreshToken,
   );

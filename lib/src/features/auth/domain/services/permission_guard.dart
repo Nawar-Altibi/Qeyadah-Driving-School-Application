@@ -5,8 +5,8 @@ class PermissionGuard {
   const PermissionGuard();
 
   bool canAccess({required UserRole userRole, required UserRole requiredRole}) {
-    if (requiredRole == UserRole.user) return true;
-    return userRole == UserRole.admin;
+    if (requiredRole == UserRole.unknown) return true;
+    return userRole == requiredRole;
   }
 }
 

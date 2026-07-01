@@ -5,6 +5,12 @@ abstract final class NetworkFailureMapper {
   static Failure toDomainFailure(NetworkFailure failure) {
     return switch (failure) {
       NoInternetConnectionFailure() => failure,
+      BadRequestFailure() ||
+      ConflictFailure() ||
+      TooManyRequestsFailure() => BusinessFailure(
+        message: failure.message,
+        stackTrace: failure.stackTrace,
+      ),
       UnauthorizedRequestFailure() => AuthFailure(
         message: failure.message,
         stackTrace: failure.stackTrace,

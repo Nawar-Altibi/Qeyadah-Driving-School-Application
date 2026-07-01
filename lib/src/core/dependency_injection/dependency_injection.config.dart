@@ -63,7 +63,7 @@ extension GetItInjectableX on _i174.GetIt {
       instanceName: 'offline_queue',
     );
     gh.lazySingleton<_i633.AuthRemoteDataSource>(
-      () => _i633.AuthRemoteDataSourceImpl(),
+      () => _i633.AuthRemoteDataSourceImpl(gh<_i698.ApiHandlerInterface>()),
     );
     gh.factory<_i698.LocalDatabaseInterface>(
       () => localDatabaseModule.authDatabase,
@@ -75,7 +75,9 @@ extension GetItInjectableX on _i174.GetIt {
       ),
     );
     gh.lazySingleton<_i236.AuthLocalDataSource>(
-      () => _i236.AuthLocalDataSourceImpl(gh<_i698.LocalDatabaseInterface>()),
+      () => _i236.AuthLocalDataSourceImpl(
+        gh<_i698.LocalDatabaseInterface>(instanceName: 'auth'),
+      ),
     );
     gh.lazySingleton<_i193.SampleItemsRemoteDataSource>(
       () => _i193.SampleItemsRemoteDataSourceImpl(

@@ -1,5 +1,6 @@
 import 'package:coore/lib.dart';
 import 'package:fpdart/fpdart.dart';
+import 'package:qeyadah_mobile_app/src/core/error_handling/app_failures.dart';
 import 'package:qeyadah_mobile_app/src/core/services/auth_token_coordinator.dart';
 import 'package:qeyadah_mobile_app/src/core/typedefs/app_typedefs.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/data/data_sources/auth_local_data_source.dart';
@@ -19,18 +20,39 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   FutureEither<AuthSessionEntity> login(LoginParams params) async {
     final remote = await _remoteDataSource.login(params);
-    return remote.fold(left, (session) async {
-      await AuthTokenCoordinator.persist(
-        accessToken: session.accessToken,
-        refreshToken: session.refreshToken,
+    return remote.fold((failure) async => left(failure), _persistMobileSession);
+  }
+
+  FutureEither<AuthSessionEntity> _persistMobileSession(
+    AuthSessionEntity session,
+  ) async {
+    if (!session.canUseMobileApp) {
+      await AuthTokenCoordinator.clear();
+      return left(
+        const BusinessFailure(
+          message:
+              'This account is not available in the mobile app. Please use the dashboard.',
+        ),
       );
-      final saved = await _localDataSource.saveSession(session);
-      return saved.fold(left, (_) => right(session));
-    });
+    }
+
+    await AuthTokenCoordinator.persist(
+      accessToken: session.accessToken,
+      refreshToken: session.refreshToken,
+    );
+    final saved = await _localDataSource.saveSession(session);
+    return saved.fold(left, (_) => right(session));
   }
 
   @override
   FutureEither<void> logout() async {
+    final sessionResult = await _localDataSource.readSession();
+    await sessionResult.fold((_) async {}, (session) async {
+      final refreshToken = session?.refreshToken;
+      if (refreshToken != null && refreshToken.isNotEmpty) {
+        await _remoteDataSource.logout(refreshToken);
+      }
+    });
     await AuthTokenCoordinator.clear();
     return _localDataSource.clearSession();
   }
@@ -38,6 +60,15 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   FutureEither<AuthSessionEntity?> getPersistedSession() async {
     await AuthTokenCoordinator.ensureInterceptorTokensFromLegacyStorage();
-    return _localDataSource.readSession();
+    final session = await _localDataSource.readSession();
+    return session.fold((failure) async => left(failure), (value) async {
+      if (value == null) return right(null);
+      if (!value.canUseMobileApp) {
+        await AuthTokenCoordinator.clear();
+        await _localDataSource.clearSession();
+        return right(null);
+      }
+      return right(value);
+    });
   }
 }
