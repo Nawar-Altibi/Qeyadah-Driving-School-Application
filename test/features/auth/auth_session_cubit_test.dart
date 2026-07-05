@@ -1,15 +1,15 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:coore/lib.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:qeyadah_mobile_app/src/core/error_handling/app_failures.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/domain/entities/auth_session_entity.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/domain/params/login_params.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/domain/repositories/auth_repository.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/domain/use_cases/get_persisted_session_use_case.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/domain/use_cases/login_use_case.dart';
+import 'package:qeyadah_mobile_app/src/features/auth/domain/use_cases/logout_all_use_case.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/domain/use_cases/logout_use_case.dart';
+import 'package:qeyadah_mobile_app/src/features/auth/domain/use_cases/refresh_profile_use_case.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/presentation/cubit/auth_session_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/sample_items/domain/entities/sample_item_entity.dart';
 import 'package:qeyadah_mobile_app/src/features/sample_items/domain/repositories/sample_items_repository.dart';
@@ -108,14 +108,32 @@ void main() {
           ),
         );
         when(() => repository.logout()).thenAnswer((_) async => right(null));
+        when(() => repository.logoutAll()).thenAnswer((_) async => right(null));
         when(
           () => repository.getPersistedSession(),
         ).thenAnswer((_) async => right(null));
+        when(() => repository.refreshProfile()).thenAnswer(
+          (_) async => right(
+            const AuthSessionEntity(
+              user: UserEntity(
+                id: '1',
+                phone: '0999400001',
+                displayName: 'Demo',
+                roles: [UserRole.student],
+                permissions: ['bookings.create'],
+                mustChangePassword: false,
+              ),
+              accessToken: 'token',
+            ),
+          ),
+        );
 
         return AuthSessionCubit(
           LoginUseCase(repository),
           LogoutUseCase(repository),
+          LogoutAllUseCase(repository),
           GetPersistedSessionUseCase(repository),
+          RefreshProfileUseCase(repository),
         );
       },
       act: (cubit) => cubit.login(phone: '0999400001', password: 'Test@12345'),

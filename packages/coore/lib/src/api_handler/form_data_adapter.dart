@@ -1,5 +1,4 @@
-import 'dart:io';
-
+import 'package:coore/src/api_handler/form_data_file_adapter.dart';
 import 'package:dio/dio.dart';
 
 /// Abstract adapter for creating multipart/form-data.
@@ -35,14 +34,9 @@ class MultipartFormDataAdapter extends FormDataAdapter {
     final form = FormData();
 
     _body.forEach((key, value) {
-      if (value is File) {
-        // Single file
-        form.files.add(MapEntry(key, MultipartFile.fromFileSync(value.path)));
-      } else if (value is List<File>) {
-        // List of files under same key
-        for (final file in value) {
-          form.files.add(MapEntry(key, MultipartFile.fromFileSync(file.path)));
-        }
+      final files = multipartFilesFromValue(key, value);
+      if (files.isNotEmpty) {
+        form.files.addAll(files);
       } else {
         // Primitive or other types
         form.fields.add(MapEntry(key, value.toString()));
@@ -57,8 +51,8 @@ class MultipartFormDataAdapter extends FormDataAdapter {
 ///
 /// final body = {
 ///   'name': 'John',
-///   'profile_pic': File('/path/to/pic.jpg'),
-///   'attachments': [File('/a.pdf'), File('/b.pdf')],
+///   'profile_pic': platform file object,
+///   'attachments': [platform file object],
 /// };
 /// final adapter = MultipartFormDataAdapter(body);
 /// final formData = adapter.create();

@@ -8,7 +8,7 @@ part of 'sample_item_model.dart';
 
 SampleItemModel _$SampleItemModelFromJson(Map<String, dynamic> json) =>
     SampleItemModel(
-      id: (json['id'] as num).toInt(),
+      id: json['id'] as String,
       title: json['title'] as String,
       body: json['body'] as String,
       userId: (json['userId'] as num).toInt(),

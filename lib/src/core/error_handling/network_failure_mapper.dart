@@ -22,6 +22,7 @@ abstract final class NetworkFailureMapper {
         message: failure.message,
         stackTrace: failure.stackTrace,
       ),
+      RequestTimeoutFailure() => failure,
       _ => failure,
     };
   }

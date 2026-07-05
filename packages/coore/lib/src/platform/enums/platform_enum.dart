@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 
 /// Platform enum for device information
@@ -12,15 +10,17 @@ enum PlatformType {
   linux,
   unknown;
 
-  /// Get platform from dart:io Platform
+  /// Get platform from Flutter's platform dispatcher.
   static PlatformType fromDartPlatform() {
-    if (Platform.isAndroid) return PlatformType.android;
-    if (Platform.isIOS) return PlatformType.ios;
-    if (Platform.isWindows) return PlatformType.windows;
-    if (Platform.isMacOS) return PlatformType.macos;
-    if (Platform.isLinux) return PlatformType.linux;
     if (kIsWeb) return PlatformType.web;
-    return PlatformType.unknown;
+    return switch (defaultTargetPlatform) {
+      TargetPlatform.android => PlatformType.android,
+      TargetPlatform.iOS => PlatformType.ios,
+      TargetPlatform.windows => PlatformType.windows,
+      TargetPlatform.macOS => PlatformType.macos,
+      TargetPlatform.linux => PlatformType.linux,
+      TargetPlatform.fuchsia => PlatformType.unknown,
+    };
   }
 
   /// Get platform from string

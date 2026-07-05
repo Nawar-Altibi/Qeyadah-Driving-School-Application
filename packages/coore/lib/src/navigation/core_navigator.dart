@@ -168,10 +168,10 @@ class CoreNavigator {
   GoRouter _createRouter() {
     return GoRouter(
       navigatorKey: _routeNavigationKey,
+      initialLocation: _configEntity.initialRoute,
       routes: _configEntity.routes,
       errorBuilder: _configEntity.errorBuilder ?? _defaultErrorWidget,
       debugLogDiagnostics: shouldLog,
-      restorationScopeId: 'coreRouter',
       redirect: _configEntity.redirect,
       refreshListenable: refreshListenable,
       observers: [

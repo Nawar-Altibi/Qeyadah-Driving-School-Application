@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:coore/src/platform/entities/device_info_entity.dart';
 import 'package:coore/src/platform/enums/platform_enum.dart';
 import 'package:coore/src/platform/service/platform_service_interface.dart';
@@ -41,27 +39,30 @@ class PlatformServiceImpl implements PlatformServiceInterface {
       deviceId = webBrowserInfo.userAgent ?? 'Unknown Web Browser';
     } else {
       // Handles all mobile and desktop platforms.
-      switch (Platform.operatingSystem) {
-        case 'android':
+      switch (platform) {
+        case PlatformType.android:
           final androidInfo = _deviceInfo as AndroidDeviceInfo;
           deviceId = androidInfo.id; // The Android ID.
           break;
-        case 'ios':
+        case PlatformType.ios:
           final iosInfo = _deviceInfo as IosDeviceInfo;
           // FIX: Use identifierForVendor for a unique ID on iOS.
           deviceId = iosInfo.identifierForVendor ?? 'Unknown iOS Device';
           break;
-        case 'windows':
+        case PlatformType.windows:
           final windowsInfo = _deviceInfo as WindowsDeviceInfo;
           deviceId = windowsInfo.deviceId;
           break;
-        case 'macos':
+        case PlatformType.macos:
           final macInfo = _deviceInfo as MacOsDeviceInfo;
           deviceId = macInfo.systemGUID ?? 'Unknown macOS Device';
           break;
-        case 'linux':
+        case PlatformType.linux:
           final linuxInfo = _deviceInfo as LinuxDeviceInfo;
           deviceId = linuxInfo.machineId ?? 'Unknown Linux Device';
+          break;
+        case PlatformType.web:
+        case PlatformType.unknown:
           break;
       }
     }

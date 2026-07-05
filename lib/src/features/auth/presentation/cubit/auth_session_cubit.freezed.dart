@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AuthSessionState {
 
- ApiState<AuthSessionEntity> get apiState; bool get isLoggingIn; AuthSessionEffect? get loginEffect;
+ ApiState<AuthSessionEntity> get apiState; bool get isLoggingIn; bool get isRefreshingProfile; AuthSessionEffect? get loginEffect; AuthSessionEffect? get profileEffect;
 /// Create a copy of AuthSessionState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $AuthSessionStateCopyWith<AuthSessionState> get copyWith => _$AuthSessionStateCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuthSessionState&&(identical(other.apiState, apiState) || other.apiState == apiState)&&(identical(other.isLoggingIn, isLoggingIn) || other.isLoggingIn == isLoggingIn)&&(identical(other.loginEffect, loginEffect) || other.loginEffect == loginEffect));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuthSessionState&&(identical(other.apiState, apiState) || other.apiState == apiState)&&(identical(other.isLoggingIn, isLoggingIn) || other.isLoggingIn == isLoggingIn)&&(identical(other.isRefreshingProfile, isRefreshingProfile) || other.isRefreshingProfile == isRefreshingProfile)&&(identical(other.loginEffect, loginEffect) || other.loginEffect == loginEffect)&&(identical(other.profileEffect, profileEffect) || other.profileEffect == profileEffect));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,apiState,isLoggingIn,loginEffect);
+int get hashCode => Object.hash(runtimeType,apiState,isLoggingIn,isRefreshingProfile,loginEffect,profileEffect);
 
 @override
 String toString() {
-  return 'AuthSessionState(apiState: $apiState, isLoggingIn: $isLoggingIn, loginEffect: $loginEffect)';
+  return 'AuthSessionState(apiState: $apiState, isLoggingIn: $isLoggingIn, isRefreshingProfile: $isRefreshingProfile, loginEffect: $loginEffect, profileEffect: $profileEffect)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $AuthSessionStateCopyWith<$Res>  {
   factory $AuthSessionStateCopyWith(AuthSessionState value, $Res Function(AuthSessionState) _then) = _$AuthSessionStateCopyWithImpl;
 @useResult
 $Res call({
- ApiState<AuthSessionEntity> apiState, bool isLoggingIn, AuthSessionEffect? loginEffect
+ ApiState<AuthSessionEntity> apiState, bool isLoggingIn, bool isRefreshingProfile, AuthSessionEffect? loginEffect, AuthSessionEffect? profileEffect
 });
 
 
@@ -62,11 +62,13 @@ class _$AuthSessionStateCopyWithImpl<$Res>
 
 /// Create a copy of AuthSessionState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? apiState = null,Object? isLoggingIn = null,Object? loginEffect = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? apiState = null,Object? isLoggingIn = null,Object? isRefreshingProfile = null,Object? loginEffect = freezed,Object? profileEffect = freezed,}) {
   return _then(_self.copyWith(
 apiState: null == apiState ? _self.apiState : apiState // ignore: cast_nullable_to_non_nullable
 as ApiState<AuthSessionEntity>,isLoggingIn: null == isLoggingIn ? _self.isLoggingIn : isLoggingIn // ignore: cast_nullable_to_non_nullable
+as bool,isRefreshingProfile: null == isRefreshingProfile ? _self.isRefreshingProfile : isRefreshingProfile // ignore: cast_nullable_to_non_nullable
 as bool,loginEffect: freezed == loginEffect ? _self.loginEffect : loginEffect // ignore: cast_nullable_to_non_nullable
+as AuthSessionEffect?,profileEffect: freezed == profileEffect ? _self.profileEffect : profileEffect // ignore: cast_nullable_to_non_nullable
 as AuthSessionEffect?,
   ));
 }
@@ -161,10 +163,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( ApiState<AuthSessionEntity> apiState,  bool isLoggingIn,  AuthSessionEffect? loginEffect)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( ApiState<AuthSessionEntity> apiState,  bool isLoggingIn,  bool isRefreshingProfile,  AuthSessionEffect? loginEffect,  AuthSessionEffect? profileEffect)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AuthSessionState() when $default != null:
-return $default(_that.apiState,_that.isLoggingIn,_that.loginEffect);case _:
+return $default(_that.apiState,_that.isLoggingIn,_that.isRefreshingProfile,_that.loginEffect,_that.profileEffect);case _:
   return orElse();
 
 }
@@ -182,10 +184,10 @@ return $default(_that.apiState,_that.isLoggingIn,_that.loginEffect);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( ApiState<AuthSessionEntity> apiState,  bool isLoggingIn,  AuthSessionEffect? loginEffect)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( ApiState<AuthSessionEntity> apiState,  bool isLoggingIn,  bool isRefreshingProfile,  AuthSessionEffect? loginEffect,  AuthSessionEffect? profileEffect)  $default,) {final _that = this;
 switch (_that) {
 case _AuthSessionState():
-return $default(_that.apiState,_that.isLoggingIn,_that.loginEffect);case _:
+return $default(_that.apiState,_that.isLoggingIn,_that.isRefreshingProfile,_that.loginEffect,_that.profileEffect);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -202,10 +204,10 @@ return $default(_that.apiState,_that.isLoggingIn,_that.loginEffect);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( ApiState<AuthSessionEntity> apiState,  bool isLoggingIn,  AuthSessionEffect? loginEffect)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( ApiState<AuthSessionEntity> apiState,  bool isLoggingIn,  bool isRefreshingProfile,  AuthSessionEffect? loginEffect,  AuthSessionEffect? profileEffect)?  $default,) {final _that = this;
 switch (_that) {
 case _AuthSessionState() when $default != null:
-return $default(_that.apiState,_that.isLoggingIn,_that.loginEffect);case _:
+return $default(_that.apiState,_that.isLoggingIn,_that.isRefreshingProfile,_that.loginEffect,_that.profileEffect);case _:
   return null;
 
 }
@@ -217,12 +219,14 @@ return $default(_that.apiState,_that.isLoggingIn,_that.loginEffect);case _:
 
 
 class _AuthSessionState implements AuthSessionState {
-  const _AuthSessionState({this.apiState = const ApiState<AuthSessionEntity>.initial(), this.isLoggingIn = false, this.loginEffect});
+  const _AuthSessionState({this.apiState = const ApiState<AuthSessionEntity>.initial(), this.isLoggingIn = false, this.isRefreshingProfile = false, this.loginEffect, this.profileEffect});
   
 
 @override@JsonKey() final  ApiState<AuthSessionEntity> apiState;
 @override@JsonKey() final  bool isLoggingIn;
+@override@JsonKey() final  bool isRefreshingProfile;
 @override final  AuthSessionEffect? loginEffect;
+@override final  AuthSessionEffect? profileEffect;
 
 /// Create a copy of AuthSessionState
 /// with the given fields replaced by the non-null parameter values.
@@ -234,16 +238,16 @@ _$AuthSessionStateCopyWith<_AuthSessionState> get copyWith => __$AuthSessionStat
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AuthSessionState&&(identical(other.apiState, apiState) || other.apiState == apiState)&&(identical(other.isLoggingIn, isLoggingIn) || other.isLoggingIn == isLoggingIn)&&(identical(other.loginEffect, loginEffect) || other.loginEffect == loginEffect));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AuthSessionState&&(identical(other.apiState, apiState) || other.apiState == apiState)&&(identical(other.isLoggingIn, isLoggingIn) || other.isLoggingIn == isLoggingIn)&&(identical(other.isRefreshingProfile, isRefreshingProfile) || other.isRefreshingProfile == isRefreshingProfile)&&(identical(other.loginEffect, loginEffect) || other.loginEffect == loginEffect)&&(identical(other.profileEffect, profileEffect) || other.profileEffect == profileEffect));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,apiState,isLoggingIn,loginEffect);
+int get hashCode => Object.hash(runtimeType,apiState,isLoggingIn,isRefreshingProfile,loginEffect,profileEffect);
 
 @override
 String toString() {
-  return 'AuthSessionState(apiState: $apiState, isLoggingIn: $isLoggingIn, loginEffect: $loginEffect)';
+  return 'AuthSessionState(apiState: $apiState, isLoggingIn: $isLoggingIn, isRefreshingProfile: $isRefreshingProfile, loginEffect: $loginEffect, profileEffect: $profileEffect)';
 }
 
 
@@ -254,7 +258,7 @@ abstract mixin class _$AuthSessionStateCopyWith<$Res> implements $AuthSessionSta
   factory _$AuthSessionStateCopyWith(_AuthSessionState value, $Res Function(_AuthSessionState) _then) = __$AuthSessionStateCopyWithImpl;
 @override @useResult
 $Res call({
- ApiState<AuthSessionEntity> apiState, bool isLoggingIn, AuthSessionEffect? loginEffect
+ ApiState<AuthSessionEntity> apiState, bool isLoggingIn, bool isRefreshingProfile, AuthSessionEffect? loginEffect, AuthSessionEffect? profileEffect
 });
 
 
@@ -271,11 +275,13 @@ class __$AuthSessionStateCopyWithImpl<$Res>
 
 /// Create a copy of AuthSessionState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? apiState = null,Object? isLoggingIn = null,Object? loginEffect = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? apiState = null,Object? isLoggingIn = null,Object? isRefreshingProfile = null,Object? loginEffect = freezed,Object? profileEffect = freezed,}) {
   return _then(_AuthSessionState(
 apiState: null == apiState ? _self.apiState : apiState // ignore: cast_nullable_to_non_nullable
 as ApiState<AuthSessionEntity>,isLoggingIn: null == isLoggingIn ? _self.isLoggingIn : isLoggingIn // ignore: cast_nullable_to_non_nullable
+as bool,isRefreshingProfile: null == isRefreshingProfile ? _self.isRefreshingProfile : isRefreshingProfile // ignore: cast_nullable_to_non_nullable
 as bool,loginEffect: freezed == loginEffect ? _self.loginEffect : loginEffect // ignore: cast_nullable_to_non_nullable
+as AuthSessionEffect?,profileEffect: freezed == profileEffect ? _self.profileEffect : profileEffect // ignore: cast_nullable_to_non_nullable
 as AuthSessionEffect?,
   ));
 }

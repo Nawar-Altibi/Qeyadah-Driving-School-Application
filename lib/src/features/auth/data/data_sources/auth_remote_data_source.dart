@@ -7,6 +7,7 @@ import 'package:qeyadah_mobile_app/src/core/error_handling/network_failure_mappe
 import 'package:qeyadah_mobile_app/src/core/typedefs/app_typedefs.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/data/mappers/auth_session_mapper.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/data/models/auth_session_model.dart';
+import 'package:qeyadah_mobile_app/src/features/auth/domain/entities/auth_otp_challenge_entity.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/domain/entities/auth_session_entity.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/domain/params/login_params.dart';
 
@@ -17,19 +18,21 @@ abstract interface class AuthRemoteDataSource {
   FutureEither<List<String>> mePermissions();
   FutureEither<void> logout(String refreshToken);
   FutureEither<void> logoutAll();
-  FutureEither<AuthOtpChallenge> requestRegistrationOtp({
+  FutureEither<AuthOtpChallengeEntity> requestRegistrationOtp({
     required String name,
     required String phone,
+    required String email,
     required String password,
   });
   FutureEither<AuthSessionEntity> registerStudent({
     required String name,
     required String phone,
+    required String email,
     required String code,
     required String password,
     String? deviceName,
   });
-  FutureEither<AuthOtpChallenge> forgotPassword(String phone);
+  FutureEither<AuthOtpChallengeEntity> forgotPassword(String phone);
   FutureEither<String> verifyPasswordResetOtp({
     required String phone,
     required String code,
@@ -140,14 +143,20 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }
 
   @override
-  FutureEither<AuthOtpChallenge> requestRegistrationOtp({
+  FutureEither<AuthOtpChallengeEntity> requestRegistrationOtp({
     required String name,
     required String phone,
+    required String email,
     required String password,
   }) async {
     final response = await _apiHandler.post(
       Endpoints.authRegisterRequestOtp,
-      body: {'name': name, 'phone': phone, 'password': password},
+      body: {
+        'name': name.trim(),
+        'phone': phone.trim(),
+        'email': email.trim(),
+        'password': password,
+      },
       isAuthorized: false,
     );
     return response.fold(_networkFailure, _otpChallengeFromResponse);
@@ -157,6 +166,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   FutureEither<AuthSessionEntity> registerStudent({
     required String name,
     required String phone,
+    required String email,
     required String code,
     required String password,
     String? deviceName,
@@ -164,9 +174,10 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     final response = await _apiHandler.post(
       Endpoints.authRegister,
       body: {
-        'name': name,
-        'phone': phone,
-        'code': code,
+        'name': name.trim(),
+        'phone': phone.trim(),
+        'email': email.trim(),
+        'code': code.trim(),
         'password': password,
         if (deviceName?.trim().isNotEmpty ?? false)
           'deviceName': deviceName!.trim(),
@@ -177,7 +188,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }
 
   @override
-  FutureEither<AuthOtpChallenge> forgotPassword(String phone) async {
+  FutureEither<AuthOtpChallengeEntity> forgotPassword(String phone) async {
     final response = await _apiHandler.post(
       Endpoints.authForgotPassword,
       body: {'phone': phone},
@@ -245,12 +256,12 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     }
   }
 
-  Either<Failure, AuthOtpChallenge> _otpChallengeFromResponse(
+  Either<Failure, AuthOtpChallengeEntity> _otpChallengeFromResponse(
     Map<String, dynamic> json,
   ) {
     final data = _unwrapData(json);
     return right(
-      AuthOtpChallenge(
+      AuthOtpChallengeEntity(
         message: data['message']?.toString() ?? '',
         developmentCode: data['code']?.toString(),
       ),
@@ -266,13 +277,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   Either<Failure, T> _networkFailure<T>(NetworkFailure failure) {
     return left(NetworkFailureMapper.toDomainFailure(failure));
   }
-}
-
-class AuthOtpChallenge {
-  const AuthOtpChallenge({required this.message, this.developmentCode});
-
-  final String message;
-  final String? developmentCode;
 }
 
 class AuthTokenPair {

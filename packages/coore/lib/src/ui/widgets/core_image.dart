@@ -1,6 +1,5 @@
-import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:coore/src/ui/widgets/platform_file_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shimmer/shimmer.dart';
@@ -34,7 +33,7 @@ class CoreImage extends StatelessWidget {
   /// - `scale`: Image scale factor (default: 1.0)
   /// - `color`: Tint color for the image
   /// - `colorBlendMode`: Blend mode for color tinting
-  CoreImage.file(
+  const CoreImage.file(
     String filePath, {
     Key? key,
 
@@ -47,7 +46,7 @@ class CoreImage extends StatelessWidget {
     Alignment alignment = Alignment.center,
   }) : this._(
          key: key,
-         imageFile: File(filePath),
+         filePath: filePath,
          scale: scale,
          width: width,
          height: height,
@@ -62,7 +61,7 @@ class CoreImage extends StatelessWidget {
     super.key,
     this.imageUrl,
     this.imagePath,
-    this.imageFile,
+    this.filePath,
     this.scale,
     this.width,
     this.height,
@@ -218,7 +217,7 @@ class CoreImage extends StatelessWidget {
        );
   final String? imageUrl;
   final String? imagePath;
-  final File? imageFile;
+  final String? filePath;
   final double? scale;
   final double? width;
   final double? height;
@@ -259,7 +258,7 @@ class CoreImage extends StatelessWidget {
   Widget build(BuildContext context) {
     if (imageUrl != null) {
       return _buildNetworkImage(context);
-    } else if (imageFile != null) {
+    } else if (filePath != null) {
       return _buildFileImage();
     } else if (imagePath != null) {
       return _buildAssetImage(context);
@@ -315,8 +314,8 @@ class CoreImage extends StatelessWidget {
   }
 
   Widget _buildFileImage() {
-    return Image.file(
-      imageFile!,
+    return buildPlatformFileImage(
+      filePath!,
       key: key,
       scale: scale ?? 1.0,
       width: width,

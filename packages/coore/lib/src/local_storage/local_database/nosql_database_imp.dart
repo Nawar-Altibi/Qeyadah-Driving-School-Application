@@ -1,4 +1,6 @@
 // hive_local_database.dart
+import 'dart:async';
+
 import 'package:coore/src/error_handling/failures/cache_failure.dart';
 import 'package:coore/src/local_storage/local_database/local_database_interface.dart';
 import 'package:coore/src/typedefs/core_typedefs.dart';
@@ -7,6 +9,14 @@ import 'package:hive_ce/hive.dart';
 
 class HiveLocalDatabase implements LocalDatabaseInterface {
   HiveLocalDatabase(this._boxName);
+
+  static final Map<String, Future<Box>> _boxOpeningFutures = {};
+
+  static void resetOpeningFutures() {
+    _boxOpeningFutures.clear();
+  }
+
+  static const _openBoxTimeout = Duration(seconds: 10);
 
   final String _boxName;
 
@@ -23,10 +33,23 @@ class HiveLocalDatabase implements LocalDatabaseInterface {
 
   CacheResponse<Unit> _initializeBox() async {
     try {
-      _box = await Hive.openBox(_boxName);
+      if (Hive.isBoxOpen(_boxName)) {
+        _box = Hive.box(_boxName);
+        _isInitialized = true;
+        _boxOpeningFutures.remove(_boxName);
+        return right(unit);
+      }
+
+      final openingFuture = _boxOpeningFutures[_boxName] ??= Hive.openBox<dynamic>(
+        _boxName,
+      )
+          .timeout(_openBoxTimeout)
+          .whenComplete(() => _boxOpeningFutures.remove(_boxName));
+      _box = await openingFuture;
       _isInitialized = true;
       return right(unit);
     } catch (e, stackTrace) {
+      _boxOpeningFutures.remove(_boxName);
       return left(CacheInitializationFailure(e, stackTrace: stackTrace));
     }
   }

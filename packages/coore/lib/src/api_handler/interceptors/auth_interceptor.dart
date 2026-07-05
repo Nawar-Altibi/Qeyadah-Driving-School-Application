@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:collection';
 
 import 'package:coore/lib.dart';
@@ -21,18 +22,27 @@ abstract class AuthInterceptor extends Interceptor {
       Queue();
 
   @override
-  Future<void> onRequest(
+  void onRequest(
+    RequestOptions options,
+    RequestInterceptorHandler handler,
+  ) {
+    if (options.extra['isAuthorized'] == true) {
+      unawaited(_attachAuthorizedRequest(options, handler));
+      return;
+    }
+    handler.next(options);
+  }
+
+  Future<void> _attachAuthorizedRequest(
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
     try {
-      if (options.extra['isAuthorized'] == true) {
-        await _injectToken(options);
-      }
+      await _injectToken(options);
       handler.next(options);
-    } on DioException catch (e) {
-      handler.reject(e);
-    } catch (e) {
+    } on DioException catch (error) {
+      handler.reject(error);
+    } catch (error) {
       handler.reject(
         DioException.badResponse(
           statusCode: 401,
@@ -41,7 +51,7 @@ abstract class AuthInterceptor extends Interceptor {
             requestOptions: options,
             statusCode: 401,
             data: {
-              'error': {'status': 401, 'message': 'Auth setup failed: $e'},
+              'error': {'status': 401, 'message': 'Auth setup failed: $error'},
             },
           ),
         ),
@@ -120,25 +130,23 @@ abstract class AuthInterceptor extends Interceptor {
   ) async {
     _pending.add(MapEntry(err.requestOptions, handler));
 
-    if (!_refreshMutex.isLocked) {
-      await _refreshMutex.protect(() async {
-        bool success = false;
-        try {
-          success = await handleRefresh(err);
-        } catch (_) {
-          success = false;
-        }
+    await _refreshMutex.protect(() async {
+      bool success = false;
+      try {
+        success = await handleRefresh(err);
+      } catch (_) {
+        success = false;
+      }
 
-        while (_pending.isNotEmpty) {
-          final entry = _pending.removeFirst();
-          if (success) {
-            await _retry(entry.key, entry.value);
-          } else {
-            entry.value.reject(_makeRefreshFailure(entry.key, err));
-          }
+      while (_pending.isNotEmpty) {
+        final entry = _pending.removeFirst();
+        if (success) {
+          await _retry(entry.key, entry.value);
+        } else {
+          entry.value.reject(_makeRefreshFailure(entry.key, err));
         }
-      });
-    }
+      }
+    });
   }
 
   Future<void> _retry(
@@ -228,12 +236,12 @@ class CookieAuthInterceptor extends AuthInterceptor {
   CookieAuthInterceptor(super._tokenManager);
 
   @override
-  Future<void> onRequest(
+  void onRequest(
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) {
     options.extra['withCredentials'] = true;
-    return super.onRequest(options, handler);
+    super.onRequest(options, handler);
   }
 
   @override

@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
@@ -94,14 +94,14 @@ abstract class AppLocalizations {
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
-    Locale('en'),
     Locale('ar'),
+    Locale('en'),
   ];
 
   /// No description provided for @appName.
   ///
   /// In en, this message translates to:
-  /// **'Qeyadah Mobile'**
+  /// **'Drive Wise'**
   String get appName;
 
   /// No description provided for @welcome.
@@ -125,8 +125,26 @@ abstract class AppLocalizations {
   /// No description provided for @email.
   ///
   /// In en, this message translates to:
-  /// **'Phone number'**
+  /// **'Email'**
   String get email;
+
+  /// No description provided for @emailAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Email address'**
+  String get emailAddress;
+
+  /// No description provided for @emailHint.
+  ///
+  /// In en, this message translates to:
+  /// **'student@example.com'**
+  String get emailHint;
+
+  /// No description provided for @phoneNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone number'**
+  String get phoneNumber;
 
   /// No description provided for @password.
   ///
@@ -169,6 +187,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No internet connection. Check your network and try again.'**
   String get errorNoInternet;
+
+  /// No description provided for @errorRequestTimeout.
+  ///
+  /// In en, this message translates to:
+  /// **'The request timed out. Check your connection and try again.'**
+  String get errorRequestTimeout;
 
   /// No description provided for @errorValidation.
   ///
@@ -215,7 +239,7 @@ abstract class AppLocalizations {
   /// No description provided for @loginSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Sign in to continue your driving lessons'**
+  /// **'Sign in with your phone and password to follow your bookings and certificates.'**
   String get loginSubtitle;
 
   /// No description provided for @loginButton.
@@ -224,11 +248,419 @@ abstract class AppLocalizations {
   /// **'Sign in'**
   String get loginButton;
 
+  /// No description provided for @loginEyebrow.
+  ///
+  /// In en, this message translates to:
+  /// **'Student portal'**
+  String get loginEyebrow;
+
+  /// No description provided for @loginWelcomeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome back'**
+  String get loginWelcomeTitle;
+
+  /// No description provided for @loginSecureNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Secure session — you can sign out from your profile page.'**
+  String get loginSecureNote;
+
+  /// No description provided for @forgotPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot password?'**
+  String get forgotPassword;
+
+  /// No description provided for @createStudentAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a new student account'**
+  String get createStudentAccount;
+
+  /// No description provided for @phoneValidationError.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone number must be 10 digits.'**
+  String get phoneValidationError;
+
+  /// No description provided for @otpValidationError.
+  ///
+  /// In en, this message translates to:
+  /// **'Verification code must be 6 digits.'**
+  String get otpValidationError;
+
+  /// No description provided for @weakPasswordError.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must be at least 8 characters.'**
+  String get weakPasswordError;
+
+  /// No description provided for @passwordMismatchError.
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords do not match.'**
+  String get passwordMismatchError;
+
+  /// No description provided for @nameRequiredError.
+  ///
+  /// In en, this message translates to:
+  /// **'Full name is required.'**
+  String get nameRequiredError;
+
+  /// No description provided for @nameTooLongError.
+  ///
+  /// In en, this message translates to:
+  /// **'Name is too long.'**
+  String get nameTooLongError;
+
+  /// No description provided for @emailValidationError.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a valid email address.'**
+  String get emailValidationError;
+
+  /// No description provided for @newPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'New password'**
+  String get newPassword;
+
+  /// No description provided for @newPasswordTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Set a new password'**
+  String get newPasswordTitle;
+
+  /// No description provided for @newPasswordSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a strong password for your account.'**
+  String get newPasswordSubtitle;
+
+  /// No description provided for @newPasswordScreenTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'New password'**
+  String get newPasswordScreenTitle;
+
+  /// No description provided for @confirmPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm password'**
+  String get confirmPassword;
+
+  /// No description provided for @confirmNewPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm new password'**
+  String get confirmNewPassword;
+
+  /// No description provided for @resetPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Update password'**
+  String get resetPassword;
+
+  /// No description provided for @passwordResetSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Password updated successfully. You can sign in now.'**
+  String get passwordResetSuccess;
+
+  /// No description provided for @forgotPasswordOtpTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify your phone number'**
+  String get forgotPasswordOtpTitle;
+
+  /// No description provided for @forgotPasswordOtpSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the verification code sent to your phone'**
+  String get forgotPasswordOtpSubtitle;
+
+  /// No description provided for @forgotPasswordResend.
+  ///
+  /// In en, this message translates to:
+  /// **'Didn\'t receive the code?'**
+  String get forgotPasswordResend;
+
+  /// No description provided for @forgotPasswordResendAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Resend in {time}'**
+  String forgotPasswordResendAction(String time);
+
+  /// No description provided for @resendOtpNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Resend code'**
+  String get resendOtpNow;
+
+  /// No description provided for @otpResentSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'A new verification code was sent.'**
+  String get otpResentSuccess;
+
+  /// No description provided for @verifyOtp.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify'**
+  String get verifyOtp;
+
+  /// No description provided for @forgotPasswordComingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Password recovery will be available soon.'**
+  String get forgotPasswordComingSoon;
+
+  /// No description provided for @appBrandTagline.
+  ///
+  /// In en, this message translates to:
+  /// **'Driving school'**
+  String get appBrandTagline;
+
   /// No description provided for @loginDemoHint.
   ///
   /// In en, this message translates to:
   /// **'Demo: 0999400001 / Test@12345'**
   String get loginDemoHint;
+
+  /// No description provided for @registerScreenTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create student account'**
+  String get registerScreenTitle;
+
+  /// No description provided for @registerEyebrow.
+  ///
+  /// In en, this message translates to:
+  /// **'New account'**
+  String get registerEyebrow;
+
+  /// No description provided for @registerWelcomeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Start your journey with us'**
+  String get registerWelcomeTitle;
+
+  /// No description provided for @registerSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a student account with your name, phone number, email, and password, then activate it via OTP.'**
+  String get registerSubtitle;
+
+  /// No description provided for @fullName.
+  ///
+  /// In en, this message translates to:
+  /// **'Full name'**
+  String get fullName;
+
+  /// No description provided for @fullNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Omar Al-Khatib'**
+  String get fullNameHint;
+
+  /// No description provided for @registerNextStepTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Next step'**
+  String get registerNextStepTitle;
+
+  /// No description provided for @registerNextStepBody.
+  ///
+  /// In en, this message translates to:
+  /// **'After creating the account, we will send a 6-digit verification code to your email.'**
+  String get registerNextStepBody;
+
+  /// No description provided for @registerSubmitButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Create account and send code'**
+  String get registerSubmitButton;
+
+  /// No description provided for @registerAlreadyHaveCode.
+  ///
+  /// In en, this message translates to:
+  /// **'I already have the verification code'**
+  String get registerAlreadyHaveCode;
+
+  /// No description provided for @registerOtpTimeoutProceed.
+  ///
+  /// In en, this message translates to:
+  /// **'The request took longer than expected, but a verification code may already be in your email. Enter it on the next screen.'**
+  String get registerOtpTimeoutProceed;
+
+  /// No description provided for @confirmPhoneTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm registration'**
+  String get confirmPhoneTitle;
+
+  /// No description provided for @otpEyebrow.
+  ///
+  /// In en, this message translates to:
+  /// **'OTP verification code'**
+  String get otpEyebrow;
+
+  /// No description provided for @otpEnterTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the sent code'**
+  String get otpEnterTitle;
+
+  /// No description provided for @otpEnterSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'We sent a 6-digit code to the email linked with {phone}. This verification is required before entering the app.'**
+  String otpEnterSubtitle(String phone);
+
+  /// No description provided for @confirmAndEnter.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm number and enter the app'**
+  String get confirmAndEnter;
+
+  /// No description provided for @changePhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Change phone number'**
+  String get changePhone;
+
+  /// No description provided for @forgotPasswordScreenTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot password'**
+  String get forgotPasswordScreenTitle;
+
+  /// No description provided for @accountRecoveryEyebrow.
+  ///
+  /// In en, this message translates to:
+  /// **'Account recovery'**
+  String get accountRecoveryEyebrow;
+
+  /// No description provided for @forgotPasswordTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot your password?'**
+  String get forgotPasswordTitle;
+
+  /// No description provided for @forgotPasswordSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your phone number and we will send an OTP code to set a new password.'**
+  String get forgotPasswordSubtitle;
+
+  /// No description provided for @sendVerificationCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Send verification code'**
+  String get sendVerificationCode;
+
+  /// No description provided for @backToLogin.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to login'**
+  String get backToLogin;
+
+  /// No description provided for @resetPasswordEyebrow.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset password'**
+  String get resetPasswordEyebrow;
+
+  /// No description provided for @resetPasswordTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify then choose a new password'**
+  String get resetPasswordTitle;
+
+  /// No description provided for @resetPasswordSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the OTP sent to your account email, then set a new password.'**
+  String get resetPasswordSubtitle;
+
+  /// No description provided for @forcePasswordChangeScreenTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Change password'**
+  String get forcePasswordChangeScreenTitle;
+
+  /// No description provided for @forcePasswordChangeEyebrow.
+  ///
+  /// In en, this message translates to:
+  /// **'Required security step'**
+  String get forcePasswordChangeEyebrow;
+
+  /// No description provided for @forcePasswordChangeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Set a new password'**
+  String get forcePasswordChangeTitle;
+
+  /// No description provided for @forcePasswordChangeSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your account was created by the administration. Enter the OTP sent to your email and choose a new password before using the app.'**
+  String get forcePasswordChangeSubtitle;
+
+  /// No description provided for @savePasswordAndLogin.
+  ///
+  /// In en, this message translates to:
+  /// **'Save password and sign in'**
+  String get savePasswordAndLogin;
+
+  /// No description provided for @profileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'My account'**
+  String get profileTitle;
+
+  /// No description provided for @profileName.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get profileName;
+
+  /// No description provided for @profilePhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone number'**
+  String get profilePhone;
+
+  /// No description provided for @refreshProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh profile'**
+  String get refreshProfile;
+
+  /// No description provided for @mustChangePasswordNotice.
+  ///
+  /// In en, this message translates to:
+  /// **'You will be asked to change your password on next sign-in.'**
+  String get mustChangePasswordNotice;
+
+  /// No description provided for @logoutCurrentDevice.
+  ///
+  /// In en, this message translates to:
+  /// **'Log out from this device'**
+  String get logoutCurrentDevice;
+
+  /// No description provided for @logoutAllDevices.
+  ///
+  /// In en, this message translates to:
+  /// **'Log out from all devices'**
+  String get logoutAllDevices;
+
+  /// No description provided for @backToHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to home'**
+  String get backToHome;
 
   /// No description provided for @splashLoading.
   ///
@@ -271,6 +703,192 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Item #{id}'**
   String itemIdLabel(int id);
+
+  /// No description provided for @studentHomeGuestName.
+  ///
+  /// In en, this message translates to:
+  /// **'Student'**
+  String get studentHomeGuestName;
+
+  /// No description provided for @studentHomeGreetingMorning.
+  ///
+  /// In en, this message translates to:
+  /// **'Good morning, {name}'**
+  String studentHomeGreetingMorning(String name);
+
+  /// No description provided for @studentHomeGreetingAfternoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Good afternoon, {name}'**
+  String studentHomeGreetingAfternoon(String name);
+
+  /// No description provided for @studentHomeGreetingEvening.
+  ///
+  /// In en, this message translates to:
+  /// **'Good evening, {name}'**
+  String studentHomeGreetingEvening(String name);
+
+  /// No description provided for @studentHomeNextLesson.
+  ///
+  /// In en, this message translates to:
+  /// **'Next lesson'**
+  String get studentHomeNextLesson;
+
+  /// No description provided for @studentHomeConfirmed.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirmed'**
+  String get studentHomeConfirmed;
+
+  /// No description provided for @studentHomeInstructorMale.
+  ///
+  /// In en, this message translates to:
+  /// **'Instructor'**
+  String get studentHomeInstructorMale;
+
+  /// No description provided for @studentHomeInstructorFemale.
+  ///
+  /// In en, this message translates to:
+  /// **'Instructor'**
+  String get studentHomeInstructorFemale;
+
+  /// No description provided for @studentHomeVehicle.
+  ///
+  /// In en, this message translates to:
+  /// **'Vehicle'**
+  String get studentHomeVehicle;
+
+  /// No description provided for @studentHomeAutomatic.
+  ///
+  /// In en, this message translates to:
+  /// **'Automatic'**
+  String get studentHomeAutomatic;
+
+  /// No description provided for @studentHomeManual.
+  ///
+  /// In en, this message translates to:
+  /// **'Manual'**
+  String get studentHomeManual;
+
+  /// No description provided for @studentHomeSchoolVehicle.
+  ///
+  /// In en, this message translates to:
+  /// **'School'**
+  String get studentHomeSchoolVehicle;
+
+  /// No description provided for @studentHomeStudentVehicle.
+  ///
+  /// In en, this message translates to:
+  /// **'Student'**
+  String get studentHomeStudentVehicle;
+
+  /// No description provided for @studentHomeShowMeetingPoint.
+  ///
+  /// In en, this message translates to:
+  /// **'Show meeting point'**
+  String get studentHomeShowMeetingPoint;
+
+  /// No description provided for @studentHomePendingPaymentTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Booking awaiting payment'**
+  String get studentHomePendingPaymentTitle;
+
+  /// No description provided for @studentHomePendingPaymentMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'You have {time} to enter your ShamCash transaction ID before the slot is released.'**
+  String studentHomePendingPaymentMessage(String time);
+
+  /// No description provided for @studentHomeQuickActions.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick actions'**
+  String get studentHomeQuickActions;
+
+  /// No description provided for @studentHomeViewAll.
+  ///
+  /// In en, this message translates to:
+  /// **'View all'**
+  String get studentHomeViewAll;
+
+  /// No description provided for @studentHomeNewBooking.
+  ///
+  /// In en, this message translates to:
+  /// **'Book a new session'**
+  String get studentHomeNewBooking;
+
+  /// No description provided for @studentHomeMyBookings.
+  ///
+  /// In en, this message translates to:
+  /// **'My bookings'**
+  String get studentHomeMyBookings;
+
+  /// No description provided for @studentHomeCertificateRequest.
+  ///
+  /// In en, this message translates to:
+  /// **'Certificate request'**
+  String get studentHomeCertificateRequest;
+
+  /// No description provided for @studentHomeTheorySimulation.
+  ///
+  /// In en, this message translates to:
+  /// **'Theory simulation'**
+  String get studentHomeTheorySimulation;
+
+  /// No description provided for @studentHomeTrainingProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Training progress'**
+  String get studentHomeTrainingProgress;
+
+  /// No description provided for @studentHomeTrainingProgressDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed {completed} of {total} hours'**
+  String studentHomeTrainingProgressDetail(int completed, int total);
+
+  /// No description provided for @studentHomeTrainingProgressFootnote.
+  ///
+  /// In en, this message translates to:
+  /// **'After completing training, administration will follow up on theory and practical exam appointments.'**
+  String get studentHomeTrainingProgressFootnote;
+
+  /// No description provided for @studentHomeNavBookings.
+  ///
+  /// In en, this message translates to:
+  /// **'My bookings'**
+  String get studentHomeNavBookings;
+
+  /// No description provided for @studentHomeNavCertificate.
+  ///
+  /// In en, this message translates to:
+  /// **'Certificate'**
+  String get studentHomeNavCertificate;
+
+  /// No description provided for @studentHomeNavProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'My account'**
+  String get studentHomeNavProfile;
+
+  /// No description provided for @studentHomeFeatureComingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'This feature will be available soon.'**
+  String get studentHomeFeatureComingSoon;
+
+  /// No description provided for @studentHomeNoNextLessonTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No confirmed lesson yet'**
+  String get studentHomeNoNextLessonTitle;
+
+  /// No description provided for @studentHomeNoNextLessonBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a booking and complete ShamCash payment to confirm it.'**
+  String get studentHomeNoNextLessonBody;
 }
 
 class _AppLocalizationsDelegate

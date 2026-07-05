@@ -87,4 +87,17 @@ abstract interface class AppGradients {
     end: Alignment.bottomCenter,
     colors: [AppColors.brandMintSoft, AppColors.appCanvas],
   );
+
+  static const primaryButton = LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: [AppColors.brandPrimary, AppColors.brandPrimaryLight],
+  );
+
+  static const loginBackground = RadialGradient(
+    center: Alignment(1, -1),
+    radius: 1.1,
+    colors: [Color(0x8CD1E7DD), AppColors.appCanvas],
+    stops: [0, 0.38],
+  );
 }

@@ -1,10 +1,13 @@
 {
   "@@locale": "ar",
-  "appName": "قيادة موبايل",
+  "appName": "درايف وايز",
   "welcome": "مرحباً",
   "login": "تسجيل الدخول",
   "logout": "تسجيل الخروج",
-  "email": "رقم الهاتف",
+  "email": "البريد الإلكتروني",
+  "emailAddress": "البريد الإلكتروني",
+  "emailHint": "student@example.com",
+  "phoneNumber": "رقم الهاتف",
   "password": "كلمة المرور",
   "home": "الرئيسية",
   "sampleItemsTitle": "عناصر تجريبية",
@@ -12,6 +15,7 @@
   "retry": "إعادة المحاولة",
   "errorGeneric": "حدث خطأ ما. يرجى المحاولة مرة أخرى.",
   "errorNoInternet": "لا يوجد اتصال بالإنترنت. تحقق من الشبكة وحاول مرة أخرى.",
+  "errorRequestTimeout": "انتهت مهلة الطلب. تحقق من اتصالك وحاول مرة أخرى.",
   "errorValidation": "يرجى التحقق من المدخلات والمحاولة مرة أخرى.",
   "errorUnauthorized": "انتهت الجلسة. يرجى تسجيل الدخول مرة أخرى.",
   "errorForbidden": "ليس لديك صلاحية لتنفيذ هذا الإجراء.",
@@ -19,14 +23,165 @@
   "errorServer": "خطأ في الخادم. يرجى المحاولة لاحقاً.",
   "errorFormat": "تعذر معالجة الاستجابة.",
   "errorBusiness": "{message}",
-  "loginSubtitle": "سجّل الدخول لمتابعة دروس القيادة",
+  "loginSubtitle": "سجّل الدخول برقم الهاتف وكلمة المرور لمتابعة حجوزاتك وشهاداتك.",
   "loginButton": "تسجيل الدخول",
+  "loginEyebrow": "بوابة الطالب",
+  "loginWelcomeTitle": "أهلاً بعودتك",
+  "loginSecureNote": "جلسة آمنة، ويمكنك تسجيل الخروج من صفحة حسابي.",
+  "forgotPassword": "نسيت كلمة المرور؟",
+  "createStudentAccount": "إنشاء حساب طالب جديد",
+  "phoneValidationError": "يجب أن يتكون رقم الهاتف من 10 أرقام.",
+  "otpValidationError": "يجب أن يتكون رمز التحقق من 6 أرقام.",
+  "weakPasswordError": "كلمة المرور يجب أن تكون 8 أحرف على الأقل.",
+  "passwordMismatchError": "كلمتا المرور غير متطابقتين.",
+  "nameRequiredError": "الاسم الكامل مطلوب.",
+  "nameTooLongError": "الاسم طويل جداً.",
+  "emailValidationError": "أدخل بريداً إلكترونياً صالحاً.",
+  "newPassword": "كلمة المرور الجديدة",
+  "newPasswordTitle": "تعيين كلمة مرور جديدة",
+  "newPasswordSubtitle": "اختر كلمة مرور قوية لحسابك.",
+  "newPasswordScreenTitle": "كلمة مرور جديدة",
+  "confirmPassword": "تأكيد كلمة المرور",
+  "confirmNewPassword": "تأكيد كلمة المرور الجديدة",
+  "resetPassword": "تحديث كلمة المرور",
+  "passwordResetSuccess": "تم تحديث كلمة المرور بنجاح. يمكنك تسجيل الدخول الآن.",
+  "forgotPasswordOtpTitle": "تحقق من رقم هاتفك",
+  "forgotPasswordOtpSubtitle": "أدخل رمز التحقق المرسل إلى هاتفك",
+  "forgotPasswordResend": "لم يصلك الرمز؟",
+  "forgotPasswordResendAction": "إعادة الإرسال خلال {time}",
+  "@forgotPasswordResendAction": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "resendOtpNow": "إعادة إرسال الرمز",
+  "otpResentSuccess": "تم إرسال رمز تحقق جديد.",
+  "verifyOtp": "تحقق",
+  "forgotPasswordComingSoon": "سيتم تفعيل استعادة كلمة المرور قريباً.",
+  "appBrandTagline": "مدرسة تعليم القيادة",
   "loginDemoHint": "تجريبي: 0999400001 / Test@12345",
+  "registerScreenTitle": "إنشاء حساب طالب",
+  "registerEyebrow": "حساب جديد",
+  "registerWelcomeTitle": "ابدأ رحلتك معنا",
+  "registerSubtitle": "أنشئ حساب طالب باسمك ورقم هاتفك وبريدك الإلكتروني وكلمة المرور، ثم فعّل الحساب عبر رمز OTP.",
+  "fullName": "الاسم الكامل",
+  "fullNameHint": "عمر الخطيب",
+  "registerNextStepTitle": "الخطوة التالية",
+  "registerNextStepBody": "بعد إنشاء الحساب سنرسل رمز تحقق من 6 أرقام إلى بريدك الإلكتروني.",
+  "registerSubmitButton": "إنشاء الحساب وإرسال الكود",
+  "registerAlreadyHaveCode": "لدي رمز التحقق بالفعل",
+  "registerOtpTimeoutProceed": "استغرق الطلب وقتاً أطول من المعتاد، لكن قد يكون رمز التحقق قد أُرسل إلى بريدك. أدخل الرمز في الشاشة التالية.",
+  "confirmPhoneTitle": "تأكيد التسجيل",
+  "otpEyebrow": "رمز التحقق OTP",
+  "otpEnterTitle": "أدخل الرمز المرسل",
+  "otpEnterSubtitle": "أرسلنا رمزاً من 6 خانات إلى البريد الإلكتروني المرتبط بالرقم {phone}. هذا التحقق مطلوب قبل دخول الطالب إلى التطبيق.",
+  "@otpEnterSubtitle": {
+    "placeholders": {
+      "phone": {
+        "type": "String"
+      }
+    }
+  },
+  "confirmAndEnter": "تأكيد الرقم والدخول للتطبيق",
+  "changePhone": "تغيير رقم الهاتف",
+  "forgotPasswordScreenTitle": "نسيان كلمة المرور",
+  "accountRecoveryEyebrow": "استعادة الحساب",
+  "forgotPasswordTitle": "نسيت كلمة المرور؟",
+  "forgotPasswordSubtitle": "أدخل رقم هاتفك وسنرسل لك رمز OTP لتعيين كلمة مرور جديدة.",
+  "sendVerificationCode": "إرسال كود التحقق",
+  "backToLogin": "العودة لتسجيل الدخول",
+  "resetPasswordEyebrow": "إعادة تعيين كلمة المرور",
+  "resetPasswordTitle": "تحقق ثم اختر كلمة جديدة",
+  "resetPasswordSubtitle": "أدخل رمز OTP المرسل إلى بريد حسابك، ثم عيّن كلمة مرور جديدة.",
+  "forcePasswordChangeScreenTitle": "تغيير كلمة المرور",
+  "forcePasswordChangeEyebrow": "خطوة أمان مطلوبة",
+  "forcePasswordChangeTitle": "عيّن كلمة مرور جديدة",
+  "forcePasswordChangeSubtitle": "تم إنشاء حسابك من قبل الإدارة. أدخل رمز OTP المرسل إلى بريدك الإلكتروني واختر كلمة مرور جديدة قبل استخدام التطبيق.",
+  "savePasswordAndLogin": "حفظ كلمة المرور وتسجيل الدخول",
+  "profileTitle": "حسابي",
+  "profileName": "الاسم",
+  "profilePhone": "رقم الهاتف",
+  "refreshProfile": "تحديث الملف",
+  "mustChangePasswordNotice": "يُطلب منك تغيير كلمة المرور عند تسجيل الدخول التالي.",
+  "logoutCurrentDevice": "تسجيل الخروج من هذا الجهاز",
+  "logoutAllDevices": "تسجيل الخروج من كل الأجهزة",
+  "backToHome": "العودة للرئيسية",
   "splashLoading": "جاري التحميل...",
   "offlineQueuePending": "{count} طلبات بانتظار المزامنة",
   "offlineQueueSyncing": "جاري مزامنة الطلبات غير المتصلة...",
   "languageEnglish": "الإنجليزية",
   "languageArabic": "العربية",
   "emptySampleItems": "لا توجد عناصر",
-  "itemIdLabel": "عنصر #{id}"
+  "itemIdLabel": "عنصر #{id}",
+  "studentHomeGuestName": "الطالب",
+  "studentHomeGreetingMorning": "صباح الخير، {name}",
+  "@studentHomeGreetingMorning": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "studentHomeGreetingAfternoon": "مساء الخير، {name}",
+  "@studentHomeGreetingAfternoon": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "studentHomeGreetingEvening": "مساء الخير، {name}",
+  "@studentHomeGreetingEvening": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "studentHomeNextLesson": "الجلسة القادمة",
+  "studentHomeConfirmed": "مؤكدة",
+  "studentHomeInstructorMale": "المدرب",
+  "studentHomeInstructorFemale": "المدربة",
+  "studentHomeVehicle": "المركبة",
+  "studentHomeAutomatic": "أوتوماتيك",
+  "studentHomeManual": "يدوي",
+  "studentHomeSchoolVehicle": "مدرسة",
+  "studentHomeStudentVehicle": "طالب",
+  "studentHomeShowMeetingPoint": "عرض نقطة اللقاء",
+  "studentHomePendingPaymentTitle": "حجز بانتظار الدفع",
+  "studentHomePendingPaymentMessage": "لديك {time} دقائق لإدخال رقم عملية شام كاش قبل تحرير الموعد.",
+  "@studentHomePendingPaymentMessage": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "studentHomeQuickActions": "إجراءات سريعة",
+  "studentHomeViewAll": "عرض الكل",
+  "studentHomeNewBooking": "حجز جلسة جديدة",
+  "studentHomeMyBookings": "حجوزاتي",
+  "studentHomeCertificateRequest": "طلب الشهادة",
+  "studentHomeTheorySimulation": "محاكاة النظري",
+  "studentHomeTrainingProgress": "تقدم التدريب",
+  "studentHomeTrainingProgressDetail": "أكملت {completed} من أصل {total} ساعة",
+  "@studentHomeTrainingProgressDetail": {
+    "placeholders": {
+      "completed": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "studentHomeTrainingProgressFootnote": "بعد إكمال التدريب ستتابع الإدارة مواعيد الفحص النظري والعملي.",
+  "studentHomeNavBookings": "حجوزاتي",
+  "studentHomeNavCertificate": "الشهادة",
+  "studentHomeNavProfile": "حسابي",
+  "studentHomeFeatureComingSoon": "هذه الميزة ستكون متاحة قريباً.",
+  "studentHomeNoNextLessonTitle": "لا توجد جلسة مؤكدة بعد",
+  "studentHomeNoNextLessonBody": "أنشئ حجزاً وأكمل دفع شام كاش لتأكيد الموعد."
 }

@@ -15,7 +15,9 @@ abstract final class CoreFailureMessageMapper {
       ForbiddenFailure() => l10n.errorForbidden,
       ValidationFailure() => l10n.errorValidation,
       NotFoundFailure() => l10n.errorNotFound,
+      RequestTimeoutFailure() => l10n.errorRequestTimeout,
       FormatFailure() => l10n.errorFormat,
+      CacheFailure() => l10n.errorGeneric,
       BusinessFailure(:final message) =>
         message != null && message.isNotEmpty ? message : l10n.errorGeneric,
       InternalServerErrorFailure() ||

@@ -45,8 +45,7 @@ class DioApiHandler implements ApiHandlerInterface {
       contentType: isFormData
           ? Headers.multipartFormDataContentType
           : Headers.jsonContentType,
-      responseType: ResponseType.json, 
-
+      responseType: ResponseType.json,
     );
   }
 
@@ -62,7 +61,14 @@ class DioApiHandler implements ApiHandlerInterface {
   ) async {
     try {
       final response = await dioMethod();
-      return right(response.data as Map<String, dynamic>);
+      final data = response.data;
+      if (data is Map<String, dynamic>) {
+        return right(data);
+      }
+      if (data is Map) {
+        return right(Map<String, dynamic>.from(data));
+      }
+      return right(<String, dynamic>{'data': data});
     } catch (error, stackTrace) {
       if (error is DioException) {
         return left(_exceptionMapper.mapException(error, stackTrace));

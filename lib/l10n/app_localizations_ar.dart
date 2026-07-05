@@ -1,4 +1,4 @@
-﻿// ignore: unused_import
+// ignore: unused_import
 import 'package:intl/intl.dart' as intl;
 import 'app_localizations.dart';
 
@@ -9,7 +9,7 @@ class AppLocalizationsAr extends AppLocalizations {
   AppLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
-  String get appName => 'قيادة موبايل';
+  String get appName => 'درايف وايز';
 
   @override
   String get welcome => 'مرحباً';
@@ -21,7 +21,16 @@ class AppLocalizationsAr extends AppLocalizations {
   String get logout => 'تسجيل الخروج';
 
   @override
-  String get email => 'رقم الهاتف';
+  String get email => 'البريد الإلكتروني';
+
+  @override
+  String get emailAddress => 'البريد الإلكتروني';
+
+  @override
+  String get emailHint => 'student@example.com';
+
+  @override
+  String get phoneNumber => 'رقم الهاتف';
 
   @override
   String get password => 'كلمة المرور';
@@ -44,6 +53,10 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get errorNoInternet =>
       'لا يوجد اتصال بالإنترنت. تحقق من الشبكة وحاول مرة أخرى.';
+
+  @override
+  String get errorRequestTimeout =>
+      'انتهت مهلة الطلب. تحقق من اتصالك وحاول مرة أخرى.';
 
   @override
   String get errorValidation => 'يرجى التحقق من المدخلات والمحاولة مرة أخرى.';
@@ -69,13 +82,231 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String get loginSubtitle => 'سجّل الدخول لمتابعة دروس القيادة';
+  String get loginSubtitle =>
+      'سجّل الدخول برقم الهاتف وكلمة المرور لمتابعة حجوزاتك وشهاداتك.';
 
   @override
   String get loginButton => 'تسجيل الدخول';
 
   @override
+  String get loginEyebrow => 'بوابة الطالب';
+
+  @override
+  String get loginWelcomeTitle => 'أهلاً بعودتك';
+
+  @override
+  String get loginSecureNote => 'جلسة آمنة، ويمكنك تسجيل الخروج من صفحة حسابي.';
+
+  @override
+  String get forgotPassword => 'نسيت كلمة المرور؟';
+
+  @override
+  String get createStudentAccount => 'إنشاء حساب طالب جديد';
+
+  @override
+  String get phoneValidationError => 'يجب أن يتكون رقم الهاتف من 10 أرقام.';
+
+  @override
+  String get otpValidationError => 'يجب أن يتكون رمز التحقق من 6 أرقام.';
+
+  @override
+  String get weakPasswordError => 'كلمة المرور يجب أن تكون 8 أحرف على الأقل.';
+
+  @override
+  String get passwordMismatchError => 'كلمتا المرور غير متطابقتين.';
+
+  @override
+  String get nameRequiredError => 'الاسم الكامل مطلوب.';
+
+  @override
+  String get nameTooLongError => 'الاسم طويل جداً.';
+
+  @override
+  String get emailValidationError => 'أدخل بريداً إلكترونياً صالحاً.';
+
+  @override
+  String get newPassword => 'كلمة المرور الجديدة';
+
+  @override
+  String get newPasswordTitle => 'تعيين كلمة مرور جديدة';
+
+  @override
+  String get newPasswordSubtitle => 'اختر كلمة مرور قوية لحسابك.';
+
+  @override
+  String get newPasswordScreenTitle => 'كلمة مرور جديدة';
+
+  @override
+  String get confirmPassword => 'تأكيد كلمة المرور';
+
+  @override
+  String get confirmNewPassword => 'تأكيد كلمة المرور الجديدة';
+
+  @override
+  String get resetPassword => 'تحديث كلمة المرور';
+
+  @override
+  String get passwordResetSuccess =>
+      'تم تحديث كلمة المرور بنجاح. يمكنك تسجيل الدخول الآن.';
+
+  @override
+  String get forgotPasswordOtpTitle => 'تحقق من رقم هاتفك';
+
+  @override
+  String get forgotPasswordOtpSubtitle => 'أدخل رمز التحقق المرسل إلى هاتفك';
+
+  @override
+  String get forgotPasswordResend => 'لم يصلك الرمز؟';
+
+  @override
+  String forgotPasswordResendAction(String time) {
+    return 'إعادة الإرسال خلال $time';
+  }
+
+  @override
+  String get resendOtpNow => 'إعادة إرسال الرمز';
+
+  @override
+  String get otpResentSuccess => 'تم إرسال رمز تحقق جديد.';
+
+  @override
+  String get verifyOtp => 'تحقق';
+
+  @override
+  String get forgotPasswordComingSoon =>
+      'سيتم تفعيل استعادة كلمة المرور قريباً.';
+
+  @override
+  String get appBrandTagline => 'مدرسة تعليم القيادة';
+
+  @override
   String get loginDemoHint => 'تجريبي: 0999400001 / Test@12345';
+
+  @override
+  String get registerScreenTitle => 'إنشاء حساب طالب';
+
+  @override
+  String get registerEyebrow => 'حساب جديد';
+
+  @override
+  String get registerWelcomeTitle => 'ابدأ رحلتك معنا';
+
+  @override
+  String get registerSubtitle =>
+      'أنشئ حساب طالب باسمك ورقم هاتفك وبريدك الإلكتروني وكلمة المرور، ثم فعّل الحساب عبر رمز OTP.';
+
+  @override
+  String get fullName => 'الاسم الكامل';
+
+  @override
+  String get fullNameHint => 'عمر الخطيب';
+
+  @override
+  String get registerNextStepTitle => 'الخطوة التالية';
+
+  @override
+  String get registerNextStepBody =>
+      'بعد إنشاء الحساب سنرسل رمز تحقق من 6 أرقام إلى بريدك الإلكتروني.';
+
+  @override
+  String get registerSubmitButton => 'إنشاء الحساب وإرسال الكود';
+
+  @override
+  String get registerAlreadyHaveCode => 'لدي رمز التحقق بالفعل';
+
+  @override
+  String get registerOtpTimeoutProceed =>
+      'استغرق الطلب وقتاً أطول من المعتاد، لكن قد يكون رمز التحقق قد أُرسل إلى بريدك. أدخل الرمز في الشاشة التالية.';
+
+  @override
+  String get confirmPhoneTitle => 'تأكيد التسجيل';
+
+  @override
+  String get otpEyebrow => 'رمز التحقق OTP';
+
+  @override
+  String get otpEnterTitle => 'أدخل الرمز المرسل';
+
+  @override
+  String otpEnterSubtitle(String phone) {
+    return 'أرسلنا رمزاً من 6 خانات إلى البريد الإلكتروني المرتبط بالرقم $phone. هذا التحقق مطلوب قبل دخول الطالب إلى التطبيق.';
+  }
+
+  @override
+  String get confirmAndEnter => 'تأكيد الرقم والدخول للتطبيق';
+
+  @override
+  String get changePhone => 'تغيير رقم الهاتف';
+
+  @override
+  String get forgotPasswordScreenTitle => 'نسيان كلمة المرور';
+
+  @override
+  String get accountRecoveryEyebrow => 'استعادة الحساب';
+
+  @override
+  String get forgotPasswordTitle => 'نسيت كلمة المرور؟';
+
+  @override
+  String get forgotPasswordSubtitle =>
+      'أدخل رقم هاتفك وسنرسل لك رمز OTP لتعيين كلمة مرور جديدة.';
+
+  @override
+  String get sendVerificationCode => 'إرسال كود التحقق';
+
+  @override
+  String get backToLogin => 'العودة لتسجيل الدخول';
+
+  @override
+  String get resetPasswordEyebrow => 'إعادة تعيين كلمة المرور';
+
+  @override
+  String get resetPasswordTitle => 'تحقق ثم اختر كلمة جديدة';
+
+  @override
+  String get resetPasswordSubtitle =>
+      'أدخل رمز OTP المرسل إلى بريد حسابك، ثم عيّن كلمة مرور جديدة.';
+
+  @override
+  String get forcePasswordChangeScreenTitle => 'تغيير كلمة المرور';
+
+  @override
+  String get forcePasswordChangeEyebrow => 'خطوة أمان مطلوبة';
+
+  @override
+  String get forcePasswordChangeTitle => 'عيّن كلمة مرور جديدة';
+
+  @override
+  String get forcePasswordChangeSubtitle =>
+      'تم إنشاء حسابك من قبل الإدارة. أدخل رمز OTP المرسل إلى بريدك الإلكتروني واختر كلمة مرور جديدة قبل استخدام التطبيق.';
+
+  @override
+  String get savePasswordAndLogin => 'حفظ كلمة المرور وتسجيل الدخول';
+
+  @override
+  String get profileTitle => 'حسابي';
+
+  @override
+  String get profileName => 'الاسم';
+
+  @override
+  String get profilePhone => 'رقم الهاتف';
+
+  @override
+  String get refreshProfile => 'تحديث الملف';
+
+  @override
+  String get mustChangePasswordNotice =>
+      'يُطلب منك تغيير كلمة المرور عند تسجيل الدخول التالي.';
+
+  @override
+  String get logoutCurrentDevice => 'تسجيل الخروج من هذا الجهاز';
+
+  @override
+  String get logoutAllDevices => 'تسجيل الخروج من كل الأجهزة';
+
+  @override
+  String get backToHome => 'العودة للرئيسية';
 
   @override
   String get splashLoading => 'جاري التحميل...';
@@ -101,4 +332,109 @@ class AppLocalizationsAr extends AppLocalizations {
   String itemIdLabel(int id) {
     return 'عنصر #$id';
   }
+
+  @override
+  String get studentHomeGuestName => 'الطالب';
+
+  @override
+  String studentHomeGreetingMorning(String name) {
+    return 'صباح الخير، $name';
+  }
+
+  @override
+  String studentHomeGreetingAfternoon(String name) {
+    return 'مساء الخير، $name';
+  }
+
+  @override
+  String studentHomeGreetingEvening(String name) {
+    return 'مساء الخير، $name';
+  }
+
+  @override
+  String get studentHomeNextLesson => 'الجلسة القادمة';
+
+  @override
+  String get studentHomeConfirmed => 'مؤكدة';
+
+  @override
+  String get studentHomeInstructorMale => 'المدرب';
+
+  @override
+  String get studentHomeInstructorFemale => 'المدربة';
+
+  @override
+  String get studentHomeVehicle => 'المركبة';
+
+  @override
+  String get studentHomeAutomatic => 'أوتوماتيك';
+
+  @override
+  String get studentHomeManual => 'يدوي';
+
+  @override
+  String get studentHomeSchoolVehicle => 'مدرسة';
+
+  @override
+  String get studentHomeStudentVehicle => 'طالب';
+
+  @override
+  String get studentHomeShowMeetingPoint => 'عرض نقطة اللقاء';
+
+  @override
+  String get studentHomePendingPaymentTitle => 'حجز بانتظار الدفع';
+
+  @override
+  String studentHomePendingPaymentMessage(String time) {
+    return 'لديك $time دقائق لإدخال رقم عملية شام كاش قبل تحرير الموعد.';
+  }
+
+  @override
+  String get studentHomeQuickActions => 'إجراءات سريعة';
+
+  @override
+  String get studentHomeViewAll => 'عرض الكل';
+
+  @override
+  String get studentHomeNewBooking => 'حجز جلسة جديدة';
+
+  @override
+  String get studentHomeMyBookings => 'حجوزاتي';
+
+  @override
+  String get studentHomeCertificateRequest => 'طلب الشهادة';
+
+  @override
+  String get studentHomeTheorySimulation => 'محاكاة النظري';
+
+  @override
+  String get studentHomeTrainingProgress => 'تقدم التدريب';
+
+  @override
+  String studentHomeTrainingProgressDetail(int completed, int total) {
+    return 'أكملت $completed من أصل $total ساعة';
+  }
+
+  @override
+  String get studentHomeTrainingProgressFootnote =>
+      'بعد إكمال التدريب ستتابع الإدارة مواعيد الفحص النظري والعملي.';
+
+  @override
+  String get studentHomeNavBookings => 'حجوزاتي';
+
+  @override
+  String get studentHomeNavCertificate => 'الشهادة';
+
+  @override
+  String get studentHomeNavProfile => 'حسابي';
+
+  @override
+  String get studentHomeFeatureComingSoon => 'هذه الميزة ستكون متاحة قريباً.';
+
+  @override
+  String get studentHomeNoNextLessonTitle => 'لا توجد جلسة مؤكدة بعد';
+
+  @override
+  String get studentHomeNoNextLessonBody =>
+      'أنشئ حجزاً وأكمل دفع شام كاش لتأكيد الموعد.';
 }

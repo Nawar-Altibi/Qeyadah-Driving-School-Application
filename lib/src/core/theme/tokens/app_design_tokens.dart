@@ -14,7 +14,10 @@ abstract final class AppDesignTokens {
 
   static const double radiusSm = 4;
   static const double radiusMd = 8;
-  static const double radiusControl = 14;
+  static const double radiusControl = 15;
+  static const double radiusBrandIcon = 14;
+  static const double radiusOtpCell = 13;
+  static const double radiusSheet = 26;
   static const double radiusLg = 16;
   static const double radiusXl = 24;
 

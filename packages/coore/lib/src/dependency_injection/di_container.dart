@@ -1,24 +1,22 @@
-import 'dart:io';
-
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:coore/lib.dart';
+import 'package:coore/src/dependency_injection/dio_platform_adapter_stub.dart'
+    if (dart.library.html) 'package:coore/src/dependency_injection/dio_platform_adapter_web.dart';
+import 'package:coore/src/dependency_injection/hive_storage_path.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
-import 'package:hive_ce/hive.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:logger/logger.dart' as logger;
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:path_provider/path_provider.dart';
 
 final getIt = GetIt.instance;
 
 Future<void> setupCoreDependencies(CoreConfigEntity coreEntity) async {
-  final directory = await getApplicationDocumentsDirectory();
-  Hive.init(directory.path);
+  final storagePath = await initializeHiveStorage();
   getIt
     ..registerLazySingletonAsync(() => DeviceInfoPlugin().deviceInfo)
     ..registerLazySingletonAsync(() => PackageInfo.fromPlatform())
@@ -46,7 +44,7 @@ Future<void> setupCoreDependencies(CoreConfigEntity coreEntity) async {
     ..registerLazySingleton(
       () => _createDio(
         coreEntity.networkConfigEntity,
-        directory,
+        storagePath,
         shouldLog: coreEntity.shouldLog,
       ),
     )
@@ -105,22 +103,24 @@ FlutterSecureStorage _createFlutterSecureStorage() {
 
 Dio _createDio(
   NetworkConfigEntity entity,
-  Directory directory, {
+  String? storagePath, {
   bool shouldLog = false,
 }) {
   final dio = Dio(
     BaseOptions(
       baseUrl: entity.baseUrl,
       connectTimeout: entity.connectTimeout,
-      // ... other base options ...
+      sendTimeout: entity.sendTimeout,
+      receiveTimeout: entity.receiveTimeout,
+      headers: entity.staticHeaders,
+      queryParameters: entity.defaultQueryParams,
+      contentType: entity.defaultContentType,
+      followRedirects: entity.followRedirects,
+      maxRedirects: entity.maxRedirects,
     ),
   );
 
-  if (shouldLog) {
-    dio.interceptors.add(
-      LoggingInterceptor(logger: getIt(), maxBodyLength: 10000),
-    );
-  }
+  configureDioPlatformAdapter(dio);
 
   if (entity.enableCache) {
     final cacheOptions = CacheOptions(
@@ -143,17 +143,24 @@ Dio _createDio(
       authInterceptor = TokenAuthInterceptor(getIt());
       break;
     case AuthInterceptorType.cookieBased:
-      final String appDocPath = directory.path;
-      final jar = PersistCookieJar(
-        ignoreExpires: true,
-        storage: FileStorage('$appDocPath/.cookies/'),
-      );
+      final CookieJar jar = storagePath == null
+          ? WebCookieJar(ignoreExpires: true)
+          : PersistCookieJar(
+              ignoreExpires: true,
+              storage: FileStorage('$storagePath/.cookies/'),
+            );
       dio.interceptors.add(CookieManager(jar));
       authInterceptor = CookieAuthInterceptor(getIt());
       break;
   }
 
   dio.interceptors.addAll([...entity.interceptors, authInterceptor]);
+
+  if (shouldLog) {
+    dio.interceptors.add(
+      LoggingInterceptor(logger: getIt(), maxBodyLength: 10000),
+    );
+  }
 
   return dio;
 }

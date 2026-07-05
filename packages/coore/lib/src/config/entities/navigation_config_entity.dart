@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -16,7 +18,7 @@ class NavigationConfigEntity extends Equatable {
   final String initialRoute;
 
   final Widget Function(BuildContext, GoRouterState)? errorBuilder;
-  final Future<String?> Function(BuildContext, GoRouterState)? redirect;
+  final FutureOr<String?> Function(BuildContext, GoRouterState)? redirect;
   final Listenable? refreshListenable;
   final List<NavigatorObserver> navigationObservers;
 
