@@ -442,4 +442,178 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get studentHomeNoNextLessonBody =>
       'Create a booking and complete ShamCash payment to confirm it.';
+
+  @override
+  String get instructorWelcomeBackEyebrow => 'Welcome back';
+
+  @override
+  String instructorWelcomeBack(String name) {
+    return '$name';
+  }
+
+  @override
+  String get instructorGuestName => 'Instructor';
+
+  @override
+  String get instructorTodaySchedule => 'Today\'s schedule';
+
+  @override
+  String instructorSessionsCount(int count) {
+    return '$count sessions';
+  }
+
+  @override
+  String instructorTrainingHoursCount(int hours) {
+    return '$hours training hours';
+  }
+
+  @override
+  String instructorTrainingHoursDecimal(double hours) {
+    return '$hours training hours';
+  }
+
+  @override
+  String get instructorBookedLabel => 'booked';
+
+  @override
+  String get instructorDailyTimeline => 'Daily timeline';
+
+  @override
+  String get instructorLiveSchedule => 'Live schedule';
+
+  @override
+  String get instructorNoSessionsToday => 'No sessions on this day.';
+
+  @override
+  String get instructorBookingConfirmed => 'Confirmed';
+
+  @override
+  String get instructorBookingCompleted => 'Completed';
+
+  @override
+  String get instructorBookingNoShow => 'No show';
+
+  @override
+  String get instructorBookingCancelled => 'Cancelled';
+
+  @override
+  String get instructorBookingExpired => 'Expired';
+
+  @override
+  String get instructorBookingPendingPayment => 'Pending payment';
+
+  @override
+  String get instructorMinuteUnit => 'min';
+
+  @override
+  String instructorDurationHoursMinutes(int hours, int minutes) {
+    return '$hours hours and $minutes minutes';
+  }
+
+  @override
+  String instructorDurationHours(int hours) {
+    return '$hours hours';
+  }
+
+  @override
+  String instructorDurationMinutes(int minutes) {
+    return '$minutes minutes';
+  }
+
+  @override
+  String instructorCurrencyAmount(int amount) {
+    return '$amount SYP';
+  }
+
+  @override
+  String get instructorRequestLeave => 'Request leave';
+
+  @override
+  String get instructorNavSchedule => 'Schedule';
+
+  @override
+  String get instructorNavProfile => 'Profile';
+
+  @override
+  String get instructorFeatureComingSoon =>
+      'This feature will be available soon.';
+
+  @override
+  String get instructorProfileTitle => 'Profile';
+
+  @override
+  String get instructorRoleLabel => 'Driving instructor';
+
+  @override
+  String get instructorProfileBio =>
+      'I help students build confidence and safe driving habits, one session at a time.';
+
+  @override
+  String get instructorContactManagement => 'Contact management';
+
+  @override
+  String get instructorMetricMonthSessions => 'Month sessions';
+
+  @override
+  String get instructorMetricMonthEarnings => 'Month earnings';
+
+  @override
+  String get instructorMetricVehicle => 'Vehicle';
+
+  @override
+  String get instructorAccountPreferences => 'Account & preferences';
+
+  @override
+  String get instructorProfileData => 'Profile data';
+
+  @override
+  String get instructorSchedulePreferences => 'Schedule preferences';
+
+  @override
+  String get instructorLanguage => 'Language';
+
+  @override
+  String get instructorNotifications => 'Notifications';
+
+  @override
+  String get instructorAppVersion => 'Qeyadah Instructor · v2.4.0';
+
+  @override
+  String get instructorLeaveTitle => 'Request leave';
+
+  @override
+  String get instructorLeaveIntroTitle => 'Plan your leave time';
+
+  @override
+  String get instructorLeaveIntroBody =>
+      'The app shows your registered leaves. New leave requests are submitted through management.';
+
+  @override
+  String get instructorLeaveHourlyTab => 'Hourly leave';
+
+  @override
+  String get instructorLeaveDailyTab => 'Daily leave';
+
+  @override
+  String get instructorLeaveAdminNoticeTitle => 'Leave requests via management';
+
+  @override
+  String get instructorLeaveAdminNoticeBody =>
+      'Review your leaves here. To request a new leave, contact management.';
+
+  @override
+  String get instructorLeaveEmpty => 'No registered leaves in this category.';
+
+  @override
+  String instructorLeaveFullDay(String date) {
+    return 'Full day · $date';
+  }
+
+  @override
+  String instructorLeaveHourly(String date, String start, String end) {
+    return '$date · $start to $end';
+  }
+
+  @override
+  String get instructorCancel => 'Cancel';
 }

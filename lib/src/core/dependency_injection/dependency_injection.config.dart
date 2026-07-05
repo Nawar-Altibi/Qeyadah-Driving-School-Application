@@ -56,6 +56,20 @@ import 'package:qeyadah_mobile_app/src/features/auth/presentation/cubit/password
     as _i240;
 import 'package:qeyadah_mobile_app/src/features/auth/presentation/cubit/registration_cubit.dart'
     as _i958;
+import 'package:qeyadah_mobile_app/src/features/instructor_leave/presentation/cubit/instructor_leave_cubit.dart'
+    as _i686;
+import 'package:qeyadah_mobile_app/src/features/instructor_profile/presentation/cubit/instructor_profile_cubit.dart'
+    as _i798;
+import 'package:qeyadah_mobile_app/src/features/instructor_schedule/data/data_sources/instructor_remote_data_source.dart'
+    as _i481;
+import 'package:qeyadah_mobile_app/src/features/instructor_schedule/data/repositories/instructor_repository_impl.dart'
+    as _i868;
+import 'package:qeyadah_mobile_app/src/features/instructor_schedule/domain/repositories/instructor_repository.dart'
+    as _i187;
+import 'package:qeyadah_mobile_app/src/features/instructor_schedule/domain/use_cases/instructor_use_cases.dart'
+    as _i44;
+import 'package:qeyadah_mobile_app/src/features/instructor_schedule/presentation/cubit/instructor_schedule_cubit.dart'
+    as _i1020;
 import 'package:qeyadah_mobile_app/src/features/sample_items/data/repositories/sample_items_repository_impl.dart'
     as _i272;
 import 'package:qeyadah_mobile_app/src/features/sample_items/domain/repositories/sample_items_repository.dart'
@@ -118,6 +132,10 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i1021.AuthRemoteDataSource>(
       () => _i1021.AuthRemoteDataSourceImpl(gh<_i698.ApiHandlerInterface>()),
     );
+    gh.lazySingleton<_i481.InstructorRemoteDataSource>(
+      () =>
+          _i481.InstructorRemoteDataSourceImpl(gh<_i698.ApiHandlerInterface>()),
+    );
     gh.lazySingleton<_i869.LoadStudentHomeUseCase>(
       () => _i869.LoadStudentHomeUseCase(gh<_i80.StudentHomeRepository>()),
     );
@@ -128,6 +146,11 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i516.AuthRepositoryImpl(
         gh<_i1021.AuthRemoteDataSource>(),
         gh<_i76.AuthLocalDataSource>(),
+      ),
+    );
+    gh.lazySingleton<_i187.InstructorRepository>(
+      () => _i868.InstructorRepositoryImpl(
+        gh<_i481.InstructorRemoteDataSource>(),
       ),
     );
     gh.lazySingleton<_i916.SampleItemsRepository>(
@@ -178,6 +201,21 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i585.VerifyPasswordResetOtpUseCase>(
       () => _i585.VerifyPasswordResetOtpUseCase(gh<_i16.AuthRepository>()),
     );
+    gh.factory<_i44.LoadInstructorScheduleUseCase>(
+      () =>
+          _i44.LoadInstructorScheduleUseCase(gh<_i187.InstructorRepository>()),
+    );
+    gh.factory<_i44.LoadInstructorProfileUseCase>(
+      () => _i44.LoadInstructorProfileUseCase(gh<_i187.InstructorRepository>()),
+    );
+    gh.factory<_i44.LoadInstructorLeavesUseCase>(
+      () => _i44.LoadInstructorLeavesUseCase(gh<_i187.InstructorRepository>()),
+    );
+    gh.factory<_i44.LoadInstructorDayBookingsUseCase>(
+      () => _i44.LoadInstructorDayBookingsUseCase(
+        gh<_i187.InstructorRepository>(),
+      ),
+    );
     gh.lazySingleton<_i706.AuthSessionCubit>(
       () => _i706.AuthSessionCubit(
         gh<_i831.LoginUseCase>(),
@@ -185,6 +223,21 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i280.LogoutAllUseCase>(),
         gh<_i455.GetPersistedSessionUseCase>(),
         gh<_i880.RefreshProfileUseCase>(),
+      ),
+    );
+    gh.factory<_i686.InstructorLeaveCubit>(
+      () => _i686.InstructorLeaveCubit(
+        gh<_i44.LoadInstructorLeavesUseCase>(),
+        gh<_i44.LoadInstructorDayBookingsUseCase>(),
+      ),
+    );
+    gh.factory<_i798.InstructorProfileCubit>(
+      () =>
+          _i798.InstructorProfileCubit(gh<_i44.LoadInstructorProfileUseCase>()),
+    );
+    gh.factory<_i1020.InstructorScheduleCubit>(
+      () => _i1020.InstructorScheduleCubit(
+        gh<_i44.LoadInstructorScheduleUseCase>(),
       ),
     );
     gh.lazySingleton<_i38.LoadSampleItemsUseCase>(

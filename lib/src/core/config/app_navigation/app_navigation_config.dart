@@ -14,7 +14,12 @@ import 'package:qeyadah_mobile_app/src/features/auth/presentation/screens/login_
 import 'package:qeyadah_mobile_app/src/features/auth/presentation/screens/new_password_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/presentation/screens/register_otp_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/presentation/screens/register_screen.dart';
-import 'package:qeyadah_mobile_app/src/features/instructor_home/presentation/screens/instructor_home_screen.dart';
+import 'package:qeyadah_mobile_app/src/features/instructor_leave/presentation/cubit/instructor_leave_cubit.dart';
+import 'package:qeyadah_mobile_app/src/features/instructor_leave/presentation/screens/instructor_leave_screen.dart';
+import 'package:qeyadah_mobile_app/src/features/instructor_profile/presentation/cubit/instructor_profile_cubit.dart';
+import 'package:qeyadah_mobile_app/src/features/instructor_profile/presentation/screens/instructor_profile_screen.dart';
+import 'package:qeyadah_mobile_app/src/features/instructor_schedule/presentation/cubit/instructor_schedule_cubit.dart';
+import 'package:qeyadah_mobile_app/src/features/instructor_schedule/presentation/screens/instructor_schedule_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/profile/presentation/screens/profile_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/sample_items/presentation/cubit/sample_items_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/sample_items/presentation/screens/sample_item_details_screen.dart';
@@ -150,11 +155,42 @@ class AppNavigationConfig {
           ),
         ),
         GoRoute(
-          path: InstructorHomeScreen.routePath,
-          name: InstructorHomeScreen.routeName,
+          path: InstructorScheduleScreen.routePath,
+          name: InstructorScheduleScreen.routeName,
           pageBuilder: (context, state) => NoTransitionPage(
             key: state.pageKey,
-            child: _withSession(const InstructorHomeScreen()),
+            child: _withSession(
+              BlocProvider(
+                create: (_) => getIt<InstructorScheduleCubit>(),
+                child: const InstructorScheduleScreen(),
+              ),
+            ),
+          ),
+        ),
+        GoRoute(
+          path: InstructorProfileScreen.routePath,
+          name: InstructorProfileScreen.routeName,
+          pageBuilder: (context, state) => NoTransitionPage(
+            key: state.pageKey,
+            child: _withSession(
+              BlocProvider(
+                create: (_) => getIt<InstructorProfileCubit>(),
+                child: const InstructorProfileScreen(),
+              ),
+            ),
+          ),
+        ),
+        GoRoute(
+          path: InstructorLeaveScreen.routePath,
+          name: InstructorLeaveScreen.routeName,
+          pageBuilder: (context, state) => FadePage(
+            key: state.pageKey,
+            child: _withSession(
+              BlocProvider(
+                create: (_) => getIt<InstructorLeaveCubit>(),
+                child: const InstructorLeaveScreen(),
+              ),
+            ),
           ),
         ),
         GoRoute(
@@ -233,7 +269,7 @@ class AppNavigationConfig {
 
   String _homePathFor(UserRole? role) {
     return switch (role) {
-      UserRole.instructor => InstructorHomeScreen.routePath,
+      UserRole.instructor => InstructorScheduleScreen.routePath,
       _ => StudentHomeScreen.routePath,
     };
   }

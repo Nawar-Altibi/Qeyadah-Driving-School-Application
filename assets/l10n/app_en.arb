@@ -204,5 +204,134 @@
   "studentHomeNavProfile": "My account",
   "studentHomeFeatureComingSoon": "This feature will be available soon.",
   "studentHomeNoNextLessonTitle": "No confirmed lesson yet",
-  "studentHomeNoNextLessonBody": "Create a booking and complete ShamCash payment to confirm it."
+  "studentHomeNoNextLessonBody": "Create a booking and complete ShamCash payment to confirm it.",
+  "instructorWelcomeBackEyebrow": "Welcome back",
+  "instructorWelcomeBack": "{name}",
+  "@instructorWelcomeBack": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "instructorGuestName": "Instructor",
+  "instructorTodaySchedule": "Today's schedule",
+  "instructorSessionsCount": "{count} sessions",
+  "@instructorSessionsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "instructorTrainingHoursCount": "{hours} training hours",
+  "@instructorTrainingHoursCount": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "instructorTrainingHoursDecimal": "{hours} training hours",
+  "@instructorTrainingHoursDecimal": {
+    "placeholders": {
+      "hours": {
+        "type": "double"
+      }
+    }
+  },
+  "instructorBookedLabel": "booked",
+  "instructorDailyTimeline": "Daily timeline",
+  "instructorLiveSchedule": "Live schedule",
+  "instructorNoSessionsToday": "No sessions on this day.",
+  "instructorBookingConfirmed": "Confirmed",
+  "instructorBookingCompleted": "Completed",
+  "instructorBookingNoShow": "No show",
+  "instructorBookingCancelled": "Cancelled",
+  "instructorBookingExpired": "Expired",
+  "instructorBookingPendingPayment": "Pending payment",
+  "instructorMinuteUnit": "min",
+  "instructorDurationHoursMinutes": "{hours} hours and {minutes} minutes",
+  "@instructorDurationHoursMinutes": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "instructorDurationHours": "{hours} hours",
+  "@instructorDurationHours": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "instructorDurationMinutes": "{minutes} minutes",
+  "@instructorDurationMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "instructorCurrencyAmount": "{amount} SYP",
+  "@instructorCurrencyAmount": {
+    "placeholders": {
+      "amount": {
+        "type": "int"
+      }
+    }
+  },
+  "instructorRequestLeave": "Request leave",
+  "instructorNavSchedule": "Schedule",
+  "instructorNavProfile": "Profile",
+  "instructorFeatureComingSoon": "This feature will be available soon.",
+  "instructorProfileTitle": "Profile",
+  "instructorRoleLabel": "Driving instructor",
+  "instructorProfileBio": "I help students build confidence and safe driving habits, one session at a time.",
+  "instructorContactManagement": "Contact management",
+  "instructorMetricMonthSessions": "Month sessions",
+  "instructorMetricMonthEarnings": "Month earnings",
+  "instructorMetricVehicle": "Vehicle",
+  "instructorAccountPreferences": "Account & preferences",
+  "instructorProfileData": "Profile data",
+  "instructorSchedulePreferences": "Schedule preferences",
+  "instructorLanguage": "Language",
+  "instructorNotifications": "Notifications",
+  "instructorAppVersion": "Qeyadah Instructor · v2.4.0",
+  "instructorLeaveTitle": "Request leave",
+  "instructorLeaveIntroTitle": "Plan your leave time",
+  "instructorLeaveIntroBody": "The app shows your registered leaves. New leave requests are submitted through management.",
+  "instructorLeaveHourlyTab": "Hourly leave",
+  "instructorLeaveDailyTab": "Daily leave",
+  "instructorLeaveAdminNoticeTitle": "Leave requests via management",
+  "instructorLeaveAdminNoticeBody": "Review your leaves here. To request a new leave, contact management.",
+  "instructorLeaveEmpty": "No registered leaves in this category.",
+  "instructorLeaveFullDay": "Full day · {date}",
+  "@instructorLeaveFullDay": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "instructorLeaveHourly": "{date} · {start} to {end}",
+  "@instructorLeaveHourly": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "start": {
+        "type": "String"
+      },
+      "end": {
+        "type": "String"
+      }
+    }
+  },
+  "instructorCancel": "Cancel"
 }

@@ -1,5 +1,6 @@
 export 'app_alert_banner.dart';
 export 'app_button.dart';
+export 'app_calendar_strip.dart';
 export 'app_card.dart';
 export 'app_input_field.dart';
 export 'app_metric_tile.dart';

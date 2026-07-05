@@ -889,6 +889,306 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Create a booking and complete ShamCash payment to confirm it.'**
   String get studentHomeNoNextLessonBody;
+
+  /// No description provided for @instructorWelcomeBackEyebrow.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome back'**
+  String get instructorWelcomeBackEyebrow;
+
+  /// No description provided for @instructorWelcomeBack.
+  ///
+  /// In en, this message translates to:
+  /// **'{name}'**
+  String instructorWelcomeBack(String name);
+
+  /// No description provided for @instructorGuestName.
+  ///
+  /// In en, this message translates to:
+  /// **'Instructor'**
+  String get instructorGuestName;
+
+  /// No description provided for @instructorTodaySchedule.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s schedule'**
+  String get instructorTodaySchedule;
+
+  /// No description provided for @instructorSessionsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} sessions'**
+  String instructorSessionsCount(int count);
+
+  /// No description provided for @instructorTrainingHoursCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{hours} training hours'**
+  String instructorTrainingHoursCount(int hours);
+
+  /// No description provided for @instructorTrainingHoursDecimal.
+  ///
+  /// In en, this message translates to:
+  /// **'{hours} training hours'**
+  String instructorTrainingHoursDecimal(double hours);
+
+  /// No description provided for @instructorBookedLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'booked'**
+  String get instructorBookedLabel;
+
+  /// No description provided for @instructorDailyTimeline.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily timeline'**
+  String get instructorDailyTimeline;
+
+  /// No description provided for @instructorLiveSchedule.
+  ///
+  /// In en, this message translates to:
+  /// **'Live schedule'**
+  String get instructorLiveSchedule;
+
+  /// No description provided for @instructorNoSessionsToday.
+  ///
+  /// In en, this message translates to:
+  /// **'No sessions on this day.'**
+  String get instructorNoSessionsToday;
+
+  /// No description provided for @instructorBookingConfirmed.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirmed'**
+  String get instructorBookingConfirmed;
+
+  /// No description provided for @instructorBookingCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed'**
+  String get instructorBookingCompleted;
+
+  /// No description provided for @instructorBookingNoShow.
+  ///
+  /// In en, this message translates to:
+  /// **'No show'**
+  String get instructorBookingNoShow;
+
+  /// No description provided for @instructorBookingCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelled'**
+  String get instructorBookingCancelled;
+
+  /// No description provided for @instructorBookingExpired.
+  ///
+  /// In en, this message translates to:
+  /// **'Expired'**
+  String get instructorBookingExpired;
+
+  /// No description provided for @instructorBookingPendingPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending payment'**
+  String get instructorBookingPendingPayment;
+
+  /// No description provided for @instructorMinuteUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'min'**
+  String get instructorMinuteUnit;
+
+  /// No description provided for @instructorDurationHoursMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'{hours} hours and {minutes} minutes'**
+  String instructorDurationHoursMinutes(int hours, int minutes);
+
+  /// No description provided for @instructorDurationHours.
+  ///
+  /// In en, this message translates to:
+  /// **'{hours} hours'**
+  String instructorDurationHours(int hours);
+
+  /// No description provided for @instructorDurationMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} minutes'**
+  String instructorDurationMinutes(int minutes);
+
+  /// No description provided for @instructorCurrencyAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'{amount} SYP'**
+  String instructorCurrencyAmount(int amount);
+
+  /// No description provided for @instructorRequestLeave.
+  ///
+  /// In en, this message translates to:
+  /// **'Request leave'**
+  String get instructorRequestLeave;
+
+  /// No description provided for @instructorNavSchedule.
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule'**
+  String get instructorNavSchedule;
+
+  /// No description provided for @instructorNavProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get instructorNavProfile;
+
+  /// No description provided for @instructorFeatureComingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'This feature will be available soon.'**
+  String get instructorFeatureComingSoon;
+
+  /// No description provided for @instructorProfileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get instructorProfileTitle;
+
+  /// No description provided for @instructorRoleLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Driving instructor'**
+  String get instructorRoleLabel;
+
+  /// No description provided for @instructorProfileBio.
+  ///
+  /// In en, this message translates to:
+  /// **'I help students build confidence and safe driving habits, one session at a time.'**
+  String get instructorProfileBio;
+
+  /// No description provided for @instructorContactManagement.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact management'**
+  String get instructorContactManagement;
+
+  /// No description provided for @instructorMetricMonthSessions.
+  ///
+  /// In en, this message translates to:
+  /// **'Month sessions'**
+  String get instructorMetricMonthSessions;
+
+  /// No description provided for @instructorMetricMonthEarnings.
+  ///
+  /// In en, this message translates to:
+  /// **'Month earnings'**
+  String get instructorMetricMonthEarnings;
+
+  /// No description provided for @instructorMetricVehicle.
+  ///
+  /// In en, this message translates to:
+  /// **'Vehicle'**
+  String get instructorMetricVehicle;
+
+  /// No description provided for @instructorAccountPreferences.
+  ///
+  /// In en, this message translates to:
+  /// **'Account & preferences'**
+  String get instructorAccountPreferences;
+
+  /// No description provided for @instructorProfileData.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile data'**
+  String get instructorProfileData;
+
+  /// No description provided for @instructorSchedulePreferences.
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule preferences'**
+  String get instructorSchedulePreferences;
+
+  /// No description provided for @instructorLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get instructorLanguage;
+
+  /// No description provided for @instructorNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get instructorNotifications;
+
+  /// No description provided for @instructorAppVersion.
+  ///
+  /// In en, this message translates to:
+  /// **'Qeyadah Instructor · v2.4.0'**
+  String get instructorAppVersion;
+
+  /// No description provided for @instructorLeaveTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Request leave'**
+  String get instructorLeaveTitle;
+
+  /// No description provided for @instructorLeaveIntroTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Plan your leave time'**
+  String get instructorLeaveIntroTitle;
+
+  /// No description provided for @instructorLeaveIntroBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The app shows your registered leaves. New leave requests are submitted through management.'**
+  String get instructorLeaveIntroBody;
+
+  /// No description provided for @instructorLeaveHourlyTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Hourly leave'**
+  String get instructorLeaveHourlyTab;
+
+  /// No description provided for @instructorLeaveDailyTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily leave'**
+  String get instructorLeaveDailyTab;
+
+  /// No description provided for @instructorLeaveAdminNoticeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave requests via management'**
+  String get instructorLeaveAdminNoticeTitle;
+
+  /// No description provided for @instructorLeaveAdminNoticeBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Review your leaves here. To request a new leave, contact management.'**
+  String get instructorLeaveAdminNoticeBody;
+
+  /// No description provided for @instructorLeaveEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No registered leaves in this category.'**
+  String get instructorLeaveEmpty;
+
+  /// No description provided for @instructorLeaveFullDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Full day · {date}'**
+  String instructorLeaveFullDay(String date);
+
+  /// No description provided for @instructorLeaveHourly.
+  ///
+  /// In en, this message translates to:
+  /// **'{date} · {start} to {end}'**
+  String instructorLeaveHourly(String date, String start, String end);
+
+  /// No description provided for @instructorCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get instructorCancel;
 }
 
 class _AppLocalizationsDelegate

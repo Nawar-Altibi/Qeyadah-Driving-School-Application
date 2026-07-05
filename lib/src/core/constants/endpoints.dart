@@ -12,4 +12,11 @@ abstract final class Endpoints {
   static const String authLogoutAll = 'auth/logout-all';
   static const String authMe = 'auth/me';
   static const String authMePermissions = 'auth/me/permissions';
+
+  static const String instructorMeProfile = 'instructor/me/profile';
+  static const String instructorMeSchedule = 'instructor/me/schedule';
+  static const String instructorMeBookings = 'instructor/me/bookings';
+  static const String instructorMeLeaves = 'instructor/me/leaves';
+  static const String instructorMeDues = 'instructor/me/dues';
+  static const String instructorMeEarnings = 'instructor/me/earnings';
 }

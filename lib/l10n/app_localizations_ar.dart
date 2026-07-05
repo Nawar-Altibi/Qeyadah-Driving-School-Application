@@ -437,4 +437,177 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get studentHomeNoNextLessonBody =>
       'أنشئ حجزاً وأكمل دفع شام كاش لتأكيد الموعد.';
+
+  @override
+  String get instructorWelcomeBackEyebrow => 'أهلاً بعودتك';
+
+  @override
+  String instructorWelcomeBack(String name) {
+    return '$name';
+  }
+
+  @override
+  String get instructorGuestName => 'المدرب';
+
+  @override
+  String get instructorTodaySchedule => 'جدول اليوم';
+
+  @override
+  String instructorSessionsCount(int count) {
+    return '$count جلسات';
+  }
+
+  @override
+  String instructorTrainingHoursCount(int hours) {
+    return '$hours ساعات تدريب';
+  }
+
+  @override
+  String instructorTrainingHoursDecimal(double hours) {
+    return '$hours ساعات تدريب';
+  }
+
+  @override
+  String get instructorBookedLabel => 'محجوز';
+
+  @override
+  String get instructorDailyTimeline => 'الجدول اليومي';
+
+  @override
+  String get instructorLiveSchedule => 'جدول مباشر';
+
+  @override
+  String get instructorNoSessionsToday => 'لا توجد جلسات في هذا اليوم.';
+
+  @override
+  String get instructorBookingConfirmed => 'مؤكد';
+
+  @override
+  String get instructorBookingCompleted => 'مكتمل';
+
+  @override
+  String get instructorBookingNoShow => 'غياب';
+
+  @override
+  String get instructorBookingCancelled => 'ملغى';
+
+  @override
+  String get instructorBookingExpired => 'منتهي';
+
+  @override
+  String get instructorBookingPendingPayment => 'بانتظار الدفع';
+
+  @override
+  String get instructorMinuteUnit => 'دقيقة';
+
+  @override
+  String instructorDurationHoursMinutes(int hours, int minutes) {
+    return '$hours ساعات و $minutes دقيقة';
+  }
+
+  @override
+  String instructorDurationHours(int hours) {
+    return '$hours ساعات';
+  }
+
+  @override
+  String instructorDurationMinutes(int minutes) {
+    return '$minutes دقيقة';
+  }
+
+  @override
+  String instructorCurrencyAmount(int amount) {
+    return '$amount ل.س';
+  }
+
+  @override
+  String get instructorRequestLeave => 'طلب إجازة';
+
+  @override
+  String get instructorNavSchedule => 'الجدول';
+
+  @override
+  String get instructorNavProfile => 'الملف الشخصي';
+
+  @override
+  String get instructorFeatureComingSoon => 'هذه الميزة ستكون متاحة قريباً.';
+
+  @override
+  String get instructorProfileTitle => 'الملف الشخصي';
+
+  @override
+  String get instructorRoleLabel => 'مدرب قيادة';
+
+  @override
+  String get instructorProfileBio =>
+      'أساعد الطلاب على بناء الثقة واكتساب عادات قيادة آمنة، جلسة بعد جلسة.';
+
+  @override
+  String get instructorContactManagement => 'تواصل مع الإدارة';
+
+  @override
+  String get instructorMetricMonthSessions => 'حصص الشهر';
+
+  @override
+  String get instructorMetricMonthEarnings => 'أرباح الشهر';
+
+  @override
+  String get instructorMetricVehicle => 'المركبة';
+
+  @override
+  String get instructorAccountPreferences => 'الحساب والتفضيلات';
+
+  @override
+  String get instructorProfileData => 'بيانات الملف الشخصي';
+
+  @override
+  String get instructorSchedulePreferences => 'تفضيلات الجدول';
+
+  @override
+  String get instructorLanguage => 'اللغة';
+
+  @override
+  String get instructorNotifications => 'الإشعارات';
+
+  @override
+  String get instructorAppVersion => 'قيادة للتدريب · الإصدار 2.4.0';
+
+  @override
+  String get instructorLeaveTitle => 'طلب إجازة';
+
+  @override
+  String get instructorLeaveIntroTitle => 'خطط لوقت إجازتك';
+
+  @override
+  String get instructorLeaveIntroBody =>
+      'يعرض التطبيق إجازاتك المسجّلة. تقديم طلب إجازة جديد يتم عبر الإدارة.';
+
+  @override
+  String get instructorLeaveHourlyTab => 'إجازة بالساعات';
+
+  @override
+  String get instructorLeaveDailyTab => 'إجازة يومية';
+
+  @override
+  String get instructorLeaveAdminNoticeTitle => 'تقديم الإجازة عبر الإدارة';
+
+  @override
+  String get instructorLeaveAdminNoticeBody =>
+      'يمكنك مراجعة إجازاتك هنا. لطلب إجازة جديدة تواصل مع الإدارة.';
+
+  @override
+  String get instructorLeaveEmpty => 'لا توجد إجازات مسجّلة في هذا النوع.';
+
+  @override
+  String instructorLeaveFullDay(String date) {
+    return 'يوم كامل · $date';
+  }
+
+  @override
+  String instructorLeaveHourly(String date, String start, String end) {
+    return '$date · من $start إلى $end';
+  }
+
+  @override
+  String get instructorCancel => 'إلغاء';
 }

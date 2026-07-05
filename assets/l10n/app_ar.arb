@@ -183,5 +183,134 @@
   "studentHomeNavProfile": "حسابي",
   "studentHomeFeatureComingSoon": "هذه الميزة ستكون متاحة قريباً.",
   "studentHomeNoNextLessonTitle": "لا توجد جلسة مؤكدة بعد",
-  "studentHomeNoNextLessonBody": "أنشئ حجزاً وأكمل دفع شام كاش لتأكيد الموعد."
+  "studentHomeNoNextLessonBody": "أنشئ حجزاً وأكمل دفع شام كاش لتأكيد الموعد.",
+  "instructorWelcomeBackEyebrow": "أهلاً بعودتك",
+  "instructorWelcomeBack": "{name}",
+  "@instructorWelcomeBack": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "instructorGuestName": "المدرب",
+  "instructorTodaySchedule": "جدول اليوم",
+  "instructorSessionsCount": "{count} جلسات",
+  "@instructorSessionsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "instructorTrainingHoursCount": "{hours} ساعات تدريب",
+  "@instructorTrainingHoursCount": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "instructorTrainingHoursDecimal": "{hours} ساعات تدريب",
+  "@instructorTrainingHoursDecimal": {
+    "placeholders": {
+      "hours": {
+        "type": "double"
+      }
+    }
+  },
+  "instructorBookedLabel": "محجوز",
+  "instructorDailyTimeline": "الجدول اليومي",
+  "instructorLiveSchedule": "جدول مباشر",
+  "instructorNoSessionsToday": "لا توجد جلسات في هذا اليوم.",
+  "instructorBookingConfirmed": "مؤكد",
+  "instructorBookingCompleted": "مكتمل",
+  "instructorBookingNoShow": "غياب",
+  "instructorBookingCancelled": "ملغى",
+  "instructorBookingExpired": "منتهي",
+  "instructorBookingPendingPayment": "بانتظار الدفع",
+  "instructorMinuteUnit": "دقيقة",
+  "instructorDurationHoursMinutes": "{hours} ساعات و {minutes} دقيقة",
+  "@instructorDurationHoursMinutes": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "instructorDurationHours": "{hours} ساعات",
+  "@instructorDurationHours": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "instructorDurationMinutes": "{minutes} دقيقة",
+  "@instructorDurationMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "instructorCurrencyAmount": "{amount} ل.س",
+  "@instructorCurrencyAmount": {
+    "placeholders": {
+      "amount": {
+        "type": "int"
+      }
+    }
+  },
+  "instructorRequestLeave": "طلب إجازة",
+  "instructorNavSchedule": "الجدول",
+  "instructorNavProfile": "الملف الشخصي",
+  "instructorFeatureComingSoon": "هذه الميزة ستكون متاحة قريباً.",
+  "instructorProfileTitle": "الملف الشخصي",
+  "instructorRoleLabel": "مدرب قيادة",
+  "instructorProfileBio": "أساعد الطلاب على بناء الثقة واكتساب عادات قيادة آمنة، جلسة بعد جلسة.",
+  "instructorContactManagement": "تواصل مع الإدارة",
+  "instructorMetricMonthSessions": "حصص الشهر",
+  "instructorMetricMonthEarnings": "أرباح الشهر",
+  "instructorMetricVehicle": "المركبة",
+  "instructorAccountPreferences": "الحساب والتفضيلات",
+  "instructorProfileData": "بيانات الملف الشخصي",
+  "instructorSchedulePreferences": "تفضيلات الجدول",
+  "instructorLanguage": "اللغة",
+  "instructorNotifications": "الإشعارات",
+  "instructorAppVersion": "قيادة للتدريب · الإصدار 2.4.0",
+  "instructorLeaveTitle": "طلب إجازة",
+  "instructorLeaveIntroTitle": "خطط لوقت إجازتك",
+  "instructorLeaveIntroBody": "يعرض التطبيق إجازاتك المسجّلة. تقديم طلب إجازة جديد يتم عبر الإدارة.",
+  "instructorLeaveHourlyTab": "إجازة بالساعات",
+  "instructorLeaveDailyTab": "إجازة يومية",
+  "instructorLeaveAdminNoticeTitle": "تقديم الإجازة عبر الإدارة",
+  "instructorLeaveAdminNoticeBody": "يمكنك مراجعة إجازاتك هنا. لطلب إجازة جديدة تواصل مع الإدارة.",
+  "instructorLeaveEmpty": "لا توجد إجازات مسجّلة في هذا النوع.",
+  "instructorLeaveFullDay": "يوم كامل · {date}",
+  "@instructorLeaveFullDay": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "instructorLeaveHourly": "{date} · من {start} إلى {end}",
+  "@instructorLeaveHourly": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "start": {
+        "type": "String"
+      },
+      "end": {
+        "type": "String"
+      }
+    }
+  },
+  "instructorCancel": "إلغاء"
 }
