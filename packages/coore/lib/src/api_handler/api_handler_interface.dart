@@ -7,9 +7,9 @@ import 'package:fpdart/fpdart.dart';
 /// An abstract interface for handling API requests using a functional
 /// programming style with [TaskEither].
 ///
-/// The type [TaskEither<NetworkFailure, Map<String,dynamic>>] represents an asynchronous
+/// The type `TaskEither<NetworkFailure, Map<String, dynamic>>` represents an asynchronous
 /// computation that can either yield a [NetworkFailure] on error or a value
-/// of type Map<String,dynamic> on success. This pattern helps in creating robust error
+/// of type `Map<String, dynamic>` on success. This pattern helps in creating robust error
 /// handling mechanisms in the API layer.
 abstract interface class ApiHandlerInterface {
   /// Sends an HTTP GET request to the specified [path].
@@ -21,7 +21,7 @@ abstract interface class ApiHandlerInterface {
   /// - [isAuthorized]: Indicates if the request requires authorization. Defaults to false.
   ///
   /// Returns a [TaskEither] that resolves to either a [NetworkFailure] on error,
-  /// or a value of type Map<String,dynamic> on success.
+  /// or a value of type `Map<String, dynamic>` on success.
   ApiHandlerResponse get(
     String path, {
     Map<String, dynamic>? queryParameters,
@@ -42,7 +42,7 @@ abstract interface class ApiHandlerInterface {
   /// - [isAuthorized]: Indicates if the request requires authorization. Defaults to false.
   ///
   /// Returns a [TaskEither] that resolves to either a [NetworkFailure] on error,
-  /// or a value of type Map<String,dynamic> on success.
+  /// or a value of type `Map<String, dynamic>` on success.
   ApiHandlerResponse post(
     String path, {
     Map<String, dynamic>? body,
@@ -61,7 +61,7 @@ abstract interface class ApiHandlerInterface {
   /// - [isAuthorized]: Indicates if the request requires authorization. Defaults to false.
   ///
   /// Returns a [TaskEither] that resolves to either a [NetworkFailure] on error,
-  /// or a value of type Map<String,dynamic> on success.
+  /// or a value of type `Map<String, dynamic>` on success.
   ApiHandlerResponse delete(
     String path, {
     Map<String, dynamic>? queryParameters,
@@ -80,7 +80,7 @@ abstract interface class ApiHandlerInterface {
   /// - [isAuthorized]: Indicates if the request requires authorization. Defaults to false.
   ///
   /// Returns a [TaskEither] that resolves to either a [NetworkFailure] on error,
-  /// or a value of type Map<String,dynamic> on success.
+  /// or a value of type `Map<String, dynamic>` on success.
   ApiHandlerResponse put(
     String path, {
     Map<String, dynamic>? body,
@@ -101,7 +101,7 @@ abstract interface class ApiHandlerInterface {
   /// - [isAuthorized]: Indicates if the request requires authorization. Defaults to false.
   ///
   /// Returns a [TaskEither] that resolves to either a [NetworkFailure] on error,
-  /// or a value of type Map<String,dynamic> on success.
+  /// or a value of type `Map<String, dynamic>` on success.
   ApiHandlerResponse patch(
     String path, {
     Map<String, dynamic>? body,
@@ -121,7 +121,7 @@ abstract interface class ApiHandlerInterface {
   /// - [isAuthorized]: Indicates if the download request requires authorization. Defaults to false.
   ///
   /// Returns a [TaskEither] that resolves to either a [NetworkFailure] on error,
-  /// or a value of type Map<String,dynamic> on success, which could be the file path or a success message.
+  /// or a value of type `Map<String, dynamic>` on success, which could be the file path or a success message.
   ApiHandlerResponse download(
     String url,
     String downloadDestinationPath, {

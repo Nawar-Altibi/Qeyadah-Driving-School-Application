@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:coore/src/local_storage/local_database/nosql_database_imp.dart';
 import 'package:coore/lib.dart';
 import 'package:dio/dio.dart';
 import 'package:qeyadah_mobile_app/src/core/constants/raw_values.dart';

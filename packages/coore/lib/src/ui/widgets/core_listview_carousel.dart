@@ -81,10 +81,10 @@ class CoreListViewCarousel extends StatefulWidget {
   }) : children = null;
 
   @override
-  _CoreListViewCarouselState createState() => _CoreListViewCarouselState();
+  CoreListViewCarouselState createState() => CoreListViewCarouselState();
 }
 
-class _CoreListViewCarouselState extends State<CoreListViewCarousel> {
+class CoreListViewCarouselState extends State<CoreListViewCarousel> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(

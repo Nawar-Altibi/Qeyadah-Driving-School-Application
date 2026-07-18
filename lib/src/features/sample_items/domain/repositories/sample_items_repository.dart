@@ -1,6 +1,6 @@
 import 'package:coore/lib.dart';
-import 'package:qeyadah_mobile_app/src/core/typedefs/app_typedefs.dart';
 import 'package:equatable/equatable.dart';
+import 'package:qeyadah_mobile_app/src/core/typedefs/app_typedefs.dart';
 import 'package:qeyadah_mobile_app/src/features/sample_items/domain/entities/sample_item_entity.dart';
 
 class LoadSampleItemsParams extends Equatable implements Cancelable {

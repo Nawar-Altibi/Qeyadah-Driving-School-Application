@@ -60,7 +60,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
           'deviceName': params.deviceName!.trim(),
       },
       cancelRequestAdapter: params.cancelRequestAdapter,
-      isAuthorized: false,
     );
     return response.fold(_networkFailure, _sessionFromResponse);
   }
@@ -70,7 +69,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     final response = await _apiHandler.post(
       Endpoints.authRefresh,
       body: {'refreshToken': refreshToken},
-      isAuthorized: false,
     );
     return response.fold(_networkFailure, (json) {
       final data = _unwrapData(json);
@@ -157,7 +155,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         'email': email.trim(),
         'password': password,
       },
-      isAuthorized: false,
     );
     return response.fold(_networkFailure, _otpChallengeFromResponse);
   }
@@ -182,7 +179,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         if (deviceName?.trim().isNotEmpty ?? false)
           'deviceName': deviceName!.trim(),
       },
-      isAuthorized: false,
     );
     return response.fold(_networkFailure, _sessionFromResponse);
   }
@@ -192,7 +188,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     final response = await _apiHandler.post(
       Endpoints.authForgotPassword,
       body: {'phone': phone},
-      isAuthorized: false,
     );
     return response.fold(_networkFailure, _otpChallengeFromResponse);
   }
@@ -205,7 +200,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     final response = await _apiHandler.post(
       Endpoints.authVerifyOtp,
       body: {'phone': phone, 'code': code},
-      isAuthorized: false,
     );
     return response.fold(_networkFailure, (json) {
       final resetToken = _unwrapData(json)['resetToken']?.toString();
@@ -224,7 +218,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     final response = await _apiHandler.post(
       Endpoints.authResetPassword,
       body: {'resetToken': resetToken, 'newPassword': newPassword},
-      isAuthorized: false,
     );
     return response.fold(_networkFailure, (json) {
       final message = _unwrapData(json)['message']?.toString();

@@ -49,7 +49,7 @@ class AuthBrandHeader extends StatelessWidget {
                   ),
                 ],
               ),
-              child: Icon(
+              child: const Icon(
                 PhosphorIconsBold.gauge,
                 color: AppColors.white,
                 size: 25,

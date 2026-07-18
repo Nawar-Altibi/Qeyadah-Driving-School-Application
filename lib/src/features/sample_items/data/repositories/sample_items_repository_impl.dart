@@ -1,14 +1,13 @@
 import 'package:coore/lib.dart';
 import 'package:fpdart/fpdart.dart';
+import 'package:injectable/injectable.dart';
 import 'package:qeyadah_mobile_app/src/core/constants/endpoints.dart';
-import 'package:qeyadah_mobile_app/src/core/error_handling/app_failures.dart';
 import 'package:qeyadah_mobile_app/src/core/error_handling/network_failure_mapper.dart';
 import 'package:qeyadah_mobile_app/src/core/typedefs/app_typedefs.dart';
 import 'package:qeyadah_mobile_app/src/features/sample_items/data/mappers/sample_item_mapper.dart';
 import 'package:qeyadah_mobile_app/src/features/sample_items/data/models/sample_item_model.dart';
 import 'package:qeyadah_mobile_app/src/features/sample_items/domain/entities/sample_item_entity.dart';
 import 'package:qeyadah_mobile_app/src/features/sample_items/domain/repositories/sample_items_repository.dart';
-import 'package:injectable/injectable.dart';
 
 abstract interface class SampleItemsRemoteDataSource {
   RemoteResponse<List<SampleItemModel>> fetchItems(
@@ -60,7 +59,6 @@ class SampleItemsRemoteDataSourceImpl implements SampleItemsRemoteDataSource {
     final response = await _apiHandler.get(
       Endpoints.sampleItemById(params.id),
       cancelRequestAdapter: params.cancelRequestAdapter,
-      isAuthorized: false,
     );
 
     return response.fold(left, (data) {
@@ -69,7 +67,7 @@ class SampleItemsRemoteDataSourceImpl implements SampleItemsRemoteDataSource {
           (data['data'] as Map<dynamic, dynamic>?) ?? data,
         );
         return right(SampleItemModel.fromJson(map));
-      } on Exception catch (error, stackTrace) {
+      } on Exception {
         return left(
           const InternalServerErrorFailure('Failed to parse item response'),
         );

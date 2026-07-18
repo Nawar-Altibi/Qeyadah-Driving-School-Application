@@ -100,7 +100,7 @@ class _RegisterScreenBody extends StatelessWidget {
                     label: l10n.fullName,
                     hintText: l10n.fullNameHint,
                     textInputAction: TextInputAction.next,
-                    prefixIcon: Icon(
+                    prefixIcon: const Icon(
                       PhosphorIconsBold.user,
                       size: 18,
                       color: AppColors.muted,
@@ -113,7 +113,7 @@ class _RegisterScreenBody extends StatelessWidget {
                     hintText: '0999000000',
                     keyboardType: TextInputType.phone,
                     textInputAction: TextInputAction.next,
-                    prefixIcon: Icon(
+                    prefixIcon: const Icon(
                       PhosphorIconsBold.phone,
                       size: 18,
                       color: AppColors.muted,
@@ -126,7 +126,7 @@ class _RegisterScreenBody extends StatelessWidget {
                     hintText: l10n.emailHint,
                     keyboardType: TextInputType.emailAddress,
                     textInputAction: TextInputAction.next,
-                    prefixIcon: Icon(
+                    prefixIcon: const Icon(
                       PhosphorIconsBold.envelopeSimple,
                       size: 18,
                       color: AppColors.muted,

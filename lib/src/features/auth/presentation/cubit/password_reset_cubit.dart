@@ -38,7 +38,6 @@ class PasswordResetCubit extends Cubit<PasswordResetState> {
       state.copyWith(
         isRequestingOtp: true,
         phone: validatedPhone,
-        effect: null,
       ),
     );
 
@@ -76,7 +75,6 @@ class PasswordResetCubit extends Cubit<PasswordResetState> {
       state.copyWith(
         isRequestingOtp: true,
         phone: validatedPhone,
-        effect: null,
       ),
     );
 
@@ -113,7 +111,7 @@ class PasswordResetCubit extends Cubit<PasswordResetState> {
     if (validatedCode == null) return;
 
     final generation = ++_actionGeneration;
-    emit(state.copyWith(isVerifyingOtp: true, effect: null));
+    emit(state.copyWith(isVerifyingOtp: true));
 
     final result = await FutureEitherTimeout.guard(
       _verifyOtpUseCase(
@@ -173,7 +171,7 @@ class PasswordResetCubit extends Cubit<PasswordResetState> {
     if (phone == null) return;
 
     final generation = ++_actionGeneration;
-    emit(state.copyWith(isVerifyingOtp: true, isResetting: true, effect: null));
+    emit(state.copyWith(isVerifyingOtp: true, isResetting: true));
 
     final verifyResult = await FutureEitherTimeout.guard(
       _verifyOtpUseCase(
@@ -228,7 +226,7 @@ class PasswordResetCubit extends Cubit<PasswordResetState> {
     if (phone == null) return;
 
     final generation = ++_actionGeneration;
-    emit(state.copyWith(isRequestingOtp: true, effect: null));
+    emit(state.copyWith(isRequestingOtp: true));
 
     final result = await FutureEitherTimeout.guard(
       _requestOtpUseCase(ForgotPasswordParams(phone: phone)),
@@ -252,7 +250,7 @@ class PasswordResetCubit extends Cubit<PasswordResetState> {
   }
 
   void clearEffect() {
-    emit(state.copyWith(effect: null));
+    emit(state.copyWith());
   }
 
   void resetFlow() {

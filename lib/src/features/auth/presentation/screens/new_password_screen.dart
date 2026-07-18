@@ -9,8 +9,8 @@ import 'package:qeyadah_mobile_app/src/features/auth/presentation/cubit/auth_ses
 import 'package:qeyadah_mobile_app/src/features/auth/presentation/cubit/password_reset_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/presentation/navigation/auth_navigation.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/presentation/widgets/auth_gradient_button.dart';
-import 'package:qeyadah_mobile_app/src/features/auth/presentation/widgets/auth_outline_button.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/presentation/widgets/auth_otp_input.dart';
+import 'package:qeyadah_mobile_app/src/features/auth/presentation/widgets/auth_outline_button.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/presentation/widgets/auth_resend_timer.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/presentation/widgets/auth_screen_scaffold.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/presentation/widgets/auth_top_bar.dart';
@@ -63,7 +63,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                   : () => AuthNavigation.pop(context: context),
             ),
             const SizedBox(height: 20),
-            Center(child: AuthHeroIcon(icon: PhosphorIconsBold.shieldCheck)),
+            const Center(child: AuthHeroIcon(icon: PhosphorIconsBold.shieldCheck)),
             const SizedBox(height: 14),
             Text(
               widget.isForced

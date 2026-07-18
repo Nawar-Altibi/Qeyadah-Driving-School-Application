@@ -73,10 +73,10 @@ class StudentHomeNextLessonCard extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        Icon(
+                        const Icon(
                           PhosphorIconsBold.calendarCheck,
                           size: 14,
-                          color: const Color(0xFFC4E3D2),
+                          color: Color(0xFFC4E3D2),
                         ),
                         const SizedBox(width: 5),
                         Text(
@@ -211,10 +211,10 @@ class StudentHomeNextLessonCard extends StatelessWidget {
                       padding: EdgeInsets.zero,
                       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     ),
-                    icon: Icon(
+                    icon: const Icon(
                       PhosphorIconsBold.mapPin,
                       size: 15,
-                      color: const Color(0xFFC9E6D7),
+                      color: Color(0xFFC9E6D7),
                     ),
                     label: Text(
                       l10n.studentHomeShowMeetingPoint,

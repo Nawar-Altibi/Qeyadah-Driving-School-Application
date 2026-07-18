@@ -48,7 +48,7 @@ class _RegisterOtpScreenState extends State<RegisterOtpScreen> {
               onBack: () => AuthNavigation.pop(context: context),
             ),
             const SizedBox(height: 24),
-            Center(child: AuthHeroIcon(icon: PhosphorIconsBold.bellRinging)),
+            const Center(child: AuthHeroIcon(icon: PhosphorIconsBold.bellRinging)),
             const SizedBox(height: 14),
             Text(
               l10n.otpEyebrow,

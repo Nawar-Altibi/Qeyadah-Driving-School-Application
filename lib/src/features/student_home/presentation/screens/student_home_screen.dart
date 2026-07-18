@@ -196,7 +196,6 @@ class _StudentHomeContent extends StatelessWidget {
         if (dashboard.pendingPayment != null) ...[
           const SizedBox(height: AppDesignTokens.spacingMd),
           AppAlertBanner(
-            tone: AppAlertTone.warning,
             icon: PhosphorIconsBold.timer,
             title: l10n.studentHomePendingPaymentTitle,
             message: l10n.studentHomePendingPaymentMessage(

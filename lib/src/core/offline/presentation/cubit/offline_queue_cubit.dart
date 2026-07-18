@@ -1,15 +1,15 @@
 import 'dart:async';
 
 import 'package:coore/lib.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 import 'package:qeyadah_mobile_app/src/core/constants/environment_variables.dart';
 import 'package:qeyadah_mobile_app/src/core/offline/domain/entities/queued_api_request_entity.dart';
 import 'package:qeyadah_mobile_app/src/core/offline/domain/offline_queue_service.dart';
 import 'package:qeyadah_mobile_app/src/core/presentation/app_core_cubit.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:injectable/injectable.dart';
 
-part 'offline_queue_state.dart';
 part 'offline_queue_cubit.freezed.dart';
+part 'offline_queue_state.dart';
 
 @lazySingleton
 class OfflineQueueCubit extends AppCoreCubit<OfflineQueueState> {

@@ -44,7 +44,7 @@ class AuthSecureNote extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Icon(
+        const Icon(
           Icons.verified_user_outlined,
           size: 16,
           color: AppColors.muted,

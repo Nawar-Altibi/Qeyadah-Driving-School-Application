@@ -1,12 +1,12 @@
 import 'package:coore/lib.dart';
 import 'package:fpdart/fpdart.dart';
+import 'package:injectable/injectable.dart';
 import 'package:qeyadah_mobile_app/src/core/constants/raw_values.dart';
 import 'package:qeyadah_mobile_app/src/core/constants/storage_keys.dart';
 import 'package:qeyadah_mobile_app/src/core/typedefs/app_typedefs.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/data/mappers/auth_session_mapper.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/data/models/auth_session_model.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/domain/entities/auth_session_entity.dart';
-import 'package:injectable/injectable.dart';
 
 abstract interface class AuthLocalDataSource {
   FutureEither<void> saveSession(AuthSessionEntity session);
