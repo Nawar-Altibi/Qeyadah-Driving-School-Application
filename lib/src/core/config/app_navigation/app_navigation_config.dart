@@ -237,16 +237,22 @@ class AppNavigationConfig {
   String? _redirect(BuildContext context, GoRouterState state) {
     final location = state.uri.path;
     final splashFinished = _splashScreenCubit.state.animationFinished;
+    final authState = _authSessionCubit.getApiState(_authSessionCubit.state);
     final authRestoreComplete = _authSessionCubit.hasCompletedInitialRestore;
     final isAuthenticated = _authSessionCubit.isAuthenticated;
     final session = _authSessionCubit.currentSession;
 
-    if (!splashFinished || !authRestoreComplete) {
+    if (!splashFinished) {
+      return location == SplashScreen.routePath ? null : SplashScreen.routePath;
+    }
+
+    if (!authRestoreComplete || authState.isLoading) {
       return location == SplashScreen.routePath ? null : SplashScreen.routePath;
     }
 
     final isGuestAuthRoute = _guestAuthPaths.contains(location);
     final isForcedPasswordRoute = location == NewPasswordScreen.forcedRoutePath;
+    final homePath = _homePathFor(session?.user.primaryRole);
 
     if (!isAuthenticated) {
       return isGuestAuthRoute ? null : LoginScreen.routePath;
@@ -257,11 +263,11 @@ class AppNavigationConfig {
     }
 
     if (isForcedPasswordRoute) {
-      return _homePathFor(session?.user.primaryRole);
+      return homePath;
     }
 
     if (isGuestAuthRoute || location == SplashScreen.routePath) {
-      return _homePathFor(session?.user.primaryRole);
+      return homePath;
     }
 
     return null;

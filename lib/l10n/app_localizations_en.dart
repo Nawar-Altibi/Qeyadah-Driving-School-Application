@@ -538,9 +538,6 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get instructorRequestLeave => 'Request leave';
-
-  @override
   String get instructorNavSchedule => 'Schedule';
 
   @override
@@ -559,9 +556,6 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get instructorProfileBio =>
       'I help students build confidence and safe driving habits, one session at a time.';
-
-  @override
-  String get instructorContactManagement => 'Contact management';
 
   @override
   String get instructorMetricMonthSessions => 'Month sessions';
@@ -621,20 +615,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get instructorAppVersion => 'Qeyadah Instructor · v2.4.0';
 
   @override
-  String get instructorLeaveTitle => 'Request leave';
+  String get instructorLeaveTitle => 'Leaves list';
 
   @override
-  String get instructorLeaveIntroTitle => 'Plan your leave time';
+  String get instructorLeaveIntroTitle => 'Your registered leaves';
 
   @override
   String get instructorLeaveIntroBody =>
-      'Choose a suitable period and we will check conflicts before sending the request to management.';
-
-  @override
-  String get instructorLeaveHourlyTab => 'Hourly leave';
-
-  @override
-  String get instructorLeaveDailyTab => 'Daily leave';
+      'Review the leave periods recorded for your schedule.';
 
   @override
   String get instructorLeaveAdminNoticeTitle => 'Leave requests via management';
@@ -644,7 +632,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'Review your leaves here. To request a new leave, contact management.';
 
   @override
-  String get instructorLeaveEmpty => 'No registered leaves in this category.';
+  String get instructorLeaveEmpty => 'No registered leaves.';
 
   @override
   String instructorLeaveFullDay(String date) {
@@ -660,54 +648,5 @@ class AppLocalizationsEn extends AppLocalizations {
   String get instructorAvailableSlot => 'Available slot';
 
   @override
-  String get instructorLeavePeriodLabel => 'Leave period';
-
-  @override
-  String get instructorLeaveDateLabel => 'Date';
-
-  @override
-  String get instructorLeaveFromLabel => 'From';
-
-  @override
-  String get instructorLeaveToLabel => 'To';
-
-  @override
   String get instructorLeaveReasonLabel => 'Reason';
-
-  @override
-  String get instructorLeaveOptional => 'optional';
-
-  @override
-  String get instructorLeaveReasonHint => 'Example: personal appointment';
-
-  @override
-  String get instructorLeaveRequestedDuration => 'Requested duration';
-
-  @override
-  String get instructorLeaveNoConflictTitle => 'Period is available';
-
-  @override
-  String get instructorLeaveNoConflictBody =>
-      'No lessons overlap the selected leave period.';
-
-  @override
-  String get instructorLeaveConflictTitle => 'Booking conflict detected';
-
-  @override
-  String instructorLeaveConflictBody(int count) {
-    return 'Management will be notified about $count conflicting booking(s) before approval.';
-  }
-
-  @override
-  String get instructorLeaveConflictBadge => 'Conflict';
-
-  @override
-  String get instructorLeaveCheckingConflicts =>
-      'Checking this day\'s bookings...';
-
-  @override
-  String get instructorLeaveSubmit => 'Send request';
-
-  @override
-  String get instructorCancel => 'Cancel';
 }

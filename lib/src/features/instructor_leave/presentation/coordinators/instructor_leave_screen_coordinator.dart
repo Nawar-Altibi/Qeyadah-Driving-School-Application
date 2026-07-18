@@ -12,7 +12,7 @@ class InstructorLeaveScreenCoordinator extends StatelessWidget {
   Widget build(BuildContext context) {
     return RouteResumedRefresh(
       onInitialLoad: () => context.read<InstructorLeaveCubit>().load(),
-      onResumed: () => context.read<InstructorLeaveCubit>().load(silent: true),
+      onResumed: () => context.read<InstructorLeaveCubit>().load(),
       child: child,
     );
   }

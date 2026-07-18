@@ -533,9 +533,6 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String get instructorRequestLeave => 'طلب إجازة';
-
-  @override
   String get instructorNavSchedule => 'الجدول';
 
   @override
@@ -553,9 +550,6 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get instructorProfileBio =>
       'أساعد الطلاب على بناء الثقة واكتساب عادات قيادة آمنة، جلسة بعد جلسة.';
-
-  @override
-  String get instructorContactManagement => 'تواصل مع الإدارة';
 
   @override
   String get instructorMetricMonthSessions => 'حصص الشهر';
@@ -615,20 +609,14 @@ class AppLocalizationsAr extends AppLocalizations {
   String get instructorAppVersion => 'قيادة للتدريب · الإصدار 2.4.0';
 
   @override
-  String get instructorLeaveTitle => 'طلب إجازة';
+  String get instructorLeaveTitle => 'قائمة الإجازات';
 
   @override
-  String get instructorLeaveIntroTitle => 'خطط لوقت إجازتك';
+  String get instructorLeaveIntroTitle => 'إجازاتك المسجلة';
 
   @override
   String get instructorLeaveIntroBody =>
-      'اختر الفترة المناسبة وسنراجع التعارضات قبل إرسال الطلب إلى الإدارة.';
-
-  @override
-  String get instructorLeaveHourlyTab => 'إجازة بالساعات';
-
-  @override
-  String get instructorLeaveDailyTab => 'إجازة يومية';
+      'راجع فترات الإجازة المسجّلة في جدولك.';
 
   @override
   String get instructorLeaveAdminNoticeTitle => 'تقديم الإجازة عبر الإدارة';
@@ -638,7 +626,7 @@ class AppLocalizationsAr extends AppLocalizations {
       'يمكنك مراجعة إجازاتك هنا. لطلب إجازة جديدة تواصل مع الإدارة.';
 
   @override
-  String get instructorLeaveEmpty => 'لا توجد إجازات مسجّلة في هذا النوع.';
+  String get instructorLeaveEmpty => 'لا توجد إجازات مسجّلة.';
 
   @override
   String instructorLeaveFullDay(String date) {
@@ -654,54 +642,5 @@ class AppLocalizationsAr extends AppLocalizations {
   String get instructorAvailableSlot => 'موعد متاح';
 
   @override
-  String get instructorLeavePeriodLabel => 'فترة الإجازة';
-
-  @override
-  String get instructorLeaveDateLabel => 'التاريخ';
-
-  @override
-  String get instructorLeaveFromLabel => 'من';
-
-  @override
-  String get instructorLeaveToLabel => 'إلى';
-
-  @override
   String get instructorLeaveReasonLabel => 'السبب';
-
-  @override
-  String get instructorLeaveOptional => 'اختياري';
-
-  @override
-  String get instructorLeaveReasonHint => 'مثال: موعد شخصي';
-
-  @override
-  String get instructorLeaveRequestedDuration => 'المدة المطلوبة';
-
-  @override
-  String get instructorLeaveNoConflictTitle => 'الفترة متاحة';
-
-  @override
-  String get instructorLeaveNoConflictBody =>
-      'لا توجد جلسات متعارضة مع فترة الإجازة المحددة.';
-
-  @override
-  String get instructorLeaveConflictTitle => 'يوجد تعارض مع الحجوزات';
-
-  @override
-  String instructorLeaveConflictBody(int count) {
-    return 'سيتم تنبيه الإدارة بوجود $count حجز متعارض قبل اعتماد الطلب.';
-  }
-
-  @override
-  String get instructorLeaveConflictBadge => 'متعارض';
-
-  @override
-  String get instructorLeaveCheckingConflicts =>
-      'جارٍ التحقق من حجوزات هذا اليوم...';
-
-  @override
-  String get instructorLeaveSubmit => 'إرسال الطلب';
-
-  @override
-  String get instructorCancel => 'إلغاء';
 }

@@ -7,7 +7,6 @@ import 'package:qeyadah_mobile_app/src/core/mappers/core_failure_message_mapper.
 import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_button.dart';
-import 'package:qeyadah_mobile_app/src/core/ui/app_calendar_strip.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_mobile_bottom_nav.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/responsive/app_breakpoints.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor_schedule/presentation/coordinators/instructor_schedule_screen_coordinator.dart';
@@ -93,16 +92,6 @@ class InstructorScheduleScreen extends StatelessWidget {
                   items: _bottomNavItems(context),
                   onItemSelected: (tabId) =>
                       InstructorNavigation.handleBottomNav(context, tabId),
-                ),
-              ),
-              Positioned(
-                left: AppDesignTokens.screenHorizontalPadding,
-                bottom:
-                    AppDesignTokens.bottomNavHeight + AppDesignTokens.spacingLg,
-                child: AppFloatingActionChip(
-                  label: AppLocalizations.of(context).instructorRequestLeave,
-                  onPressed: () =>
-                      InstructorNavigation.openLeaveRequest(context),
                 ),
               ),
             ],

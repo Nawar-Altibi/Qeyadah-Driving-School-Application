@@ -290,14 +290,12 @@
       }
     }
   },
-  "instructorRequestLeave": "Request leave",
   "instructorNavSchedule": "Schedule",
   "instructorNavProfile": "Profile",
   "instructorFeatureComingSoon": "This feature will be available soon.",
   "instructorProfileTitle": "Profile",
   "instructorRoleLabel": "Driving instructor",
   "instructorProfileBio": "I help students build confidence and safe driving habits, one session at a time.",
-  "instructorContactManagement": "Contact management",
   "instructorMetricMonthSessions": "Month sessions",
   "instructorMetricMonthEarnings": "Month earnings",
   "instructorMetricVehicle": "Vehicle",
@@ -317,14 +315,12 @@
   "instructorLanguage": "Language",
   "instructorNotifications": "Notifications",
   "instructorAppVersion": "Qeyadah Instructor · v2.4.0",
-  "instructorLeaveTitle": "Request leave",
-  "instructorLeaveIntroTitle": "Plan your leave time",
-  "instructorLeaveIntroBody": "Choose a suitable period and we will check conflicts before sending the request to management.",
-  "instructorLeaveHourlyTab": "Hourly leave",
-  "instructorLeaveDailyTab": "Daily leave",
+  "instructorLeaveTitle": "Leaves list",
+  "instructorLeaveIntroTitle": "Your registered leaves",
+  "instructorLeaveIntroBody": "Review the leave periods recorded for your schedule.",
   "instructorLeaveAdminNoticeTitle": "Leave requests via management",
   "instructorLeaveAdminNoticeBody": "Review your leaves here. To request a new leave, contact management.",
-  "instructorLeaveEmpty": "No registered leaves in this category.",
+  "instructorLeaveEmpty": "No registered leaves.",
   "instructorLeaveFullDay": "Full day · {date}",
   "@instructorLeaveFullDay": {
     "placeholders": {
@@ -348,27 +344,5 @@
     }
   },
   "instructorAvailableSlot": "Available slot",
-  "instructorLeavePeriodLabel": "Leave period",
-  "instructorLeaveDateLabel": "Date",
-  "instructorLeaveFromLabel": "From",
-  "instructorLeaveToLabel": "To",
-  "instructorLeaveReasonLabel": "Reason",
-  "instructorLeaveOptional": "optional",
-  "instructorLeaveReasonHint": "Example: personal appointment",
-  "instructorLeaveRequestedDuration": "Requested duration",
-  "instructorLeaveNoConflictTitle": "Period is available",
-  "instructorLeaveNoConflictBody": "No lessons overlap the selected leave period.",
-  "instructorLeaveConflictTitle": "Booking conflict detected",
-  "instructorLeaveConflictBody": "Management will be notified about {count} conflicting booking(s) before approval.",
-  "@instructorLeaveConflictBody": {
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
-  "instructorLeaveConflictBadge": "Conflict",
-  "instructorLeaveCheckingConflicts": "Checking this day's bookings...",
-  "instructorLeaveSubmit": "Send request",
-  "instructorCancel": "Cancel"
+  "instructorLeaveReasonLabel": "Reason"
 }

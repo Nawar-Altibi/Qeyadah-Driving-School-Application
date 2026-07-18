@@ -62,17 +62,6 @@ class InstructorRepositoryImpl implements InstructorRepository {
   }
 
   @override
-  FutureEither<InstructorLeaveSubmissionEntity> submitLeave(
-    InstructorLeaveRequestEntity request,
-  ) async {
-    final response = await _remoteDataSource.submitLeave(request);
-    return response.fold(
-      (failure) => left(NetworkFailureMapper.toDomainFailure(failure)),
-      right,
-    );
-  }
-
-  @override
   FutureEither<InstructorDuesEntity> getDues() async {
     final response = await _remoteDataSource.fetchDues();
     return response.fold(

@@ -269,14 +269,12 @@
       }
     }
   },
-  "instructorRequestLeave": "طلب إجازة",
   "instructorNavSchedule": "الجدول",
   "instructorNavProfile": "الملف الشخصي",
   "instructorFeatureComingSoon": "هذه الميزة ستكون متاحة قريباً.",
   "instructorProfileTitle": "الملف الشخصي",
   "instructorRoleLabel": "مدرب قيادة",
   "instructorProfileBio": "أساعد الطلاب على بناء الثقة واكتساب عادات قيادة آمنة، جلسة بعد جلسة.",
-  "instructorContactManagement": "تواصل مع الإدارة",
   "instructorMetricMonthSessions": "حصص الشهر",
   "instructorMetricMonthEarnings": "أرباح الشهر",
   "instructorMetricVehicle": "المركبة",
@@ -296,14 +294,12 @@
   "instructorLanguage": "اللغة",
   "instructorNotifications": "الإشعارات",
   "instructorAppVersion": "قيادة للتدريب · الإصدار 2.4.0",
-  "instructorLeaveTitle": "طلب إجازة",
-  "instructorLeaveIntroTitle": "خطط لوقت إجازتك",
-  "instructorLeaveIntroBody": "اختر الفترة المناسبة وسنراجع التعارضات قبل إرسال الطلب إلى الإدارة.",
-  "instructorLeaveHourlyTab": "إجازة بالساعات",
-  "instructorLeaveDailyTab": "إجازة يومية",
+  "instructorLeaveTitle": "قائمة الإجازات",
+  "instructorLeaveIntroTitle": "إجازاتك المسجلة",
+  "instructorLeaveIntroBody": "راجع فترات الإجازة المسجّلة في جدولك.",
   "instructorLeaveAdminNoticeTitle": "تقديم الإجازة عبر الإدارة",
   "instructorLeaveAdminNoticeBody": "يمكنك مراجعة إجازاتك هنا. لطلب إجازة جديدة تواصل مع الإدارة.",
-  "instructorLeaveEmpty": "لا توجد إجازات مسجّلة في هذا النوع.",
+  "instructorLeaveEmpty": "لا توجد إجازات مسجّلة.",
   "instructorLeaveFullDay": "يوم كامل · {date}",
   "@instructorLeaveFullDay": {
     "placeholders": {
@@ -327,27 +323,6 @@
     }
   },
   "instructorAvailableSlot": "موعد متاح",
-  "instructorLeavePeriodLabel": "فترة الإجازة",
-  "instructorLeaveDateLabel": "التاريخ",
-  "instructorLeaveFromLabel": "من",
-  "instructorLeaveToLabel": "إلى",
   "instructorLeaveReasonLabel": "السبب",
-  "instructorLeaveOptional": "اختياري",
-  "instructorLeaveReasonHint": "مثال: موعد شخصي",
-  "instructorLeaveRequestedDuration": "المدة المطلوبة",
-  "instructorLeaveNoConflictTitle": "الفترة متاحة",
-  "instructorLeaveNoConflictBody": "لا توجد جلسات متعارضة مع فترة الإجازة المحددة.",
-  "instructorLeaveConflictTitle": "يوجد تعارض مع الحجوزات",
-  "instructorLeaveConflictBody": "سيتم تنبيه الإدارة بوجود {count} حجز متعارض قبل اعتماد الطلب.",
-  "@instructorLeaveConflictBody": {
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
-  "instructorLeaveConflictBadge": "متعارض",
-  "instructorLeaveCheckingConflicts": "جارٍ التحقق من حجوزات هذا اليوم...",
-  "instructorLeaveSubmit": "إرسال الطلب",
-  "instructorCancel": "إلغاء"
+  "instructorLeaveReasonLabel": "السبب"
 }

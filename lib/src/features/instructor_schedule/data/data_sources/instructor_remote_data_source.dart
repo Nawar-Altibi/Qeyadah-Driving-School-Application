@@ -15,9 +15,6 @@ abstract interface class InstructorRemoteDataSource {
     DateTime weekStart,
   );
   RemoteResponse<List<InstructorLeaveEntity>> fetchLeaves();
-  RemoteResponse<InstructorLeaveSubmissionEntity> submitLeave(
-    InstructorLeaveRequestEntity request,
-  );
   RemoteResponse<InstructorDuesEntity> fetchDues();
   RemoteResponse<InstructorEarningsEntity> fetchEarningsForDate(DateTime date);
   RemoteResponse<InstructorEarningsEntity> fetchEarningsForMonth(String month);
@@ -170,45 +167,6 @@ class InstructorRemoteDataSourceImpl implements InstructorRemoteDataSource {
       } on Exception {
         return left(
           const InternalServerErrorFailure('Failed to parse instructor leaves'),
-        );
-      }
-    });
-  }
-
-  @override
-  RemoteResponse<InstructorLeaveSubmissionEntity> submitLeave(
-    InstructorLeaveRequestEntity request,
-  ) async {
-    final reason = request.reason?.trim();
-    final body = <String, dynamic>{
-      if (reason != null && reason.isNotEmpty) 'reason': reason,
-      if (request.isFullDay)
-        'date': DateFormat('yyyy-MM-dd').format(request.date!)
-      else ...{
-        'startAt': DateFormat("yyyy-MM-dd'T'HH:mm").format(request.startAt!),
-        'endAt': DateFormat("yyyy-MM-dd'T'HH:mm").format(request.endAt!),
-      },
-    };
-    final response = await _apiHandler.post(
-      Endpoints.instructorMeLeaves,
-      body: body,
-    );
-    return response.fold(left, (json) {
-      try {
-        final data = _unwrapData(json);
-        return right(
-          InstructorLeaveSubmissionEntity(
-            leaveId: (data['leaveId'] as num).toInt(),
-            cancelledBookingsCount:
-                (data['cancelledBookingsCount'] as num?)?.toInt() ?? 0,
-            message: data['message']?.toString() ?? '',
-          ),
-        );
-      } on Exception {
-        return left(
-          const InternalServerErrorFailure(
-            'Failed to parse instructor leave submission',
-          ),
         );
       }
     });

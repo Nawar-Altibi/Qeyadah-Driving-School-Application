@@ -179,55 +179,6 @@ class InstructorLeaveEntity {
   final DateTime createdAt;
 }
 
-class InstructorLeaveRequestEntity {
-  const InstructorLeaveRequestEntity._({
-    required this.date,
-    required this.startAt,
-    required this.endAt,
-    required this.reason,
-  });
-
-  factory InstructorLeaveRequestEntity.fullDay({
-    required DateTime date,
-    String? reason,
-  }) => InstructorLeaveRequestEntity._(
-    date: date,
-    startAt: null,
-    endAt: null,
-    reason: reason,
-  );
-
-  factory InstructorLeaveRequestEntity.hourly({
-    required DateTime startAt,
-    required DateTime endAt,
-    String? reason,
-  }) => InstructorLeaveRequestEntity._(
-    date: null,
-    startAt: startAt,
-    endAt: endAt,
-    reason: reason,
-  );
-
-  final DateTime? date;
-  final DateTime? startAt;
-  final DateTime? endAt;
-  final String? reason;
-
-  bool get isFullDay => date != null;
-}
-
-class InstructorLeaveSubmissionEntity {
-  const InstructorLeaveSubmissionEntity({
-    required this.leaveId,
-    required this.cancelledBookingsCount,
-    required this.message,
-  });
-
-  final int leaveId;
-  final int cancelledBookingsCount;
-  final String message;
-}
-
 class InstructorDueDayEntity {
   const InstructorDueDayEntity({
     required this.expenseDate,

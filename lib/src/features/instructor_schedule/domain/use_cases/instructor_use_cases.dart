@@ -49,16 +49,3 @@ class LoadInstructorDayBookingsUseCase {
     return _repository.getDayBookings(date);
   }
 }
-
-@injectable
-class SubmitInstructorLeaveUseCase {
-  const SubmitInstructorLeaveUseCase(this._repository);
-
-  final InstructorRepository _repository;
-
-  FutureEither<InstructorLeaveSubmissionEntity> call(
-    InstructorLeaveRequestEntity request,
-  ) {
-    return _repository.submitLeave(request);
-  }
-}

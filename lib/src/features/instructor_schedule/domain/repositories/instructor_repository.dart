@@ -9,9 +9,6 @@ abstract interface class InstructorRepository {
     DateTime weekStart,
   );
   FutureEither<List<InstructorLeaveEntity>> getLeaves();
-  FutureEither<InstructorLeaveSubmissionEntity> submitLeave(
-    InstructorLeaveRequestEntity request,
-  );
   FutureEither<InstructorDuesEntity> getDues();
   FutureEither<InstructorEarningsEntity> getEarningsForDate(DateTime date);
   FutureEither<InstructorEarningsEntity> getEarningsForMonth(String month);

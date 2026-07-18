@@ -10,17 +10,22 @@ part 'instructor_leave_state.dart';
 
 @injectable
 class InstructorLeaveCubit
-    extends AppCoreCoreCubit<InstructorLeaveState, List<InstructorLeaveEntity>> {
-  InstructorLeaveCubit(this._loadLeavesUseCase, this._loadDayBookingsUseCase)
-    : super(const InstructorLeaveState());
+    extends
+        AppCoreCoreCubit<InstructorLeaveState, List<InstructorLeaveEntity>> {
+  InstructorLeaveCubit(this._loadLeavesUseCase)
+    : super(
+        const InstructorLeaveState(
+          apiState: ApiState<List<InstructorLeaveEntity>>.initial(),
+        ),
+      );
 
   final LoadInstructorLeavesUseCase _loadLeavesUseCase;
-  final LoadInstructorDayBookingsUseCase _loadDayBookingsUseCase;
   int _loadGeneration = 0;
 
   @override
-  ApiState<List<InstructorLeaveEntity>> getApiState(InstructorLeaveState state) =>
-      state.apiState;
+  ApiState<List<InstructorLeaveEntity>> getApiState(
+    InstructorLeaveState state,
+  ) => state.apiState;
 
   @override
   InstructorLeaveState setApiState(
@@ -28,9 +33,8 @@ class InstructorLeaveCubit
     ApiState<List<InstructorLeaveEntity>> apiState,
   ) => state.copyWith(apiState: apiState);
 
-  Future<void> load({bool silent = false}) async {
+  Future<void> load() async {
     final generation = ++_loadGeneration;
-    emit(state.copyWith(isSilentRefresh: silent));
 
     final result = await _loadLeavesUseCase();
 
@@ -44,31 +48,18 @@ class InstructorLeaveCubit
     result.fold(
       (failure) => emit(
         state.copyWith(
-          isSilentRefresh: false,
           apiState: ApiState<List<InstructorLeaveEntity>>.failed(
             failure,
-            retryFunction: () => load(silent: silent),
+            retryFunction: load,
           ),
         ),
       ),
       (leaves) => emit(
         state.copyWith(
-          isSilentRefresh: false,
           apiState: ApiState<List<InstructorLeaveEntity>>.succeeded(leaves),
         ),
       ),
     );
-  }
-
-  void setLeaveFilter({required bool fullDay}) {
-    emit(state.copyWith(showFullDayOnly: fullDay));
-  }
-
-  Future<List<InstructorBookingEntity>> loadConflictsForDate(
-    DateTime date,
-  ) async {
-    final result = await _loadDayBookingsUseCase(date);
-    return result.getOrElse((_) => const []);
   }
 
   @override

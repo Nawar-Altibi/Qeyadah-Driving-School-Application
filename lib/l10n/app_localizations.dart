@@ -1046,12 +1046,6 @@ abstract class AppLocalizations {
   /// **'{amount} SYP'**
   String instructorCurrencyAmount(int amount);
 
-  /// No description provided for @instructorRequestLeave.
-  ///
-  /// In en, this message translates to:
-  /// **'Request leave'**
-  String get instructorRequestLeave;
-
   /// No description provided for @instructorNavSchedule.
   ///
   /// In en, this message translates to:
@@ -1087,12 +1081,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'I help students build confidence and safe driving habits, one session at a time.'**
   String get instructorProfileBio;
-
-  /// No description provided for @instructorContactManagement.
-  ///
-  /// In en, this message translates to:
-  /// **'Contact management'**
-  String get instructorContactManagement;
 
   /// No description provided for @instructorMetricMonthSessions.
   ///
@@ -1211,32 +1199,20 @@ abstract class AppLocalizations {
   /// No description provided for @instructorLeaveTitle.
   ///
   /// In en, this message translates to:
-  /// **'Request leave'**
+  /// **'Leaves list'**
   String get instructorLeaveTitle;
 
   /// No description provided for @instructorLeaveIntroTitle.
   ///
   /// In en, this message translates to:
-  /// **'Plan your leave time'**
+  /// **'Your registered leaves'**
   String get instructorLeaveIntroTitle;
 
   /// No description provided for @instructorLeaveIntroBody.
   ///
   /// In en, this message translates to:
-  /// **'Choose a suitable period and we will check conflicts before sending the request to management.'**
+  /// **'Review the leave periods recorded for your schedule.'**
   String get instructorLeaveIntroBody;
-
-  /// No description provided for @instructorLeaveHourlyTab.
-  ///
-  /// In en, this message translates to:
-  /// **'Hourly leave'**
-  String get instructorLeaveHourlyTab;
-
-  /// No description provided for @instructorLeaveDailyTab.
-  ///
-  /// In en, this message translates to:
-  /// **'Daily leave'**
-  String get instructorLeaveDailyTab;
 
   /// No description provided for @instructorLeaveAdminNoticeTitle.
   ///
@@ -1253,7 +1229,7 @@ abstract class AppLocalizations {
   /// No description provided for @instructorLeaveEmpty.
   ///
   /// In en, this message translates to:
-  /// **'No registered leaves in this category.'**
+  /// **'No registered leaves.'**
   String get instructorLeaveEmpty;
 
   /// No description provided for @instructorLeaveFullDay.
@@ -1274,101 +1250,11 @@ abstract class AppLocalizations {
   /// **'Available slot'**
   String get instructorAvailableSlot;
 
-  /// No description provided for @instructorLeavePeriodLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Leave period'**
-  String get instructorLeavePeriodLabel;
-
-  /// No description provided for @instructorLeaveDateLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Date'**
-  String get instructorLeaveDateLabel;
-
-  /// No description provided for @instructorLeaveFromLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'From'**
-  String get instructorLeaveFromLabel;
-
-  /// No description provided for @instructorLeaveToLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'To'**
-  String get instructorLeaveToLabel;
-
   /// No description provided for @instructorLeaveReasonLabel.
   ///
   /// In en, this message translates to:
   /// **'Reason'**
   String get instructorLeaveReasonLabel;
-
-  /// No description provided for @instructorLeaveOptional.
-  ///
-  /// In en, this message translates to:
-  /// **'optional'**
-  String get instructorLeaveOptional;
-
-  /// No description provided for @instructorLeaveReasonHint.
-  ///
-  /// In en, this message translates to:
-  /// **'Example: personal appointment'**
-  String get instructorLeaveReasonHint;
-
-  /// No description provided for @instructorLeaveRequestedDuration.
-  ///
-  /// In en, this message translates to:
-  /// **'Requested duration'**
-  String get instructorLeaveRequestedDuration;
-
-  /// No description provided for @instructorLeaveNoConflictTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Period is available'**
-  String get instructorLeaveNoConflictTitle;
-
-  /// No description provided for @instructorLeaveNoConflictBody.
-  ///
-  /// In en, this message translates to:
-  /// **'No lessons overlap the selected leave period.'**
-  String get instructorLeaveNoConflictBody;
-
-  /// No description provided for @instructorLeaveConflictTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Booking conflict detected'**
-  String get instructorLeaveConflictTitle;
-
-  /// No description provided for @instructorLeaveConflictBody.
-  ///
-  /// In en, this message translates to:
-  /// **'Management will be notified about {count} conflicting booking(s) before approval.'**
-  String instructorLeaveConflictBody(int count);
-
-  /// No description provided for @instructorLeaveConflictBadge.
-  ///
-  /// In en, this message translates to:
-  /// **'Conflict'**
-  String get instructorLeaveConflictBadge;
-
-  /// No description provided for @instructorLeaveCheckingConflicts.
-  ///
-  /// In en, this message translates to:
-  /// **'Checking this day\'s bookings...'**
-  String get instructorLeaveCheckingConflicts;
-
-  /// No description provided for @instructorLeaveSubmit.
-  ///
-  /// In en, this message translates to:
-  /// **'Send request'**
-  String get instructorLeaveSubmit;
-
-  /// No description provided for @instructorCancel.
-  ///
-  /// In en, this message translates to:
-  /// **'Cancel'**
-  String get instructorCancel;
 }
 
 class _AppLocalizationsDelegate

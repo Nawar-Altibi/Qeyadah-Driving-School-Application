@@ -14,7 +14,7 @@ abstract final class InstructorNavigation {
     CoreNavigator.toNamed(InstructorProfileScreen.routeName, context: context);
   }
 
-  static void openLeaveRequest(BuildContext context) {
+  static void openLeaves(BuildContext context) {
     CoreNavigator.pushNamed(InstructorLeaveScreen.routeName, context: context);
   }
 

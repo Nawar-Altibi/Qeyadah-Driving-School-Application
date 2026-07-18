@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$InstructorLeaveState {
 
- ApiState<List<InstructorLeaveEntity>> get apiState; bool get isSilentRefresh; bool get showFullDayOnly;
+ ApiState<List<InstructorLeaveEntity>> get apiState;
 /// Create a copy of InstructorLeaveState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $InstructorLeaveStateCopyWith<InstructorLeaveState> get copyWith => _$Instructor
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is InstructorLeaveState&&(identical(other.apiState, apiState) || other.apiState == apiState)&&(identical(other.isSilentRefresh, isSilentRefresh) || other.isSilentRefresh == isSilentRefresh)&&(identical(other.showFullDayOnly, showFullDayOnly) || other.showFullDayOnly == showFullDayOnly));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is InstructorLeaveState&&const DeepCollectionEquality().equals(other.apiState, apiState));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,apiState,isSilentRefresh,showFullDayOnly);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(apiState));
 
 @override
 String toString() {
-  return 'InstructorLeaveState(apiState: $apiState, isSilentRefresh: $isSilentRefresh, showFullDayOnly: $showFullDayOnly)';
+  return 'InstructorLeaveState(apiState: $apiState)';
 }
 
 
@@ -45,11 +45,11 @@ abstract mixin class $InstructorLeaveStateCopyWith<$Res>  {
   factory $InstructorLeaveStateCopyWith(InstructorLeaveState value, $Res Function(InstructorLeaveState) _then) = _$InstructorLeaveStateCopyWithImpl;
 @useResult
 $Res call({
- ApiState<List<InstructorLeaveEntity>> apiState, bool isSilentRefresh, bool showFullDayOnly
+ ApiState<List<InstructorLeaveEntity>> apiState
 });
 
 
-$ApiStateCopyWith<List<InstructorLeaveEntity>, $Res> get apiState;
+
 
 }
 /// @nodoc
@@ -62,24 +62,13 @@ class _$InstructorLeaveStateCopyWithImpl<$Res>
 
 /// Create a copy of InstructorLeaveState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? apiState = null,Object? isSilentRefresh = null,Object? showFullDayOnly = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? apiState = freezed,}) {
   return _then(_self.copyWith(
-apiState: null == apiState ? _self.apiState : apiState // ignore: cast_nullable_to_non_nullable
-as ApiState<List<InstructorLeaveEntity>>,isSilentRefresh: null == isSilentRefresh ? _self.isSilentRefresh : isSilentRefresh // ignore: cast_nullable_to_non_nullable
-as bool,showFullDayOnly: null == showFullDayOnly ? _self.showFullDayOnly : showFullDayOnly // ignore: cast_nullable_to_non_nullable
-as bool,
+apiState: freezed == apiState ? _self.apiState : apiState // ignore: cast_nullable_to_non_nullable
+as ApiState<List<InstructorLeaveEntity>>,
   ));
 }
-/// Create a copy of InstructorLeaveState
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$ApiStateCopyWith<List<InstructorLeaveEntity>, $Res> get apiState {
-  
-  return $ApiStateCopyWith<List<InstructorLeaveEntity>, $Res>(_self.apiState, (value) {
-    return _then(_self.copyWith(apiState: value));
-  });
-}
+
 }
 
 
@@ -161,10 +150,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( ApiState<List<InstructorLeaveEntity>> apiState,  bool isSilentRefresh,  bool showFullDayOnly)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( ApiState<List<InstructorLeaveEntity>> apiState)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _InstructorLeaveState() when $default != null:
-return $default(_that.apiState,_that.isSilentRefresh,_that.showFullDayOnly);case _:
+return $default(_that.apiState);case _:
   return orElse();
 
 }
@@ -182,10 +171,10 @@ return $default(_that.apiState,_that.isSilentRefresh,_that.showFullDayOnly);case
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( ApiState<List<InstructorLeaveEntity>> apiState,  bool isSilentRefresh,  bool showFullDayOnly)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( ApiState<List<InstructorLeaveEntity>> apiState)  $default,) {final _that = this;
 switch (_that) {
 case _InstructorLeaveState():
-return $default(_that.apiState,_that.isSilentRefresh,_that.showFullDayOnly);case _:
+return $default(_that.apiState);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -202,10 +191,10 @@ return $default(_that.apiState,_that.isSilentRefresh,_that.showFullDayOnly);case
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( ApiState<List<InstructorLeaveEntity>> apiState,  bool isSilentRefresh,  bool showFullDayOnly)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( ApiState<List<InstructorLeaveEntity>> apiState)?  $default,) {final _that = this;
 switch (_that) {
 case _InstructorLeaveState() when $default != null:
-return $default(_that.apiState,_that.isSilentRefresh,_that.showFullDayOnly);case _:
+return $default(_that.apiState);case _:
   return null;
 
 }
@@ -217,12 +206,10 @@ return $default(_that.apiState,_that.isSilentRefresh,_that.showFullDayOnly);case
 
 
 class _InstructorLeaveState implements InstructorLeaveState {
-  const _InstructorLeaveState({this.apiState = const ApiState<List<InstructorLeaveEntity>>.initial(), this.isSilentRefresh = false, this.showFullDayOnly = true});
+  const _InstructorLeaveState({required this.apiState});
   
 
-@override@JsonKey() final  ApiState<List<InstructorLeaveEntity>> apiState;
-@override@JsonKey() final  bool isSilentRefresh;
-@override@JsonKey() final  bool showFullDayOnly;
+@override final  ApiState<List<InstructorLeaveEntity>> apiState;
 
 /// Create a copy of InstructorLeaveState
 /// with the given fields replaced by the non-null parameter values.
@@ -234,16 +221,16 @@ _$InstructorLeaveStateCopyWith<_InstructorLeaveState> get copyWith => __$Instruc
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _InstructorLeaveState&&(identical(other.apiState, apiState) || other.apiState == apiState)&&(identical(other.isSilentRefresh, isSilentRefresh) || other.isSilentRefresh == isSilentRefresh)&&(identical(other.showFullDayOnly, showFullDayOnly) || other.showFullDayOnly == showFullDayOnly));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _InstructorLeaveState&&const DeepCollectionEquality().equals(other.apiState, apiState));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,apiState,isSilentRefresh,showFullDayOnly);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(apiState));
 
 @override
 String toString() {
-  return 'InstructorLeaveState(apiState: $apiState, isSilentRefresh: $isSilentRefresh, showFullDayOnly: $showFullDayOnly)';
+  return 'InstructorLeaveState(apiState: $apiState)';
 }
 
 
@@ -254,11 +241,11 @@ abstract mixin class _$InstructorLeaveStateCopyWith<$Res> implements $Instructor
   factory _$InstructorLeaveStateCopyWith(_InstructorLeaveState value, $Res Function(_InstructorLeaveState) _then) = __$InstructorLeaveStateCopyWithImpl;
 @override @useResult
 $Res call({
- ApiState<List<InstructorLeaveEntity>> apiState, bool isSilentRefresh, bool showFullDayOnly
+ ApiState<List<InstructorLeaveEntity>> apiState
 });
 
 
-@override $ApiStateCopyWith<List<InstructorLeaveEntity>, $Res> get apiState;
+
 
 }
 /// @nodoc
@@ -271,25 +258,14 @@ class __$InstructorLeaveStateCopyWithImpl<$Res>
 
 /// Create a copy of InstructorLeaveState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? apiState = null,Object? isSilentRefresh = null,Object? showFullDayOnly = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? apiState = freezed,}) {
   return _then(_InstructorLeaveState(
-apiState: null == apiState ? _self.apiState : apiState // ignore: cast_nullable_to_non_nullable
-as ApiState<List<InstructorLeaveEntity>>,isSilentRefresh: null == isSilentRefresh ? _self.isSilentRefresh : isSilentRefresh // ignore: cast_nullable_to_non_nullable
-as bool,showFullDayOnly: null == showFullDayOnly ? _self.showFullDayOnly : showFullDayOnly // ignore: cast_nullable_to_non_nullable
-as bool,
+apiState: freezed == apiState ? _self.apiState : apiState // ignore: cast_nullable_to_non_nullable
+as ApiState<List<InstructorLeaveEntity>>,
   ));
 }
 
-/// Create a copy of InstructorLeaveState
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$ApiStateCopyWith<List<InstructorLeaveEntity>, $Res> get apiState {
-  
-  return $ApiStateCopyWith<List<InstructorLeaveEntity>, $Res>(_self.apiState, (value) {
-    return _then(_self.copyWith(apiState: value));
-  });
-}
+
 }
 
 // dart format on

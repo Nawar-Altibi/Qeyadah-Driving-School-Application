@@ -225,12 +225,6 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i880.RefreshProfileUseCase>(),
       ),
     );
-    gh.factory<_i686.InstructorLeaveCubit>(
-      () => _i686.InstructorLeaveCubit(
-        gh<_i44.LoadInstructorLeavesUseCase>(),
-        gh<_i44.LoadInstructorDayBookingsUseCase>(),
-      ),
-    );
     gh.factory<_i798.InstructorProfileCubit>(
       () =>
           _i798.InstructorProfileCubit(gh<_i44.LoadInstructorProfileUseCase>()),
@@ -257,6 +251,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i852.RequestRegistrationOtpUseCase>(),
         gh<_i823.RegisterStudentUseCase>(),
       ),
+    );
+    gh.factory<_i686.InstructorLeaveCubit>(
+      () => _i686.InstructorLeaveCubit(gh<_i44.LoadInstructorLeavesUseCase>()),
     );
     gh.factory<_i240.PasswordResetCubit>(
       () => _i240.PasswordResetCubit(
