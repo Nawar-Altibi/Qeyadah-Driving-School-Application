@@ -249,74 +249,80 @@ class _InstructorProfileHeader extends StatelessWidget {
             ),
             SafeArea(
               bottom: false,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(
-                  AppDesignTokens.screenHorizontalPadding,
-                  AppDesignTokens.spacingSm,
-                  AppDesignTokens.screenHorizontalPadding,
-                  AppDesignTokens.spacingXl,
-                ),
-                child: Column(
-                  children: [
-                    Text(
-                      title,
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        color: AppColors.white.withValues(alpha: 0.92),
-                        fontWeight: FontWeight.w700,
+              child: SizedBox(
+                width: double.infinity,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(
+                    AppDesignTokens.screenHorizontalPadding,
+                    AppDesignTokens.spacingSm,
+                    AppDesignTokens.screenHorizontalPadding,
+                    AppDesignTokens.spacingXl,
+                  ),
+                  child: Column(
+                    children: [
+                      Text(
+                        title,
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.titleMedium
+                            ?.copyWith(
+                              color: AppColors.white.withValues(alpha: 0.92),
+                              fontWeight: FontWeight.w700,
+                            ),
                       ),
-                    ),
-                    const SizedBox(height: AppDesignTokens.spacingMd),
-                    Container(
-                      padding: const EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: AppColors.white.withValues(alpha: 0.14),
-                        border: Border.all(
-                          color: AppColors.white.withValues(alpha: 0.28),
-                          width: 2,
+                      const SizedBox(height: AppDesignTokens.spacingLg),
+                      Container(
+                        padding: const EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: AppColors.white.withValues(alpha: 0.14),
+                          border: Border.all(
+                            color: AppColors.white.withValues(alpha: 0.28),
+                            width: 2,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withValues(alpha: 0.18),
+                              blurRadius: 18,
+                              offset: const Offset(0, 8),
+                            ),
+                          ],
                         ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withValues(alpha: 0.18),
-                            blurRadius: 18,
-                            offset: const Offset(0, 8),
-                          ),
-                        ],
+                        child: InstructorAvatar(
+                          initials: InstructorFormatters.initials(name),
+                          size: 84,
+                          tone: InstructorAvatarTone.light,
+                        ),
                       ),
-                      child: InstructorAvatar(
-                        initials: InstructorFormatters.initials(name),
-                        size: 84,
-                        tone: InstructorAvatarTone.light,
+                      const SizedBox(height: AppDesignTokens.spacing),
+                      Text(
+                        name,
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.headlineSmall
+                            ?.copyWith(
+                              color: AppColors.white,
+                              fontWeight: FontWeight.w800,
+                            ),
                       ),
-                    ),
-                    const SizedBox(height: AppDesignTokens.spacing),
-                    Text(
-                      name,
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.headlineSmall
-                          ?.copyWith(
-                            color: AppColors.white,
-                            fontWeight: FontWeight.w800,
-                          ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      roleLabel,
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: AppColors.white.withValues(alpha: 0.78),
+                      const SizedBox(height: 4),
+                      Text(
+                        roleLabel,
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: AppColors.white.withValues(alpha: 0.78),
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: AppDesignTokens.spacingSm),
-                    AppStatusBadge(
-                      label: statusLabel,
-                      tone: isActive
-                          ? AppBadgeTone.success
-                          : AppBadgeTone.neutral,
-                      icon: isActive
-                          ? PhosphorIconsBold.checkCircle
-                          : PhosphorIconsBold.info,
-                    ),
-                  ],
+                      const SizedBox(height: AppDesignTokens.spacingSm),
+                      AppStatusBadge(
+                        label: statusLabel,
+                        tone: isActive
+                            ? AppBadgeTone.success
+                            : AppBadgeTone.neutral,
+                        icon: isActive
+                            ? PhosphorIconsBold.checkCircle
+                            : PhosphorIconsBold.info,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

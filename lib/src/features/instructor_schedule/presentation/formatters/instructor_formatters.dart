@@ -42,7 +42,20 @@ abstract final class InstructorFormatters {
     return DateFormat('d').format(date);
   }
 
-  static String timeLabel(String time) => time;
+  /// Formats API time strings like `08:00:00` as `08:00`.
+  static String timeLabel(String time) {
+    final trimmed = time.trim();
+    final parts = trimmed.split(':');
+    if (parts.length >= 2) {
+      final hour = parts[0].padLeft(2, '0');
+      final minute = parts[1].padLeft(2, '0');
+      return '$hour:$minute';
+    }
+    return trimmed;
+  }
+
+  static String schedulePeriodLabel(String startTime, String endTime) =>
+      '${timeLabel(startTime)} – ${timeLabel(endTime)}';
 
   static String trainingHoursLabel(AppLocalizations l10n, double hours) {
     if (hours == hours.roundToDouble()) {
