@@ -10,12 +10,17 @@ part 'instructor_schedule_state.dart';
 
 @injectable
 class InstructorScheduleCubit
-    extends AppCoreCoreCubit<InstructorScheduleState, InstructorScheduleDashboardEntity> {
+    extends
+        AppCoreCoreCubit<
+          InstructorScheduleState,
+          InstructorScheduleDashboardEntity
+        > {
   InstructorScheduleCubit(this._loadScheduleUseCase)
     : super(const InstructorScheduleState());
 
   final LoadInstructorScheduleUseCase _loadScheduleUseCase;
   int _loadGeneration = 0;
+  DateTime _selectedDate = DateTime.now();
 
   @override
   ApiState<InstructorScheduleDashboardEntity> getApiState(
@@ -28,12 +33,18 @@ class InstructorScheduleCubit
     ApiState<InstructorScheduleDashboardEntity> apiState,
   ) => state.copyWith(apiState: apiState);
 
-  Future<void> load({DateTime? date, bool silent = false}) async {
+  Future<void> load({
+    DateTime? date,
+    InstructorBookingsViewMode? viewMode,
+    bool silent = false,
+  }) async {
     final generation = ++_loadGeneration;
-    final selectedDate = date ?? DateTime.now();
-    emit(state.copyWith(isSilentRefresh: silent));
+    final selectedDate = date ?? _selectedDate;
+    final selectedViewMode = viewMode ?? state.viewMode;
+    _selectedDate = selectedDate;
+    emit(state.copyWith(isSilentRefresh: silent, viewMode: selectedViewMode));
 
-    final result = await _loadScheduleUseCase(selectedDate);
+    final result = await _loadScheduleUseCase(selectedDate, selectedViewMode);
 
     if (!isActiveGeneration(
       capturedGeneration: generation,
@@ -48,7 +59,11 @@ class InstructorScheduleCubit
           isSilentRefresh: false,
           apiState: ApiState<InstructorScheduleDashboardEntity>.failed(
             failure,
-            retryFunction: () => load(date: selectedDate, silent: silent),
+            retryFunction: () => load(
+              date: selectedDate,
+              viewMode: selectedViewMode,
+              silent: silent,
+            ),
           ),
         ),
       ),
@@ -64,6 +79,11 @@ class InstructorScheduleCubit
   }
 
   Future<void> selectDate(DateTime date) => load(date: date);
+
+  Future<void> setViewMode(InstructorBookingsViewMode mode) {
+    if (mode == state.viewMode) return Future.value();
+    return load(date: _selectedDate, viewMode: mode);
+  }
 
   @override
   Future<void> close() {

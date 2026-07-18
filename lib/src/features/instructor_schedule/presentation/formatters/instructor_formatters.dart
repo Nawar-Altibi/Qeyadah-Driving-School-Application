@@ -51,13 +51,12 @@ abstract final class InstructorFormatters {
     return l10n.instructorTrainingHoursDecimal(hours);
   }
 
-  static String trainingTypeLabel(
-    AppLocalizations l10n,
-    InstructorType type,
-  ) {
+  static String trainingTypeLabel(AppLocalizations l10n, InstructorType type) {
     return switch (type) {
       InstructorType.manual => l10n.studentHomeManual,
       InstructorType.automatic => l10n.studentHomeAutomatic,
+      InstructorType.both =>
+        '${l10n.studentHomeManual} / ${l10n.studentHomeAutomatic}',
     };
   }
 
@@ -71,7 +70,8 @@ abstract final class InstructorFormatters {
       InstructorBookingStatus.noShow => l10n.instructorBookingNoShow,
       InstructorBookingStatus.cancelled => l10n.instructorBookingCancelled,
       InstructorBookingStatus.expired => l10n.instructorBookingExpired,
-      InstructorBookingStatus.pendingPayment => l10n.instructorBookingPendingPayment,
+      InstructorBookingStatus.pendingPayment =>
+        l10n.instructorBookingPendingPayment,
     };
   }
 
@@ -122,6 +122,9 @@ abstract final class InstructorFormatters {
 
   static List<DateTime> weekAround(DateTime anchor) {
     final normalized = DateTime(anchor.year, anchor.month, anchor.day);
-    return List.generate(7, (index) => normalized.add(Duration(days: index - 3)));
+    return List.generate(
+      5,
+      (index) => normalized.add(Duration(days: index - 2)),
+    );
   }
 }

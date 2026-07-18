@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$InstructorScheduleState {
 
- ApiState<InstructorScheduleDashboardEntity> get apiState; bool get isSilentRefresh;
+ ApiState<InstructorScheduleDashboardEntity> get apiState; bool get isSilentRefresh; InstructorBookingsViewMode get viewMode;
 /// Create a copy of InstructorScheduleState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $InstructorScheduleStateCopyWith<InstructorScheduleState> get copyWith => _$Inst
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is InstructorScheduleState&&(identical(other.apiState, apiState) || other.apiState == apiState)&&(identical(other.isSilentRefresh, isSilentRefresh) || other.isSilentRefresh == isSilentRefresh));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is InstructorScheduleState&&(identical(other.apiState, apiState) || other.apiState == apiState)&&(identical(other.isSilentRefresh, isSilentRefresh) || other.isSilentRefresh == isSilentRefresh)&&(identical(other.viewMode, viewMode) || other.viewMode == viewMode));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,apiState,isSilentRefresh);
+int get hashCode => Object.hash(runtimeType,apiState,isSilentRefresh,viewMode);
 
 @override
 String toString() {
-  return 'InstructorScheduleState(apiState: $apiState, isSilentRefresh: $isSilentRefresh)';
+  return 'InstructorScheduleState(apiState: $apiState, isSilentRefresh: $isSilentRefresh, viewMode: $viewMode)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $InstructorScheduleStateCopyWith<$Res>  {
   factory $InstructorScheduleStateCopyWith(InstructorScheduleState value, $Res Function(InstructorScheduleState) _then) = _$InstructorScheduleStateCopyWithImpl;
 @useResult
 $Res call({
- ApiState<InstructorScheduleDashboardEntity> apiState, bool isSilentRefresh
+ ApiState<InstructorScheduleDashboardEntity> apiState, bool isSilentRefresh, InstructorBookingsViewMode viewMode
 });
 
 
@@ -62,11 +62,12 @@ class _$InstructorScheduleStateCopyWithImpl<$Res>
 
 /// Create a copy of InstructorScheduleState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? apiState = null,Object? isSilentRefresh = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? apiState = null,Object? isSilentRefresh = null,Object? viewMode = null,}) {
   return _then(_self.copyWith(
 apiState: null == apiState ? _self.apiState : apiState // ignore: cast_nullable_to_non_nullable
 as ApiState<InstructorScheduleDashboardEntity>,isSilentRefresh: null == isSilentRefresh ? _self.isSilentRefresh : isSilentRefresh // ignore: cast_nullable_to_non_nullable
-as bool,
+as bool,viewMode: null == viewMode ? _self.viewMode : viewMode // ignore: cast_nullable_to_non_nullable
+as InstructorBookingsViewMode,
   ));
 }
 /// Create a copy of InstructorScheduleState
@@ -160,10 +161,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( ApiState<InstructorScheduleDashboardEntity> apiState,  bool isSilentRefresh)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( ApiState<InstructorScheduleDashboardEntity> apiState,  bool isSilentRefresh,  InstructorBookingsViewMode viewMode)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _InstructorScheduleState() when $default != null:
-return $default(_that.apiState,_that.isSilentRefresh);case _:
+return $default(_that.apiState,_that.isSilentRefresh,_that.viewMode);case _:
   return orElse();
 
 }
@@ -181,10 +182,10 @@ return $default(_that.apiState,_that.isSilentRefresh);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( ApiState<InstructorScheduleDashboardEntity> apiState,  bool isSilentRefresh)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( ApiState<InstructorScheduleDashboardEntity> apiState,  bool isSilentRefresh,  InstructorBookingsViewMode viewMode)  $default,) {final _that = this;
 switch (_that) {
 case _InstructorScheduleState():
-return $default(_that.apiState,_that.isSilentRefresh);case _:
+return $default(_that.apiState,_that.isSilentRefresh,_that.viewMode);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -201,10 +202,10 @@ return $default(_that.apiState,_that.isSilentRefresh);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( ApiState<InstructorScheduleDashboardEntity> apiState,  bool isSilentRefresh)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( ApiState<InstructorScheduleDashboardEntity> apiState,  bool isSilentRefresh,  InstructorBookingsViewMode viewMode)?  $default,) {final _that = this;
 switch (_that) {
 case _InstructorScheduleState() when $default != null:
-return $default(_that.apiState,_that.isSilentRefresh);case _:
+return $default(_that.apiState,_that.isSilentRefresh,_that.viewMode);case _:
   return null;
 
 }
@@ -216,11 +217,12 @@ return $default(_that.apiState,_that.isSilentRefresh);case _:
 
 
 class _InstructorScheduleState implements InstructorScheduleState {
-  const _InstructorScheduleState({this.apiState = const ApiState<InstructorScheduleDashboardEntity>.initial(), this.isSilentRefresh = false});
+  const _InstructorScheduleState({this.apiState = const ApiState<InstructorScheduleDashboardEntity>.initial(), this.isSilentRefresh = false, this.viewMode = InstructorBookingsViewMode.day});
   
 
 @override@JsonKey() final  ApiState<InstructorScheduleDashboardEntity> apiState;
 @override@JsonKey() final  bool isSilentRefresh;
+@override@JsonKey() final  InstructorBookingsViewMode viewMode;
 
 /// Create a copy of InstructorScheduleState
 /// with the given fields replaced by the non-null parameter values.
@@ -232,16 +234,16 @@ _$InstructorScheduleStateCopyWith<_InstructorScheduleState> get copyWith => __$I
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _InstructorScheduleState&&(identical(other.apiState, apiState) || other.apiState == apiState)&&(identical(other.isSilentRefresh, isSilentRefresh) || other.isSilentRefresh == isSilentRefresh));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _InstructorScheduleState&&(identical(other.apiState, apiState) || other.apiState == apiState)&&(identical(other.isSilentRefresh, isSilentRefresh) || other.isSilentRefresh == isSilentRefresh)&&(identical(other.viewMode, viewMode) || other.viewMode == viewMode));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,apiState,isSilentRefresh);
+int get hashCode => Object.hash(runtimeType,apiState,isSilentRefresh,viewMode);
 
 @override
 String toString() {
-  return 'InstructorScheduleState(apiState: $apiState, isSilentRefresh: $isSilentRefresh)';
+  return 'InstructorScheduleState(apiState: $apiState, isSilentRefresh: $isSilentRefresh, viewMode: $viewMode)';
 }
 
 
@@ -252,7 +254,7 @@ abstract mixin class _$InstructorScheduleStateCopyWith<$Res> implements $Instruc
   factory _$InstructorScheduleStateCopyWith(_InstructorScheduleState value, $Res Function(_InstructorScheduleState) _then) = __$InstructorScheduleStateCopyWithImpl;
 @override @useResult
 $Res call({
- ApiState<InstructorScheduleDashboardEntity> apiState, bool isSilentRefresh
+ ApiState<InstructorScheduleDashboardEntity> apiState, bool isSilentRefresh, InstructorBookingsViewMode viewMode
 });
 
 
@@ -269,11 +271,12 @@ class __$InstructorScheduleStateCopyWithImpl<$Res>
 
 /// Create a copy of InstructorScheduleState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? apiState = null,Object? isSilentRefresh = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? apiState = null,Object? isSilentRefresh = null,Object? viewMode = null,}) {
   return _then(_InstructorScheduleState(
 apiState: null == apiState ? _self.apiState : apiState // ignore: cast_nullable_to_non_nullable
 as ApiState<InstructorScheduleDashboardEntity>,isSilentRefresh: null == isSilentRefresh ? _self.isSilentRefresh : isSilentRefresh // ignore: cast_nullable_to_non_nullable
-as bool,
+as bool,viewMode: null == viewMode ? _self.viewMode : viewMode // ignore: cast_nullable_to_non_nullable
+as InstructorBookingsViewMode,
   ));
 }
 

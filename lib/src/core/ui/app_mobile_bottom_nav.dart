@@ -104,7 +104,12 @@ class _BottomNavButton extends StatelessWidget {
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(item.icon, size: 19, color: color),
+                  Icon(
+                    item.icon,
+                    size: 19,
+                    color: color,
+                    textDirection: TextDirection.ltr,
+                  ),
                   const SizedBox(height: 3),
                   Text(
                     item.label,

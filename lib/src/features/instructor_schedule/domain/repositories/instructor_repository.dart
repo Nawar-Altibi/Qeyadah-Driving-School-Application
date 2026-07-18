@@ -5,12 +5,19 @@ abstract interface class InstructorRepository {
   FutureEither<InstructorProfileEntity> getProfile();
   FutureEither<List<InstructorScheduleDayEntity>> getWeeklySchedule();
   FutureEither<List<InstructorBookingEntity>> getDayBookings(DateTime date);
+  FutureEither<List<InstructorBookingEntity>> getWeekBookings(
+    DateTime weekStart,
+  );
   FutureEither<List<InstructorLeaveEntity>> getLeaves();
+  FutureEither<InstructorLeaveSubmissionEntity> submitLeave(
+    InstructorLeaveRequestEntity request,
+  );
   FutureEither<InstructorDuesEntity> getDues();
   FutureEither<InstructorEarningsEntity> getEarningsForDate(DateTime date);
   FutureEither<InstructorEarningsEntity> getEarningsForMonth(String month);
   FutureEither<InstructorScheduleDashboardEntity> loadScheduleDashboard(
     DateTime selectedDate,
+    InstructorBookingsViewMode viewMode,
   );
   FutureEither<InstructorProfileDashboardEntity> loadProfileDashboard();
 }

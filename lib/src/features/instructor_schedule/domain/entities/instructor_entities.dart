@@ -2,11 +2,19 @@ import 'package:qeyadah_mobile_app/src/shared/enums/instructor_booking_status.da
 import 'package:qeyadah_mobile_app/src/shared/enums/instructor_day_of_week.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/instructor_type.dart';
 
+enum InstructorBookingsViewMode {
+  day,
+  week;
+
+  String get apiValue => name;
+}
+
 class InstructorProfileEntity {
   const InstructorProfileEntity({
     required this.instructorId,
     required this.userId,
     required this.name,
+    this.phone = '',
     required this.gender,
     required this.instructorType,
     required this.accountStatus,
@@ -15,9 +23,23 @@ class InstructorProfileEntity {
     this.leaveStatus,
   });
 
+  factory InstructorProfileEntity.placeholder() =>
+      const InstructorProfileEntity(
+        instructorId: 0,
+        userId: 0,
+        name: 'Placeholder Instructor Name',
+        phone: '0999000000',
+        gender: 'MALE',
+        instructorType: InstructorType.manual,
+        accountStatus: 'ACTIVE',
+        sessionWage: 100,
+        todayLessonsCount: 3,
+      );
+
   final int instructorId;
   final int userId;
   final String name;
+  final String phone;
   final String gender;
   final InstructorType instructorType;
   final String accountStatus;
@@ -32,6 +54,13 @@ class InstructorStudentEntity {
     required this.name,
     required this.phone,
   });
+
+  factory InstructorStudentEntity.placeholder() =>
+      const InstructorStudentEntity(
+        id: 0,
+        name: 'Placeholder Student Name',
+        phone: '0999000000',
+      );
 
   final int id;
   final String name;
@@ -60,6 +89,21 @@ class InstructorBookingEntity {
   final InstructorType trainingType;
   final String vehicleSource;
   final InstructorStudentEntity student;
+
+  factory InstructorBookingEntity.placeholder({DateTime? date, int id = 1}) {
+    final resolvedDate = date ?? DateTime(2026, 7, 5);
+    return InstructorBookingEntity(
+      id: id,
+      date: resolvedDate,
+      startTime: '09:00',
+      endTime: '10:00',
+      bookingStatus: InstructorBookingStatus.booked,
+      paymentStatus: 'PAID',
+      trainingType: InstructorType.manual,
+      vehicleSource: 'SCHOOL',
+      student: InstructorStudentEntity.placeholder(),
+    );
+  }
 
   DateTime get startDateTime => _combineDateAndTime(date, startTime);
   DateTime get endDateTime => _combineDateAndTime(date, endTime);
@@ -90,6 +134,15 @@ class InstructorScheduleDayEntity {
     required this.periods,
   });
 
+  factory InstructorScheduleDayEntity.placeholderForDate(DateTime date) {
+    return InstructorScheduleDayEntity(
+      dayOfWeek: InstructorDayOfWeek.fromDateTime(date).apiValue,
+      periods: const [
+        InstructorSchedulePeriodEntity(startTime: '08:00', endTime: '18:00'),
+      ],
+    );
+  }
+
   final String dayOfWeek;
   final List<InstructorSchedulePeriodEntity> periods;
 }
@@ -104,12 +157,75 @@ class InstructorLeaveEntity {
     required this.createdAt,
   });
 
+  factory InstructorLeaveEntity.placeholder({
+    bool isFullDay = false,
+    int id = 1,
+  }) {
+    return InstructorLeaveEntity(
+      id: id,
+      startAt: DateTime(2026, 7, 10, 9),
+      endAt: DateTime(2026, 7, 10, 17),
+      reason: 'Placeholder leave reason text',
+      isFullDay: isFullDay,
+      createdAt: DateTime(2026, 7),
+    );
+  }
+
   final int id;
   final DateTime startAt;
   final DateTime endAt;
   final String? reason;
   final bool isFullDay;
   final DateTime createdAt;
+}
+
+class InstructorLeaveRequestEntity {
+  const InstructorLeaveRequestEntity._({
+    required this.date,
+    required this.startAt,
+    required this.endAt,
+    required this.reason,
+  });
+
+  factory InstructorLeaveRequestEntity.fullDay({
+    required DateTime date,
+    String? reason,
+  }) => InstructorLeaveRequestEntity._(
+    date: date,
+    startAt: null,
+    endAt: null,
+    reason: reason,
+  );
+
+  factory InstructorLeaveRequestEntity.hourly({
+    required DateTime startAt,
+    required DateTime endAt,
+    String? reason,
+  }) => InstructorLeaveRequestEntity._(
+    date: null,
+    startAt: startAt,
+    endAt: endAt,
+    reason: reason,
+  );
+
+  final DateTime? date;
+  final DateTime? startAt;
+  final DateTime? endAt;
+  final String? reason;
+
+  bool get isFullDay => date != null;
+}
+
+class InstructorLeaveSubmissionEntity {
+  const InstructorLeaveSubmissionEntity({
+    required this.leaveId,
+    required this.cancelledBookingsCount,
+    required this.message,
+  });
+
+  final int leaveId;
+  final int cancelledBookingsCount;
+  final String message;
 }
 
 class InstructorDueDayEntity {
@@ -125,10 +241,7 @@ class InstructorDueDayEntity {
 }
 
 class InstructorDuesEntity {
-  const InstructorDuesEntity({
-    required this.dues,
-    required this.grandTotal,
-  });
+  const InstructorDuesEntity({required this.dues, required this.grandTotal});
 
   final List<InstructorDueDayEntity> dues;
   final int grandTotal;
@@ -166,6 +279,15 @@ class InstructorEarningsEntity {
     required this.sessions,
   });
 
+  factory InstructorEarningsEntity.placeholder() =>
+      const InstructorEarningsEntity(
+        periodType: 'month',
+        month: '2026-07',
+        monthSessionsCount: 12,
+        monthTotal: 2400,
+        sessions: [],
+      );
+
   final String periodType;
   final DateTime? date;
   final String? month;
@@ -180,18 +302,59 @@ class InstructorScheduleDashboardEntity {
   const InstructorScheduleDashboardEntity({
     required this.profile,
     required this.selectedDate,
+    required this.viewMode,
     required this.bookings,
     required this.weeklySchedule,
   });
 
+  factory InstructorScheduleDashboardEntity.placeholder() {
+    final today = DateTime.now();
+    final selectedDate = DateTime(today.year, today.month, today.day);
+    return InstructorScheduleDashboardEntity(
+      profile: InstructorProfileEntity.placeholder(),
+      selectedDate: selectedDate,
+      viewMode: InstructorBookingsViewMode.day,
+      bookings: List<InstructorBookingEntity>.generate(
+        3,
+        (index) => InstructorBookingEntity.placeholder(
+          date: selectedDate,
+          id: index + 1,
+        ),
+      ),
+      weeklySchedule: [
+        InstructorScheduleDayEntity.placeholderForDate(selectedDate),
+      ],
+    );
+  }
+
   final InstructorProfileEntity profile;
   final DateTime selectedDate;
+  final InstructorBookingsViewMode viewMode;
   final List<InstructorBookingEntity> bookings;
   final List<InstructorScheduleDayEntity> weeklySchedule;
 
-  int get sessionCount =>
-      bookings.where((b) => b.bookingStatus == InstructorBookingStatus.booked ||
-          b.bookingStatus == InstructorBookingStatus.completed).length;
+  Map<DateTime, List<InstructorBookingEntity>> get bookingsByDate {
+    final grouped = <DateTime, List<InstructorBookingEntity>>{};
+    final sortedBookings = [...bookings]
+      ..sort((a, b) => a.startDateTime.compareTo(b.startDateTime));
+    for (final booking in sortedBookings) {
+      final date = DateTime(
+        booking.date.year,
+        booking.date.month,
+        booking.date.day,
+      );
+      grouped.putIfAbsent(date, () => []).add(booking);
+    }
+    return grouped;
+  }
+
+  int get sessionCount => bookings
+      .where(
+        (b) =>
+            b.bookingStatus == InstructorBookingStatus.booked ||
+            b.bookingStatus == InstructorBookingStatus.completed,
+      )
+      .length;
 
   double get trainingHours {
     var totalMinutes = 0;
@@ -219,9 +382,11 @@ class InstructorScheduleDashboardEntity {
     }
     if (availableMinutes <= 0) return 0;
     final bookedMinutes = bookings
-        .where((b) =>
-            b.bookingStatus != InstructorBookingStatus.cancelled &&
-            b.bookingStatus != InstructorBookingStatus.expired)
+        .where(
+          (b) =>
+              b.bookingStatus != InstructorBookingStatus.cancelled &&
+              b.bookingStatus != InstructorBookingStatus.expired,
+        )
         .fold<int>(0, (sum, b) => sum + b.duration.inMinutes);
     return ((bookedMinutes / availableMinutes) * 100).round().clamp(0, 100);
   }
@@ -230,9 +395,11 @@ class InstructorScheduleDashboardEntity {
     final startParts = start.split(':');
     final endParts = end.split(':');
     final startMinutes =
-        (int.tryParse(startParts[0]) ?? 0) * 60 + (int.tryParse(startParts[1]) ?? 0);
+        (int.tryParse(startParts[0]) ?? 0) * 60 +
+        (int.tryParse(startParts[1]) ?? 0);
     final endMinutes =
-        (int.tryParse(endParts[0]) ?? 0) * 60 + (int.tryParse(endParts[1]) ?? 0);
+        (int.tryParse(endParts[0]) ?? 0) * 60 +
+        (int.tryParse(endParts[1]) ?? 0);
     return endMinutes - startMinutes;
   }
 }
@@ -245,6 +412,15 @@ class InstructorProfileDashboardEntity {
     required this.monthEarnings,
     required this.leaves,
   });
+
+  factory InstructorProfileDashboardEntity.placeholder() =>
+      InstructorProfileDashboardEntity(
+        profile: InstructorProfileEntity.placeholder(),
+        weeklySchedule: const [],
+        dues: const InstructorDuesEntity(dues: [], grandTotal: 0),
+        monthEarnings: InstructorEarningsEntity.placeholder(),
+        leaves: const [],
+      );
 
   final InstructorProfileEntity profile;
   final List<InstructorScheduleDayEntity> weeklySchedule;

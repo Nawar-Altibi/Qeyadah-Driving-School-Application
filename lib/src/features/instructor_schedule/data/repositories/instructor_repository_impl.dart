@@ -1,6 +1,5 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:injectable/injectable.dart';
-import 'package:intl/intl.dart';
 import 'package:qeyadah_mobile_app/src/core/error_handling/network_failure_mapper.dart';
 import 'package:qeyadah_mobile_app/src/core/typedefs/app_typedefs.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor_schedule/data/data_sources/instructor_remote_data_source.dart';
@@ -43,8 +42,30 @@ class InstructorRepositoryImpl implements InstructorRepository {
   }
 
   @override
+  FutureEither<List<InstructorBookingEntity>> getWeekBookings(
+    DateTime weekStart,
+  ) async {
+    final response = await _remoteDataSource.fetchWeekBookings(weekStart);
+    return response.fold(
+      (failure) => left(NetworkFailureMapper.toDomainFailure(failure)),
+      right,
+    );
+  }
+
+  @override
   FutureEither<List<InstructorLeaveEntity>> getLeaves() async {
     final response = await _remoteDataSource.fetchLeaves();
+    return response.fold(
+      (failure) => left(NetworkFailureMapper.toDomainFailure(failure)),
+      right,
+    );
+  }
+
+  @override
+  FutureEither<InstructorLeaveSubmissionEntity> submitLeave(
+    InstructorLeaveRequestEntity request,
+  ) async {
+    final response = await _remoteDataSource.submitLeave(request);
     return response.fold(
       (failure) => left(NetworkFailureMapper.toDomainFailure(failure)),
       right,
@@ -85,18 +106,23 @@ class InstructorRepositoryImpl implements InstructorRepository {
   @override
   FutureEither<InstructorScheduleDashboardEntity> loadScheduleDashboard(
     DateTime selectedDate,
+    InstructorBookingsViewMode viewMode,
   ) async {
     final profileResult = await getProfile();
     return profileResult.fold(left, (profile) async {
       final scheduleResult = await getWeeklySchedule();
       return scheduleResult.fold(left, (weeklySchedule) async {
-        final bookingsResult = await getDayBookings(selectedDate);
+        final bookingsResult = await switch (viewMode) {
+          InstructorBookingsViewMode.day => getDayBookings(selectedDate),
+          InstructorBookingsViewMode.week => getWeekBookings(selectedDate),
+        };
         return bookingsResult.fold(
           left,
           (bookings) => right(
             InstructorScheduleDashboardEntity(
               profile: profile,
               selectedDate: selectedDate,
+              viewMode: viewMode,
               bookings: bookings,
               weeklySchedule: weeklySchedule,
             ),
@@ -109,30 +135,20 @@ class InstructorRepositoryImpl implements InstructorRepository {
   @override
   FutureEither<InstructorProfileDashboardEntity> loadProfileDashboard() async {
     final profileResult = await getProfile();
-    return profileResult.fold(left, (profile) async {
-      final scheduleResult = await getWeeklySchedule();
-      return scheduleResult.fold(left, (weeklySchedule) async {
-        final duesResult = await getDues();
-        return duesResult.fold(left, (dues) async {
-          final month = DateFormat('yyyy-MM').format(DateTime.now());
-          final earningsResult = await getEarningsForMonth(month);
-          return earningsResult.fold(left, (monthEarnings) async {
-            final leavesResult = await getLeaves();
-            return leavesResult.fold(
-              left,
-              (leaves) => right(
-                InstructorProfileDashboardEntity(
-                  profile: profile,
-                  weeklySchedule: weeklySchedule,
-                  dues: dues,
-                  monthEarnings: monthEarnings,
-                  leaves: leaves,
-                ),
-              ),
-            );
-          });
-        });
-      });
-    });
+    return profileResult.map(
+      (profile) => InstructorProfileDashboardEntity(
+        profile: profile,
+        weeklySchedule: const [],
+        dues: const InstructorDuesEntity(dues: [], grandTotal: 0),
+        monthEarnings: const InstructorEarningsEntity(
+          periodType: 'month',
+          month: '',
+          monthSessionsCount: 0,
+          monthTotal: 0,
+          sessions: [],
+        ),
+        leaves: const [],
+      ),
+    );
   }
 }

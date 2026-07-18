@@ -7,24 +7,15 @@ import 'package:qeyadah_mobile_app/src/features/instructor_schedule/presentation
 
 abstract final class InstructorNavigation {
   static void openSchedule(BuildContext context) {
-    CoreNavigator.toNamed(
-      InstructorScheduleScreen.routeName,
-      context: context,
-    );
+    CoreNavigator.toNamed(InstructorScheduleScreen.routeName, context: context);
   }
 
   static void openProfile(BuildContext context) {
-    CoreNavigator.toNamed(
-      InstructorProfileScreen.routeName,
-      context: context,
-    );
+    CoreNavigator.toNamed(InstructorProfileScreen.routeName, context: context);
   }
 
   static void openLeaveRequest(BuildContext context) {
-    CoreNavigator.pushNamed(
-      InstructorLeaveScreen.routeName,
-      context: context,
-    );
+    CoreNavigator.pushNamed(InstructorLeaveScreen.routeName, context: context);
   }
 
   static void handleBottomNav(BuildContext context, String tabId) {
@@ -40,8 +31,8 @@ abstract final class InstructorNavigation {
 
   static void showComingSoon(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(l10n.instructorFeatureComingSoon)),
-    );
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(l10n.instructorFeatureComingSoon)));
   }
 }

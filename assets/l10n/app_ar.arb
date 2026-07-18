@@ -1,6 +1,6 @@
 {
   "@@locale": "ar",
-  "appName": "درايف وايز",
+  "appName": "قيادة",
   "welcome": "مرحباً",
   "login": "تسجيل الدخول",
   "logout": "تسجيل الخروج",
@@ -221,6 +221,10 @@
   },
   "instructorBookedLabel": "محجوز",
   "instructorDailyTimeline": "الجدول اليومي",
+  "instructorViewDay": "يوم",
+  "instructorViewWeek": "أسبوع",
+  "instructorWeeklyBookings": "الحجوزات الأسبوعية",
+  "instructorNoSessionsThisWeek": "لا توجد حصص هذا الأسبوع",
   "instructorLiveSchedule": "جدول مباشر",
   "instructorNoSessionsToday": "لا توجد جلسات في هذا اليوم.",
   "instructorBookingConfirmed": "مؤكد",
@@ -278,13 +282,23 @@
   "instructorMetricVehicle": "المركبة",
   "instructorAccountPreferences": "الحساب والتفضيلات",
   "instructorProfileData": "بيانات الملف الشخصي",
+  "instructorProfileGender": "الجنس",
+  "instructorProfileGenderMale": "ذكر",
+  "instructorProfileGenderFemale": "أنثى",
+  "instructorProfileTrainingType": "نوع التدريب",
+  "instructorProfileAccountStatus": "حالة الحساب",
+  "instructorProfileStatusActive": "نشط",
+  "instructorProfileSessionWage": "أجرة الجلسة",
+  "instructorProfileTodayLessons": "جلسات اليوم",
+  "instructorProfileLeaveStatus": "حالة الإجازة",
+  "instructorProfileNoLeave": "لا توجد إجازة حالياً",
   "instructorSchedulePreferences": "تفضيلات الجدول",
   "instructorLanguage": "اللغة",
   "instructorNotifications": "الإشعارات",
   "instructorAppVersion": "قيادة للتدريب · الإصدار 2.4.0",
   "instructorLeaveTitle": "طلب إجازة",
   "instructorLeaveIntroTitle": "خطط لوقت إجازتك",
-  "instructorLeaveIntroBody": "يعرض التطبيق إجازاتك المسجّلة. تقديم طلب إجازة جديد يتم عبر الإدارة.",
+  "instructorLeaveIntroBody": "اختر الفترة المناسبة وسنراجع التعارضات قبل إرسال الطلب إلى الإدارة.",
   "instructorLeaveHourlyTab": "إجازة بالساعات",
   "instructorLeaveDailyTab": "إجازة يومية",
   "instructorLeaveAdminNoticeTitle": "تقديم الإجازة عبر الإدارة",
@@ -312,5 +326,28 @@
       }
     }
   },
+  "instructorAvailableSlot": "موعد متاح",
+  "instructorLeavePeriodLabel": "فترة الإجازة",
+  "instructorLeaveDateLabel": "التاريخ",
+  "instructorLeaveFromLabel": "من",
+  "instructorLeaveToLabel": "إلى",
+  "instructorLeaveReasonLabel": "السبب",
+  "instructorLeaveOptional": "اختياري",
+  "instructorLeaveReasonHint": "مثال: موعد شخصي",
+  "instructorLeaveRequestedDuration": "المدة المطلوبة",
+  "instructorLeaveNoConflictTitle": "الفترة متاحة",
+  "instructorLeaveNoConflictBody": "لا توجد جلسات متعارضة مع فترة الإجازة المحددة.",
+  "instructorLeaveConflictTitle": "يوجد تعارض مع الحجوزات",
+  "instructorLeaveConflictBody": "سيتم تنبيه الإدارة بوجود {count} حجز متعارض قبل اعتماد الطلب.",
+  "@instructorLeaveConflictBody": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "instructorLeaveConflictBadge": "متعارض",
+  "instructorLeaveCheckingConflicts": "جارٍ التحقق من حجوزات هذا اليوم...",
+  "instructorLeaveSubmit": "إرسال الطلب",
   "instructorCancel": "إلغاء"
 }

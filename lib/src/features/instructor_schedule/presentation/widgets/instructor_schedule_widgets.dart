@@ -36,15 +36,15 @@ class InstructorScheduleGreetingHeader extends StatelessWidget {
             children: [
               Text(
                 l10n.instructorWelcomeBackEyebrow,
-                style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                  color: AppColors.muted,
-                ),
+                style: Theme.of(
+                  context,
+                ).textTheme.labelSmall?.copyWith(color: AppColors.muted),
               ),
               Text(
                 InstructorFormatters.welcomeBack(l10n, name),
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.w800,
-                ),
+                style: Theme.of(
+                  context,
+                ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
               ),
             ],
           ),
@@ -172,9 +172,9 @@ class InstructorTimelineSection extends StatelessWidget {
       return AppCard(
         child: Text(
           l10n.instructorNoSessionsToday,
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-            color: AppColors.muted,
-          ),
+          style: Theme.of(
+            context,
+          ).textTheme.bodyMedium?.copyWith(color: AppColors.muted),
         ),
       );
     }
@@ -248,7 +248,6 @@ class _TimelineRow extends StatelessWidget {
                     boxShadow: [
                       BoxShadow(
                         color: AppColors.brandPrimary.withValues(alpha: 0.2),
-                        blurRadius: 0,
                         spreadRadius: 1,
                       ),
                     ],
@@ -269,7 +268,10 @@ class _TimelineRow extends StatelessWidget {
                 child: DecoratedBox(
                   decoration: const BoxDecoration(
                     border: Border(
-                      right: BorderSide(color: AppColors.brandPrimary, width: 3),
+                      right: BorderSide(
+                        color: AppColors.brandPrimary,
+                        width: 3,
+                      ),
                     ),
                   ),
                   child: Padding(
@@ -291,7 +293,8 @@ class _TimelineRow extends StatelessWidget {
                                 l10n,
                                 booking.bookingStatus,
                               ),
-                              tone: booking.bookingStatus ==
+                              tone:
+                                  booking.bookingStatus ==
                                       InstructorBookingStatus.booked
                                   ? AppBadgeTone.success
                                   : AppBadgeTone.neutral,
@@ -309,9 +312,8 @@ class _TimelineRow extends StatelessWidget {
                         const SizedBox(height: 4),
                         Text(
                           '${InstructorFormatters.vehicleSourceLabel(l10n, booking.vehicleSource)} · ${InstructorFormatters.durationLabel(l10n, booking.duration)}',
-                          style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                            color: AppColors.muted,
-                          ),
+                          style: Theme.of(context).textTheme.labelSmall
+                              ?.copyWith(color: AppColors.muted),
                         ),
                       ],
                     ),

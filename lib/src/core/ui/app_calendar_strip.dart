@@ -38,7 +38,7 @@ class AppCalendarStrip extends StatelessWidget {
               onTap: () => onDaySelected(day),
             ),
           ),
-          if (day != days.last) const SizedBox(width: 6),
+          if (day != days.last) const SizedBox(width: 8),
         ],
       ],
     );
@@ -76,7 +76,7 @@ class _CalendarDayButton extends StatelessWidget {
         onTap: onTap,
         borderRadius: BorderRadius.circular(14),
         child: SizedBox(
-          height: 62,
+          height: 70,
           child: Stack(
             alignment: Alignment.center,
             children: [
@@ -143,20 +143,20 @@ class AppFloatingActionChip extends StatelessWidget {
         onTap: onPressed,
         borderRadius: BorderRadius.circular(16),
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(7, 7, 18, 7),
+          padding: const EdgeInsets.fromLTRB(10, 10, 22, 10),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
-                width: 34,
-                height: 34,
+                width: 38,
+                height: 38,
                 decoration: BoxDecoration(
                   color: AppColors.white.withValues(alpha: 0.13),
                   borderRadius: BorderRadius.circular(11),
                 ),
                 child: Icon(icon, color: AppColors.white, size: 22),
               ),
-              const SizedBox(width: 9),
+              const SizedBox(width: 12),
               Text(
                 label,
                 style: Theme.of(context).textTheme.labelLarge?.copyWith(
@@ -239,16 +239,20 @@ class InstructorBookedRing extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 66,
-      height: 66,
+      width: 88,
+      height: 88,
       child: Stack(
         alignment: Alignment.center,
         children: [
-          CircularProgressIndicator(
-            value: percent / 100,
-            strokeWidth: 5,
-            backgroundColor: AppColors.white.withValues(alpha: 0.18),
-            color: const Color(0xFFCCE9DA),
+          SizedBox(
+            width: 64,
+            height: 64,
+            child: CircularProgressIndicator(
+              value: percent / 100,
+              strokeWidth: 4.5,
+              backgroundColor: AppColors.white.withValues(alpha: 0.18),
+              color: const Color(0xFFCCE9DA),
+            ),
           ),
           Column(
             mainAxisSize: MainAxisSize.min,
@@ -303,7 +307,11 @@ class InstructorSettingsRow extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Icon(icon, size: 19, color: danger ? AppColors.danger : AppColors.brandPrimary),
+            Icon(
+              icon,
+              size: 19,
+              color: danger ? AppColors.danger : AppColors.brandPrimary,
+            ),
             const SizedBox(width: AppDesignTokens.spacing),
             Expanded(
               child: Text(

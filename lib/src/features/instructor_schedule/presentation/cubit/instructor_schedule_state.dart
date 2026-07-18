@@ -6,5 +6,7 @@ abstract class InstructorScheduleState with _$InstructorScheduleState {
     @Default(ApiState<InstructorScheduleDashboardEntity>.initial())
     ApiState<InstructorScheduleDashboardEntity> apiState,
     @Default(false) bool isSilentRefresh,
+    @Default(InstructorBookingsViewMode.day)
+    InstructorBookingsViewMode viewMode,
   }) = _InstructorScheduleState;
 }

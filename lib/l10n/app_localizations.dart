@@ -101,7 +101,7 @@ abstract class AppLocalizations {
   /// No description provided for @appName.
   ///
   /// In en, this message translates to:
-  /// **'Drive Wise'**
+  /// **'Qeyadah'**
   String get appName;
 
   /// No description provided for @welcome.
@@ -944,6 +944,30 @@ abstract class AppLocalizations {
   /// **'Daily timeline'**
   String get instructorDailyTimeline;
 
+  /// No description provided for @instructorViewDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Day'**
+  String get instructorViewDay;
+
+  /// No description provided for @instructorViewWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'Week'**
+  String get instructorViewWeek;
+
+  /// No description provided for @instructorWeeklyBookings.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly bookings'**
+  String get instructorWeeklyBookings;
+
+  /// No description provided for @instructorNoSessionsThisWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'No sessions this week'**
+  String get instructorNoSessionsThisWeek;
+
   /// No description provided for @instructorLiveSchedule.
   ///
   /// In en, this message translates to:
@@ -1100,6 +1124,66 @@ abstract class AppLocalizations {
   /// **'Profile data'**
   String get instructorProfileData;
 
+  /// No description provided for @instructorProfileGender.
+  ///
+  /// In en, this message translates to:
+  /// **'Gender'**
+  String get instructorProfileGender;
+
+  /// No description provided for @instructorProfileGenderMale.
+  ///
+  /// In en, this message translates to:
+  /// **'Male'**
+  String get instructorProfileGenderMale;
+
+  /// No description provided for @instructorProfileGenderFemale.
+  ///
+  /// In en, this message translates to:
+  /// **'Female'**
+  String get instructorProfileGenderFemale;
+
+  /// No description provided for @instructorProfileTrainingType.
+  ///
+  /// In en, this message translates to:
+  /// **'Training type'**
+  String get instructorProfileTrainingType;
+
+  /// No description provided for @instructorProfileAccountStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Account status'**
+  String get instructorProfileAccountStatus;
+
+  /// No description provided for @instructorProfileStatusActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get instructorProfileStatusActive;
+
+  /// No description provided for @instructorProfileSessionWage.
+  ///
+  /// In en, this message translates to:
+  /// **'Session wage'**
+  String get instructorProfileSessionWage;
+
+  /// No description provided for @instructorProfileTodayLessons.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s lessons'**
+  String get instructorProfileTodayLessons;
+
+  /// No description provided for @instructorProfileLeaveStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave status'**
+  String get instructorProfileLeaveStatus;
+
+  /// No description provided for @instructorProfileNoLeave.
+  ///
+  /// In en, this message translates to:
+  /// **'No current leave'**
+  String get instructorProfileNoLeave;
+
   /// No description provided for @instructorSchedulePreferences.
   ///
   /// In en, this message translates to:
@@ -1139,7 +1223,7 @@ abstract class AppLocalizations {
   /// No description provided for @instructorLeaveIntroBody.
   ///
   /// In en, this message translates to:
-  /// **'The app shows your registered leaves. New leave requests are submitted through management.'**
+  /// **'Choose a suitable period and we will check conflicts before sending the request to management.'**
   String get instructorLeaveIntroBody;
 
   /// No description provided for @instructorLeaveHourlyTab.
@@ -1183,6 +1267,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{date} · {start} to {end}'**
   String instructorLeaveHourly(String date, String start, String end);
+
+  /// No description provided for @instructorAvailableSlot.
+  ///
+  /// In en, this message translates to:
+  /// **'Available slot'**
+  String get instructorAvailableSlot;
+
+  /// No description provided for @instructorLeavePeriodLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave period'**
+  String get instructorLeavePeriodLabel;
+
+  /// No description provided for @instructorLeaveDateLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get instructorLeaveDateLabel;
+
+  /// No description provided for @instructorLeaveFromLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'From'**
+  String get instructorLeaveFromLabel;
+
+  /// No description provided for @instructorLeaveToLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'To'**
+  String get instructorLeaveToLabel;
+
+  /// No description provided for @instructorLeaveReasonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason'**
+  String get instructorLeaveReasonLabel;
+
+  /// No description provided for @instructorLeaveOptional.
+  ///
+  /// In en, this message translates to:
+  /// **'optional'**
+  String get instructorLeaveOptional;
+
+  /// No description provided for @instructorLeaveReasonHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Example: personal appointment'**
+  String get instructorLeaveReasonHint;
+
+  /// No description provided for @instructorLeaveRequestedDuration.
+  ///
+  /// In en, this message translates to:
+  /// **'Requested duration'**
+  String get instructorLeaveRequestedDuration;
+
+  /// No description provided for @instructorLeaveNoConflictTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Period is available'**
+  String get instructorLeaveNoConflictTitle;
+
+  /// No description provided for @instructorLeaveNoConflictBody.
+  ///
+  /// In en, this message translates to:
+  /// **'No lessons overlap the selected leave period.'**
+  String get instructorLeaveNoConflictBody;
+
+  /// No description provided for @instructorLeaveConflictTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Booking conflict detected'**
+  String get instructorLeaveConflictTitle;
+
+  /// No description provided for @instructorLeaveConflictBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Management will be notified about {count} conflicting booking(s) before approval.'**
+  String instructorLeaveConflictBody(int count);
+
+  /// No description provided for @instructorLeaveConflictBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Conflict'**
+  String get instructorLeaveConflictBadge;
+
+  /// No description provided for @instructorLeaveCheckingConflicts.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking this day\'s bookings...'**
+  String get instructorLeaveCheckingConflicts;
+
+  /// No description provided for @instructorLeaveSubmit.
+  ///
+  /// In en, this message translates to:
+  /// **'Send request'**
+  String get instructorLeaveSubmit;
 
   /// No description provided for @instructorCancel.
   ///

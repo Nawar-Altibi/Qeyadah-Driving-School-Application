@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "appName": "Drive Wise",
+  "appName": "Qeyadah",
   "welcome": "Welcome",
   "login": "Login",
   "logout": "Logout",
@@ -242,6 +242,10 @@
   },
   "instructorBookedLabel": "booked",
   "instructorDailyTimeline": "Daily timeline",
+  "instructorViewDay": "Day",
+  "instructorViewWeek": "Week",
+  "instructorWeeklyBookings": "Weekly bookings",
+  "instructorNoSessionsThisWeek": "No sessions this week",
   "instructorLiveSchedule": "Live schedule",
   "instructorNoSessionsToday": "No sessions on this day.",
   "instructorBookingConfirmed": "Confirmed",
@@ -299,13 +303,23 @@
   "instructorMetricVehicle": "Vehicle",
   "instructorAccountPreferences": "Account & preferences",
   "instructorProfileData": "Profile data",
+  "instructorProfileGender": "Gender",
+  "instructorProfileGenderMale": "Male",
+  "instructorProfileGenderFemale": "Female",
+  "instructorProfileTrainingType": "Training type",
+  "instructorProfileAccountStatus": "Account status",
+  "instructorProfileStatusActive": "Active",
+  "instructorProfileSessionWage": "Session wage",
+  "instructorProfileTodayLessons": "Today's lessons",
+  "instructorProfileLeaveStatus": "Leave status",
+  "instructorProfileNoLeave": "No current leave",
   "instructorSchedulePreferences": "Schedule preferences",
   "instructorLanguage": "Language",
   "instructorNotifications": "Notifications",
   "instructorAppVersion": "Qeyadah Instructor · v2.4.0",
   "instructorLeaveTitle": "Request leave",
   "instructorLeaveIntroTitle": "Plan your leave time",
-  "instructorLeaveIntroBody": "The app shows your registered leaves. New leave requests are submitted through management.",
+  "instructorLeaveIntroBody": "Choose a suitable period and we will check conflicts before sending the request to management.",
   "instructorLeaveHourlyTab": "Hourly leave",
   "instructorLeaveDailyTab": "Daily leave",
   "instructorLeaveAdminNoticeTitle": "Leave requests via management",
@@ -333,5 +347,28 @@
       }
     }
   },
+  "instructorAvailableSlot": "Available slot",
+  "instructorLeavePeriodLabel": "Leave period",
+  "instructorLeaveDateLabel": "Date",
+  "instructorLeaveFromLabel": "From",
+  "instructorLeaveToLabel": "To",
+  "instructorLeaveReasonLabel": "Reason",
+  "instructorLeaveOptional": "optional",
+  "instructorLeaveReasonHint": "Example: personal appointment",
+  "instructorLeaveRequestedDuration": "Requested duration",
+  "instructorLeaveNoConflictTitle": "Period is available",
+  "instructorLeaveNoConflictBody": "No lessons overlap the selected leave period.",
+  "instructorLeaveConflictTitle": "Booking conflict detected",
+  "instructorLeaveConflictBody": "Management will be notified about {count} conflicting booking(s) before approval.",
+  "@instructorLeaveConflictBody": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "instructorLeaveConflictBadge": "Conflict",
+  "instructorLeaveCheckingConflicts": "Checking this day's bookings...",
+  "instructorLeaveSubmit": "Send request",
   "instructorCancel": "Cancel"
 }

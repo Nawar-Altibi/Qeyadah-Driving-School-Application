@@ -9,7 +9,7 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get appName => 'Drive Wise';
+  String get appName => 'Qeyadah';
 
   @override
   String get welcome => 'Welcome';
@@ -479,6 +479,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get instructorDailyTimeline => 'Daily timeline';
 
   @override
+  String get instructorViewDay => 'Day';
+
+  @override
+  String get instructorViewWeek => 'Week';
+
+  @override
+  String get instructorWeeklyBookings => 'Weekly bookings';
+
+  @override
+  String get instructorNoSessionsThisWeek => 'No sessions this week';
+
+  @override
   String get instructorLiveSchedule => 'Live schedule';
 
   @override
@@ -567,6 +579,36 @@ class AppLocalizationsEn extends AppLocalizations {
   String get instructorProfileData => 'Profile data';
 
   @override
+  String get instructorProfileGender => 'Gender';
+
+  @override
+  String get instructorProfileGenderMale => 'Male';
+
+  @override
+  String get instructorProfileGenderFemale => 'Female';
+
+  @override
+  String get instructorProfileTrainingType => 'Training type';
+
+  @override
+  String get instructorProfileAccountStatus => 'Account status';
+
+  @override
+  String get instructorProfileStatusActive => 'Active';
+
+  @override
+  String get instructorProfileSessionWage => 'Session wage';
+
+  @override
+  String get instructorProfileTodayLessons => 'Today\'s lessons';
+
+  @override
+  String get instructorProfileLeaveStatus => 'Leave status';
+
+  @override
+  String get instructorProfileNoLeave => 'No current leave';
+
+  @override
   String get instructorSchedulePreferences => 'Schedule preferences';
 
   @override
@@ -586,7 +628,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get instructorLeaveIntroBody =>
-      'The app shows your registered leaves. New leave requests are submitted through management.';
+      'Choose a suitable period and we will check conflicts before sending the request to management.';
 
   @override
   String get instructorLeaveHourlyTab => 'Hourly leave';
@@ -613,6 +655,58 @@ class AppLocalizationsEn extends AppLocalizations {
   String instructorLeaveHourly(String date, String start, String end) {
     return '$date · $start to $end';
   }
+
+  @override
+  String get instructorAvailableSlot => 'Available slot';
+
+  @override
+  String get instructorLeavePeriodLabel => 'Leave period';
+
+  @override
+  String get instructorLeaveDateLabel => 'Date';
+
+  @override
+  String get instructorLeaveFromLabel => 'From';
+
+  @override
+  String get instructorLeaveToLabel => 'To';
+
+  @override
+  String get instructorLeaveReasonLabel => 'Reason';
+
+  @override
+  String get instructorLeaveOptional => 'optional';
+
+  @override
+  String get instructorLeaveReasonHint => 'Example: personal appointment';
+
+  @override
+  String get instructorLeaveRequestedDuration => 'Requested duration';
+
+  @override
+  String get instructorLeaveNoConflictTitle => 'Period is available';
+
+  @override
+  String get instructorLeaveNoConflictBody =>
+      'No lessons overlap the selected leave period.';
+
+  @override
+  String get instructorLeaveConflictTitle => 'Booking conflict detected';
+
+  @override
+  String instructorLeaveConflictBody(int count) {
+    return 'Management will be notified about $count conflicting booking(s) before approval.';
+  }
+
+  @override
+  String get instructorLeaveConflictBadge => 'Conflict';
+
+  @override
+  String get instructorLeaveCheckingConflicts =>
+      'Checking this day\'s bookings...';
+
+  @override
+  String get instructorLeaveSubmit => 'Send request';
 
   @override
   String get instructorCancel => 'Cancel';

@@ -11,7 +11,13 @@ abstract interface class InstructorRemoteDataSource {
   RemoteResponse<InstructorProfileEntity> fetchProfile();
   RemoteResponse<List<InstructorScheduleDayEntity>> fetchWeeklySchedule();
   RemoteResponse<List<InstructorBookingEntity>> fetchDayBookings(DateTime date);
+  RemoteResponse<List<InstructorBookingEntity>> fetchWeekBookings(
+    DateTime weekStart,
+  );
   RemoteResponse<List<InstructorLeaveEntity>> fetchLeaves();
+  RemoteResponse<InstructorLeaveSubmissionEntity> submitLeave(
+    InstructorLeaveRequestEntity request,
+  );
   RemoteResponse<InstructorDuesEntity> fetchDues();
   RemoteResponse<InstructorEarningsEntity> fetchEarningsForDate(DateTime date);
   RemoteResponse<InstructorEarningsEntity> fetchEarningsForMonth(String month);
@@ -31,14 +37,17 @@ class InstructorRemoteDataSourceImpl implements InstructorRemoteDataSource {
         return right(_profileFromJson(_unwrapData(json)));
       } on Exception {
         return left(
-          const InternalServerErrorFailure('Failed to parse instructor profile'),
+          const InternalServerErrorFailure(
+            'Failed to parse instructor profile',
+          ),
         );
       }
     });
   }
 
   @override
-  RemoteResponse<List<InstructorScheduleDayEntity>> fetchWeeklySchedule() async {
+  RemoteResponse<List<InstructorScheduleDayEntity>>
+  fetchWeeklySchedule() async {
     final response = await _apiHandler.get(Endpoints.instructorMeSchedule);
     return response.fold(left, (json) {
       try {
@@ -59,7 +68,9 @@ class InstructorRemoteDataSourceImpl implements InstructorRemoteDataSource {
         );
       } on Exception {
         return left(
-          const InternalServerErrorFailure('Failed to parse instructor schedule'),
+          const InternalServerErrorFailure(
+            'Failed to parse instructor schedule',
+          ),
         );
       }
     });
@@ -72,10 +83,7 @@ class InstructorRemoteDataSourceImpl implements InstructorRemoteDataSource {
     final dateParam = DateFormat('yyyy-MM-dd').format(date);
     final response = await _apiHandler.get(
       Endpoints.instructorMeBookings,
-      queryParameters: {
-        'viewMode': 'day',
-        'date': dateParam,
-      },
+      queryParameters: {'viewMode': 'day', 'date': dateParam},
     );
     return response.fold(left, (json) {
       try {
@@ -89,13 +97,52 @@ class InstructorRemoteDataSourceImpl implements InstructorRemoteDataSource {
         return right(
           bookings
               .map(
-                (item) => _bookingFromJson(Map<String, dynamic>.from(item as Map)),
+                (item) =>
+                    _bookingFromJson(Map<String, dynamic>.from(item as Map)),
               )
               .toList(),
         );
       } on Exception {
         return left(
-          const InternalServerErrorFailure('Failed to parse instructor bookings'),
+          const InternalServerErrorFailure(
+            'Failed to parse instructor bookings',
+          ),
+        );
+      }
+    });
+  }
+
+  @override
+  RemoteResponse<List<InstructorBookingEntity>> fetchWeekBookings(
+    DateTime weekStart,
+  ) async {
+    final weekStartParam = DateFormat('yyyy-MM-dd').format(weekStart);
+    final response = await _apiHandler.get(
+      Endpoints.instructorMeBookings,
+      queryParameters: {'viewMode': 'week', 'weekStart': weekStartParam},
+    );
+    return response.fold(left, (json) {
+      try {
+        final data = _unwrapData(json);
+        final bookings = data['data'];
+        if (bookings is! Iterable) {
+          return left(
+            const InternalServerErrorFailure('Invalid bookings response'),
+          );
+        }
+        return right(
+          bookings
+              .map(
+                (item) =>
+                    _bookingFromJson(Map<String, dynamic>.from(item as Map)),
+              )
+              .toList(),
+        );
+      } on Exception {
+        return left(
+          const InternalServerErrorFailure(
+            'Failed to parse instructor bookings',
+          ),
         );
       }
     });
@@ -115,13 +162,53 @@ class InstructorRemoteDataSourceImpl implements InstructorRemoteDataSource {
         return right(
           leaves
               .map(
-                (item) => _leaveFromJson(Map<String, dynamic>.from(item as Map)),
+                (item) =>
+                    _leaveFromJson(Map<String, dynamic>.from(item as Map)),
               )
               .toList(),
         );
       } on Exception {
         return left(
           const InternalServerErrorFailure('Failed to parse instructor leaves'),
+        );
+      }
+    });
+  }
+
+  @override
+  RemoteResponse<InstructorLeaveSubmissionEntity> submitLeave(
+    InstructorLeaveRequestEntity request,
+  ) async {
+    final reason = request.reason?.trim();
+    final body = <String, dynamic>{
+      if (reason != null && reason.isNotEmpty) 'reason': reason,
+      if (request.isFullDay)
+        'date': DateFormat('yyyy-MM-dd').format(request.date!)
+      else ...{
+        'startAt': DateFormat("yyyy-MM-dd'T'HH:mm").format(request.startAt!),
+        'endAt': DateFormat("yyyy-MM-dd'T'HH:mm").format(request.endAt!),
+      },
+    };
+    final response = await _apiHandler.post(
+      Endpoints.instructorMeLeaves,
+      body: body,
+    );
+    return response.fold(left, (json) {
+      try {
+        final data = _unwrapData(json);
+        return right(
+          InstructorLeaveSubmissionEntity(
+            leaveId: (data['leaveId'] as num).toInt(),
+            cancelledBookingsCount:
+                (data['cancelledBookingsCount'] as num?)?.toInt() ?? 0,
+            message: data['message']?.toString() ?? '',
+          ),
+        );
+      } on Exception {
+        return left(
+          const InternalServerErrorFailure(
+            'Failed to parse instructor leave submission',
+          ),
         );
       }
     });
@@ -142,16 +229,14 @@ class InstructorRemoteDataSourceImpl implements InstructorRemoteDataSource {
         return right(
           InstructorDuesEntity(
             grandTotal: (data['grandTotal'] as num?)?.toInt() ?? 0,
-            dues: dues
-                .map((item) {
-                  final map = Map<String, dynamic>.from(item as Map);
-                  return InstructorDueDayEntity(
-                    expenseDate: DateTime.parse(map['expenseDate'].toString()),
-                    lessonCount: (map['lessonCount'] as num?)?.toInt() ?? 0,
-                    dayTotal: (map['dayTotal'] as num?)?.toInt() ?? 0,
-                  );
-                })
-                .toList(),
+            dues: dues.map((item) {
+              final map = Map<String, dynamic>.from(item as Map);
+              return InstructorDueDayEntity(
+                expenseDate: DateTime.parse(map['expenseDate'].toString()),
+                lessonCount: (map['lessonCount'] as num?)?.toInt() ?? 0,
+                dayTotal: (map['dayTotal'] as num?)?.toInt() ?? 0,
+              );
+            }).toList(),
           ),
         );
       } on Exception {
@@ -175,7 +260,9 @@ class InstructorRemoteDataSourceImpl implements InstructorRemoteDataSource {
         return right(_earningsFromJson(_unwrapData(json)));
       } on Exception {
         return left(
-          const InternalServerErrorFailure('Failed to parse instructor earnings'),
+          const InternalServerErrorFailure(
+            'Failed to parse instructor earnings',
+          ),
         );
       }
     });
@@ -194,14 +281,18 @@ class InstructorRemoteDataSourceImpl implements InstructorRemoteDataSource {
         return right(_earningsFromJson(_unwrapData(json)));
       } on Exception {
         return left(
-          const InternalServerErrorFailure('Failed to parse instructor earnings'),
+          const InternalServerErrorFailure(
+            'Failed to parse instructor earnings',
+          ),
         );
       }
     });
   }
 
   InstructorProfileEntity _profileFromJson(Map<String, dynamic> json) {
-    final instructorType = InstructorType.fromApi(json['instructorType']?.toString());
+    final instructorType = InstructorType.fromApi(
+      json['instructorType']?.toString(),
+    );
     if (instructorType == null) {
       throw const FormatException('Unknown instructor type');
     }
@@ -209,6 +300,7 @@ class InstructorRemoteDataSourceImpl implements InstructorRemoteDataSource {
       instructorId: (json['instructorId'] as num).toInt(),
       userId: (json['userId'] as num).toInt(),
       name: json['name']?.toString() ?? '',
+      phone: json['phone']?.toString() ?? '',
       gender: json['gender']?.toString() ?? '',
       instructorType: instructorType,
       accountStatus: json['accountStatus']?.toString() ?? '',
@@ -223,22 +315,24 @@ class InstructorRemoteDataSourceImpl implements InstructorRemoteDataSource {
     return InstructorScheduleDayEntity(
       dayOfWeek: json['dayOfWeek']?.toString() ?? '',
       periods: periods is Iterable
-          ? periods
-                .map((item) {
-                  final map = Map<String, dynamic>.from(item as Map);
-                  return InstructorSchedulePeriodEntity(
-                    startTime: map['startTime']?.toString() ?? '',
-                    endTime: map['endTime']?.toString() ?? '',
-                  );
-                })
-                .toList()
+          ? periods.map((item) {
+              final map = Map<String, dynamic>.from(item as Map);
+              return InstructorSchedulePeriodEntity(
+                startTime: map['startTime']?.toString() ?? '',
+                endTime: map['endTime']?.toString() ?? '',
+              );
+            }).toList()
           : const [],
     );
   }
 
   InstructorBookingEntity _bookingFromJson(Map<String, dynamic> json) {
-    final status = InstructorBookingStatus.fromApi(json['bookingStatus']?.toString());
-    final trainingType = InstructorType.fromApi(json['trainingType']?.toString());
+    final status = InstructorBookingStatus.fromApi(
+      json['bookingStatus']?.toString(),
+    );
+    final trainingType = InstructorType.fromApi(
+      json['trainingType']?.toString(),
+    );
     if (status == null || trainingType == null) {
       throw const FormatException('Invalid booking payload');
     }
@@ -285,20 +379,18 @@ class InstructorRemoteDataSourceImpl implements InstructorRemoteDataSource {
       monthSessionsCount: (json['monthSessionsCount'] as num?)?.toInt() ?? 0,
       monthTotal: (json['monthTotal'] as num?)?.toInt() ?? 0,
       sessions: sessions is Iterable
-          ? sessions
-                .map((item) {
-                  final map = Map<String, dynamic>.from(item as Map);
-                  return InstructorEarningSessionEntity(
-                    bookingId: (map['bookingId'] as num).toInt(),
-                    date: DateTime.parse(map['date'].toString()),
-                    startAt: DateTime.parse(map['startAt'].toString()),
-                    endAt: DateTime.parse(map['endAt'].toString()),
-                    studentName: map['studentName']?.toString() ?? '',
-                    amount: (map['amount'] as num?)?.toInt() ?? 0,
-                    paidAt: DateTime.parse(map['paidAt'].toString()),
-                  );
-                })
-                .toList()
+          ? sessions.map((item) {
+              final map = Map<String, dynamic>.from(item as Map);
+              return InstructorEarningSessionEntity(
+                bookingId: (map['bookingId'] as num).toInt(),
+                date: DateTime.parse(map['date'].toString()),
+                startAt: DateTime.parse(map['startAt'].toString()),
+                endAt: DateTime.parse(map['endAt'].toString()),
+                studentName: map['studentName']?.toString() ?? '',
+                amount: (map['amount'] as num?)?.toInt() ?? 0,
+                paidAt: DateTime.parse(map['paidAt'].toString()),
+              );
+            }).toList()
           : const [],
     );
   }

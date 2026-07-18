@@ -9,7 +9,7 @@ class AppLocalizationsAr extends AppLocalizations {
   AppLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
-  String get appName => 'درايف وايز';
+  String get appName => 'قيادة';
 
   @override
   String get welcome => 'مرحباً';
@@ -474,6 +474,18 @@ class AppLocalizationsAr extends AppLocalizations {
   String get instructorDailyTimeline => 'الجدول اليومي';
 
   @override
+  String get instructorViewDay => 'يوم';
+
+  @override
+  String get instructorViewWeek => 'أسبوع';
+
+  @override
+  String get instructorWeeklyBookings => 'الحجوزات الأسبوعية';
+
+  @override
+  String get instructorNoSessionsThisWeek => 'لا توجد حصص هذا الأسبوع';
+
+  @override
   String get instructorLiveSchedule => 'جدول مباشر';
 
   @override
@@ -561,6 +573,36 @@ class AppLocalizationsAr extends AppLocalizations {
   String get instructorProfileData => 'بيانات الملف الشخصي';
 
   @override
+  String get instructorProfileGender => 'الجنس';
+
+  @override
+  String get instructorProfileGenderMale => 'ذكر';
+
+  @override
+  String get instructorProfileGenderFemale => 'أنثى';
+
+  @override
+  String get instructorProfileTrainingType => 'نوع التدريب';
+
+  @override
+  String get instructorProfileAccountStatus => 'حالة الحساب';
+
+  @override
+  String get instructorProfileStatusActive => 'نشط';
+
+  @override
+  String get instructorProfileSessionWage => 'أجرة الجلسة';
+
+  @override
+  String get instructorProfileTodayLessons => 'جلسات اليوم';
+
+  @override
+  String get instructorProfileLeaveStatus => 'حالة الإجازة';
+
+  @override
+  String get instructorProfileNoLeave => 'لا توجد إجازة حالياً';
+
+  @override
   String get instructorSchedulePreferences => 'تفضيلات الجدول';
 
   @override
@@ -580,7 +622,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get instructorLeaveIntroBody =>
-      'يعرض التطبيق إجازاتك المسجّلة. تقديم طلب إجازة جديد يتم عبر الإدارة.';
+      'اختر الفترة المناسبة وسنراجع التعارضات قبل إرسال الطلب إلى الإدارة.';
 
   @override
   String get instructorLeaveHourlyTab => 'إجازة بالساعات';
@@ -607,6 +649,58 @@ class AppLocalizationsAr extends AppLocalizations {
   String instructorLeaveHourly(String date, String start, String end) {
     return '$date · من $start إلى $end';
   }
+
+  @override
+  String get instructorAvailableSlot => 'موعد متاح';
+
+  @override
+  String get instructorLeavePeriodLabel => 'فترة الإجازة';
+
+  @override
+  String get instructorLeaveDateLabel => 'التاريخ';
+
+  @override
+  String get instructorLeaveFromLabel => 'من';
+
+  @override
+  String get instructorLeaveToLabel => 'إلى';
+
+  @override
+  String get instructorLeaveReasonLabel => 'السبب';
+
+  @override
+  String get instructorLeaveOptional => 'اختياري';
+
+  @override
+  String get instructorLeaveReasonHint => 'مثال: موعد شخصي';
+
+  @override
+  String get instructorLeaveRequestedDuration => 'المدة المطلوبة';
+
+  @override
+  String get instructorLeaveNoConflictTitle => 'الفترة متاحة';
+
+  @override
+  String get instructorLeaveNoConflictBody =>
+      'لا توجد جلسات متعارضة مع فترة الإجازة المحددة.';
+
+  @override
+  String get instructorLeaveConflictTitle => 'يوجد تعارض مع الحجوزات';
+
+  @override
+  String instructorLeaveConflictBody(int count) {
+    return 'سيتم تنبيه الإدارة بوجود $count حجز متعارض قبل اعتماد الطلب.';
+  }
+
+  @override
+  String get instructorLeaveConflictBadge => 'متعارض';
+
+  @override
+  String get instructorLeaveCheckingConflicts =>
+      'جارٍ التحقق من حجوزات هذا اليوم...';
+
+  @override
+  String get instructorLeaveSubmit => 'إرسال الطلب';
 
   @override
   String get instructorCancel => 'إلغاء';

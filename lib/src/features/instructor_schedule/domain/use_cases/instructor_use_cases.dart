@@ -9,8 +9,11 @@ class LoadInstructorScheduleUseCase {
 
   final InstructorRepository _repository;
 
-  FutureEither<InstructorScheduleDashboardEntity> call(DateTime date) {
-    return _repository.loadScheduleDashboard(date);
+  FutureEither<InstructorScheduleDashboardEntity> call(
+    DateTime date,
+    InstructorBookingsViewMode viewMode,
+  ) {
+    return _repository.loadScheduleDashboard(date, viewMode);
   }
 }
 
@@ -44,5 +47,18 @@ class LoadInstructorDayBookingsUseCase {
 
   FutureEither<List<InstructorBookingEntity>> call(DateTime date) {
     return _repository.getDayBookings(date);
+  }
+}
+
+@injectable
+class SubmitInstructorLeaveUseCase {
+  const SubmitInstructorLeaveUseCase(this._repository);
+
+  final InstructorRepository _repository;
+
+  FutureEither<InstructorLeaveSubmissionEntity> call(
+    InstructorLeaveRequestEntity request,
+  ) {
+    return _repository.submitLeave(request);
   }
 }
