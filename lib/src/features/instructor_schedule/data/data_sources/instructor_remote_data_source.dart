@@ -178,21 +178,30 @@ class InstructorRemoteDataSourceImpl implements InstructorRemoteDataSource {
     return response.fold(left, (json) {
       try {
         final data = _unwrapData(json);
-        final dues = data['dues'];
-        if (dues is! Iterable) {
+        // Accept mobile-doc shape (dues/grandTotal) and live service shape
+        // (perDay/totalOutstanding) so either response maps cleanly.
+        final rawList = data['dues'] ?? data['perDay'];
+        if (rawList is! Iterable) {
           return left(
             const InternalServerErrorFailure('Invalid dues response'),
           );
         }
         return right(
           InstructorDuesEntity(
-            grandTotal: (data['grandTotal'] as num?)?.toInt() ?? 0,
-            dues: dues.map((item) {
+            grandTotal:
+                (data['grandTotal'] as num?)?.toInt() ??
+                (data['totalOutstanding'] as num?)?.toInt() ??
+                0,
+            dues: rawList.map((item) {
               final map = Map<String, dynamic>.from(item as Map);
+              final dateRaw = map['expenseDate'] ?? map['date'];
               return InstructorDueDayEntity(
-                expenseDate: DateTime.parse(map['expenseDate'].toString()),
+                expenseDate: DateTime.parse(dateRaw.toString()),
                 lessonCount: (map['lessonCount'] as num?)?.toInt() ?? 0,
-                dayTotal: (map['dayTotal'] as num?)?.toInt() ?? 0,
+                dayTotal:
+                    (map['dayTotal'] as num?)?.toInt() ??
+                    (map['amount'] as num?)?.toInt() ??
+                    0,
               );
             }).toList(),
           ),
