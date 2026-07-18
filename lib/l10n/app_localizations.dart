@@ -1172,6 +1172,24 @@ abstract class AppLocalizations {
   /// **'No current leave'**
   String get instructorProfileNoLeave;
 
+  /// No description provided for @instructorProfileFullDayLeave.
+  ///
+  /// In en, this message translates to:
+  /// **'Full-day leave'**
+  String get instructorProfileFullDayLeave;
+
+  /// No description provided for @instructorProfilePartialLeave.
+  ///
+  /// In en, this message translates to:
+  /// **'Partial leave'**
+  String get instructorProfilePartialLeave;
+
+  /// No description provided for @instructorProfileSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Instructor settings'**
+  String get instructorProfileSettings;
+
   /// No description provided for @instructorSchedulePreferences.
   ///
   /// In en, this message translates to:
@@ -1255,6 +1273,156 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Reason'**
   String get instructorLeaveReasonLabel;
+
+  /// No description provided for @instructorWeeklyScheduleTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly schedule'**
+  String get instructorWeeklyScheduleTitle;
+
+  /// No description provided for @instructorWeeklyScheduleSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your registered working hours for each day.'**
+  String get instructorWeeklyScheduleSubtitle;
+
+  /// No description provided for @instructorDaySaturday.
+  ///
+  /// In en, this message translates to:
+  /// **'Saturday'**
+  String get instructorDaySaturday;
+
+  /// No description provided for @instructorDaySunday.
+  ///
+  /// In en, this message translates to:
+  /// **'Sunday'**
+  String get instructorDaySunday;
+
+  /// No description provided for @instructorDayMonday.
+  ///
+  /// In en, this message translates to:
+  /// **'Monday'**
+  String get instructorDayMonday;
+
+  /// No description provided for @instructorDayTuesday.
+  ///
+  /// In en, this message translates to:
+  /// **'Tuesday'**
+  String get instructorDayTuesday;
+
+  /// No description provided for @instructorDayWednesday.
+  ///
+  /// In en, this message translates to:
+  /// **'Wednesday'**
+  String get instructorDayWednesday;
+
+  /// No description provided for @instructorDayThursday.
+  ///
+  /// In en, this message translates to:
+  /// **'Thursday'**
+  String get instructorDayThursday;
+
+  /// No description provided for @instructorDayFriday.
+  ///
+  /// In en, this message translates to:
+  /// **'Friday'**
+  String get instructorDayFriday;
+
+  /// No description provided for @instructorDayOff.
+  ///
+  /// In en, this message translates to:
+  /// **'Day off'**
+  String get instructorDayOff;
+
+  /// No description provided for @instructorDuesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Unpaid dues'**
+  String get instructorDuesTitle;
+
+  /// No description provided for @instructorDuesGrandTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Total dues'**
+  String get instructorDuesGrandTotal;
+
+  /// No description provided for @instructorDuesDailyDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily details'**
+  String get instructorDuesDailyDetails;
+
+  /// No description provided for @instructorDuesEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No unpaid dues.'**
+  String get instructorDuesEmpty;
+
+  /// No description provided for @instructorDuesLessonCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} sessions'**
+  String instructorDuesLessonCount(int count);
+
+  /// No description provided for @instructorEarningsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Received earnings'**
+  String get instructorEarningsTitle;
+
+  /// No description provided for @instructorEarningsDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Day'**
+  String get instructorEarningsDay;
+
+  /// No description provided for @instructorEarningsMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Month'**
+  String get instructorEarningsMonth;
+
+  /// No description provided for @instructorEarningsDayTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Day total'**
+  String get instructorEarningsDayTotal;
+
+  /// No description provided for @instructorEarningsMonthTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Month total'**
+  String get instructorEarningsMonthTotal;
+
+  /// No description provided for @instructorEarningsSessions.
+  ///
+  /// In en, this message translates to:
+  /// **'Sessions'**
+  String get instructorEarningsSessions;
+
+  /// No description provided for @instructorEarningsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No earnings recorded for this period.'**
+  String get instructorEarningsEmpty;
+
+  /// No description provided for @instructorEarningsPickDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Select day'**
+  String get instructorEarningsPickDay;
+
+  /// No description provided for @instructorEarningsPickMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Select month'**
+  String get instructorEarningsPickMonth;
+
+  /// No description provided for @instructorEarningsPaidAt.
+  ///
+  /// In en, this message translates to:
+  /// **'Paid at: {date}'**
+  String instructorEarningsPaidAt(String date);
 }
 
 class _AppLocalizationsDelegate

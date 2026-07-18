@@ -55,8 +55,6 @@ abstract final class InstructorFormatters {
     return switch (type) {
       InstructorType.manual => l10n.studentHomeManual,
       InstructorType.automatic => l10n.studentHomeAutomatic,
-      InstructorType.both =>
-        '${l10n.studentHomeManual} / ${l10n.studentHomeAutomatic}',
     };
   }
 
@@ -88,6 +86,14 @@ abstract final class InstructorFormatters {
 
   static String currencyAmount(AppLocalizations l10n, int amount) {
     return l10n.instructorCurrencyAmount(amount);
+  }
+
+  static String leaveStatusLabel(AppLocalizations l10n, String? leaveStatus) {
+    return switch (leaveStatus?.trim().toUpperCase()) {
+      'FULL_DAY_LEAVE' => l10n.instructorProfileFullDayLeave,
+      'PARTIAL_LEAVE' => l10n.instructorProfilePartialLeave,
+      _ => l10n.instructorProfileNoLeave,
+    };
   }
 
   static String durationLabel(AppLocalizations l10n, Duration duration) {

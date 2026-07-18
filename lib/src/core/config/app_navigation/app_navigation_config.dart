@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
 import 'package:qeyadah_mobile_app/src/core/config/app_navigation/stream_to_listenable.dart';
+import 'package:qeyadah_mobile_app/src/core/offline/presentation/cubit/offline_queue_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/presentation/cubit/auth_session_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/presentation/cubit/password_reset_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/presentation/cubit/registration_cubit.dart';
@@ -14,19 +15,24 @@ import 'package:qeyadah_mobile_app/src/features/auth/presentation/screens/login_
 import 'package:qeyadah_mobile_app/src/features/auth/presentation/screens/new_password_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/presentation/screens/register_otp_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/presentation/screens/register_screen.dart';
+import 'package:qeyadah_mobile_app/src/features/instructor_dues/presentation/cubit/instructor_dues_cubit.dart';
+import 'package:qeyadah_mobile_app/src/features/instructor_dues/presentation/screens/instructor_dues_screen.dart';
+import 'package:qeyadah_mobile_app/src/features/instructor_earnings/presentation/cubit/instructor_earnings_cubit.dart';
+import 'package:qeyadah_mobile_app/src/features/instructor_earnings/presentation/screens/instructor_earnings_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor_leave/presentation/cubit/instructor_leave_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor_leave/presentation/screens/instructor_leave_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor_profile/presentation/cubit/instructor_profile_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor_profile/presentation/screens/instructor_profile_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor_schedule/presentation/cubit/instructor_schedule_cubit.dart';
+import 'package:qeyadah_mobile_app/src/features/instructor_schedule/presentation/cubit/instructor_weekly_schedule_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor_schedule/presentation/screens/instructor_schedule_screen.dart';
+import 'package:qeyadah_mobile_app/src/features/instructor_schedule/presentation/screens/instructor_weekly_schedule_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/profile/presentation/screens/profile_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/sample_items/presentation/cubit/sample_items_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/sample_items/presentation/screens/sample_item_details_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/sample_items/presentation/screens/sample_items_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/splash/presentation/cubit/splash_screen_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/splash/presentation/screens/splash_screen.dart';
-import 'package:qeyadah_mobile_app/src/core/offline/presentation/cubit/offline_queue_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/student_home/presentation/cubit/student_home_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/student_home/presentation/screens/student_home_screen.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/user_role.dart';
@@ -189,6 +195,45 @@ class AppNavigationConfig {
               BlocProvider(
                 create: (_) => getIt<InstructorLeaveCubit>(),
                 child: const InstructorLeaveScreen(),
+              ),
+            ),
+          ),
+        ),
+        GoRoute(
+          path: InstructorWeeklyScheduleScreen.routePath,
+          name: InstructorWeeklyScheduleScreen.routeName,
+          pageBuilder: (context, state) => FadePage(
+            key: state.pageKey,
+            child: _withSession(
+              BlocProvider(
+                create: (_) => getIt<InstructorWeeklyScheduleCubit>(),
+                child: const InstructorWeeklyScheduleScreen(),
+              ),
+            ),
+          ),
+        ),
+        GoRoute(
+          path: InstructorDuesScreen.routePath,
+          name: InstructorDuesScreen.routeName,
+          pageBuilder: (context, state) => FadePage(
+            key: state.pageKey,
+            child: _withSession(
+              BlocProvider(
+                create: (_) => getIt<InstructorDuesCubit>(),
+                child: const InstructorDuesScreen(),
+              ),
+            ),
+          ),
+        ),
+        GoRoute(
+          path: InstructorEarningsScreen.routePath,
+          name: InstructorEarningsScreen.routeName,
+          pageBuilder: (context, state) => FadePage(
+            key: state.pageKey,
+            child: _withSession(
+              BlocProvider(
+                create: (_) => getIt<InstructorEarningsCubit>(),
+                child: const InstructorEarningsScreen(),
               ),
             ),
           ),

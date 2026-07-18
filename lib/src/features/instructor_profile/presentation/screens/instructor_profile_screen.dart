@@ -29,46 +29,46 @@ class InstructorProfileScreen extends StatelessWidget {
           child: Stack(
             children: [
               Positioned.fill(
-                child: BlocBuilder<InstructorProfileCubit, InstructorProfileState>(
-                  buildWhen: (previous, current) =>
-                      previous.apiState != current.apiState,
-                  builder: (context, state) {
-                    return state.apiState.when(
-                      initial: () => const SizedBox.shrink(),
-                      loading: () => const InstructorProfileSkeletonBody(),
-                      succeeded: (dashboard) => InstructorProfileBody(
-                        dashboard: dashboard,
-                      ),
-                      failed: (failure, retry) {
-                        final l10n = AppLocalizations.of(context);
-                        return Center(
-                          child: Padding(
-                            padding: PaddingManager.paddingAll16,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  CoreFailureMessageMapper.messageFor(
-                                    failure,
-                                    l10n,
-                                  ),
-                                  textAlign: TextAlign.center,
+                child:
+                    BlocBuilder<InstructorProfileCubit, InstructorProfileState>(
+                      buildWhen: (previous, current) =>
+                          previous.apiState != current.apiState,
+                      builder: (context, state) {
+                        return state.apiState.when(
+                          initial: () => const SizedBox.shrink(),
+                          loading: () => const InstructorProfileSkeletonBody(),
+                          succeeded: (dashboard) =>
+                              InstructorProfileBody(dashboard: dashboard),
+                          failed: (failure, retry) {
+                            final l10n = AppLocalizations.of(context);
+                            return Center(
+                              child: Padding(
+                                padding: PaddingManager.paddingAll16,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      CoreFailureMessageMapper.messageFor(
+                                        failure,
+                                        l10n,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    const SizedBox(
+                                      height: AppDesignTokens.spacingMd,
+                                    ),
+                                    AppButton.primary(
+                                      label: l10n.retry,
+                                      onPressed: retry,
+                                    ),
+                                  ],
                                 ),
-                                const SizedBox(
-                                  height: AppDesignTokens.spacingMd,
-                                ),
-                                AppButton.primary(
-                                  label: l10n.retry,
-                                  onPressed: retry,
-                                ),
-                              ],
-                            ),
-                          ),
+                              ),
+                            );
+                          },
                         );
                       },
-                    );
-                  },
-                ),
+                    ),
               ),
               Positioned(
                 left: AppDesignTokens.screenHorizontalPadding,

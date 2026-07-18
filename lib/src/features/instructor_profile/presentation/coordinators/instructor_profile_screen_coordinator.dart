@@ -12,7 +12,8 @@ class InstructorProfileScreenCoordinator extends StatelessWidget {
   Widget build(BuildContext context) {
     return RouteResumedRefresh(
       onInitialLoad: () => context.read<InstructorProfileCubit>().load(),
-      onResumed: () => context.read<InstructorProfileCubit>().load(silent: true),
+      onResumed: () =>
+          context.read<InstructorProfileCubit>().load(silent: true),
       child: child,
     );
   }

@@ -125,19 +125,7 @@ class InstructorRepositoryImpl implements InstructorRepository {
   FutureEither<InstructorProfileDashboardEntity> loadProfileDashboard() async {
     final profileResult = await getProfile();
     return profileResult.map(
-      (profile) => InstructorProfileDashboardEntity(
-        profile: profile,
-        weeklySchedule: const [],
-        dues: const InstructorDuesEntity(dues: [], grandTotal: 0),
-        monthEarnings: const InstructorEarningsEntity(
-          periodType: 'month',
-          month: '',
-          monthSessionsCount: 0,
-          monthTotal: 0,
-          sessions: [],
-        ),
-        leaves: const [],
-      ),
+      (profile) => InstructorProfileDashboardEntity(profile: profile),
     );
   }
 }

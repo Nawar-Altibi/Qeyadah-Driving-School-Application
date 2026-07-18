@@ -10,7 +10,11 @@ part 'instructor_profile_state.dart';
 
 @injectable
 class InstructorProfileCubit
-    extends AppCoreCoreCubit<InstructorProfileState, InstructorProfileDashboardEntity> {
+    extends
+        AppCoreCoreCubit<
+          InstructorProfileState,
+          InstructorProfileDashboardEntity
+        > {
   InstructorProfileCubit(this._loadProfileUseCase)
     : super(const InstructorProfileState());
 

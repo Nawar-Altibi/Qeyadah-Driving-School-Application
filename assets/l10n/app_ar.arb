@@ -290,6 +290,9 @@
   "instructorProfileTodayLessons": "جلسات اليوم",
   "instructorProfileLeaveStatus": "حالة الإجازة",
   "instructorProfileNoLeave": "لا توجد إجازة حالياً",
+  "instructorProfileFullDayLeave": "إجازة ليوم كامل",
+  "instructorProfilePartialLeave": "إجازة جزئية",
+  "instructorProfileSettings": "إعدادات المدرب",
   "instructorSchedulePreferences": "تفضيلات الجدول",
   "instructorLanguage": "اللغة",
   "instructorNotifications": "الإشعارات",
@@ -324,5 +327,43 @@
   },
   "instructorAvailableSlot": "موعد متاح",
   "instructorLeaveReasonLabel": "السبب",
-  "instructorLeaveReasonLabel": "السبب"
+  "instructorWeeklyScheduleTitle": "جدول الدوام الأسبوعي",
+  "instructorWeeklyScheduleSubtitle": "ساعات الدوام المسجلة لكل يوم.",
+  "instructorDaySaturday": "السبت",
+  "instructorDaySunday": "الأحد",
+  "instructorDayMonday": "الاثنين",
+  "instructorDayTuesday": "الثلاثاء",
+  "instructorDayWednesday": "الأربعاء",
+  "instructorDayThursday": "الخميس",
+  "instructorDayFriday": "الجمعة",
+  "instructorDayOff": "يوم عطلة",
+  "instructorDuesTitle": "المستحقات غير المدفوعة",
+  "instructorDuesGrandTotal": "إجمالي المستحقات",
+  "instructorDuesDailyDetails": "تفاصيل الأيام",
+  "instructorDuesEmpty": "لا توجد مستحقات غير مدفوعة.",
+  "instructorDuesLessonCount": "{count} جلسات",
+  "@instructorDuesLessonCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "instructorEarningsTitle": "الأرباح المقبوضة",
+  "instructorEarningsDay": "يوم",
+  "instructorEarningsMonth": "شهر",
+  "instructorEarningsDayTotal": "إجمالي اليوم",
+  "instructorEarningsMonthTotal": "إجمالي الشهر",
+  "instructorEarningsSessions": "الجلسات",
+  "instructorEarningsEmpty": "لا توجد أرباح مسجلة لهذه الفترة.",
+  "instructorEarningsPickDay": "اختر اليوم",
+  "instructorEarningsPickMonth": "اختر شهراً",
+  "instructorEarningsPaidAt": "تم الدفع: {date}",
+  "@instructorEarningsPaidAt": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  }
 }

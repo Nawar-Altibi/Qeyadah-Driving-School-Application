@@ -603,6 +603,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get instructorProfileNoLeave => 'No current leave';
 
   @override
+  String get instructorProfileFullDayLeave => 'Full-day leave';
+
+  @override
+  String get instructorProfilePartialLeave => 'Partial leave';
+
+  @override
+  String get instructorProfileSettings => 'Instructor settings';
+
+  @override
   String get instructorSchedulePreferences => 'Schedule preferences';
 
   @override
@@ -649,4 +658,84 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get instructorLeaveReasonLabel => 'Reason';
+
+  @override
+  String get instructorWeeklyScheduleTitle => 'Weekly schedule';
+
+  @override
+  String get instructorWeeklyScheduleSubtitle =>
+      'Your registered working hours for each day.';
+
+  @override
+  String get instructorDaySaturday => 'Saturday';
+
+  @override
+  String get instructorDaySunday => 'Sunday';
+
+  @override
+  String get instructorDayMonday => 'Monday';
+
+  @override
+  String get instructorDayTuesday => 'Tuesday';
+
+  @override
+  String get instructorDayWednesday => 'Wednesday';
+
+  @override
+  String get instructorDayThursday => 'Thursday';
+
+  @override
+  String get instructorDayFriday => 'Friday';
+
+  @override
+  String get instructorDayOff => 'Day off';
+
+  @override
+  String get instructorDuesTitle => 'Unpaid dues';
+
+  @override
+  String get instructorDuesGrandTotal => 'Total dues';
+
+  @override
+  String get instructorDuesDailyDetails => 'Daily details';
+
+  @override
+  String get instructorDuesEmpty => 'No unpaid dues.';
+
+  @override
+  String instructorDuesLessonCount(int count) {
+    return '$count sessions';
+  }
+
+  @override
+  String get instructorEarningsTitle => 'Received earnings';
+
+  @override
+  String get instructorEarningsDay => 'Day';
+
+  @override
+  String get instructorEarningsMonth => 'Month';
+
+  @override
+  String get instructorEarningsDayTotal => 'Day total';
+
+  @override
+  String get instructorEarningsMonthTotal => 'Month total';
+
+  @override
+  String get instructorEarningsSessions => 'Sessions';
+
+  @override
+  String get instructorEarningsEmpty => 'No earnings recorded for this period.';
+
+  @override
+  String get instructorEarningsPickDay => 'Select day';
+
+  @override
+  String get instructorEarningsPickMonth => 'Select month';
+
+  @override
+  String instructorEarningsPaidAt(String date) {
+    return 'Paid at: $date';
+  }
 }

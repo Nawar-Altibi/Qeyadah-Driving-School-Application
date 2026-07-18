@@ -258,7 +258,6 @@ class InstructorRemoteDataSourceImpl implements InstructorRemoteDataSource {
       instructorId: (json['instructorId'] as num).toInt(),
       userId: (json['userId'] as num).toInt(),
       name: json['name']?.toString() ?? '',
-      phone: json['phone']?.toString() ?? '',
       gender: json['gender']?.toString() ?? '',
       instructorType: instructorType,
       accountStatus: json['accountStatus']?.toString() ?? '',

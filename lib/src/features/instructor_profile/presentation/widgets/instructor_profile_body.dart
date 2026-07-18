@@ -29,12 +29,6 @@ class InstructorProfileBody extends StatelessWidget {
     final leaveStatus = profile.leaveStatus?.trim();
     final details = <_ProfileDetail>[
       _ProfileDetail(
-        icon: PhosphorIconsBold.phone,
-        label: l10n.profilePhone,
-        value: profile.phone,
-        valueDirection: TextDirection.ltr,
-      ),
-      _ProfileDetail(
         icon: PhosphorIconsBold.genderIntersex,
         label: l10n.instructorProfileGender,
         value: profile.gender.toUpperCase() == 'FEMALE'
@@ -69,9 +63,7 @@ class InstructorProfileBody extends StatelessWidget {
       _ProfileDetail(
         icon: PhosphorIconsBold.calendarX,
         label: l10n.instructorProfileLeaveStatus,
-        value: leaveStatus == null || leaveStatus.isEmpty
-            ? l10n.instructorProfileNoLeave
-            : leaveStatus,
+        value: InstructorFormatters.leaveStatusLabel(l10n, leaveStatus),
       ),
     ];
 
@@ -165,15 +157,54 @@ class InstructorProfileBody extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: AppDesignTokens.spacingMd),
+                    Align(
+                      alignment: AlignmentDirectional.centerStart,
+                      child: Text(
+                        l10n.instructorProfileSettings,
+                        style: Theme.of(context).textTheme.labelMedium
+                            ?.copyWith(
+                              color: AppColors.muted,
+                              fontWeight: FontWeight.w800,
+                            ),
+                      ),
+                    ),
+                    const SizedBox(height: AppDesignTokens.spacingSm),
                     AppCard(
                       padding: EdgeInsets.zero,
                       child: Column(
                         children: [
                           InstructorSettingsRow(
                             icon: PhosphorIconsBold.calendarCheck,
+                            label: l10n.instructorWeeklyScheduleTitle,
+                            onTap: interactive
+                                ? () => InstructorNavigation.openWeeklySchedule(
+                                    context,
+                                  )
+                                : null,
+                          ),
+                          const Divider(height: 1, color: AppColors.line),
+                          InstructorSettingsRow(
+                            icon: PhosphorIconsBold.calendarX,
                             label: l10n.instructorLeaveTitle,
                             onTap: interactive
                                 ? () => InstructorNavigation.openLeaves(context)
+                                : null,
+                          ),
+                          const Divider(height: 1, color: AppColors.line),
+                          InstructorSettingsRow(
+                            icon: PhosphorIconsBold.wallet,
+                            label: l10n.instructorDuesTitle,
+                            onTap: interactive
+                                ? () => InstructorNavigation.openDues(context)
+                                : null,
+                          ),
+                          const Divider(height: 1, color: AppColors.line),
+                          InstructorSettingsRow(
+                            icon: PhosphorIconsBold.money,
+                            label: l10n.instructorEarningsTitle,
+                            onTap: interactive
+                                ? () =>
+                                      InstructorNavigation.openEarnings(context)
                                 : null,
                           ),
                           const Divider(height: 1, color: AppColors.line),
@@ -237,7 +268,6 @@ class _InstructorProfileInfoRow extends StatelessWidget {
           Flexible(
             child: Text(
               detail.value,
-              textDirection: detail.valueDirection,
               textAlign: TextAlign.end,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 color: AppColors.ink,
@@ -256,11 +286,9 @@ class _ProfileDetail {
     required this.icon,
     required this.label,
     required this.value,
-    this.valueDirection,
   });
 
   final IconData icon;
   final String label;
   final String value;
-  final TextDirection? valueDirection;
 }

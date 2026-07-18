@@ -33,12 +33,12 @@ enum InstructorDayOfWeek {
   }
 
   String get apiValue => switch (this) {
-        InstructorDayOfWeek.sat => 'SAT',
-        InstructorDayOfWeek.sun => 'SUN',
-        InstructorDayOfWeek.mon => 'MON',
-        InstructorDayOfWeek.tue => 'TUE',
-        InstructorDayOfWeek.wed => 'WED',
-        InstructorDayOfWeek.thu => 'THU',
-        InstructorDayOfWeek.fri => 'FRI',
-      };
+    InstructorDayOfWeek.sat => 'SAT',
+    InstructorDayOfWeek.sun => 'SUN',
+    InstructorDayOfWeek.mon => 'MON',
+    InstructorDayOfWeek.tue => 'TUE',
+    InstructorDayOfWeek.wed => 'WED',
+    InstructorDayOfWeek.thu => 'THU',
+    InstructorDayOfWeek.fri => 'FRI',
+  };
 }

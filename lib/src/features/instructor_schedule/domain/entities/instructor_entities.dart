@@ -14,7 +14,6 @@ class InstructorProfileEntity {
     required this.instructorId,
     required this.userId,
     required this.name,
-    this.phone = '',
     required this.gender,
     required this.instructorType,
     required this.accountStatus,
@@ -27,8 +26,7 @@ class InstructorProfileEntity {
       const InstructorProfileEntity(
         instructorId: 0,
         userId: 0,
-        name: 'Placeholder Instructor Name',
-        phone: '0999000000',
+        name: '',
         gender: 'MALE',
         instructorType: InstructorType.manual,
         accountStatus: 'ACTIVE',
@@ -39,7 +37,6 @@ class InstructorProfileEntity {
   final int instructorId;
   final int userId;
   final String name;
-  final String phone;
   final String gender;
   final InstructorType instructorType;
   final String accountStatus;
@@ -356,26 +353,12 @@ class InstructorScheduleDashboardEntity {
 }
 
 class InstructorProfileDashboardEntity {
-  const InstructorProfileDashboardEntity({
-    required this.profile,
-    required this.weeklySchedule,
-    required this.dues,
-    required this.monthEarnings,
-    required this.leaves,
-  });
+  const InstructorProfileDashboardEntity({required this.profile});
 
   factory InstructorProfileDashboardEntity.placeholder() =>
       InstructorProfileDashboardEntity(
         profile: InstructorProfileEntity.placeholder(),
-        weeklySchedule: const [],
-        dues: const InstructorDuesEntity(dues: [], grandTotal: 0),
-        monthEarnings: InstructorEarningsEntity.placeholder(),
-        leaves: const [],
       );
 
   final InstructorProfileEntity profile;
-  final List<InstructorScheduleDayEntity> weeklySchedule;
-  final InstructorDuesEntity dues;
-  final InstructorEarningsEntity monthEarnings;
-  final List<InstructorLeaveEntity> leaves;
 }

@@ -40,6 +40,43 @@ class LoadInstructorLeavesUseCase {
 }
 
 @injectable
+class LoadInstructorWeeklyScheduleUseCase {
+  const LoadInstructorWeeklyScheduleUseCase(this._repository);
+
+  final InstructorRepository _repository;
+
+  FutureEither<List<InstructorScheduleDayEntity>> call() {
+    return _repository.getWeeklySchedule();
+  }
+}
+
+@injectable
+class LoadInstructorDuesUseCase {
+  const LoadInstructorDuesUseCase(this._repository);
+
+  final InstructorRepository _repository;
+
+  FutureEither<InstructorDuesEntity> call() {
+    return _repository.getDues();
+  }
+}
+
+@injectable
+class LoadInstructorEarningsUseCase {
+  const LoadInstructorEarningsUseCase(this._repository);
+
+  final InstructorRepository _repository;
+
+  FutureEither<InstructorEarningsEntity> forDate(DateTime date) {
+    return _repository.getEarningsForDate(date);
+  }
+
+  FutureEither<InstructorEarningsEntity> forMonth(String month) {
+    return _repository.getEarningsForMonth(month);
+  }
+}
+
+@injectable
 class LoadInstructorDayBookingsUseCase {
   const LoadInstructorDayBookingsUseCase(this._repository);
 

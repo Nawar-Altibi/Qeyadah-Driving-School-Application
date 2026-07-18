@@ -597,6 +597,15 @@ class AppLocalizationsAr extends AppLocalizations {
   String get instructorProfileNoLeave => 'لا توجد إجازة حالياً';
 
   @override
+  String get instructorProfileFullDayLeave => 'إجازة ليوم كامل';
+
+  @override
+  String get instructorProfilePartialLeave => 'إجازة جزئية';
+
+  @override
+  String get instructorProfileSettings => 'إعدادات المدرب';
+
+  @override
   String get instructorSchedulePreferences => 'تفضيلات الجدول';
 
   @override
@@ -643,4 +652,84 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get instructorLeaveReasonLabel => 'السبب';
+
+  @override
+  String get instructorWeeklyScheduleTitle => 'جدول الدوام الأسبوعي';
+
+  @override
+  String get instructorWeeklyScheduleSubtitle =>
+      'ساعات الدوام المسجلة لكل يوم.';
+
+  @override
+  String get instructorDaySaturday => 'السبت';
+
+  @override
+  String get instructorDaySunday => 'الأحد';
+
+  @override
+  String get instructorDayMonday => 'الاثنين';
+
+  @override
+  String get instructorDayTuesday => 'الثلاثاء';
+
+  @override
+  String get instructorDayWednesday => 'الأربعاء';
+
+  @override
+  String get instructorDayThursday => 'الخميس';
+
+  @override
+  String get instructorDayFriday => 'الجمعة';
+
+  @override
+  String get instructorDayOff => 'يوم عطلة';
+
+  @override
+  String get instructorDuesTitle => 'المستحقات غير المدفوعة';
+
+  @override
+  String get instructorDuesGrandTotal => 'إجمالي المستحقات';
+
+  @override
+  String get instructorDuesDailyDetails => 'تفاصيل الأيام';
+
+  @override
+  String get instructorDuesEmpty => 'لا توجد مستحقات غير مدفوعة.';
+
+  @override
+  String instructorDuesLessonCount(int count) {
+    return '$count جلسات';
+  }
+
+  @override
+  String get instructorEarningsTitle => 'الأرباح المقبوضة';
+
+  @override
+  String get instructorEarningsDay => 'يوم';
+
+  @override
+  String get instructorEarningsMonth => 'شهر';
+
+  @override
+  String get instructorEarningsDayTotal => 'إجمالي اليوم';
+
+  @override
+  String get instructorEarningsMonthTotal => 'إجمالي الشهر';
+
+  @override
+  String get instructorEarningsSessions => 'الجلسات';
+
+  @override
+  String get instructorEarningsEmpty => 'لا توجد أرباح مسجلة لهذه الفترة.';
+
+  @override
+  String get instructorEarningsPickDay => 'اختر اليوم';
+
+  @override
+  String get instructorEarningsPickMonth => 'اختر شهراً';
+
+  @override
+  String instructorEarningsPaidAt(String date) {
+    return 'تم الدفع: $date';
+  }
 }

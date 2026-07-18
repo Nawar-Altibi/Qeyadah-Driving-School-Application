@@ -311,6 +311,9 @@
   "instructorProfileTodayLessons": "Today's lessons",
   "instructorProfileLeaveStatus": "Leave status",
   "instructorProfileNoLeave": "No current leave",
+  "instructorProfileFullDayLeave": "Full-day leave",
+  "instructorProfilePartialLeave": "Partial leave",
+  "instructorProfileSettings": "Instructor settings",
   "instructorSchedulePreferences": "Schedule preferences",
   "instructorLanguage": "Language",
   "instructorNotifications": "Notifications",
@@ -344,5 +347,44 @@
     }
   },
   "instructorAvailableSlot": "Available slot",
-  "instructorLeaveReasonLabel": "Reason"
+  "instructorLeaveReasonLabel": "Reason",
+  "instructorWeeklyScheduleTitle": "Weekly schedule",
+  "instructorWeeklyScheduleSubtitle": "Your registered working hours for each day.",
+  "instructorDaySaturday": "Saturday",
+  "instructorDaySunday": "Sunday",
+  "instructorDayMonday": "Monday",
+  "instructorDayTuesday": "Tuesday",
+  "instructorDayWednesday": "Wednesday",
+  "instructorDayThursday": "Thursday",
+  "instructorDayFriday": "Friday",
+  "instructorDayOff": "Day off",
+  "instructorDuesTitle": "Unpaid dues",
+  "instructorDuesGrandTotal": "Total dues",
+  "instructorDuesDailyDetails": "Daily details",
+  "instructorDuesEmpty": "No unpaid dues.",
+  "instructorDuesLessonCount": "{count} sessions",
+  "@instructorDuesLessonCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "instructorEarningsTitle": "Received earnings",
+  "instructorEarningsDay": "Day",
+  "instructorEarningsMonth": "Month",
+  "instructorEarningsDayTotal": "Day total",
+  "instructorEarningsMonthTotal": "Month total",
+  "instructorEarningsSessions": "Sessions",
+  "instructorEarningsEmpty": "No earnings recorded for this period.",
+  "instructorEarningsPickDay": "Select day",
+  "instructorEarningsPickMonth": "Select month",
+  "instructorEarningsPaidAt": "Paid at: {date}",
+  "@instructorEarningsPaidAt": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  }
 }

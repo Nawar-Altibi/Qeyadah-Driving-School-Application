@@ -1,9 +1,12 @@
 import 'package:coore/lib.dart';
 import 'package:flutter/material.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
+import 'package:qeyadah_mobile_app/src/features/instructor_dues/presentation/screens/instructor_dues_screen.dart';
+import 'package:qeyadah_mobile_app/src/features/instructor_earnings/presentation/screens/instructor_earnings_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor_leave/presentation/screens/instructor_leave_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor_profile/presentation/screens/instructor_profile_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor_schedule/presentation/screens/instructor_schedule_screen.dart';
+import 'package:qeyadah_mobile_app/src/features/instructor_schedule/presentation/screens/instructor_weekly_schedule_screen.dart';
 
 abstract final class InstructorNavigation {
   static void openSchedule(BuildContext context) {
@@ -16,6 +19,24 @@ abstract final class InstructorNavigation {
 
   static void openLeaves(BuildContext context) {
     CoreNavigator.pushNamed(InstructorLeaveScreen.routeName, context: context);
+  }
+
+  static void openWeeklySchedule(BuildContext context) {
+    CoreNavigator.pushNamed(
+      InstructorWeeklyScheduleScreen.routeName,
+      context: context,
+    );
+  }
+
+  static void openDues(BuildContext context) {
+    CoreNavigator.pushNamed(InstructorDuesScreen.routeName, context: context);
+  }
+
+  static void openEarnings(BuildContext context) {
+    CoreNavigator.pushNamed(
+      InstructorEarningsScreen.routeName,
+      context: context,
+    );
   }
 
   static void handleBottomNav(BuildContext context, String tabId) {
