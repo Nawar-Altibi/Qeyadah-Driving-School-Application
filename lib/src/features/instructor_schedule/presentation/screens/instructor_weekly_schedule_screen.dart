@@ -12,6 +12,7 @@ import 'package:qeyadah_mobile_app/src/core/ui/app_section_heading.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_skeleton_shell.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor_schedule/domain/entities/instructor_entities.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor_schedule/presentation/cubit/instructor_weekly_schedule_cubit.dart';
+import 'package:qeyadah_mobile_app/src/features/instructor_schedule/presentation/formatters/instructor_formatters.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/instructor_day_of_week.dart';
 
 class InstructorWeeklyScheduleScreen extends StatefulWidget {
@@ -45,7 +46,7 @@ class _InstructorWeeklyScheduleScreenState
             InstructorWeeklyScheduleState
           >(
             builder: (context, state) => state.apiState.when(
-              initial: () => const SizedBox.shrink(),
+              initial: () => const _WeeklyScheduleSkeleton(),
               loading: () => const _WeeklyScheduleSkeleton(),
               succeeded: (schedule) => _WeeklyScheduleBody(schedule: schedule),
               failed: (failure, retry) => Center(
@@ -111,38 +112,92 @@ class _ScheduleDayCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final periods =
         schedule?.periods ?? const <InstructorSchedulePeriodEntity>[];
+    final hasPeriods = periods.isNotEmpty;
+    final theme = Theme.of(context);
+
     return AppCard(
-      child: Column(
+      child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label, style: Theme.of(context).textTheme.titleSmall),
-          const SizedBox(height: AppDesignTokens.spacingSm),
-          if (periods.isEmpty)
-            Row(
+          Container(
+            width: 48,
+            height: 48,
+            decoration: BoxDecoration(
+              color: hasPeriods
+                  ? AppColors.brandMintSoft
+                  : AppColors.neutralBg,
+              borderRadius: BorderRadius.circular(AppDesignTokens.radiusLg),
+            ),
+            child: Icon(
+              hasPeriods
+                  ? PhosphorIconsBold.clock
+                  : PhosphorIconsBold.calendarX,
+              size: 22,
+              color: hasPeriods ? AppColors.brandPrimary : AppColors.muted,
+              textDirection: TextDirection.ltr,
+            ),
+          ),
+          const SizedBox(width: AppDesignTokens.spacing),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const AppNonMirroredIcon(
-                  PhosphorIconsBold.calendarX,
-                  color: AppColors.muted,
-                  size: 18,
-                ),
-                const SizedBox(width: AppDesignTokens.spacingSm),
                 Text(
-                  AppLocalizations.of(context).instructorDayOff,
-                  style: const TextStyle(color: AppColors.muted),
+                  label,
+                  style: theme.textTheme.titleSmall?.copyWith(
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
-              ],
-            )
-          else
-            Wrap(
-              spacing: AppDesignTokens.spacingSm,
-              runSpacing: AppDesignTokens.spacingSm,
-              children: [
-                for (final period in periods)
-                  Chip(label: Text('${period.startTime} – ${period.endTime}')),
+                const SizedBox(height: AppDesignTokens.spacingSm),
+                if (!hasPeriods)
+                  Text(
+                    l10n.instructorDayOff,
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      color: AppColors.muted,
+                    ),
+                  )
+                else
+                  Wrap(
+                    spacing: AppDesignTokens.spacingSm,
+                    runSpacing: AppDesignTokens.spacingSm,
+                    children: [
+                      for (final period in periods)
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: AppDesignTokens.spacing,
+                            vertical: AppDesignTokens.spacingSm,
+                          ),
+                          decoration: BoxDecoration(
+                            color: AppColors.brandMintSoft,
+                            borderRadius: BorderRadius.circular(
+                              AppDesignTokens.radiusMd,
+                            ),
+                            border: Border.all(
+                              color: AppColors.brandPrimary.withValues(
+                                alpha: 0.12,
+                              ),
+                            ),
+                          ),
+                          child: Text(
+                            InstructorFormatters.schedulePeriodLabel(
+                              period.startTime,
+                              period.endTime,
+                            ),
+                            style: theme.textTheme.bodyMedium?.copyWith(
+                              color: AppColors.brandPrimary,
+                              fontWeight: FontWeight.w700,
+                              fontFeatures: const [FontFeature.tabularFigures()],
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
               ],
             ),
+          ),
         ],
       ),
     );

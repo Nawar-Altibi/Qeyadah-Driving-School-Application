@@ -44,7 +44,8 @@ class InstructorScheduleScreen extends StatelessWidget {
                                   current.isSilentRefresh,
                           builder: (context, state) {
                             return state.apiState.when(
-                              initial: () => const SizedBox.shrink(),
+                              initial: () =>
+                                  const InstructorScheduleSkeletonBody(),
                               loading: () =>
                                   const InstructorScheduleSkeletonBody(),
                               succeeded: (dashboard) =>

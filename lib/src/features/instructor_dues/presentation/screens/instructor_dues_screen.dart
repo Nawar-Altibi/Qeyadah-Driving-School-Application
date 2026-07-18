@@ -34,7 +34,7 @@ class _InstructorDuesScreenState extends State<InstructorDuesScreen> {
       appBar: AppBar(title: Text(l10n.instructorDuesTitle)),
       body: BlocBuilder<InstructorDuesCubit, InstructorDuesState>(
         builder: (context, state) => state.apiState.when(
-          initial: () => const SizedBox.shrink(),
+          initial: () => const InstructorDuesSkeletonBody(),
           loading: () => const InstructorDuesSkeletonBody(),
           succeeded: (dues) => InstructorDuesBody(dues: dues),
           failed: (failure, retry) => Center(

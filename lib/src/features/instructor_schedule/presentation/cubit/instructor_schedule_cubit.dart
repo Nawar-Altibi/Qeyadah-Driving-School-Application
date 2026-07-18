@@ -42,7 +42,19 @@ class InstructorScheduleCubit
     final selectedDate = date ?? _selectedDate;
     final selectedViewMode = viewMode ?? state.viewMode;
     _selectedDate = selectedDate;
-    emit(state.copyWith(isSilentRefresh: silent, viewMode: selectedViewMode));
+    if (silent) {
+      emit(
+        state.copyWith(isSilentRefresh: true, viewMode: selectedViewMode),
+      );
+    } else {
+      emit(
+        state.copyWith(
+          isSilentRefresh: false,
+          viewMode: selectedViewMode,
+          apiState: const ApiState<InstructorScheduleDashboardEntity>.loading(),
+        ),
+      );
+    }
 
     final result = await _loadScheduleUseCase(selectedDate, selectedViewMode);
 

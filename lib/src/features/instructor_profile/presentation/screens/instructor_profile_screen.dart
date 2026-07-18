@@ -35,7 +35,7 @@ class InstructorProfileScreen extends StatelessWidget {
                           previous.apiState != current.apiState,
                       builder: (context, state) {
                         return state.apiState.when(
-                          initial: () => const SizedBox.shrink(),
+                          initial: () => const InstructorProfileSkeletonBody(),
                           loading: () => const InstructorProfileSkeletonBody(),
                           succeeded: (dashboard) =>
                               InstructorProfileBody(dashboard: dashboard),

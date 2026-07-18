@@ -34,7 +34,7 @@ class InstructorLeaveScreen extends StatelessWidget {
           child: BlocBuilder<InstructorLeaveCubit, InstructorLeaveState>(
             builder: (context, state) {
               return state.apiState.when(
-                initial: () => const SizedBox.shrink(),
+                initial: () => const InstructorLeaveSkeletonBody(),
                 loading: () => const InstructorLeaveSkeletonBody(),
                 succeeded: (leaves) => InstructorLeaveBody(leaves: leaves),
                 failed: (failure, retry) {

@@ -35,7 +35,7 @@ class _InstructorEarningsScreenState extends State<InstructorEarningsScreen> {
       appBar: AppBar(title: Text(l10n.instructorEarningsTitle)),
       body: BlocBuilder<InstructorEarningsCubit, InstructorEarningsState>(
         builder: (context, state) => state.apiState.when(
-          initial: () => const SizedBox.shrink(),
+          initial: () => const InstructorEarningsSkeletonBody(),
           loading: () => const InstructorEarningsSkeletonBody(),
           succeeded: (earnings) =>
               InstructorEarningsBody(state: state, earnings: earnings),

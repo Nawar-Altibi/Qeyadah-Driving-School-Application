@@ -183,7 +183,6 @@ class _EarningsPeriodStepper extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final localeName = Localizations.localeOf(context).toLanguageTag();
-    final isRtl = Directionality.of(context) == TextDirection.rtl;
     final label = isDay
         ? DateFormat.yMMMMd(localeName).format(selectedDate)
         : DateFormat.yMMMM(localeName).format(selectedDate);
@@ -200,14 +199,14 @@ class _EarningsPeriodStepper extends StatelessWidget {
       child: Column(
         children: [
           Row(
+            // Keep chronological navigation: left = earlier, right = later.
+            textDirection: TextDirection.ltr,
             children: [
               IconButton(
                 tooltip: l10n.instructorEarningsPreviousPeriod,
                 onPressed: interactive ? onPrevious : null,
-                icon: Icon(
-                  isRtl
-                      ? PhosphorIconsBold.caretRight
-                      : PhosphorIconsBold.caretLeft,
+                icon: const Icon(
+                  PhosphorIconsBold.caretLeft,
                   color: AppColors.brandPrimary,
                 ),
               ),
@@ -252,10 +251,8 @@ class _EarningsPeriodStepper extends StatelessWidget {
               IconButton(
                 tooltip: l10n.instructorEarningsNextPeriod,
                 onPressed: interactive ? onNext : null,
-                icon: Icon(
-                  isRtl
-                      ? PhosphorIconsBold.caretLeft
-                      : PhosphorIconsBold.caretRight,
+                icon: const Icon(
+                  PhosphorIconsBold.caretRight,
                   color: AppColors.brandPrimary,
                 ),
               ),
