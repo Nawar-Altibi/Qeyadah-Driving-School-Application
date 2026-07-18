@@ -5,6 +5,7 @@ import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_alert_banner.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
+import 'package:qeyadah_mobile_app/src/core/ui/app_skeleton_shell.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor_schedule/domain/entities/instructor_entities.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor_schedule/presentation/formatters/instructor_formatters.dart';
 
@@ -29,7 +30,7 @@ class InstructorLeaveBody extends StatelessWidget {
                 color: AppColors.brandMintSoft,
                 borderRadius: BorderRadius.circular(15),
               ),
-              child: const Icon(
+              child: const AppNonMirroredIcon(
                 PhosphorIconsBold.calendar,
                 color: AppColors.brandPrimary,
               ),
