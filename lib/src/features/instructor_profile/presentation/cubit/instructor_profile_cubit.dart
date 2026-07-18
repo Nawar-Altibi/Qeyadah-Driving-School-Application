@@ -34,7 +34,16 @@ class InstructorProfileCubit
 
   Future<void> load({bool silent = false}) async {
     final generation = ++_loadGeneration;
-    emit(state.copyWith(isSilentRefresh: silent));
+    if (silent) {
+      emit(state.copyWith(isSilentRefresh: true));
+    } else {
+      emit(
+        state.copyWith(
+          isSilentRefresh: false,
+          apiState: const ApiState<InstructorProfileDashboardEntity>.loading(),
+        ),
+      );
+    }
 
     final result = await _loadProfileUseCase();
 

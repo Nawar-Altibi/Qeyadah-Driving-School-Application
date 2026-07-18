@@ -35,6 +35,11 @@ class InstructorLeaveCubit
 
   Future<void> load() async {
     final generation = ++_loadGeneration;
+    emit(
+      state.copyWith(
+        apiState: const ApiState<List<InstructorLeaveEntity>>.loading(),
+      ),
+    );
 
     final result = await _loadLeavesUseCase();
 
