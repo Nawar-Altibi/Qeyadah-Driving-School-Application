@@ -358,6 +358,12 @@
   "instructorEarningsEmpty": "لا توجد أرباح مسجلة لهذه الفترة.",
   "instructorEarningsPickDay": "اختر اليوم",
   "instructorEarningsPickMonth": "اختر شهراً",
+  "instructorEarningsToday": "اليوم",
+  "instructorEarningsThisMonth": "هذا الشهر",
+  "instructorEarningsPeriodHintDay": "تصفّح يوماً بيوم أو اضغط على التاريخ للاختيار.",
+  "instructorEarningsPeriodHintMonth": "تصفّح شهراً بشهر أو اضغط على الشهر للاختيار.",
+  "instructorEarningsPreviousPeriod": "الفترة السابقة",
+  "instructorEarningsNextPeriod": "الفترة التالية",
   "instructorEarningsPaidAt": "تم الدفع: {date}",
   "@instructorEarningsPaidAt": {
     "placeholders": {

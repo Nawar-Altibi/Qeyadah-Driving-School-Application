@@ -735,6 +735,26 @@ class AppLocalizationsEn extends AppLocalizations {
   String get instructorEarningsPickMonth => 'Select month';
 
   @override
+  String get instructorEarningsToday => 'Today';
+
+  @override
+  String get instructorEarningsThisMonth => 'This month';
+
+  @override
+  String get instructorEarningsPeriodHintDay =>
+      'Step day by day, or tap the date to pick one.';
+
+  @override
+  String get instructorEarningsPeriodHintMonth =>
+      'Step month by month, or tap the month to pick one.';
+
+  @override
+  String get instructorEarningsPreviousPeriod => 'Previous period';
+
+  @override
+  String get instructorEarningsNextPeriod => 'Next period';
+
+  @override
   String instructorEarningsPaidAt(String date) {
     return 'Paid at: $date';
   }

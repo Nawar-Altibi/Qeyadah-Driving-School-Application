@@ -379,6 +379,12 @@
   "instructorEarningsEmpty": "No earnings recorded for this period.",
   "instructorEarningsPickDay": "Select day",
   "instructorEarningsPickMonth": "Select month",
+  "instructorEarningsToday": "Today",
+  "instructorEarningsThisMonth": "This month",
+  "instructorEarningsPeriodHintDay": "Step day by day, or tap the date to pick one.",
+  "instructorEarningsPeriodHintMonth": "Step month by month, or tap the month to pick one.",
+  "instructorEarningsPreviousPeriod": "Previous period",
+  "instructorEarningsNextPeriod": "Next period",
   "instructorEarningsPaidAt": "Paid at: {date}",
   "@instructorEarningsPaidAt": {
     "placeholders": {
