@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
+import 'package:intl/intl.dart' hide TextDirection;
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
-import 'package:qeyadah_mobile_app/src/core/ui/app_button.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_metric_tile.dart';
+import 'package:qeyadah_mobile_app/src/core/ui/app_month_year_picker.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_section_heading.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_segmented_control.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor_earnings/presentation/cubit/instructor_earnings_cubit.dart';
@@ -53,16 +53,24 @@ class InstructorEarningsBody extends StatelessWidget {
               ? context.read<InstructorEarningsCubit>().setViewMode
               : (_) {},
         ),
+        const SizedBox(height: AppDesignTokens.spacingSm),
+        Text(
+          isDay
+              ? l10n.instructorEarningsPeriodHintDay
+              : l10n.instructorEarningsPeriodHintMonth,
+          style: Theme.of(
+            context,
+          ).textTheme.bodySmall?.copyWith(color: AppColors.muted),
+        ),
         const SizedBox(height: AppDesignTokens.spacing),
-        AppButton.secondary(
-          label: isDay
-              ? DateFormat.yMMMMd(
-                  Localizations.localeOf(context).toLanguageTag(),
-                ).format(state.selectedDate)
-              : DateFormat.yMMMM(
-                  Localizations.localeOf(context).toLanguageTag(),
-                ).format(state.selectedDate),
-          onPressed: interactive ? () => _pickPeriod(context, isDay) : () {},
+        _EarningsPeriodStepper(
+          isDay: isDay,
+          selectedDate: state.selectedDate,
+          interactive: interactive,
+          onPrevious: () => _stepPeriod(context, isDay, -1),
+          onNext: () => _stepPeriod(context, isDay, 1),
+          onPick: () => _pickPeriod(context, isDay),
+          onJumpCurrent: () => _jumpToCurrent(context, isDay),
         ),
         const SizedBox(height: AppDesignTokens.spacingMd),
         Row(
@@ -100,21 +108,178 @@ class InstructorEarningsBody extends StatelessWidget {
     );
   }
 
+  Future<void> _stepPeriod(
+    BuildContext context,
+    bool isDay,
+    int delta,
+  ) async {
+    if (!interactive) return;
+    final current = state.selectedDate;
+    final next = isDay
+        ? current.add(Duration(days: delta))
+        : DateTime(current.year, current.month + delta);
+    await context.read<InstructorEarningsCubit>().selectDate(next);
+  }
+
+  Future<void> _jumpToCurrent(BuildContext context, bool isDay) async {
+    if (!interactive) return;
+    final now = DateTime.now();
+    final target = isDay
+        ? DateTime(now.year, now.month, now.day)
+        : DateTime(now.year, now.month);
+    await context.read<InstructorEarningsCubit>().selectDate(target);
+  }
+
   Future<void> _pickPeriod(BuildContext context, bool isDay) async {
-    final selected = await showDatePicker(
-      context: context,
-      initialDate: state.selectedDate,
-      firstDate: DateTime(2020),
-      lastDate: DateTime.now().add(const Duration(days: 365)),
-      helpText: isDay
-          ? AppLocalizations.of(context).instructorEarningsPickDay
-          : AppLocalizations.of(context).instructorEarningsPickMonth,
-    );
-    if (selected == null || !context.mounted) return;
-    await context.read<InstructorEarningsCubit>().selectDate(
+    if (!interactive) return;
+    final l10n = AppLocalizations.of(context);
+    final cubit = context.read<InstructorEarningsCubit>();
+    final now = DateTime.now();
+    final DateTime? selected;
+    if (isDay) {
+      selected = await showDatePicker(
+        context: context,
+        initialDate: state.selectedDate,
+        firstDate: DateTime(2020),
+        lastDate: now.add(const Duration(days: 365)),
+        helpText: l10n.instructorEarningsPickDay,
+      );
+    } else {
+      selected = await showAppMonthYearPicker(
+        context: context,
+        initialDate: state.selectedDate,
+        firstDate: DateTime(2020),
+        lastDate: DateTime(now.year + 1, now.month),
+        helpText: l10n.instructorEarningsPickMonth,
+      );
+    }
+    if (selected == null) return;
+    await cubit.selectDate(
       isDay ? selected : DateTime(selected.year, selected.month),
     );
   }
+}
+
+class _EarningsPeriodStepper extends StatelessWidget {
+  const _EarningsPeriodStepper({
+    required this.isDay,
+    required this.selectedDate,
+    required this.interactive,
+    required this.onPrevious,
+    required this.onNext,
+    required this.onPick,
+    required this.onJumpCurrent,
+  });
+
+  final bool isDay;
+  final DateTime selectedDate;
+  final bool interactive;
+  final VoidCallback onPrevious;
+  final VoidCallback onNext;
+  final VoidCallback onPick;
+  final VoidCallback onJumpCurrent;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final localeName = Localizations.localeOf(context).toLanguageTag();
+    final isRtl = Directionality.of(context) == TextDirection.rtl;
+    final label = isDay
+        ? DateFormat.yMMMMd(localeName).format(selectedDate)
+        : DateFormat.yMMMM(localeName).format(selectedDate);
+    final now = DateTime.now();
+    final isCurrent = isDay
+        ? _isSameDay(selectedDate, now)
+        : selectedDate.year == now.year && selectedDate.month == now.month;
+
+    return AppCard(
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppDesignTokens.spacingSm,
+        vertical: AppDesignTokens.spacingSm,
+      ),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              IconButton(
+                tooltip: l10n.instructorEarningsPreviousPeriod,
+                onPressed: interactive ? onPrevious : null,
+                icon: Icon(
+                  isRtl
+                      ? PhosphorIconsBold.caretRight
+                      : PhosphorIconsBold.caretLeft,
+                  color: AppColors.brandPrimary,
+                ),
+              ),
+              Expanded(
+                child: Material(
+                  color: AppColors.brandMintSoft,
+                  borderRadius: BorderRadius.circular(AppDesignTokens.radiusMd),
+                  child: InkWell(
+                    onTap: interactive ? onPick : null,
+                    borderRadius: BorderRadius.circular(
+                      AppDesignTokens.radiusMd,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: AppDesignTokens.spacing,
+                        vertical: 12,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(
+                            PhosphorIconsBold.calendar,
+                            size: 18,
+                            color: AppColors.brandPrimary,
+                            textDirection: TextDirection.ltr,
+                          ),
+                          const SizedBox(width: AppDesignTokens.spacingSm),
+                          Flexible(
+                            child: Text(
+                              label,
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context).textTheme.titleSmall
+                                  ?.copyWith(fontWeight: FontWeight.w700),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              IconButton(
+                tooltip: l10n.instructorEarningsNextPeriod,
+                onPressed: interactive ? onNext : null,
+                icon: Icon(
+                  isRtl
+                      ? PhosphorIconsBold.caretLeft
+                      : PhosphorIconsBold.caretRight,
+                  color: AppColors.brandPrimary,
+                ),
+              ),
+            ],
+          ),
+          if (!isCurrent) ...[
+            const SizedBox(height: AppDesignTokens.spacingSm),
+            TextButton.icon(
+              onPressed: interactive ? onJumpCurrent : null,
+              icon: const Icon(PhosphorIconsBold.arrowUUpLeft, size: 16),
+              label: Text(
+                isDay
+                    ? l10n.instructorEarningsToday
+                    : l10n.instructorEarningsThisMonth,
+              ),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+
+  bool _isSameDay(DateTime a, DateTime b) =>
+      a.year == b.year && a.month == b.month && a.day == b.day;
 }
 
 class _SessionCard extends StatelessWidget {

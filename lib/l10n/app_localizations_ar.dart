@@ -729,6 +729,26 @@ class AppLocalizationsAr extends AppLocalizations {
   String get instructorEarningsPickMonth => 'اختر شهراً';
 
   @override
+  String get instructorEarningsToday => 'اليوم';
+
+  @override
+  String get instructorEarningsThisMonth => 'هذا الشهر';
+
+  @override
+  String get instructorEarningsPeriodHintDay =>
+      'تصفّح يوماً بيوم أو اضغط على التاريخ للاختيار.';
+
+  @override
+  String get instructorEarningsPeriodHintMonth =>
+      'تصفّح شهراً بشهر أو اضغط على الشهر للاختيار.';
+
+  @override
+  String get instructorEarningsPreviousPeriod => 'الفترة السابقة';
+
+  @override
+  String get instructorEarningsNextPeriod => 'الفترة التالية';
+
+  @override
   String instructorEarningsPaidAt(String date) {
     return 'تم الدفع: $date';
   }

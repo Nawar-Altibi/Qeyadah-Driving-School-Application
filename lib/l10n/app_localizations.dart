@@ -1418,6 +1418,42 @@ abstract class AppLocalizations {
   /// **'Select month'**
   String get instructorEarningsPickMonth;
 
+  /// No description provided for @instructorEarningsToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get instructorEarningsToday;
+
+  /// No description provided for @instructorEarningsThisMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'This month'**
+  String get instructorEarningsThisMonth;
+
+  /// No description provided for @instructorEarningsPeriodHintDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Step day by day, or tap the date to pick one.'**
+  String get instructorEarningsPeriodHintDay;
+
+  /// No description provided for @instructorEarningsPeriodHintMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Step month by month, or tap the month to pick one.'**
+  String get instructorEarningsPeriodHintMonth;
+
+  /// No description provided for @instructorEarningsPreviousPeriod.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous period'**
+  String get instructorEarningsPreviousPeriod;
+
+  /// No description provided for @instructorEarningsNextPeriod.
+  ///
+  /// In en, this message translates to:
+  /// **'Next period'**
+  String get instructorEarningsNextPeriod;
+
   /// No description provided for @instructorEarningsPaidAt.
   ///
   /// In en, this message translates to:
