@@ -9,6 +9,7 @@ import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart'
 import 'package:qeyadah_mobile_app/src/core/ui/app_button.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_section_heading.dart';
+import 'package:qeyadah_mobile_app/src/core/ui/app_skeleton_shell.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor_schedule/domain/entities/instructor_entities.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor_schedule/presentation/cubit/instructor_weekly_schedule_cubit.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/instructor_day_of_week.dart';
@@ -121,7 +122,7 @@ class _ScheduleDayCard extends StatelessWidget {
           if (periods.isEmpty)
             Row(
               children: [
-                const Icon(
+                const AppNonMirroredIcon(
                   PhosphorIconsBold.calendarX,
                   color: AppColors.muted,
                   size: 18,
@@ -153,17 +154,15 @@ class _WeeklyScheduleSkeleton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      padding: const EdgeInsets.all(AppDesignTokens.screenHorizontalPadding),
-      itemCount: 7,
-      separatorBuilder: (_, _) =>
-          const SizedBox(height: AppDesignTokens.spacing),
-      itemBuilder: (_, _) => const AppCard(
-        child: SizedBox(
-          height: 74,
-          child: Center(child: CircularProgressIndicator()),
+    final today = DateTime.now();
+    final placeholder = [
+      for (var i = 0; i < 7; i++)
+        InstructorScheduleDayEntity.placeholderForDate(
+          today.add(Duration(days: i)),
         ),
-      ),
+    ];
+    return AppSkeletonizer(
+      child: _WeeklyScheduleBody(schedule: placeholder),
     );
   }
 }

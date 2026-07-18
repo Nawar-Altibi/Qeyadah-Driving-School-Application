@@ -183,6 +183,20 @@ class InstructorDueDayEntity {
     required this.dayTotal,
   });
 
+  factory InstructorDueDayEntity.placeholder({int offsetDays = 0}) {
+    final now = DateTime.now();
+    final day = DateTime(
+      now.year,
+      now.month,
+      now.day,
+    ).subtract(Duration(days: offsetDays));
+    return InstructorDueDayEntity(
+      expenseDate: day,
+      lessonCount: 3,
+      dayTotal: 1500,
+    );
+  }
+
   final DateTime expenseDate;
   final int lessonCount;
   final int dayTotal;
@@ -190,6 +204,15 @@ class InstructorDueDayEntity {
 
 class InstructorDuesEntity {
   const InstructorDuesEntity({required this.dues, required this.grandTotal});
+
+  factory InstructorDuesEntity.placeholder() => InstructorDuesEntity(
+    grandTotal: 4500,
+    dues: [
+      InstructorDueDayEntity.placeholder(),
+      InstructorDueDayEntity.placeholder(offsetDays: 1),
+      InstructorDueDayEntity.placeholder(offsetDays: 2),
+    ],
+  );
 
   final List<InstructorDueDayEntity> dues;
   final int grandTotal;
@@ -227,14 +250,39 @@ class InstructorEarningsEntity {
     required this.sessions,
   });
 
-  factory InstructorEarningsEntity.placeholder() =>
-      const InstructorEarningsEntity(
-        periodType: 'month',
-        month: '2026-07',
-        monthSessionsCount: 12,
-        monthTotal: 2400,
-        sessions: [],
-      );
+  factory InstructorEarningsEntity.placeholder() {
+    final now = DateTime.now();
+    final day = DateTime(now.year, now.month, now.day, 9);
+    return InstructorEarningsEntity(
+      periodType: 'day',
+      date: day,
+      month: '${now.year}-${now.month.toString().padLeft(2, '0')}',
+      daySessionsCount: 3,
+      dayTotal: 1500,
+      monthSessionsCount: 12,
+      monthTotal: 6000,
+      sessions: [
+        InstructorEarningSessionEntity(
+          bookingId: 1,
+          date: day,
+          startAt: day,
+          endAt: day.add(const Duration(hours: 1, minutes: 30)),
+          studentName: 'Placeholder Student',
+          amount: 500,
+          paidAt: day,
+        ),
+        InstructorEarningSessionEntity(
+          bookingId: 2,
+          date: day,
+          startAt: day.add(const Duration(hours: 2)),
+          endAt: day.add(const Duration(hours: 3, minutes: 30)),
+          studentName: 'Placeholder Student',
+          amount: 500,
+          paidAt: day,
+        ),
+      ],
+    );
+  }
 
   final String periodType;
   final DateTime? date;
