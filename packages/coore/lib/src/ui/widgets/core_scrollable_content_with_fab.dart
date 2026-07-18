@@ -25,11 +25,11 @@ class CoreScrollableContentWithFab extends StatefulWidget {
   final Curve scrollCurve;
 
   @override
-  _CoreScrollableContentWithFabState createState() =>
-      _CoreScrollableContentWithFabState();
+  CoreScrollableContentWithFabState createState() =>
+      CoreScrollableContentWithFabState();
 }
 
-class _CoreScrollableContentWithFabState
+class CoreScrollableContentWithFabState
     extends State<CoreScrollableContentWithFab> {
   final ScrollController _scrollController = ScrollController();
   final ValueNotifier<bool> _isFabVisible = ValueNotifier<bool>(false);

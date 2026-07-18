@@ -74,7 +74,7 @@ class _ForgotPasswordScreenBody extends StatelessWidget {
                     hintText: '0999000000',
                     keyboardType: TextInputType.phone,
                     textInputAction: TextInputAction.done,
-                    prefixIcon: Icon(
+                    prefixIcon: const Icon(
                       PhosphorIconsBold.phone,
                       size: 18,
                       color: AppColors.muted,

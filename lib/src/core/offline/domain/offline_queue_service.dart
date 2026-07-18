@@ -1,8 +1,8 @@
 import 'package:coore/lib.dart';
 import 'package:fpdart/fpdart.dart';
+import 'package:injectable/injectable.dart';
 import 'package:qeyadah_mobile_app/src/core/offline/data/offline_queue_local_data_source.dart';
 import 'package:qeyadah_mobile_app/src/core/offline/domain/entities/queued_api_request_entity.dart';
-import 'package:injectable/injectable.dart';
 import 'package:uuid/uuid.dart';
 
 @lazySingleton
@@ -141,30 +141,25 @@ class OfflineQueueService {
       HttpMethod.get => await _apiHandler.get(
         path,
         queryParameters: queryParameters,
-        isAuthorized: false,
       ),
       HttpMethod.post => await _apiHandler.post(
         path,
         body: body,
         queryParameters: queryParameters,
-        isAuthorized: false,
       ),
       HttpMethod.put => await _apiHandler.put(
         path,
         body: body,
         queryParameters: queryParameters,
-        isAuthorized: false,
       ),
       HttpMethod.patch => await _apiHandler.patch(
         path,
         body: body,
         queryParameters: queryParameters,
-        isAuthorized: false,
       ),
       HttpMethod.delete => await _apiHandler.delete(
         path,
         queryParameters: queryParameters,
-        isAuthorized: false,
       ),
     };
 

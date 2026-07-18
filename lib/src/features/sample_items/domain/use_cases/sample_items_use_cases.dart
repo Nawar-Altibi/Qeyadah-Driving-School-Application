@@ -1,8 +1,8 @@
-﻿import 'package:coore/lib.dart';
+import 'package:coore/lib.dart';
+import 'package:injectable/injectable.dart';
 import 'package:qeyadah_mobile_app/src/core/typedefs/app_typedefs.dart';
 import 'package:qeyadah_mobile_app/src/features/sample_items/domain/entities/sample_item_entity.dart';
 import 'package:qeyadah_mobile_app/src/features/sample_items/domain/repositories/sample_items_repository.dart';
-import 'package:injectable/injectable.dart';
 
 @lazySingleton
 class LoadSampleItemsUseCase

@@ -1,5 +1,4 @@
 import 'package:coore/lib.dart';
-import 'package:flutter/material.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
 import 'package:qeyadah_mobile_app/src/core/error_handling/app_failures.dart';
 
@@ -9,7 +8,7 @@ abstract final class CoreFailureMessageMapper {
       NoInternetConnectionFailure() => l10n.errorNoInternet,
       UnauthorizedRequestFailure(:final message) ||
       AuthFailure(:final message) =>
-        message != null && message.isNotEmpty
+        message.isNotEmpty
             ? message
             : l10n.errorUnauthorized,
       ForbiddenFailure() => l10n.errorForbidden,
@@ -19,7 +18,7 @@ abstract final class CoreFailureMessageMapper {
       FormatFailure() => l10n.errorFormat,
       CacheFailure() => l10n.errorGeneric,
       BusinessFailure(:final message) =>
-        message != null && message.isNotEmpty ? message : l10n.errorGeneric,
+        message.isNotEmpty ? message : l10n.errorGeneric,
       InternalServerErrorFailure() ||
       BadGatewayFailure() ||
       ServiceUnavailableFailure() ||

@@ -1,8 +1,8 @@
 import 'package:coore/lib.dart';
 import 'package:fpdart/fpdart.dart';
+import 'package:injectable/injectable.dart';
 import 'package:qeyadah_mobile_app/src/core/constants/raw_values.dart';
 import 'package:qeyadah_mobile_app/src/core/offline/domain/entities/queued_api_request_entity.dart';
-import 'package:injectable/injectable.dart';
 
 abstract interface class OfflineQueueLocalDataSource {
   Future<Either<Failure, void>> enqueue(QueuedApiRequestEntity item);

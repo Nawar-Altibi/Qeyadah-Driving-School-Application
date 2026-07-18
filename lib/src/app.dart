@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
 import 'package:qeyadah_mobile_app/src/core/constants/environment_variables.dart';
 import 'package:qeyadah_mobile_app/src/core/interceptors/headers_interceptor.dart';
@@ -13,7 +14,6 @@ import 'package:qeyadah_mobile_app/src/core/offline/presentation/widgets/offline
 import 'package:qeyadah_mobile_app/src/core/theme/app_text_theme_extension.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/message_viewer.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class App extends StatefulWidget {
   const App({super.key, this.forcedLocale});

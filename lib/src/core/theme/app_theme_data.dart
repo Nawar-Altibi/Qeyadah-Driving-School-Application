@@ -41,7 +41,7 @@ abstract interface class AppThemeData {
         color: AppColors.brandPrimary,
       ),
       side: const BorderSide(color: AppColors.line),
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadiusManager.radiusAll8,
       ),
     ),

@@ -19,7 +19,6 @@ class StudentHomeGreetingHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Expanded(
           child: Column(
@@ -73,7 +72,7 @@ class _NotificationBellButton extends StatelessWidget {
           child: Stack(
             alignment: Alignment.center,
             children: [
-              Icon(
+              const Icon(
                 PhosphorIconsBold.bell,
                 size: 21,
                 color: AppColors.ink,

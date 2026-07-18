@@ -50,7 +50,6 @@ class AuthOtpInput extends StatelessWidget {
       defaultPinTheme: defaultPinTheme,
       focusedPinTheme: focusedPinTheme,
       separatorBuilder: (_) => const SizedBox(width: 10),
-      keyboardType: TextInputType.number,
       autofocus: autofocus,
       onCompleted: onCompleted,
     );

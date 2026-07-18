@@ -205,7 +205,6 @@ class TokenAuthInterceptor extends AuthInterceptor {
       final result = await api.post(
         'auth/refresh',
         body: {'refreshToken': rt},
-        isAuthorized: false,
       );
 
       return result.fold((l) => false, (data) async {

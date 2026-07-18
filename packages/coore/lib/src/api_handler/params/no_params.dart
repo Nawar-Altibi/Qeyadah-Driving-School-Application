@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_annotation_target
+
 import 'package:coore/src/api_handler/cancel_request_adapter.dart';
 import 'package:coore/src/api_handler/params/cancelable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';

@@ -27,7 +27,7 @@ class AuthTopBar extends StatelessWidget {
                 shape: const CircleBorder(),
                 side: const BorderSide(color: AppColors.line),
               ),
-              icon: Icon(
+              icon: const Icon(
                 PhosphorIconsBold.arrowRight,
                 color: AppColors.ink,
                 size: 20,

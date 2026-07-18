@@ -45,7 +45,7 @@ class AppSectionHeading extends StatelessWidget {
             ],
           ),
         ),
-        if (trailing != null) trailing!,
+        ?trailing,
       ],
     );
   }

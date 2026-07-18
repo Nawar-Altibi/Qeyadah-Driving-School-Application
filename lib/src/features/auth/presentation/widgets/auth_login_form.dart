@@ -54,7 +54,7 @@ class AuthLoginForm extends StatelessWidget {
                 keyboardType: TextInputType.phone,
                 textInputAction: TextInputAction.next,
                 autoFillHints: const [AutofillHints.telephoneNumber],
-                prefixIcon: Icon(
+                prefixIcon: const Icon(
                   PhosphorIconsBold.phone,
                   size: 18,
                   color: AppColors.muted,

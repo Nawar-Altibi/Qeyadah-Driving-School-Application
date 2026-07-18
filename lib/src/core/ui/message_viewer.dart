@@ -33,7 +33,6 @@ void _showMessage({
           content: Text(message, style: const TextStyle(color: Colors.white)),
           backgroundColor: backgroundColor,
           behavior: SnackBarBehavior.floating,
-          duration: const Duration(seconds: 4),
         ),
       );
       return;

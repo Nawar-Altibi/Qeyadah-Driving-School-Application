@@ -1,4 +1,3 @@
-import 'package:coore/src/api_handler/api_handler.dart';
 import 'package:coore/src/error_handling/failures/failure.dart';
 
 abstract class NetworkFailure extends Failure {

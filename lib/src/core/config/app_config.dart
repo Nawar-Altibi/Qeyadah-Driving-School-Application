@@ -3,10 +3,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
-import 'package:typed_form_fields/typed_form_fields.dart';
 import 'package:qeyadah_mobile_app/src/core/constants/environment_variables.dart';
 import 'package:qeyadah_mobile_app/src/core/interceptors/headers_interceptor.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_theme_data.dart';
+import 'package:typed_form_fields/typed_form_fields.dart';
 
 class AppConfig {
   static const List<Locale> supportedLocales = [Locale('ar'), Locale('en')];
@@ -26,7 +26,6 @@ class AppConfig {
 
   NetworkConfigEntity get networkConfigEntity => NetworkConfigEntity(
     baseUrl: EnvironmentVariables.apiBaseUrl,
-    enableCache: false,
     connectTimeout: const Duration(seconds: 15),
     sendTimeout: const Duration(seconds: 15),
     receiveTimeout: const Duration(seconds: 15),
@@ -41,16 +40,16 @@ class AppConfig {
   );
 
   LocalizationConfigEntity get localizationConfigEntity =>
-      LocalizationConfigEntity(
+      const LocalizationConfigEntity(
         supportedLocales: supportedLocales,
-        localizationsDelegates: const [
+        localizationsDelegates: [
           AppLocalizations.delegate,
           ValidatorLocalizationsDelegate.delegate,
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
         ],
-        defaultLocale: const Locale('ar'),
+        defaultLocale: Locale('ar'),
       );
 
   ThemeConfigEntity get themeConfigEntity => ThemeConfigEntity(

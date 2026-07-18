@@ -1,14 +1,14 @@
 import 'package:coore/lib.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 import 'package:qeyadah_mobile_app/src/core/presentation/app_core_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/sample_items/domain/entities/sample_item_entity.dart';
 import 'package:qeyadah_mobile_app/src/features/sample_items/domain/repositories/sample_items_repository.dart';
 import 'package:qeyadah_mobile_app/src/features/sample_items/domain/use_cases/sample_items_use_cases.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:injectable/injectable.dart';
 
-part 'sample_items_state.dart';
 part 'sample_items_cubit.freezed.dart';
 part 'sample_items_effect.dart';
+part 'sample_items_state.dart';
 
 @injectable
 class SampleItemsCubit

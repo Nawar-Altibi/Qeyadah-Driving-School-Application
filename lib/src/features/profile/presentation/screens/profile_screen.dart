@@ -65,7 +65,7 @@ class ProfileScreen extends StatelessWidget {
                             AppDesignTokens.radiusControl,
                           ),
                         ),
-                        child: Icon(
+                        child: const Icon(
                           PhosphorIconsBold.user,
                           color: AppColors.brandPrimary,
                         ),

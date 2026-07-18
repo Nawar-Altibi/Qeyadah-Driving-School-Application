@@ -1,7 +1,7 @@
 import 'package:coore/lib.dart';
 
 sealed class AppFailure extends Failure {
-  const AppFailure(String message, {super.stackTrace}) : super(message);
+  const AppFailure(super.message, {super.stackTrace});
 }
 
 final class FormatFailure extends AppFailure {

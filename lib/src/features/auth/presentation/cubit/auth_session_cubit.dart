@@ -182,14 +182,14 @@ class AuthSessionCubit
   Future<void> logout() async {
     await _logoutUseCase(const NoParams());
     emit(
-      const AuthSessionState(apiState: ApiState<AuthSessionEntity>.initial()),
+      const AuthSessionState(),
     );
   }
 
   Future<void> logoutAll() async {
     await _logoutAllUseCase(const NoParams());
     emit(
-      const AuthSessionState(apiState: ApiState<AuthSessionEntity>.initial()),
+      const AuthSessionState(),
     );
   }
 

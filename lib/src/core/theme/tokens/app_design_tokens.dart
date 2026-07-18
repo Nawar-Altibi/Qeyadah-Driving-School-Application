@@ -1,5 +1,4 @@
 import 'package:coore/lib.dart';
-import 'package:flutter/material.dart';
 
 /// Design token references for spacing and radii.
 /// Prefer Coore managers ([PaddingManager], [BorderRadiusManager]) in widgets.
