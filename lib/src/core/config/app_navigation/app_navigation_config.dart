@@ -19,6 +19,8 @@ import 'package:qeyadah_mobile_app/src/features/instructor/presentation/dues/cub
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/dues/screens/instructor_dues_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/earnings/cubit/instructor_earnings_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/earnings/screens/instructor_earnings_screen.dart';
+import 'package:qeyadah_mobile_app/src/features/instructor/presentation/invoices/cubit/instructor_invoices_cubit.dart';
+import 'package:qeyadah_mobile_app/src/features/instructor/presentation/invoices/screens/instructor_invoices_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/leave/cubit/instructor_leave_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/leave/screens/instructor_leave_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/profile/cubit/instructor_profile_cubit.dart';
@@ -234,6 +236,19 @@ class AppNavigationConfig {
               BlocProvider(
                 create: (_) => getIt<InstructorEarningsCubit>(),
                 child: const InstructorEarningsScreen(),
+              ),
+            ),
+          ),
+        ),
+        GoRoute(
+          path: InstructorInvoicesScreen.routePath,
+          name: InstructorInvoicesScreen.routeName,
+          pageBuilder: (context, state) => FadePage(
+            key: state.pageKey,
+            child: _withSession(
+              BlocProvider(
+                create: (_) => getIt<InstructorInvoicesCubit>(),
+                child: const InstructorInvoicesScreen(),
               ),
             ),
           ),

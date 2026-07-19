@@ -371,20 +371,10 @@
     }
   },
   "instructorEarningsTitle": "Received earnings",
-  "instructorEarningsDay": "Day",
-  "instructorEarningsMonth": "Month",
   "instructorEarningsDayTotal": "Day total",
   "instructorEarningsMonthTotal": "Month total",
   "instructorEarningsSessions": "Sessions",
   "instructorEarningsEmpty": "No earnings recorded for this period.",
-  "instructorEarningsPickDay": "Select day",
-  "instructorEarningsPickMonth": "Select month",
-  "instructorEarningsToday": "Today",
-  "instructorEarningsThisMonth": "This month",
-  "instructorEarningsPeriodHintDay": "Step day by day, or tap the date to pick one.",
-  "instructorEarningsPeriodHintMonth": "Step month by month, or tap the month to pick one.",
-  "instructorEarningsPreviousPeriod": "Previous period",
-  "instructorEarningsNextPeriod": "Next period",
   "instructorEarningsPaidAt": "Paid at: {date}",
   "@instructorEarningsPaidAt": {
     "placeholders": {
@@ -392,5 +382,42 @@
         "type": "String"
       }
     }
-  }
+  },
+  "instructorPeriodDay": "Day",
+  "instructorPeriodMonth": "Month",
+  "instructorPeriodPickDay": "Select day",
+  "instructorPeriodPickMonth": "Select month",
+  "instructorPeriodToday": "Today",
+  "instructorPeriodThisMonth": "This month",
+  "instructorPeriodHintDay": "Step day by day, or tap the date to pick one.",
+  "instructorPeriodHintMonth": "Step month by month, or tap the month to pick one.",
+  "instructorPeriodPrevious": "Previous period",
+  "instructorPeriodNext": "Next period",
+  "instructorLoadMore": "Load more",
+  "instructorInvoicesTitle": "Invoices",
+  "instructorInvoicesTotalReceived": "Total received",
+  "instructorInvoicesCount": "Invoices",
+  "instructorInvoicesSessions": "Sessions",
+  "instructorInvoicesListTitle": "Payout invoices",
+  "instructorInvoicesEmpty": "No invoices recorded for this period.",
+  "instructorInvoicesEntryCount": "{count} entries",
+  "@instructorInvoicesEntryCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "instructorInvoicesPaidAt": "Paid at: {date}",
+  "@instructorInvoicesPaidAt": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "instructorInvoiceTypeLessons": "Lessons",
+  "instructorInvoiceTypeBonus": "Bonus",
+  "instructorPaymentMethodCash": "Cash",
+  "instructorPaymentMethodShamCash": "Sham Cash"
 }

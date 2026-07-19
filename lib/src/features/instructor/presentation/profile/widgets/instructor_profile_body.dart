@@ -173,6 +173,14 @@ class InstructorProfileBody extends StatelessWidget {
                         ),
                         const Divider(height: 1, color: AppColors.line),
                         InstructorSettingsRow(
+                          icon: PhosphorIconsBold.receipt,
+                          label: l10n.instructorInvoicesTitle,
+                          onTap: interactive
+                              ? () => InstructorNavigation.openInvoices(context)
+                              : null,
+                        ),
+                        const Divider(height: 1, color: AppColors.line),
+                        InstructorSettingsRow(
                           icon: PhosphorIconsBold.signOut,
                           label: l10n.logout,
                           danger: true,

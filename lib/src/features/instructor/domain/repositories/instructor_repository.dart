@@ -12,6 +12,16 @@ abstract interface class InstructorRepository {
   FutureEither<InstructorDuesEntity> getDues();
   FutureEither<InstructorEarningsEntity> getEarningsForDate(DateTime date);
   FutureEither<InstructorEarningsEntity> getEarningsForMonth(String month);
+  FutureEither<InstructorInvoicesPageEntity> getInvoices({
+    DateTime? date,
+    String? month,
+    int page = 1,
+    int limit = 20,
+  });
+  FutureEither<InstructorNotificationsPageEntity> getNotifications({
+    int page = 1,
+    int limit = 20,
+  });
   FutureEither<InstructorScheduleDashboardEntity> loadScheduleDashboard(
     DateTime selectedDate,
     InstructorBookingsViewMode viewMode,

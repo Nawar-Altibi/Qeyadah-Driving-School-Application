@@ -350,20 +350,10 @@
     }
   },
   "instructorEarningsTitle": "الأرباح المقبوضة",
-  "instructorEarningsDay": "يوم",
-  "instructorEarningsMonth": "شهر",
   "instructorEarningsDayTotal": "إجمالي اليوم",
   "instructorEarningsMonthTotal": "إجمالي الشهر",
   "instructorEarningsSessions": "الجلسات",
   "instructorEarningsEmpty": "لا توجد أرباح مسجلة لهذه الفترة.",
-  "instructorEarningsPickDay": "اختر اليوم",
-  "instructorEarningsPickMonth": "اختر شهراً",
-  "instructorEarningsToday": "اليوم",
-  "instructorEarningsThisMonth": "هذا الشهر",
-  "instructorEarningsPeriodHintDay": "تصفّح يوماً بيوم أو اضغط على التاريخ للاختيار.",
-  "instructorEarningsPeriodHintMonth": "تصفّح شهراً بشهر أو اضغط على الشهر للاختيار.",
-  "instructorEarningsPreviousPeriod": "الفترة السابقة",
-  "instructorEarningsNextPeriod": "الفترة التالية",
   "instructorEarningsPaidAt": "تم الدفع: {date}",
   "@instructorEarningsPaidAt": {
     "placeholders": {
@@ -371,5 +361,42 @@
         "type": "String"
       }
     }
-  }
+  },
+  "instructorPeriodDay": "يوم",
+  "instructorPeriodMonth": "شهر",
+  "instructorPeriodPickDay": "اختر اليوم",
+  "instructorPeriodPickMonth": "اختر شهراً",
+  "instructorPeriodToday": "اليوم",
+  "instructorPeriodThisMonth": "هذا الشهر",
+  "instructorPeriodHintDay": "تصفّح يوماً بيوم أو اضغط على التاريخ للاختيار.",
+  "instructorPeriodHintMonth": "تصفّح شهراً بشهر أو اضغط على الشهر للاختيار.",
+  "instructorPeriodPrevious": "الفترة السابقة",
+  "instructorPeriodNext": "الفترة التالية",
+  "instructorLoadMore": "تحميل المزيد",
+  "instructorInvoicesTitle": "الفواتير",
+  "instructorInvoicesTotalReceived": "إجمالي المقبوض",
+  "instructorInvoicesCount": "الفواتير",
+  "instructorInvoicesSessions": "الجلسات",
+  "instructorInvoicesListTitle": "فواتير الصرف",
+  "instructorInvoicesEmpty": "لا توجد فواتير مسجّلة لهذه الفترة.",
+  "instructorInvoicesEntryCount": "{count} بنود",
+  "@instructorInvoicesEntryCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "instructorInvoicesPaidAt": "تم الدفع: {date}",
+  "@instructorInvoicesPaidAt": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "instructorInvoiceTypeLessons": "دروس",
+  "instructorInvoiceTypeBonus": "مكافأة",
+  "instructorPaymentMethodCash": "نقداً",
+  "instructorPaymentMethodShamCash": "شام كاش"
 }

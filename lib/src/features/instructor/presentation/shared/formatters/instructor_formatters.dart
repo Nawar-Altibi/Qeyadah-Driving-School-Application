@@ -1,7 +1,13 @@
-import 'package:intl/intl.dart';
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart' hide TextDirection;
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
+import 'package:qeyadah_mobile_app/src/core/ui/app_status_badge.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/domain/entities/instructor_entities.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/instructor_booking_status.dart';
+import 'package:qeyadah_mobile_app/src/shared/enums/instructor_invoice_type.dart';
+import 'package:qeyadah_mobile_app/src/shared/enums/instructor_notification_type.dart';
+import 'package:qeyadah_mobile_app/src/shared/enums/instructor_payment_method.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/instructor_type.dart';
 
 abstract final class InstructorFormatters {
@@ -145,5 +151,70 @@ abstract final class InstructorFormatters {
       5,
       (index) => normalized.add(Duration(days: index - 2)),
     );
+  }
+
+  static String invoiceTypeLabel(
+    AppLocalizations l10n,
+    InstructorInvoiceType type,
+  ) {
+    return switch (type) {
+      InstructorInvoiceType.lessons => l10n.instructorInvoiceTypeLessons,
+      InstructorInvoiceType.bonus => l10n.instructorInvoiceTypeBonus,
+    };
+  }
+
+  static AppBadgeTone invoiceTypeTone(InstructorInvoiceType type) {
+    return switch (type) {
+      InstructorInvoiceType.lessons => AppBadgeTone.success,
+      InstructorInvoiceType.bonus => AppBadgeTone.info,
+    };
+  }
+
+  static String paymentMethodLabel(
+    AppLocalizations l10n,
+    InstructorPaymentMethod method,
+  ) {
+    return switch (method) {
+      InstructorPaymentMethod.cash => l10n.instructorPaymentMethodCash,
+      InstructorPaymentMethod.shamCash => l10n.instructorPaymentMethodShamCash,
+    };
+  }
+
+  static IconData notificationIcon(InstructorNotificationType type) {
+    return switch (type) {
+      InstructorNotificationType.bookingConfirmed =>
+        PhosphorIconsBold.calendarCheck,
+      InstructorNotificationType.bookingCancelled =>
+        PhosphorIconsBold.calendarX,
+      InstructorNotificationType.bookingExpired =>
+        PhosphorIconsBold.clockCountdown,
+      InstructorNotificationType.paymentAccepted => PhosphorIconsBold.wallet,
+      InstructorNotificationType.paymentRejected => PhosphorIconsBold.xCircle,
+      InstructorNotificationType.certificateStatusChanged =>
+        PhosphorIconsBold.identificationCard,
+      InstructorNotificationType.instructorSchedule =>
+        PhosphorIconsBold.calendar,
+      InstructorNotificationType.general => PhosphorIconsBold.megaphone,
+    };
+  }
+
+  static AppBadgeTone notificationTone(InstructorNotificationType type) {
+    return switch (type) {
+      InstructorNotificationType.bookingConfirmed => AppBadgeTone.success,
+      InstructorNotificationType.bookingCancelled => AppBadgeTone.danger,
+      InstructorNotificationType.bookingExpired => AppBadgeTone.warning,
+      InstructorNotificationType.paymentAccepted => AppBadgeTone.success,
+      InstructorNotificationType.paymentRejected => AppBadgeTone.danger,
+      InstructorNotificationType.certificateStatusChanged => AppBadgeTone.info,
+      InstructorNotificationType.instructorSchedule => AppBadgeTone.info,
+      InstructorNotificationType.general => AppBadgeTone.neutral,
+    };
+  }
+
+  static String notificationTimestampLabel(
+    DateTime createdAt,
+    String localeName,
+  ) {
+    return DateFormat.yMMMd(localeName).add_Hm().format(createdAt);
   }
 }

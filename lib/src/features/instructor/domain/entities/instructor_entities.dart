@@ -1,5 +1,8 @@
 import 'package:qeyadah_mobile_app/src/shared/enums/instructor_booking_status.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/instructor_day_of_week.dart';
+import 'package:qeyadah_mobile_app/src/shared/enums/instructor_invoice_type.dart';
+import 'package:qeyadah_mobile_app/src/shared/enums/instructor_notification_type.dart';
+import 'package:qeyadah_mobile_app/src/shared/enums/instructor_payment_method.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/instructor_type.dart';
 
 enum InstructorBookingsViewMode {
@@ -292,6 +295,168 @@ class InstructorEarningsEntity {
   final int monthSessionsCount;
   final int monthTotal;
   final List<InstructorEarningSessionEntity> sessions;
+}
+
+class InstructorInvoiceEntity {
+  const InstructorInvoiceEntity({
+    required this.paidAt,
+    required this.type,
+    required this.amount,
+    required this.entryCount,
+    required this.paymentMethod,
+    required this.expenseIds,
+  });
+
+  factory InstructorInvoiceEntity.placeholder({int offsetMinutes = 0}) {
+    final now = DateTime.now();
+    return InstructorInvoiceEntity(
+      paidAt: now.subtract(Duration(minutes: offsetMinutes)),
+      type: offsetMinutes == 0
+          ? InstructorInvoiceType.lessons
+          : InstructorInvoiceType.bonus,
+      amount: offsetMinutes == 0 ? 2000 : 10000,
+      entryCount: offsetMinutes == 0 ? 4 : 1,
+      paymentMethod: offsetMinutes == 0
+          ? InstructorPaymentMethod.cash
+          : InstructorPaymentMethod.shamCash,
+      expenseIds: offsetMinutes == 0 ? const [86, 87, 88, 89] : const [98],
+    );
+  }
+
+  final DateTime paidAt;
+  final InstructorInvoiceType type;
+  final int amount;
+  final int entryCount;
+  final InstructorPaymentMethod paymentMethod;
+  final List<int> expenseIds;
+}
+
+class InstructorInvoicesPageEntity {
+  const InstructorInvoicesPageEntity({
+    this.periodType,
+    this.date,
+    this.month,
+    required this.totalReceived,
+    required this.sessionCount,
+    required this.invoiceCount,
+    required this.invoices,
+    required this.page,
+    required this.totalPages,
+  });
+
+  factory InstructorInvoicesPageEntity.placeholder() {
+    final now = DateTime.now();
+    return InstructorInvoicesPageEntity(
+      periodType: 'month',
+      month: '${now.year}-${now.month.toString().padLeft(2, '0')}',
+      totalReceived: 12000,
+      sessionCount: 5,
+      invoiceCount: 2,
+      invoices: [
+        InstructorInvoiceEntity.placeholder(),
+        InstructorInvoiceEntity.placeholder(offsetMinutes: 5),
+      ],
+      page: 1,
+      totalPages: 1,
+    );
+  }
+
+  final String? periodType;
+  final DateTime? date;
+  final String? month;
+  final int totalReceived;
+  final int sessionCount;
+  final int invoiceCount;
+  final List<InstructorInvoiceEntity> invoices;
+  final int page;
+  final int totalPages;
+
+  bool get hasMorePages => page < totalPages;
+
+  InstructorInvoicesPageEntity appendPage(InstructorInvoicesPageEntity next) {
+    return InstructorInvoicesPageEntity(
+      periodType: next.periodType ?? periodType,
+      date: next.date ?? date,
+      month: next.month ?? month,
+      totalReceived: next.totalReceived,
+      sessionCount: next.sessionCount,
+      invoiceCount: next.invoiceCount,
+      invoices: [...invoices, ...next.invoices],
+      page: next.page,
+      totalPages: next.totalPages,
+    );
+  }
+}
+
+class InstructorNotificationEntity {
+  const InstructorNotificationEntity({
+    required this.id,
+    required this.title,
+    required this.body,
+    required this.notificationType,
+    required this.isRead,
+    this.readAt,
+    required this.createdAt,
+  });
+
+  factory InstructorNotificationEntity.placeholder({
+    int id = 1,
+    bool isRead = false,
+  }) {
+    final now = DateTime.now();
+    return InstructorNotificationEntity(
+      id: id,
+      title: 'Placeholder notification title',
+      body: 'Placeholder notification body text for skeleton loading.',
+      notificationType: InstructorNotificationType.general,
+      isRead: isRead,
+      readAt: isRead ? now : null,
+      createdAt: now.subtract(Duration(hours: id)),
+    );
+  }
+
+  final int id;
+  final String title;
+  final String body;
+  final InstructorNotificationType notificationType;
+  final bool isRead;
+  final DateTime? readAt;
+  final DateTime createdAt;
+}
+
+class InstructorNotificationsPageEntity {
+  const InstructorNotificationsPageEntity({
+    required this.notifications,
+    required this.page,
+    required this.totalPages,
+  });
+
+  factory InstructorNotificationsPageEntity.placeholder() =>
+      InstructorNotificationsPageEntity(
+        notifications: [
+          InstructorNotificationEntity.placeholder(),
+          InstructorNotificationEntity.placeholder(id: 2, isRead: true),
+          InstructorNotificationEntity.placeholder(id: 3, isRead: true),
+        ],
+        page: 1,
+        totalPages: 1,
+      );
+
+  final List<InstructorNotificationEntity> notifications;
+  final int page;
+  final int totalPages;
+
+  bool get hasMorePages => page < totalPages;
+
+  InstructorNotificationsPageEntity appendPage(
+    InstructorNotificationsPageEntity next,
+  ) {
+    return InstructorNotificationsPageEntity(
+      notifications: [...notifications, ...next.notifications],
+      page: next.page,
+      totalPages: next.totalPages,
+    );
+  }
 }
 
 class InstructorScheduleDashboardEntity {
