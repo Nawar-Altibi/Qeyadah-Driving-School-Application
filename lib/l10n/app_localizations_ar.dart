@@ -705,12 +705,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get instructorEarningsTitle => 'الأرباح المقبوضة';
 
   @override
-  String get instructorEarningsDay => 'يوم';
-
-  @override
-  String get instructorEarningsMonth => 'شهر';
-
-  @override
   String get instructorEarningsDayTotal => 'إجمالي اليوم';
 
   @override
@@ -723,33 +717,82 @@ class AppLocalizationsAr extends AppLocalizations {
   String get instructorEarningsEmpty => 'لا توجد أرباح مسجلة لهذه الفترة.';
 
   @override
-  String get instructorEarningsPickDay => 'اختر اليوم';
-
-  @override
-  String get instructorEarningsPickMonth => 'اختر شهراً';
-
-  @override
-  String get instructorEarningsToday => 'اليوم';
-
-  @override
-  String get instructorEarningsThisMonth => 'هذا الشهر';
-
-  @override
-  String get instructorEarningsPeriodHintDay =>
-      'تصفّح يوماً بيوم أو اضغط على التاريخ للاختيار.';
-
-  @override
-  String get instructorEarningsPeriodHintMonth =>
-      'تصفّح شهراً بشهر أو اضغط على الشهر للاختيار.';
-
-  @override
-  String get instructorEarningsPreviousPeriod => 'الفترة السابقة';
-
-  @override
-  String get instructorEarningsNextPeriod => 'الفترة التالية';
-
-  @override
   String instructorEarningsPaidAt(String date) {
     return 'تم الدفع: $date';
   }
+
+  @override
+  String get instructorPeriodDay => 'يوم';
+
+  @override
+  String get instructorPeriodMonth => 'شهر';
+
+  @override
+  String get instructorPeriodPickDay => 'اختر اليوم';
+
+  @override
+  String get instructorPeriodPickMonth => 'اختر شهراً';
+
+  @override
+  String get instructorPeriodToday => 'اليوم';
+
+  @override
+  String get instructorPeriodThisMonth => 'هذا الشهر';
+
+  @override
+  String get instructorPeriodHintDay =>
+      'تصفّح يوماً بيوم أو اضغط على التاريخ للاختيار.';
+
+  @override
+  String get instructorPeriodHintMonth =>
+      'تصفّح شهراً بشهر أو اضغط على الشهر للاختيار.';
+
+  @override
+  String get instructorPeriodPrevious => 'الفترة السابقة';
+
+  @override
+  String get instructorPeriodNext => 'الفترة التالية';
+
+  @override
+  String get instructorLoadMore => 'تحميل المزيد';
+
+  @override
+  String get instructorInvoicesTitle => 'الفواتير';
+
+  @override
+  String get instructorInvoicesTotalReceived => 'إجمالي المقبوض';
+
+  @override
+  String get instructorInvoicesCount => 'الفواتير';
+
+  @override
+  String get instructorInvoicesSessions => 'الجلسات';
+
+  @override
+  String get instructorInvoicesListTitle => 'فواتير الصرف';
+
+  @override
+  String get instructorInvoicesEmpty => 'لا توجد فواتير مسجّلة لهذه الفترة.';
+
+  @override
+  String instructorInvoicesEntryCount(int count) {
+    return '$count بنود';
+  }
+
+  @override
+  String instructorInvoicesPaidAt(String date) {
+    return 'تم الدفع: $date';
+  }
+
+  @override
+  String get instructorInvoiceTypeLessons => 'دروس';
+
+  @override
+  String get instructorInvoiceTypeBonus => 'مكافأة';
+
+  @override
+  String get instructorPaymentMethodCash => 'نقداً';
+
+  @override
+  String get instructorPaymentMethodShamCash => 'شام كاش';
 }

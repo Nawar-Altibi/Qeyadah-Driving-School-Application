@@ -5,6 +5,9 @@ import 'package:intl/intl.dart';
 import 'package:qeyadah_mobile_app/src/core/constants/endpoints.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/domain/entities/instructor_entities.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/instructor_booking_status.dart';
+import 'package:qeyadah_mobile_app/src/shared/enums/instructor_invoice_type.dart';
+import 'package:qeyadah_mobile_app/src/shared/enums/instructor_notification_type.dart';
+import 'package:qeyadah_mobile_app/src/shared/enums/instructor_payment_method.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/instructor_type.dart';
 
 abstract interface class InstructorRemoteDataSource {
@@ -18,6 +21,16 @@ abstract interface class InstructorRemoteDataSource {
   RemoteResponse<InstructorDuesEntity> fetchDues();
   RemoteResponse<InstructorEarningsEntity> fetchEarningsForDate(DateTime date);
   RemoteResponse<InstructorEarningsEntity> fetchEarningsForMonth(String month);
+  RemoteResponse<InstructorInvoicesPageEntity> fetchInvoices({
+    DateTime? date,
+    String? month,
+    int page = 1,
+    int limit = 20,
+  });
+  RemoteResponse<InstructorNotificationsPageEntity> fetchNotifications({
+    int page = 1,
+    int limit = 20,
+  });
 }
 
 @LazySingleton(as: InstructorRemoteDataSource)
@@ -256,6 +269,58 @@ class InstructorRemoteDataSourceImpl implements InstructorRemoteDataSource {
     });
   }
 
+  @override
+  RemoteResponse<InstructorInvoicesPageEntity> fetchInvoices({
+    DateTime? date,
+    String? month,
+    int page = 1,
+    int limit = 20,
+  }) async {
+    final queryParameters = <String, dynamic>{'page': page, 'limit': limit};
+    if (date != null) {
+      queryParameters['date'] = DateFormat('yyyy-MM-dd').format(date);
+    } else if (month != null) {
+      queryParameters['month'] = month;
+    }
+    final response = await _apiHandler.get(
+      Endpoints.instructorMePayments,
+      queryParameters: queryParameters,
+    );
+    return response.fold(left, (json) {
+      try {
+        return right(_invoicesPageFromJson(_unwrapData(json)));
+      } on Exception {
+        return left(
+          const InternalServerErrorFailure(
+            'Failed to parse instructor invoices',
+          ),
+        );
+      }
+    });
+  }
+
+  @override
+  RemoteResponse<InstructorNotificationsPageEntity> fetchNotifications({
+    int page = 1,
+    int limit = 20,
+  }) async {
+    final response = await _apiHandler.get(
+      Endpoints.instructorMeNotifications,
+      queryParameters: {'page': page, 'limit': limit},
+    );
+    return response.fold(left, (json) {
+      try {
+        return right(_notificationsPageFromJson(_unwrapData(json)));
+      } on Exception {
+        return left(
+          const InternalServerErrorFailure(
+            'Failed to parse instructor notifications',
+          ),
+        );
+      }
+    });
+  }
+
   InstructorProfileEntity _profileFromJson(Map<String, dynamic> json) {
     final instructorType = InstructorType.fromApi(
       json['instructorType']?.toString(),
@@ -358,6 +423,92 @@ class InstructorRemoteDataSourceImpl implements InstructorRemoteDataSource {
               );
             }).toList()
           : const [],
+    );
+  }
+
+  InstructorInvoicesPageEntity _invoicesPageFromJson(
+    Map<String, dynamic> json,
+  ) {
+    final rawList = json['data'];
+    if (rawList is! Iterable) {
+      throw const FormatException('Invalid invoices response');
+    }
+    final meta = json['meta'] is Map
+        ? Map<String, dynamic>.from(json['meta'] as Map)
+        : const <String, dynamic>{};
+    final periodRaw = json['period'];
+    final period = periodRaw is Map
+        ? Map<String, dynamic>.from(periodRaw)
+        : null;
+    return InstructorInvoicesPageEntity(
+      periodType: period?['type']?.toString(),
+      date: period?['date'] != null
+          ? DateTime.parse(period!['date'].toString())
+          : null,
+      month: period?['month']?.toString(),
+      totalReceived: (json['totalReceived'] as num?)?.toInt() ?? 0,
+      sessionCount: (json['sessionCount'] as num?)?.toInt() ?? 0,
+      invoiceCount:
+          (json['invoiceCount'] as num?)?.toInt() ??
+          (meta['total'] as num?)?.toInt() ??
+          0,
+      invoices: rawList.map((item) {
+        final map = Map<String, dynamic>.from(item as Map);
+        final type = InstructorInvoiceType.fromApi(map['type']?.toString());
+        final paymentMethod = InstructorPaymentMethod.fromApi(
+          map['paymentMethod']?.toString(),
+        );
+        if (type == null || paymentMethod == null) {
+          throw const FormatException('Invalid invoice payload');
+        }
+        final expenseIds = map['expenseIds'];
+        return InstructorInvoiceEntity(
+          paidAt: DateTime.parse(map['paidAt'].toString()),
+          type: type,
+          amount: (map['amount'] as num?)?.toInt() ?? 0,
+          entryCount: (map['entryCount'] as num?)?.toInt() ?? 0,
+          paymentMethod: paymentMethod,
+          expenseIds: expenseIds is Iterable
+              ? expenseIds.map((id) => (id as num).toInt()).toList()
+              : const [],
+        );
+      }).toList(),
+      page: (meta['page'] as num?)?.toInt() ?? 1,
+      totalPages: (meta['totalPages'] as num?)?.toInt() ?? 1,
+    );
+  }
+
+  InstructorNotificationsPageEntity _notificationsPageFromJson(
+    Map<String, dynamic> json,
+  ) {
+    final rawList = json['data'];
+    if (rawList is! Iterable) {
+      throw const FormatException('Invalid notifications response');
+    }
+    final meta = json['meta'] is Map
+        ? Map<String, dynamic>.from(json['meta'] as Map)
+        : const <String, dynamic>{};
+    return InstructorNotificationsPageEntity(
+      notifications: rawList.map((item) {
+        final map = Map<String, dynamic>.from(item as Map);
+        final readAtRaw = map['readAt'];
+        final readAt = readAtRaw == null
+            ? null
+            : DateTime.parse(readAtRaw.toString());
+        return InstructorNotificationEntity(
+          id: (map['id'] as num).toInt(),
+          title: map['title']?.toString() ?? '',
+          body: map['body']?.toString() ?? '',
+          notificationType: InstructorNotificationType.fromApi(
+            map['notificationType']?.toString(),
+          ),
+          isRead: map['isRead'] == true || readAt != null,
+          readAt: readAt,
+          createdAt: DateTime.parse(map['createdAt'].toString()),
+        );
+      }).toList(),
+      page: (meta['page'] as num?)?.toInt() ?? 1,
+      totalPages: (meta['totalPages'] as num?)?.toInt() ?? 1,
     );
   }
 

@@ -25,12 +25,12 @@ $InstructorLeaveStateCopyWith<InstructorLeaveState> get copyWith => _$Instructor
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is InstructorLeaveState&&const DeepCollectionEquality().equals(other.apiState, apiState));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is InstructorLeaveState&&(identical(other.apiState, apiState) || other.apiState == apiState));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(apiState));
+int get hashCode => Object.hash(runtimeType,apiState);
 
 @override
 String toString() {
@@ -49,7 +49,7 @@ $Res call({
 });
 
 
-
+$ApiStateCopyWith<List<InstructorLeaveEntity>, $Res> get apiState;
 
 }
 /// @nodoc
@@ -62,13 +62,22 @@ class _$InstructorLeaveStateCopyWithImpl<$Res>
 
 /// Create a copy of InstructorLeaveState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? apiState = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? apiState = null,}) {
   return _then(_self.copyWith(
-apiState: freezed == apiState ? _self.apiState : apiState // ignore: cast_nullable_to_non_nullable
+apiState: null == apiState ? _self.apiState : apiState // ignore: cast_nullable_to_non_nullable
 as ApiState<List<InstructorLeaveEntity>>,
   ));
 }
-
+/// Create a copy of InstructorLeaveState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ApiStateCopyWith<List<InstructorLeaveEntity>, $Res> get apiState {
+  
+  return $ApiStateCopyWith<List<InstructorLeaveEntity>, $Res>(_self.apiState, (value) {
+    return _then(_self.copyWith(apiState: value));
+  });
+}
 }
 
 
@@ -221,12 +230,12 @@ _$InstructorLeaveStateCopyWith<_InstructorLeaveState> get copyWith => __$Instruc
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _InstructorLeaveState&&const DeepCollectionEquality().equals(other.apiState, apiState));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _InstructorLeaveState&&(identical(other.apiState, apiState) || other.apiState == apiState));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(apiState));
+int get hashCode => Object.hash(runtimeType,apiState);
 
 @override
 String toString() {
@@ -245,7 +254,7 @@ $Res call({
 });
 
 
-
+@override $ApiStateCopyWith<List<InstructorLeaveEntity>, $Res> get apiState;
 
 }
 /// @nodoc
@@ -258,14 +267,23 @@ class __$InstructorLeaveStateCopyWithImpl<$Res>
 
 /// Create a copy of InstructorLeaveState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? apiState = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? apiState = null,}) {
   return _then(_InstructorLeaveState(
-apiState: freezed == apiState ? _self.apiState : apiState // ignore: cast_nullable_to_non_nullable
+apiState: null == apiState ? _self.apiState : apiState // ignore: cast_nullable_to_non_nullable
 as ApiState<List<InstructorLeaveEntity>>,
   ));
 }
 
-
+/// Create a copy of InstructorLeaveState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ApiStateCopyWith<List<InstructorLeaveEntity>, $Res> get apiState {
+  
+  return $ApiStateCopyWith<List<InstructorLeaveEntity>, $Res>(_self.apiState, (value) {
+    return _then(_self.copyWith(apiState: value));
+  });
+}
 }
 
 // dart format on

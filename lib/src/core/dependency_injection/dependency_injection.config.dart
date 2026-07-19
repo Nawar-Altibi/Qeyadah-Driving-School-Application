@@ -56,26 +56,28 @@ import 'package:qeyadah_mobile_app/src/features/auth/presentation/cubit/password
     as _i240;
 import 'package:qeyadah_mobile_app/src/features/auth/presentation/cubit/registration_cubit.dart'
     as _i958;
-import 'package:qeyadah_mobile_app/src/features/instructor/presentation/dues/cubit/instructor_dues_cubit.dart'
-    as _i254;
-import 'package:qeyadah_mobile_app/src/features/instructor/presentation/earnings/cubit/instructor_earnings_cubit.dart'
-    as _i615;
-import 'package:qeyadah_mobile_app/src/features/instructor/presentation/leave/cubit/instructor_leave_cubit.dart'
-    as _i686;
-import 'package:qeyadah_mobile_app/src/features/instructor/presentation/profile/cubit/instructor_profile_cubit.dart'
-    as _i798;
 import 'package:qeyadah_mobile_app/src/features/instructor/data/data_sources/instructor_remote_data_source.dart'
-    as _i481;
+    as _i348;
 import 'package:qeyadah_mobile_app/src/features/instructor/data/repositories/instructor_repository_impl.dart'
-    as _i868;
+    as _i461;
 import 'package:qeyadah_mobile_app/src/features/instructor/domain/repositories/instructor_repository.dart'
-    as _i187;
+    as _i90;
 import 'package:qeyadah_mobile_app/src/features/instructor/domain/use_cases/instructor_use_cases.dart'
-    as _i44;
+    as _i648;
+import 'package:qeyadah_mobile_app/src/features/instructor/presentation/dues/cubit/instructor_dues_cubit.dart'
+    as _i434;
+import 'package:qeyadah_mobile_app/src/features/instructor/presentation/earnings/cubit/instructor_earnings_cubit.dart'
+    as _i905;
+import 'package:qeyadah_mobile_app/src/features/instructor/presentation/invoices/cubit/instructor_invoices_cubit.dart'
+    as _i161;
+import 'package:qeyadah_mobile_app/src/features/instructor/presentation/leave/cubit/instructor_leave_cubit.dart'
+    as _i330;
+import 'package:qeyadah_mobile_app/src/features/instructor/presentation/profile/cubit/instructor_profile_cubit.dart'
+    as _i139;
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/schedule/cubit/instructor_schedule_cubit.dart'
-    as _i1020;
+    as _i1027;
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/schedule/cubit/instructor_weekly_schedule_cubit.dart'
-    as _i160;
+    as _i143;
 import 'package:qeyadah_mobile_app/src/features/sample_items/data/repositories/sample_items_repository_impl.dart'
     as _i272;
 import 'package:qeyadah_mobile_app/src/features/sample_items/domain/repositories/sample_items_repository.dart'
@@ -125,6 +127,10 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i698.LocalDatabaseInterface>(instanceName: 'offline_queue'),
       ),
     );
+    gh.lazySingleton<_i348.InstructorRemoteDataSource>(
+      () =>
+          _i348.InstructorRemoteDataSourceImpl(gh<_i698.ApiHandlerInterface>()),
+    );
     gh.lazySingleton<_i80.StudentHomeRepository>(
       () => _i502.StudentHomeRepositoryImpl(
         gh<_i502.StudentHomeRemoteDataSource>(),
@@ -138,10 +144,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i1021.AuthRemoteDataSource>(
       () => _i1021.AuthRemoteDataSourceImpl(gh<_i698.ApiHandlerInterface>()),
     );
-    gh.lazySingleton<_i481.InstructorRemoteDataSource>(
-      () =>
-          _i481.InstructorRemoteDataSourceImpl(gh<_i698.ApiHandlerInterface>()),
-    );
     gh.lazySingleton<_i869.LoadStudentHomeUseCase>(
       () => _i869.LoadStudentHomeUseCase(gh<_i80.StudentHomeRepository>()),
     );
@@ -154,9 +156,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i76.AuthLocalDataSource>(),
       ),
     );
-    gh.lazySingleton<_i187.InstructorRepository>(
-      () => _i868.InstructorRepositoryImpl(
-        gh<_i481.InstructorRemoteDataSource>(),
+    gh.lazySingleton<_i90.InstructorRepository>(
+      () => _i461.InstructorRepositoryImpl(
+        gh<_i348.InstructorRemoteDataSource>(),
       ),
     );
     gh.lazySingleton<_i916.SampleItemsRepository>(
@@ -169,6 +171,52 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i1067.OfflineQueueLocalDataSource>(),
         gh<_i698.ApiHandlerInterface>(),
         gh<_i698.NetworkStatusInterface>(),
+      ),
+    );
+    gh.factory<_i648.LoadInstructorScheduleUseCase>(
+      () =>
+          _i648.LoadInstructorScheduleUseCase(gh<_i90.InstructorRepository>()),
+    );
+    gh.factory<_i648.LoadInstructorProfileUseCase>(
+      () => _i648.LoadInstructorProfileUseCase(gh<_i90.InstructorRepository>()),
+    );
+    gh.factory<_i648.LoadInstructorLeavesUseCase>(
+      () => _i648.LoadInstructorLeavesUseCase(gh<_i90.InstructorRepository>()),
+    );
+    gh.factory<_i648.LoadInstructorWeeklyScheduleUseCase>(
+      () => _i648.LoadInstructorWeeklyScheduleUseCase(
+        gh<_i90.InstructorRepository>(),
+      ),
+    );
+    gh.factory<_i648.LoadInstructorDuesUseCase>(
+      () => _i648.LoadInstructorDuesUseCase(gh<_i90.InstructorRepository>()),
+    );
+    gh.factory<_i648.LoadInstructorEarningsUseCase>(
+      () =>
+          _i648.LoadInstructorEarningsUseCase(gh<_i90.InstructorRepository>()),
+    );
+    gh.factory<_i648.LoadInstructorDayBookingsUseCase>(
+      () => _i648.LoadInstructorDayBookingsUseCase(
+        gh<_i90.InstructorRepository>(),
+      ),
+    );
+    gh.factory<_i648.LoadInstructorInvoicesUseCase>(
+      () =>
+          _i648.LoadInstructorInvoicesUseCase(gh<_i90.InstructorRepository>()),
+    );
+    gh.factory<_i648.LoadInstructorNotificationsUseCase>(
+      () => _i648.LoadInstructorNotificationsUseCase(
+        gh<_i90.InstructorRepository>(),
+      ),
+    );
+    gh.factory<_i161.InstructorInvoicesCubit>(
+      () => _i161.InstructorInvoicesCubit(
+        gh<_i648.LoadInstructorInvoicesUseCase>(),
+      ),
+    );
+    gh.factory<_i1027.InstructorScheduleCubit>(
+      () => _i1027.InstructorScheduleCubit(
+        gh<_i648.LoadInstructorScheduleUseCase>(),
       ),
     );
     gh.lazySingleton<_i442.OfflineQueueCubit>(
@@ -207,31 +255,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i585.VerifyPasswordResetOtpUseCase>(
       () => _i585.VerifyPasswordResetOtpUseCase(gh<_i16.AuthRepository>()),
     );
-    gh.factory<_i44.LoadInstructorScheduleUseCase>(
-      () =>
-          _i44.LoadInstructorScheduleUseCase(gh<_i187.InstructorRepository>()),
-    );
-    gh.factory<_i44.LoadInstructorProfileUseCase>(
-      () => _i44.LoadInstructorProfileUseCase(gh<_i187.InstructorRepository>()),
-    );
-    gh.factory<_i44.LoadInstructorLeavesUseCase>(
-      () => _i44.LoadInstructorLeavesUseCase(gh<_i187.InstructorRepository>()),
-    );
-    gh.factory<_i44.LoadInstructorWeeklyScheduleUseCase>(
-      () => _i44.LoadInstructorWeeklyScheduleUseCase(
-        gh<_i187.InstructorRepository>(),
+    gh.factory<_i143.InstructorWeeklyScheduleCubit>(
+      () => _i143.InstructorWeeklyScheduleCubit(
+        gh<_i648.LoadInstructorWeeklyScheduleUseCase>(),
       ),
     );
-    gh.factory<_i44.LoadInstructorDuesUseCase>(
-      () => _i44.LoadInstructorDuesUseCase(gh<_i187.InstructorRepository>()),
-    );
-    gh.factory<_i44.LoadInstructorEarningsUseCase>(
-      () =>
-          _i44.LoadInstructorEarningsUseCase(gh<_i187.InstructorRepository>()),
-    );
-    gh.factory<_i44.LoadInstructorDayBookingsUseCase>(
-      () => _i44.LoadInstructorDayBookingsUseCase(
-        gh<_i187.InstructorRepository>(),
+    gh.factory<_i139.InstructorProfileCubit>(
+      () => _i139.InstructorProfileCubit(
+        gh<_i648.LoadInstructorProfileUseCase>(),
       ),
     );
     gh.lazySingleton<_i706.AuthSessionCubit>(
@@ -243,24 +274,16 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i880.RefreshProfileUseCase>(),
       ),
     );
-    gh.factory<_i798.InstructorProfileCubit>(
-      () =>
-          _i798.InstructorProfileCubit(gh<_i44.LoadInstructorProfileUseCase>()),
-    );
-    gh.factory<_i615.InstructorEarningsCubit>(
-      () => _i615.InstructorEarningsCubit(
-        gh<_i44.LoadInstructorEarningsUseCase>(),
+    gh.factory<_i905.InstructorEarningsCubit>(
+      () => _i905.InstructorEarningsCubit(
+        gh<_i648.LoadInstructorEarningsUseCase>(),
       ),
     );
-    gh.factory<_i160.InstructorWeeklyScheduleCubit>(
-      () => _i160.InstructorWeeklyScheduleCubit(
-        gh<_i44.LoadInstructorWeeklyScheduleUseCase>(),
-      ),
+    gh.factory<_i330.InstructorLeaveCubit>(
+      () => _i330.InstructorLeaveCubit(gh<_i648.LoadInstructorLeavesUseCase>()),
     );
-    gh.factory<_i1020.InstructorScheduleCubit>(
-      () => _i1020.InstructorScheduleCubit(
-        gh<_i44.LoadInstructorScheduleUseCase>(),
-      ),
+    gh.factory<_i434.InstructorDuesCubit>(
+      () => _i434.InstructorDuesCubit(gh<_i648.LoadInstructorDuesUseCase>()),
     );
     gh.lazySingleton<_i38.LoadSampleItemsUseCase>(
       () => _i38.LoadSampleItemsUseCase(gh<_i916.SampleItemsRepository>()),
@@ -279,12 +302,6 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i852.RequestRegistrationOtpUseCase>(),
         gh<_i823.RegisterStudentUseCase>(),
       ),
-    );
-    gh.factory<_i686.InstructorLeaveCubit>(
-      () => _i686.InstructorLeaveCubit(gh<_i44.LoadInstructorLeavesUseCase>()),
-    );
-    gh.factory<_i254.InstructorDuesCubit>(
-      () => _i254.InstructorDuesCubit(gh<_i44.LoadInstructorDuesUseCase>()),
     );
     gh.factory<_i240.PasswordResetCubit>(
       () => _i240.PasswordResetCubit(

@@ -1370,18 +1370,6 @@ abstract class AppLocalizations {
   /// **'Received earnings'**
   String get instructorEarningsTitle;
 
-  /// No description provided for @instructorEarningsDay.
-  ///
-  /// In en, this message translates to:
-  /// **'Day'**
-  String get instructorEarningsDay;
-
-  /// No description provided for @instructorEarningsMonth.
-  ///
-  /// In en, this message translates to:
-  /// **'Month'**
-  String get instructorEarningsMonth;
-
   /// No description provided for @instructorEarningsDayTotal.
   ///
   /// In en, this message translates to:
@@ -1406,59 +1394,149 @@ abstract class AppLocalizations {
   /// **'No earnings recorded for this period.'**
   String get instructorEarningsEmpty;
 
-  /// No description provided for @instructorEarningsPickDay.
-  ///
-  /// In en, this message translates to:
-  /// **'Select day'**
-  String get instructorEarningsPickDay;
-
-  /// No description provided for @instructorEarningsPickMonth.
-  ///
-  /// In en, this message translates to:
-  /// **'Select month'**
-  String get instructorEarningsPickMonth;
-
-  /// No description provided for @instructorEarningsToday.
-  ///
-  /// In en, this message translates to:
-  /// **'Today'**
-  String get instructorEarningsToday;
-
-  /// No description provided for @instructorEarningsThisMonth.
-  ///
-  /// In en, this message translates to:
-  /// **'This month'**
-  String get instructorEarningsThisMonth;
-
-  /// No description provided for @instructorEarningsPeriodHintDay.
-  ///
-  /// In en, this message translates to:
-  /// **'Step day by day, or tap the date to pick one.'**
-  String get instructorEarningsPeriodHintDay;
-
-  /// No description provided for @instructorEarningsPeriodHintMonth.
-  ///
-  /// In en, this message translates to:
-  /// **'Step month by month, or tap the month to pick one.'**
-  String get instructorEarningsPeriodHintMonth;
-
-  /// No description provided for @instructorEarningsPreviousPeriod.
-  ///
-  /// In en, this message translates to:
-  /// **'Previous period'**
-  String get instructorEarningsPreviousPeriod;
-
-  /// No description provided for @instructorEarningsNextPeriod.
-  ///
-  /// In en, this message translates to:
-  /// **'Next period'**
-  String get instructorEarningsNextPeriod;
-
   /// No description provided for @instructorEarningsPaidAt.
   ///
   /// In en, this message translates to:
   /// **'Paid at: {date}'**
   String instructorEarningsPaidAt(String date);
+
+  /// No description provided for @instructorPeriodDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Day'**
+  String get instructorPeriodDay;
+
+  /// No description provided for @instructorPeriodMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Month'**
+  String get instructorPeriodMonth;
+
+  /// No description provided for @instructorPeriodPickDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Select day'**
+  String get instructorPeriodPickDay;
+
+  /// No description provided for @instructorPeriodPickMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Select month'**
+  String get instructorPeriodPickMonth;
+
+  /// No description provided for @instructorPeriodToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get instructorPeriodToday;
+
+  /// No description provided for @instructorPeriodThisMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'This month'**
+  String get instructorPeriodThisMonth;
+
+  /// No description provided for @instructorPeriodHintDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Step day by day, or tap the date to pick one.'**
+  String get instructorPeriodHintDay;
+
+  /// No description provided for @instructorPeriodHintMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Step month by month, or tap the month to pick one.'**
+  String get instructorPeriodHintMonth;
+
+  /// No description provided for @instructorPeriodPrevious.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous period'**
+  String get instructorPeriodPrevious;
+
+  /// No description provided for @instructorPeriodNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Next period'**
+  String get instructorPeriodNext;
+
+  /// No description provided for @instructorLoadMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Load more'**
+  String get instructorLoadMore;
+
+  /// No description provided for @instructorInvoicesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Invoices'**
+  String get instructorInvoicesTitle;
+
+  /// No description provided for @instructorInvoicesTotalReceived.
+  ///
+  /// In en, this message translates to:
+  /// **'Total received'**
+  String get instructorInvoicesTotalReceived;
+
+  /// No description provided for @instructorInvoicesCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Invoices'**
+  String get instructorInvoicesCount;
+
+  /// No description provided for @instructorInvoicesSessions.
+  ///
+  /// In en, this message translates to:
+  /// **'Sessions'**
+  String get instructorInvoicesSessions;
+
+  /// No description provided for @instructorInvoicesListTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Payout invoices'**
+  String get instructorInvoicesListTitle;
+
+  /// No description provided for @instructorInvoicesEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No invoices recorded for this period.'**
+  String get instructorInvoicesEmpty;
+
+  /// No description provided for @instructorInvoicesEntryCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} entries'**
+  String instructorInvoicesEntryCount(int count);
+
+  /// No description provided for @instructorInvoicesPaidAt.
+  ///
+  /// In en, this message translates to:
+  /// **'Paid at: {date}'**
+  String instructorInvoicesPaidAt(String date);
+
+  /// No description provided for @instructorInvoiceTypeLessons.
+  ///
+  /// In en, this message translates to:
+  /// **'Lessons'**
+  String get instructorInvoiceTypeLessons;
+
+  /// No description provided for @instructorInvoiceTypeBonus.
+  ///
+  /// In en, this message translates to:
+  /// **'Bonus'**
+  String get instructorInvoiceTypeBonus;
+
+  /// No description provided for @instructorPaymentMethodCash.
+  ///
+  /// In en, this message translates to:
+  /// **'Cash'**
+  String get instructorPaymentMethodCash;
+
+  /// No description provided for @instructorPaymentMethodShamCash.
+  ///
+  /// In en, this message translates to:
+  /// **'Sham Cash'**
+  String get instructorPaymentMethodShamCash;
 }
 
 class _AppLocalizationsDelegate

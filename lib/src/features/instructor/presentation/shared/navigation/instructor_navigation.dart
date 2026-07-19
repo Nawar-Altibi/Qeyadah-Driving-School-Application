@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/dues/screens/instructor_dues_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/earnings/screens/instructor_earnings_screen.dart';
+import 'package:qeyadah_mobile_app/src/features/instructor/presentation/invoices/screens/instructor_invoices_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/leave/screens/instructor_leave_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/profile/screens/instructor_profile_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/schedule/screens/instructor_schedule_screen.dart';
@@ -35,6 +36,13 @@ abstract final class InstructorNavigation {
   static void openEarnings(BuildContext context) {
     CoreNavigator.pushNamed(
       InstructorEarningsScreen.routeName,
+      context: context,
+    );
+  }
+
+  static void openInvoices(BuildContext context) {
+    CoreNavigator.pushNamed(
+      InstructorInvoicesScreen.routeName,
       context: context,
     );
   }

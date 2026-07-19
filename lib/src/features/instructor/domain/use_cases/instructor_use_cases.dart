@@ -86,3 +86,40 @@ class LoadInstructorDayBookingsUseCase {
     return _repository.getDayBookings(date);
   }
 }
+
+@injectable
+class LoadInstructorInvoicesUseCase {
+  const LoadInstructorInvoicesUseCase(this._repository);
+
+  final InstructorRepository _repository;
+
+  FutureEither<InstructorInvoicesPageEntity> forDate(
+    DateTime date, {
+    int page = 1,
+    int limit = 20,
+  }) {
+    return _repository.getInvoices(date: date, page: page, limit: limit);
+  }
+
+  FutureEither<InstructorInvoicesPageEntity> forMonth(
+    String month, {
+    int page = 1,
+    int limit = 20,
+  }) {
+    return _repository.getInvoices(month: month, page: page, limit: limit);
+  }
+}
+
+@injectable
+class LoadInstructorNotificationsUseCase {
+  const LoadInstructorNotificationsUseCase(this._repository);
+
+  final InstructorRepository _repository;
+
+  FutureEither<InstructorNotificationsPageEntity> call({
+    int page = 1,
+    int limit = 20,
+  }) {
+    return _repository.getNotifications(page: page, limit: limit);
+  }
+}

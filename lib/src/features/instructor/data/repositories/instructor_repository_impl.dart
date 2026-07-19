@@ -93,6 +93,40 @@ class InstructorRepositoryImpl implements InstructorRepository {
   }
 
   @override
+  FutureEither<InstructorInvoicesPageEntity> getInvoices({
+    DateTime? date,
+    String? month,
+    int page = 1,
+    int limit = 20,
+  }) async {
+    final response = await _remoteDataSource.fetchInvoices(
+      date: date,
+      month: month,
+      page: page,
+      limit: limit,
+    );
+    return response.fold(
+      (failure) => left(NetworkFailureMapper.toDomainFailure(failure)),
+      right,
+    );
+  }
+
+  @override
+  FutureEither<InstructorNotificationsPageEntity> getNotifications({
+    int page = 1,
+    int limit = 20,
+  }) async {
+    final response = await _remoteDataSource.fetchNotifications(
+      page: page,
+      limit: limit,
+    );
+    return response.fold(
+      (failure) => left(NetworkFailureMapper.toDomainFailure(failure)),
+      right,
+    );
+  }
+
+  @override
   FutureEither<InstructorScheduleDashboardEntity> loadScheduleDashboard(
     DateTime selectedDate,
     InstructorBookingsViewMode viewMode,

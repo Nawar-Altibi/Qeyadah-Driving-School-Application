@@ -711,12 +711,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get instructorEarningsTitle => 'Received earnings';
 
   @override
-  String get instructorEarningsDay => 'Day';
-
-  @override
-  String get instructorEarningsMonth => 'Month';
-
-  @override
   String get instructorEarningsDayTotal => 'Day total';
 
   @override
@@ -729,33 +723,82 @@ class AppLocalizationsEn extends AppLocalizations {
   String get instructorEarningsEmpty => 'No earnings recorded for this period.';
 
   @override
-  String get instructorEarningsPickDay => 'Select day';
-
-  @override
-  String get instructorEarningsPickMonth => 'Select month';
-
-  @override
-  String get instructorEarningsToday => 'Today';
-
-  @override
-  String get instructorEarningsThisMonth => 'This month';
-
-  @override
-  String get instructorEarningsPeriodHintDay =>
-      'Step day by day, or tap the date to pick one.';
-
-  @override
-  String get instructorEarningsPeriodHintMonth =>
-      'Step month by month, or tap the month to pick one.';
-
-  @override
-  String get instructorEarningsPreviousPeriod => 'Previous period';
-
-  @override
-  String get instructorEarningsNextPeriod => 'Next period';
-
-  @override
   String instructorEarningsPaidAt(String date) {
     return 'Paid at: $date';
   }
+
+  @override
+  String get instructorPeriodDay => 'Day';
+
+  @override
+  String get instructorPeriodMonth => 'Month';
+
+  @override
+  String get instructorPeriodPickDay => 'Select day';
+
+  @override
+  String get instructorPeriodPickMonth => 'Select month';
+
+  @override
+  String get instructorPeriodToday => 'Today';
+
+  @override
+  String get instructorPeriodThisMonth => 'This month';
+
+  @override
+  String get instructorPeriodHintDay =>
+      'Step day by day, or tap the date to pick one.';
+
+  @override
+  String get instructorPeriodHintMonth =>
+      'Step month by month, or tap the month to pick one.';
+
+  @override
+  String get instructorPeriodPrevious => 'Previous period';
+
+  @override
+  String get instructorPeriodNext => 'Next period';
+
+  @override
+  String get instructorLoadMore => 'Load more';
+
+  @override
+  String get instructorInvoicesTitle => 'Invoices';
+
+  @override
+  String get instructorInvoicesTotalReceived => 'Total received';
+
+  @override
+  String get instructorInvoicesCount => 'Invoices';
+
+  @override
+  String get instructorInvoicesSessions => 'Sessions';
+
+  @override
+  String get instructorInvoicesListTitle => 'Payout invoices';
+
+  @override
+  String get instructorInvoicesEmpty => 'No invoices recorded for this period.';
+
+  @override
+  String instructorInvoicesEntryCount(int count) {
+    return '$count entries';
+  }
+
+  @override
+  String instructorInvoicesPaidAt(String date) {
+    return 'Paid at: $date';
+  }
+
+  @override
+  String get instructorInvoiceTypeLessons => 'Lessons';
+
+  @override
+  String get instructorInvoiceTypeBonus => 'Bonus';
+
+  @override
+  String get instructorPaymentMethodCash => 'Cash';
+
+  @override
+  String get instructorPaymentMethodShamCash => 'Sham Cash';
 }
