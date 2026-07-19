@@ -795,4 +795,25 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get instructorPaymentMethodShamCash => 'شام كاش';
+
+  @override
+  String get instructorNotificationsTitle => 'الإشعارات';
+
+  @override
+  String get instructorNotificationsIntroTitle => 'إشعاراتك';
+
+  @override
+  String get instructorNotificationsIntroBody =>
+      'تابع مستجدات الحجوزات والمدفوعات وتحديثات الجدول.';
+
+  @override
+  String get instructorNotificationsListTitle => 'الأحدث';
+
+  @override
+  String get instructorNotificationsEmpty => 'لا توجد إشعارات بعد.';
+
+  @override
+  String instructorNotificationsUnreadCount(int count) {
+    return '$count غير مقروءة';
+  }
 }

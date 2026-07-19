@@ -72,6 +72,8 @@ import 'package:qeyadah_mobile_app/src/features/instructor/presentation/invoices
     as _i161;
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/leave/cubit/instructor_leave_cubit.dart'
     as _i330;
+import 'package:qeyadah_mobile_app/src/features/instructor/presentation/notifications/cubit/instructor_notifications_cubit.dart'
+    as _i692;
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/profile/cubit/instructor_profile_cubit.dart'
     as _i139;
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/schedule/cubit/instructor_schedule_cubit.dart'
@@ -263,6 +265,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i139.InstructorProfileCubit>(
       () => _i139.InstructorProfileCubit(
         gh<_i648.LoadInstructorProfileUseCase>(),
+      ),
+    );
+    gh.factory<_i692.InstructorNotificationsCubit>(
+      () => _i692.InstructorNotificationsCubit(
+        gh<_i648.LoadInstructorNotificationsUseCase>(),
       ),
     );
     gh.lazySingleton<_i706.AuthSessionCubit>(

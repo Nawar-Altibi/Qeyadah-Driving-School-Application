@@ -5,6 +5,7 @@ import 'package:qeyadah_mobile_app/src/features/instructor/presentation/dues/scr
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/earnings/screens/instructor_earnings_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/invoices/screens/instructor_invoices_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/leave/screens/instructor_leave_screen.dart';
+import 'package:qeyadah_mobile_app/src/features/instructor/presentation/notifications/screens/instructor_notifications_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/profile/screens/instructor_profile_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/schedule/screens/instructor_schedule_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/schedule/screens/instructor_weekly_schedule_screen.dart';
@@ -43,6 +44,13 @@ abstract final class InstructorNavigation {
   static void openInvoices(BuildContext context) {
     CoreNavigator.pushNamed(
       InstructorInvoicesScreen.routeName,
+      context: context,
+    );
+  }
+
+  static void openNotifications(BuildContext context) {
+    CoreNavigator.pushNamed(
+      InstructorNotificationsScreen.routeName,
       context: context,
     );
   }
