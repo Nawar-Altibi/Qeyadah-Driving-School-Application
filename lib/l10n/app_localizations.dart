@@ -1537,6 +1537,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Sham Cash'**
   String get instructorPaymentMethodShamCash;
+
+  /// No description provided for @instructorNotificationsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get instructorNotificationsTitle;
+
+  /// No description provided for @instructorNotificationsIntroTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your notifications'**
+  String get instructorNotificationsIntroTitle;
+
+  /// No description provided for @instructorNotificationsIntroBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Stay up to date with bookings, payments, and schedule updates.'**
+  String get instructorNotificationsIntroBody;
+
+  /// No description provided for @instructorNotificationsListTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent'**
+  String get instructorNotificationsListTitle;
+
+  /// No description provided for @instructorNotificationsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No notifications yet.'**
+  String get instructorNotificationsEmpty;
+
+  /// No description provided for @instructorNotificationsUnreadCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} unread'**
+  String instructorNotificationsUnreadCount(int count);
 }
 
 class _AppLocalizationsDelegate

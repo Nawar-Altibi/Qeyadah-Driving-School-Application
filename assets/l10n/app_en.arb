@@ -419,5 +419,18 @@
   "instructorInvoiceTypeLessons": "Lessons",
   "instructorInvoiceTypeBonus": "Bonus",
   "instructorPaymentMethodCash": "Cash",
-  "instructorPaymentMethodShamCash": "Sham Cash"
+  "instructorPaymentMethodShamCash": "Sham Cash",
+  "instructorNotificationsTitle": "Notifications",
+  "instructorNotificationsIntroTitle": "Your notifications",
+  "instructorNotificationsIntroBody": "Stay up to date with bookings, payments, and schedule updates.",
+  "instructorNotificationsListTitle": "Recent",
+  "instructorNotificationsEmpty": "No notifications yet.",
+  "instructorNotificationsUnreadCount": "{count} unread",
+  "@instructorNotificationsUnreadCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }

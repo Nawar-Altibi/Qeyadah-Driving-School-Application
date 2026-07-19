@@ -42,7 +42,7 @@ class InstructorScheduleBody extends StatelessWidget {
         InstructorScheduleGreetingHeader(
           name: dashboard.profile.name,
           onNotificationsTap: interactive
-              ? () => InstructorNavigation.showComingSoon(context)
+              ? () => InstructorNavigation.openNotifications(context)
               : null,
         ),
         const SizedBox(height: AppDesignTokens.spacingLg),

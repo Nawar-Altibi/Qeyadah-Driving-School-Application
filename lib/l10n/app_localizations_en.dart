@@ -801,4 +801,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get instructorPaymentMethodShamCash => 'Sham Cash';
+
+  @override
+  String get instructorNotificationsTitle => 'Notifications';
+
+  @override
+  String get instructorNotificationsIntroTitle => 'Your notifications';
+
+  @override
+  String get instructorNotificationsIntroBody =>
+      'Stay up to date with bookings, payments, and schedule updates.';
+
+  @override
+  String get instructorNotificationsListTitle => 'Recent';
+
+  @override
+  String get instructorNotificationsEmpty => 'No notifications yet.';
+
+  @override
+  String instructorNotificationsUnreadCount(int count) {
+    return '$count unread';
+  }
 }

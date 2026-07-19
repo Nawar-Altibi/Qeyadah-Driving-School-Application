@@ -398,5 +398,18 @@
   "instructorInvoiceTypeLessons": "دروس",
   "instructorInvoiceTypeBonus": "مكافأة",
   "instructorPaymentMethodCash": "نقداً",
-  "instructorPaymentMethodShamCash": "شام كاش"
+  "instructorPaymentMethodShamCash": "شام كاش",
+  "instructorNotificationsTitle": "الإشعارات",
+  "instructorNotificationsIntroTitle": "إشعاراتك",
+  "instructorNotificationsIntroBody": "تابع مستجدات الحجوزات والمدفوعات وتحديثات الجدول.",
+  "instructorNotificationsListTitle": "الأحدث",
+  "instructorNotificationsEmpty": "لا توجد إشعارات بعد.",
+  "instructorNotificationsUnreadCount": "{count} غير مقروءة",
+  "@instructorNotificationsUnreadCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }
