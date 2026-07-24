@@ -167,8 +167,7 @@ class InstructorProfileBody extends StatelessWidget {
                           icon: PhosphorIconsBold.money,
                           label: l10n.instructorEarningsTitle,
                           onTap: interactive
-                              ? () =>
-                                    InstructorNavigation.openEarnings(context)
+                              ? () => InstructorNavigation.openEarnings(context)
                               : null,
                         ),
                         const Divider(height: 1, color: AppColors.line),

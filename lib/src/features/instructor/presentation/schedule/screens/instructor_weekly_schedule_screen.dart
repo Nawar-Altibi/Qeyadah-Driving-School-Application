@@ -126,9 +126,7 @@ class _ScheduleDayCard extends StatelessWidget {
             width: 48,
             height: 48,
             decoration: BoxDecoration(
-              color: hasPeriods
-                  ? AppColors.brandMintSoft
-                  : AppColors.neutralBg,
+              color: hasPeriods ? AppColors.brandMintSoft : AppColors.neutralBg,
               borderRadius: BorderRadius.circular(AppDesignTokens.radiusLg),
             ),
             child: Icon(
@@ -189,7 +187,9 @@ class _ScheduleDayCard extends StatelessWidget {
                             style: theme.textTheme.bodyMedium?.copyWith(
                               color: AppColors.brandPrimary,
                               fontWeight: FontWeight.w700,
-                              fontFeatures: const [FontFeature.tabularFigures()],
+                              fontFeatures: const [
+                                FontFeature.tabularFigures(),
+                              ],
                             ),
                           ),
                         ),
@@ -216,8 +216,6 @@ class _WeeklyScheduleSkeleton extends StatelessWidget {
           today.add(Duration(days: i)),
         ),
     ];
-    return AppSkeletonizer(
-      child: _WeeklyScheduleBody(schedule: placeholder),
-    );
+    return AppSkeletonizer(child: _WeeklyScheduleBody(schedule: placeholder));
   }
 }
