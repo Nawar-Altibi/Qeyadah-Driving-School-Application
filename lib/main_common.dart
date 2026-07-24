@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:coore/lib.dart';
 import 'package:device_preview/device_preview.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:qeyadah_mobile_app/src/app.dart';
 import 'package:qeyadah_mobile_app/src/core/config/app_config.dart';
@@ -18,7 +17,6 @@ Future<void> mainCommon(
 
   runApp(
     DevicePreview(
-      enabled: !kIsWeb,
       availableLocales: const [Locale('ar'), Locale('en')],
       builder: (context) => const _StartupLoadingApp(),
     ),
@@ -29,7 +27,6 @@ Future<void> mainCommon(
   } catch (error) {
     runApp(
       DevicePreview(
-        enabled: !kIsWeb,
         availableLocales: const [Locale('ar'), Locale('en')],
         builder: (context) => _StartupErrorApp(error: error),
       ),
@@ -39,7 +36,6 @@ Future<void> mainCommon(
 
   runApp(
     DevicePreview(
-      enabled: !kIsWeb,
       availableLocales: const [Locale('ar'), Locale('en')],
       builder: (context) => App(forcedLocale: forcedLocale),
     ),
