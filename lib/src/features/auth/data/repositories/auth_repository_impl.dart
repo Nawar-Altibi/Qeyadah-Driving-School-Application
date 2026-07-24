@@ -78,6 +78,13 @@ class AuthRepositoryImpl implements AuthRepository {
         await _localDataSource.clearSession();
         return right(null);
       }
+      // Rehydrate the in-memory (and secure) token manager from the persisted
+      // session. Required on web where secure storage is disabled, and as a
+      // safety net when secure storage is empty but Hive still has the session.
+      await AuthTokenCoordinator.persist(
+        accessToken: value.accessToken,
+        refreshToken: value.refreshToken,
+      );
       return right(value);
     });
   }
