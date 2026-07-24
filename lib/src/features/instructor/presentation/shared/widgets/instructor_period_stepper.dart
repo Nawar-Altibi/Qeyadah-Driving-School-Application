@@ -8,6 +8,9 @@ import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_month_year_picker.dart';
 
 /// Shared day/month period navigator used by earnings and invoices screens.
+///
+/// Layout is RTL-first: previous on the physical right, next on the physical
+/// left, matching Arabic chronological navigation.
 class InstructorPeriodStepper extends StatelessWidget {
   const InstructorPeriodStepper({
     super.key,
@@ -48,16 +51,14 @@ class InstructorPeriodStepper extends StatelessWidget {
       child: Column(
         children: [
           Row(
-            // Keep chronological navigation: left = earlier, right = later.
-            textDirection: TextDirection.ltr,
+            // RTL: first child sits on the right (previous), last on the left
+            // (next). Keep caret icons pointing toward the navigation direction.
+            textDirection: TextDirection.rtl,
             children: [
-              IconButton(
+              _PeriodNavButton(
                 tooltip: l10n.instructorPeriodPrevious,
                 onPressed: interactive ? onPrevious : null,
-                icon: const Icon(
-                  PhosphorIconsBold.caretLeft,
-                  color: AppColors.brandPrimary,
-                ),
+                icon: PhosphorIconsBold.caretRight,
               ),
               Expanded(
                 child: Material(
@@ -97,13 +98,10 @@ class InstructorPeriodStepper extends StatelessWidget {
                   ),
                 ),
               ),
-              IconButton(
+              _PeriodNavButton(
                 tooltip: l10n.instructorPeriodNext,
                 onPressed: interactive ? onNext : null,
-                icon: const Icon(
-                  PhosphorIconsBold.caretRight,
-                  color: AppColors.brandPrimary,
-                ),
+                icon: PhosphorIconsBold.caretLeft,
               ),
             ],
           ),
@@ -113,7 +111,9 @@ class InstructorPeriodStepper extends StatelessWidget {
               onPressed: interactive ? onJumpCurrent : null,
               icon: const Icon(PhosphorIconsBold.arrowUUpLeft, size: 16),
               label: Text(
-                isDay ? l10n.instructorPeriodToday : l10n.instructorPeriodThisMonth,
+                isDay
+                    ? l10n.instructorPeriodToday
+                    : l10n.instructorPeriodThisMonth,
               ),
             ),
           ],
@@ -124,6 +124,35 @@ class InstructorPeriodStepper extends StatelessWidget {
 
   bool _isSameDay(DateTime a, DateTime b) =>
       a.year == b.year && a.month == b.month && a.day == b.day;
+}
+
+class _PeriodNavButton extends StatelessWidget {
+  const _PeriodNavButton({
+    required this.tooltip,
+    required this.onPressed,
+    required this.icon,
+  });
+
+  final String tooltip;
+  final VoidCallback? onPressed;
+  final IconData icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      tooltip: tooltip,
+      onPressed: onPressed,
+      style: IconButton.styleFrom(
+        backgroundColor: AppColors.brandMintSoft.withValues(alpha: 0.65),
+        foregroundColor: AppColors.brandPrimary,
+        disabledForegroundColor: AppColors.muted.withValues(alpha: 0.45),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppDesignTokens.radiusMd),
+        ),
+      ),
+      icon: Icon(icon, color: AppColors.brandPrimary),
+    );
+  }
 }
 
 /// Helper for picking a day or month period from pickers.
