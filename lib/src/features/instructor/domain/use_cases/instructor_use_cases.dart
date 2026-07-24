@@ -23,8 +23,10 @@ class LoadInstructorProfileUseCase {
 
   final InstructorRepository _repository;
 
-  FutureEither<InstructorProfileDashboardEntity> call() {
-    return _repository.loadProfileDashboard();
+  FutureEither<InstructorProfileDashboardEntity> call({
+    bool forceRefresh = false,
+  }) {
+    return _repository.loadProfileDashboard(forceRefresh: forceRefresh);
   }
 }
 

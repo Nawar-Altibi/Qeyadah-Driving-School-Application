@@ -37,15 +37,24 @@ class InstructorProfileCubit
     if (silent) {
       emit(state.copyWith(isSilentRefresh: true));
     } else {
-      emit(
-        state.copyWith(
-          isSilentRefresh: false,
-          apiState: const ApiState<InstructorProfileDashboardEntity>.loading(),
-        ),
+      // Skip the loading skeleton when a fresh cache can answer immediately.
+      final hasSucceededData = state.apiState.maybeWhen(
+        succeeded: (_) => true,
+        orElse: () => false,
       );
+      if (!hasSucceededData) {
+        emit(
+          state.copyWith(
+            isSilentRefresh: false,
+            apiState:
+                const ApiState<InstructorProfileDashboardEntity>.loading(),
+          ),
+        );
+      }
     }
 
-    final result = await _loadProfileUseCase();
+    // Silent resume forces a network refresh; initial loads prefer fresh cache.
+    final result = await _loadProfileUseCase(forceRefresh: silent);
 
     if (!isActiveGeneration(
       capturedGeneration: generation,

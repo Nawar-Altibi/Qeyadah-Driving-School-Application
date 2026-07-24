@@ -52,7 +52,9 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
 
   @override
   FutureEither<void> clearSession() async {
-    final result = await _database.delete(StorageKeys.sessionJson);
-    return result.fold(left, (_) => right(null));
+    final sessionResult = await _database.delete(StorageKeys.sessionJson);
+    // Profile cache is session-scoped; drop it with the auth session.
+    await _database.delete(StorageKeys.instructorProfileCache);
+    return sessionResult.fold(left, (_) => right(null));
   }
 }
