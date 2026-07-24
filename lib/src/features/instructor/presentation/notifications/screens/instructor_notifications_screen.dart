@@ -40,10 +40,14 @@ class InstructorNotificationsScreen extends StatelessWidget {
               >(
                 builder: (context, state) {
                   return state.apiState.when(
-                    initial: () => const InstructorNotificationsSkeletonBody(),
-                    loading: () => const InstructorNotificationsSkeletonBody(),
-                    succeeded: (page) =>
-                        InstructorNotificationsBody(state: state, page: page),
+                    initial: () =>
+                        const InstructorNotificationsSkeletonBody(),
+                    loading: () =>
+                        const InstructorNotificationsSkeletonBody(),
+                    succeeded: (page) => InstructorNotificationsBody(
+                      state: state,
+                      page: page,
+                    ),
                     failed: (failure, retry) {
                       final l10n = AppLocalizations.of(context);
                       return Center(
@@ -59,7 +63,9 @@ class InstructorNotificationsScreen extends StatelessWidget {
                                 ),
                                 textAlign: TextAlign.center,
                               ),
-                              const SizedBox(height: AppDesignTokens.spacingMd),
+                              const SizedBox(
+                                height: AppDesignTokens.spacingMd,
+                              ),
                               AppButton.primary(
                                 label: l10n.retry,
                                 onPressed: retry,

@@ -40,10 +40,7 @@ class InstructorInvoicesState {
 @injectable
 class InstructorInvoicesCubit
     extends
-        AppCoreCoreCubit<
-          InstructorInvoicesState,
-          InstructorInvoicesPageEntity
-        > {
+        AppCoreCoreCubit<InstructorInvoicesState, InstructorInvoicesPageEntity> {
   InstructorInvoicesCubit(this._loadInvoicesUseCase)
     : super(InstructorInvoicesState.initial());
 
@@ -62,7 +59,10 @@ class InstructorInvoicesCubit
 
   Future<void> load() async {
     emit(
-      state.copyWith(apiState: const ApiState.loading(), isLoadingMore: false),
+      state.copyWith(
+        apiState: const ApiState.loading(),
+        isLoadingMore: false,
+      ),
     );
     final result = await _fetchPage(page: 1);
     result.fold(

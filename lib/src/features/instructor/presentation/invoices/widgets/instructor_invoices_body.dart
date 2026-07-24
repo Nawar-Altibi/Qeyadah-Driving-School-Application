@@ -13,7 +13,6 @@ import 'package:qeyadah_mobile_app/src/core/ui/app_status_badge.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/domain/entities/instructor_entities.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/invoices/cubit/instructor_invoices_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/shared/formatters/instructor_formatters.dart';
-import 'package:qeyadah_mobile_app/src/features/instructor/presentation/shared/widgets/instructor_empty_state.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/shared/widgets/instructor_load_more_button.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/shared/widgets/instructor_period_stepper.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/instructor_invoice_type.dart';
@@ -55,7 +54,9 @@ class InstructorInvoicesBody extends StatelessWidget {
         ),
         const SizedBox(height: AppDesignTokens.spacingSm),
         Text(
-          isDay ? l10n.instructorPeriodHintDay : l10n.instructorPeriodHintMonth,
+          isDay
+              ? l10n.instructorPeriodHintDay
+              : l10n.instructorPeriodHintMonth,
           style: Theme.of(
             context,
           ).textTheme.bodySmall?.copyWith(color: AppColors.muted),
@@ -105,10 +106,7 @@ class InstructorInvoicesBody extends StatelessWidget {
         AppSectionHeading(title: l10n.instructorInvoicesListTitle),
         const SizedBox(height: AppDesignTokens.spacing),
         if (page.invoices.isEmpty)
-          InstructorEmptyState(
-            message: l10n.instructorInvoicesEmpty,
-            icon: PhosphorIconsBold.receipt,
-          )
+          AppCard(child: Text(l10n.instructorInvoicesEmpty))
         else ...[
           for (final invoice in page.invoices) ...[
             _InvoiceCard(invoice: invoice),
@@ -126,7 +124,11 @@ class InstructorInvoicesBody extends StatelessWidget {
     );
   }
 
-  Future<void> _stepPeriod(BuildContext context, bool isDay, int delta) async {
+  Future<void> _stepPeriod(
+    BuildContext context,
+    bool isDay,
+    int delta,
+  ) async {
     if (!interactive) return;
     final current = state.selectedDate;
     final next = isDay
@@ -168,92 +170,55 @@ class _InvoiceCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final localeName = Localizations.localeOf(context).toLanguageTag();
-    final accent = invoice.type == InstructorInvoiceType.bonus
-        ? AppColors.brandSecondary
-        : AppColors.brandPrimary;
     return AppCard(
-      padding: EdgeInsets.zero,
-      child: IntrinsicHeight(
-        child: Row(
-          children: [
-            Container(
-              width: 4,
-              decoration: BoxDecoration(
-                color: accent,
-                borderRadius: const BorderRadiusDirectional.only(
-                  topStart: Radius.circular(AppDesignTokens.radiusLg),
-                  bottomStart: Radius.circular(AppDesignTokens.radiusLg),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              AppStatusBadge(
+                label: InstructorFormatters.invoiceTypeLabel(l10n, invoice.type),
+                tone: InstructorFormatters.invoiceTypeTone(invoice.type),
+                icon: invoice.type == InstructorInvoiceType.bonus
+                    ? PhosphorIconsBold.gift
+                    : PhosphorIconsBold.receipt,
+              ),
+              const Spacer(),
+              Text(
+                InstructorFormatters.currencyAmount(l10n, invoice.amount),
+                style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                  fontWeight: FontWeight.w800,
                 ),
               ),
+            ],
+          ),
+          const SizedBox(height: AppDesignTokens.spacingSm),
+          Text(
+            l10n.instructorInvoicesEntryCount(invoice.entryCount),
+            style: Theme.of(
+              context,
+            ).textTheme.bodySmall?.copyWith(color: AppColors.muted),
+          ),
+          const SizedBox(height: 2),
+          Text(
+            InstructorFormatters.paymentMethodLabel(
+              l10n,
+              invoice.paymentMethod,
             ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(AppDesignTokens.spacingMd),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        AppStatusBadge(
-                          label: InstructorFormatters.invoiceTypeLabel(
-                            l10n,
-                            invoice.type,
-                          ),
-                          tone: InstructorFormatters.invoiceTypeTone(
-                            invoice.type,
-                          ),
-                          icon: invoice.type == InstructorInvoiceType.bonus
-                              ? PhosphorIconsBold.gift
-                              : PhosphorIconsBold.receipt,
-                        ),
-                        const Spacer(),
-                        Text(
-                          InstructorFormatters.currencyAmount(
-                            l10n,
-                            invoice.amount,
-                          ),
-                          style: Theme.of(context).textTheme.titleSmall
-                              ?.copyWith(
-                                color: accent,
-                                fontWeight: FontWeight.w800,
-                              ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: AppDesignTokens.spacingSm),
-                    Text(
-                      l10n.instructorInvoicesEntryCount(invoice.entryCount),
-                      style: Theme.of(
-                        context,
-                      ).textTheme.bodySmall?.copyWith(color: AppColors.muted),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      InstructorFormatters.paymentMethodLabel(
-                        l10n,
-                        invoice.paymentMethod,
-                      ),
-                      style: Theme.of(
-                        context,
-                      ).textTheme.bodySmall?.copyWith(color: AppColors.muted),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      l10n.instructorInvoicesPaidAt(
-                        DateFormat.yMMMd(
-                          localeName,
-                        ).add_Hm().format(invoice.paidAt),
-                      ),
-                      style: Theme.of(
-                        context,
-                      ).textTheme.bodySmall?.copyWith(color: AppColors.muted),
-                    ),
-                  ],
-                ),
-              ),
+            style: Theme.of(
+              context,
+            ).textTheme.bodySmall?.copyWith(color: AppColors.muted),
+          ),
+          const SizedBox(height: 2),
+          Text(
+            l10n.instructorInvoicesPaidAt(
+              DateFormat.yMMMd(localeName).add_Hm().format(invoice.paidAt),
             ),
-          ],
-        ),
+            style: Theme.of(
+              context,
+            ).textTheme.bodySmall?.copyWith(color: AppColors.muted),
+          ),
+        ],
       ),
     );
   }

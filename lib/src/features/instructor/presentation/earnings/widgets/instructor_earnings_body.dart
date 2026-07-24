@@ -12,7 +12,6 @@ import 'package:qeyadah_mobile_app/src/core/ui/app_segmented_control.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/domain/entities/instructor_entities.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/earnings/cubit/instructor_earnings_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/shared/formatters/instructor_formatters.dart';
-import 'package:qeyadah_mobile_app/src/features/instructor/presentation/shared/widgets/instructor_empty_state.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/shared/widgets/instructor_period_stepper.dart';
 
 class InstructorEarningsBody extends StatelessWidget {
@@ -56,7 +55,9 @@ class InstructorEarningsBody extends StatelessWidget {
         ),
         const SizedBox(height: AppDesignTokens.spacingSm),
         Text(
-          isDay ? l10n.instructorPeriodHintDay : l10n.instructorPeriodHintMonth,
+          isDay
+              ? l10n.instructorPeriodHintDay
+              : l10n.instructorPeriodHintMonth,
           style: Theme.of(
             context,
           ).textTheme.bodySmall?.copyWith(color: AppColors.muted),
@@ -97,10 +98,7 @@ class InstructorEarningsBody extends StatelessWidget {
         AppSectionHeading(title: l10n.instructorEarningsSessions),
         const SizedBox(height: AppDesignTokens.spacing),
         if (earnings.sessions.isEmpty)
-          InstructorEmptyState(
-            message: l10n.instructorEarningsEmpty,
-            icon: PhosphorIconsBold.money,
-          )
+          AppCard(child: Text(l10n.instructorEarningsEmpty))
         else
           for (final session in earnings.sessions) ...[
             _SessionCard(session: session),
@@ -110,7 +108,11 @@ class InstructorEarningsBody extends StatelessWidget {
     );
   }
 
-  Future<void> _stepPeriod(BuildContext context, bool isDay, int delta) async {
+  Future<void> _stepPeriod(
+    BuildContext context,
+    bool isDay,
+    int delta,
+  ) async {
     if (!interactive) return;
     final current = state.selectedDate;
     final next = isDay
@@ -154,86 +156,36 @@ class _SessionCard extends StatelessWidget {
     final localeName = Localizations.localeOf(context).toLanguageTag();
     final timeFormat = DateFormat.Hm(localeName);
     return AppCard(
-      padding: EdgeInsets.zero,
-      child: IntrinsicHeight(
-        child: Row(
-          children: [
-            Container(
-              width: 4,
-              decoration: const BoxDecoration(
-                color: AppColors.brandPrimary,
-                borderRadius: BorderRadiusDirectional.only(
-                  topStart: Radius.circular(AppDesignTokens.radiusLg),
-                  bottomStart: Radius.circular(AppDesignTokens.radiusLg),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  session.studentName,
+                  style: Theme.of(context).textTheme.titleSmall,
                 ),
               ),
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(AppDesignTokens.spacingMd),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Container(
-                          width: 36,
-                          height: 36,
-                          decoration: const BoxDecoration(
-                            color: AppColors.brandMintSoft,
-                            shape: BoxShape.circle,
-                          ),
-                          child: const Icon(
-                            PhosphorIconsBold.student,
-                            size: 18,
-                            color: AppColors.brandPrimary,
-                          ),
-                        ),
-                        const SizedBox(width: AppDesignTokens.spacing),
-                        Expanded(
-                          child: Text(
-                            session.studentName,
-                            style: Theme.of(context).textTheme.titleSmall
-                                ?.copyWith(fontWeight: FontWeight.w700),
-                          ),
-                        ),
-                        Text(
-                          InstructorFormatters.currencyAmount(
-                            l10n,
-                            session.amount,
-                          ),
-                          style: Theme.of(context).textTheme.titleSmall
-                              ?.copyWith(
-                                color: AppColors.brandPrimary,
-                                fontWeight: FontWeight.w800,
-                              ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: AppDesignTokens.spacingSm),
-                    Text(
-                      '${timeFormat.format(session.startAt)} – ${timeFormat.format(session.endAt)}',
-                      style: Theme.of(
-                        context,
-                      ).textTheme.bodySmall?.copyWith(color: AppColors.muted),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      l10n.instructorEarningsPaidAt(
-                        DateFormat.yMMMd(
-                          localeName,
-                        ).add_Hm().format(session.paidAt),
-                      ),
-                      style: Theme.of(
-                        context,
-                      ).textTheme.bodySmall?.copyWith(color: AppColors.muted),
-                    ),
-                  ],
-                ),
+              Text(
+                InstructorFormatters.currencyAmount(l10n, session.amount),
+                style: Theme.of(context).textTheme.titleSmall,
               ),
+            ],
+          ),
+          const SizedBox(height: AppDesignTokens.spacingSm),
+          Text(
+            '${timeFormat.format(session.startAt)} – ${timeFormat.format(session.endAt)}',
+            style: const TextStyle(color: AppColors.muted),
+          ),
+          const SizedBox(height: 2),
+          Text(
+            l10n.instructorEarningsPaidAt(
+              DateFormat.yMMMd(localeName).add_Hm().format(session.paidAt),
             ),
-          ],
-        ),
+            style: const TextStyle(color: AppColors.muted),
+          ),
+        ],
       ),
     );
   }

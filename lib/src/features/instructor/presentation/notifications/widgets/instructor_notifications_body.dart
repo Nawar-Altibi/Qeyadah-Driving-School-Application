@@ -177,9 +177,9 @@ class _NotificationCard extends StatelessWidget {
                     notification.createdAt,
                     localeName,
                   ),
-                  style: Theme.of(
-                    context,
-                  ).textTheme.labelSmall?.copyWith(color: AppColors.muted),
+                  style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                    color: AppColors.muted,
+                  ),
                 ),
               ],
             ),

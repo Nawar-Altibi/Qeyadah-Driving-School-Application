@@ -6,7 +6,8 @@ import 'package:qeyadah_mobile_app/src/features/instructor/domain/use_cases/inst
 
 class InstructorNotificationsState {
   const InstructorNotificationsState({
-    this.apiState = const ApiState<InstructorNotificationsPageEntity>.initial(),
+    this.apiState =
+        const ApiState<InstructorNotificationsPageEntity>.initial(),
     this.isLoadingMore = false,
   });
 
@@ -47,7 +48,10 @@ class InstructorNotificationsCubit
 
   Future<void> load() async {
     emit(
-      state.copyWith(apiState: const ApiState.loading(), isLoadingMore: false),
+      state.copyWith(
+        apiState: const ApiState.loading(),
+        isLoadingMore: false,
+      ),
     );
     final result = await _loadNotificationsUseCase();
     result.fold(
