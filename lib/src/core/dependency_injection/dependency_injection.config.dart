@@ -16,6 +16,8 @@ import 'package:qeyadah_mobile_app/src/core/config/app_navigation/app_navigation
     as _i820;
 import 'package:qeyadah_mobile_app/src/core/dependency_injection/modules/local_database_module.dart'
     as _i990;
+import 'package:qeyadah_mobile_app/src/core/notifications/push_messaging_service.dart'
+    as _i941;
 import 'package:qeyadah_mobile_app/src/core/offline/data/offline_queue_local_data_source.dart'
     as _i1067;
 import 'package:qeyadah_mobile_app/src/core/offline/domain/offline_queue_service.dart'
@@ -82,6 +84,22 @@ import 'package:qeyadah_mobile_app/src/features/instructor/presentation/schedule
     as _i1027;
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/schedule/cubit/instructor_weekly_schedule_cubit.dart'
     as _i143;
+import 'package:qeyadah_mobile_app/src/features/notifications/data/data_sources/notifications_remote_data_source.dart'
+    as _i809;
+import 'package:qeyadah_mobile_app/src/features/notifications/data/repositories/notifications_repository_impl.dart'
+    as _i37;
+import 'package:qeyadah_mobile_app/src/features/notifications/domain/repositories/notifications_repository.dart'
+    as _i1034;
+import 'package:qeyadah_mobile_app/src/features/notifications/domain/use_cases/notifications_use_cases.dart'
+    as _i612;
+import 'package:qeyadah_mobile_app/src/features/notifications/presentation/coordinators/push_notifications_coordinator.dart'
+    as _i1029;
+import 'package:qeyadah_mobile_app/src/features/notifications/presentation/cubit/notifications_inbox_cubit.dart'
+    as _i404;
+import 'package:qeyadah_mobile_app/src/features/notifications/presentation/cubit/notifications_unread_cubit.dart'
+    as _i188;
+import 'package:qeyadah_mobile_app/src/features/notifications/presentation/navigation/notification_deep_link_router.dart'
+    as _i836;
 import 'package:qeyadah_mobile_app/src/features/sample_items/data/repositories/sample_items_repository_impl.dart'
     as _i272;
 import 'package:qeyadah_mobile_app/src/features/sample_items/domain/repositories/sample_items_repository.dart'
@@ -109,6 +127,12 @@ extension GetItInjectableX on _i174.GetIt {
   }) {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final localDatabaseModule = _$LocalDatabaseModule();
+    gh.lazySingleton<_i941.LocalNotificationPresenter>(
+      () => _i941.LocalNotificationPresenter(),
+    );
+    gh.lazySingleton<_i836.NotificationDeepLinkRouter>(
+      () => const _i836.NotificationDeepLinkRouter(),
+    );
     gh.lazySingleton<_i127.SplashScreenCubit>(() => _i127.SplashScreenCubit());
     gh.factory<_i698.LocalDatabaseInterface>(
       () => localDatabaseModule.offlineQueueDatabase,
@@ -116,6 +140,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i502.StudentHomeRemoteDataSource>(
       () => _i502.StudentHomeRemoteDataSourceImpl(),
+    );
+    gh.lazySingleton<_i941.PushMessagingService>(
+      () => _i941.PushMessagingService(gh<_i941.LocalNotificationPresenter>()),
     );
     gh.factory<_i698.LocalDatabaseInterface>(
       () => localDatabaseModule.authDatabase,
@@ -156,6 +183,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i869.LoadStudentHomeUseCase>(
       () => _i869.LoadStudentHomeUseCase(gh<_i80.StudentHomeRepository>()),
     );
+    gh.lazySingleton<_i809.NotificationsRemoteDataSource>(
+      () => _i809.NotificationsRemoteDataSourceImpl(
+        gh<_i698.ApiHandlerInterface>(),
+      ),
+    );
     gh.factory<_i876.StudentHomeCubit>(
       () => _i876.StudentHomeCubit(gh<_i869.LoadStudentHomeUseCase>()),
     );
@@ -163,6 +195,11 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i516.AuthRepositoryImpl(
         gh<_i1021.AuthRemoteDataSource>(),
         gh<_i76.AuthLocalDataSource>(),
+      ),
+    );
+    gh.lazySingleton<_i1034.NotificationsRepository>(
+      () => _i37.NotificationsRepositoryImpl(
+        gh<_i809.NotificationsRemoteDataSource>(),
       ),
     );
     gh.lazySingleton<_i90.InstructorRepository>(
@@ -275,6 +312,35 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i648.LoadInstructorWeeklyScheduleUseCase>(),
       ),
     );
+    gh.factory<_i612.LoadNotificationsUseCase>(
+      () =>
+          _i612.LoadNotificationsUseCase(gh<_i1034.NotificationsRepository>()),
+    );
+    gh.factory<_i612.LoadUnreadNotificationsCountUseCase>(
+      () => _i612.LoadUnreadNotificationsCountUseCase(
+        gh<_i1034.NotificationsRepository>(),
+      ),
+    );
+    gh.factory<_i612.MarkNotificationReadUseCase>(
+      () => _i612.MarkNotificationReadUseCase(
+        gh<_i1034.NotificationsRepository>(),
+      ),
+    );
+    gh.factory<_i612.MarkAllNotificationsReadUseCase>(
+      () => _i612.MarkAllNotificationsReadUseCase(
+        gh<_i1034.NotificationsRepository>(),
+      ),
+    );
+    gh.factory<_i612.RegisterDeviceTokenUseCase>(
+      () => _i612.RegisterDeviceTokenUseCase(
+        gh<_i1034.NotificationsRepository>(),
+      ),
+    );
+    gh.factory<_i612.UnregisterDeviceTokenUseCase>(
+      () => _i612.UnregisterDeviceTokenUseCase(
+        gh<_i1034.NotificationsRepository>(),
+      ),
+    );
     gh.factory<_i139.InstructorProfileCubit>(
       () => _i139.InstructorProfileCubit(
         gh<_i648.LoadInstructorProfileUseCase>(),
@@ -285,13 +351,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i648.LoadInstructorNotificationsUseCase>(),
       ),
     );
-    gh.lazySingleton<_i706.AuthSessionCubit>(
-      () => _i706.AuthSessionCubit(
-        gh<_i831.LoginUseCase>(),
-        gh<_i407.LogoutUseCase>(),
-        gh<_i280.LogoutAllUseCase>(),
-        gh<_i455.GetPersistedSessionUseCase>(),
-        gh<_i880.RefreshProfileUseCase>(),
+    gh.lazySingleton<_i188.NotificationsUnreadCubit>(
+      () => _i188.NotificationsUnreadCubit(
+        gh<_i612.LoadUnreadNotificationsCountUseCase>(),
       ),
     );
     gh.factory<_i905.InstructorEarningsCubit>(
@@ -302,6 +364,16 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i330.InstructorLeaveCubit>(
       () => _i330.InstructorLeaveCubit(gh<_i648.LoadInstructorLeavesUseCase>()),
     );
+    gh.lazySingleton<_i1029.PushNotificationsCoordinator>(
+      () => _i1029.PushNotificationsCoordinator(
+        gh<_i941.PushMessagingService>(),
+        gh<_i612.RegisterDeviceTokenUseCase>(),
+        gh<_i612.UnregisterDeviceTokenUseCase>(),
+        gh<_i188.NotificationsUnreadCubit>(),
+        gh<_i836.NotificationDeepLinkRouter>(),
+        gh<_i648.InvalidateInstructorWeeklyScheduleCacheUseCase>(),
+      ),
+    );
     gh.factory<_i434.InstructorDuesCubit>(
       () => _i434.InstructorDuesCubit(gh<_i648.LoadInstructorDuesUseCase>()),
     );
@@ -310,12 +382,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i38.GetSampleItemUseCase>(
       () => _i38.GetSampleItemUseCase(gh<_i916.SampleItemsRepository>()),
-    );
-    gh.lazySingleton<_i820.AppNavigationConfig>(
-      () => _i820.AppNavigationConfig(
-        gh<_i706.AuthSessionCubit>(),
-        gh<_i127.SplashScreenCubit>(),
-      ),
     );
     gh.factory<_i958.RegistrationCubit>(
       () => _i958.RegistrationCubit(
@@ -333,8 +399,34 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i60.SampleItemDetailsCubit>(
       () => _i60.SampleItemDetailsCubit(gh<_i38.GetSampleItemUseCase>()),
     );
+    gh.factory<_i404.NotificationsInboxCubit>(
+      () => _i404.NotificationsInboxCubit(
+        gh<_i612.LoadNotificationsUseCase>(),
+        gh<_i612.MarkNotificationReadUseCase>(),
+        gh<_i612.MarkAllNotificationsReadUseCase>(),
+        gh<_i188.NotificationsUnreadCubit>(),
+        gh<_i836.NotificationDeepLinkRouter>(),
+      ),
+    );
+    gh.lazySingleton<_i706.AuthSessionCubit>(
+      () => _i706.AuthSessionCubit(
+        gh<_i831.LoginUseCase>(),
+        gh<_i407.LogoutUseCase>(),
+        gh<_i280.LogoutAllUseCase>(),
+        gh<_i455.GetPersistedSessionUseCase>(),
+        gh<_i880.RefreshProfileUseCase>(),
+        gh<_i1029.PushNotificationsCoordinator>(),
+        gh<_i941.PushMessagingService>(),
+      ),
+    );
     gh.factory<_i60.SampleItemsCubit>(
       () => _i60.SampleItemsCubit(gh<_i38.LoadSampleItemsUseCase>()),
+    );
+    gh.lazySingleton<_i820.AppNavigationConfig>(
+      () => _i820.AppNavigationConfig(
+        gh<_i706.AuthSessionCubit>(),
+        gh<_i127.SplashScreenCubit>(),
+      ),
     );
     return this;
   }

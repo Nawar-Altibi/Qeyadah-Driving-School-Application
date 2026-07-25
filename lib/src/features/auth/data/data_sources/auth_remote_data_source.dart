@@ -58,6 +58,10 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         'password': params.password,
         if (params.deviceName?.trim().isNotEmpty ?? false)
           'deviceName': params.deviceName!.trim(),
+        if (params.fcmToken?.trim().isNotEmpty ?? false)
+          'fcmToken': params.fcmToken!.trim(),
+        if (params.platform?.trim().isNotEmpty ?? false)
+          'platform': params.platform!.trim(),
       },
       cancelRequestAdapter: params.cancelRequestAdapter,
     );
