@@ -54,9 +54,7 @@ class InstructorInvoicesBody extends StatelessWidget {
         ),
         const SizedBox(height: AppDesignTokens.spacingSm),
         Text(
-          isDay
-              ? l10n.instructorPeriodHintDay
-              : l10n.instructorPeriodHintMonth,
+          isDay ? l10n.instructorPeriodHintDay : l10n.instructorPeriodHintMonth,
           style: Theme.of(
             context,
           ).textTheme.bodySmall?.copyWith(color: AppColors.muted),
@@ -124,11 +122,7 @@ class InstructorInvoicesBody extends StatelessWidget {
     );
   }
 
-  Future<void> _stepPeriod(
-    BuildContext context,
-    bool isDay,
-    int delta,
-  ) async {
+  Future<void> _stepPeriod(BuildContext context, bool isDay, int delta) async {
     if (!interactive) return;
     final current = state.selectedDate;
     final next = isDay
@@ -170,14 +164,29 @@ class _InvoiceCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final localeName = Localizations.localeOf(context).toLanguageTag();
+    final textTheme = Theme.of(context).textTheme;
+    final entryLabel = l10n.instructorInvoicesEntryCount(invoice.entryCount);
+    final methodLabel = InstructorFormatters.paymentMethodLabel(
+      l10n,
+      invoice.paymentMethod,
+    );
+    final paidLabel = l10n.instructorInvoicesPaidAt(
+      DateFormat.yMMMd(localeName).add_Hm().format(invoice.paidAt),
+    );
+
     return AppCard(
+      padding: const EdgeInsets.all(AppDesignTokens.spacing),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AppStatusBadge(
-                label: InstructorFormatters.invoiceTypeLabel(l10n, invoice.type),
+                label: InstructorFormatters.invoiceTypeLabel(
+                  l10n,
+                  invoice.type,
+                ),
                 tone: InstructorFormatters.invoiceTypeTone(invoice.type),
                 icon: invoice.type == InstructorInvoiceType.bonus
                     ? PhosphorIconsBold.gift
@@ -186,40 +195,78 @@ class _InvoiceCard extends StatelessWidget {
               const Spacer(),
               Text(
                 InstructorFormatters.currencyAmount(l10n, invoice.amount),
-                style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                style: textTheme.titleSmall?.copyWith(
+                  color: AppColors.brandPrimary,
                   fontWeight: FontWeight.w800,
                 ),
               ),
             ],
           ),
+          const SizedBox(height: AppDesignTokens.spacing),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Flexible(
+                child: _InvoiceMeta(
+                  icon: PhosphorIconsBold.listBullets,
+                  label: entryLabel,
+                ),
+              ),
+              const SizedBox(width: AppDesignTokens.spacingSm),
+              Flexible(
+                child: _InvoiceMeta(
+                  icon: PhosphorIconsBold.wallet,
+                  label: methodLabel,
+                  alignEnd: true,
+                ),
+              ),
+            ],
+          ),
           const SizedBox(height: AppDesignTokens.spacingSm),
-          Text(
-            l10n.instructorInvoicesEntryCount(invoice.entryCount),
-            style: Theme.of(
-              context,
-            ).textTheme.bodySmall?.copyWith(color: AppColors.muted),
-          ),
-          const SizedBox(height: 2),
-          Text(
-            InstructorFormatters.paymentMethodLabel(
-              l10n,
-              invoice.paymentMethod,
-            ),
-            style: Theme.of(
-              context,
-            ).textTheme.bodySmall?.copyWith(color: AppColors.muted),
-          ),
-          const SizedBox(height: 2),
-          Text(
-            l10n.instructorInvoicesPaidAt(
-              DateFormat.yMMMd(localeName).add_Hm().format(invoice.paidAt),
-            ),
-            style: Theme.of(
-              context,
-            ).textTheme.bodySmall?.copyWith(color: AppColors.muted),
+          _InvoiceMeta(
+            icon: PhosphorIconsBold.checkCircle,
+            label: paidLabel,
+            iconColor: AppColors.success,
           ),
         ],
       ),
+    );
+  }
+}
+
+class _InvoiceMeta extends StatelessWidget {
+  const _InvoiceMeta({
+    required this.icon,
+    required this.label,
+    this.iconColor = AppColors.muted,
+    this.alignEnd = false,
+  });
+
+  final IconData icon;
+  final String label;
+  final Color iconColor;
+  final bool alignEnd;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: alignEnd
+          ? MainAxisAlignment.end
+          : MainAxisAlignment.start,
+      children: [
+        Icon(icon, size: 14, color: iconColor),
+        const SizedBox(width: 6),
+        Flexible(
+          child: Text(
+            label,
+            textAlign: alignEnd ? TextAlign.end : TextAlign.start,
+            style: Theme.of(
+              context,
+            ).textTheme.bodySmall?.copyWith(color: AppColors.muted),
+          ),
+        ),
+      ],
     );
   }
 }

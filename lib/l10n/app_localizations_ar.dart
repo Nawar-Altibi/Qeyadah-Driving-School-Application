@@ -776,7 +776,17 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String instructorInvoicesEntryCount(int count) {
-    return '$count بنود';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count بند',
+      many: '$count بنداً',
+      few: '$count بنود',
+      two: 'بندين',
+      one: 'بند واحد',
+      zero: 'لا بنود',
+    );
+    return '$_temp0';
   }
 
   @override

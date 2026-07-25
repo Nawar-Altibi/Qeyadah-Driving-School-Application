@@ -1505,7 +1505,7 @@ abstract class AppLocalizations {
   /// No description provided for @instructorInvoicesEntryCount.
   ///
   /// In en, this message translates to:
-  /// **'{count} entries'**
+  /// **'{count, plural, =1{1 entry} other{{count} entries}}'**
   String instructorInvoicesEntryCount(int count);
 
   /// No description provided for @instructorInvoicesPaidAt.
