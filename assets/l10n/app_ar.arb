@@ -379,7 +379,7 @@
   "instructorInvoicesSessions": "الجلسات",
   "instructorInvoicesListTitle": "فواتير الصرف",
   "instructorInvoicesEmpty": "لا توجد فواتير مسجّلة لهذه الفترة.",
-  "instructorInvoicesEntryCount": "{count} بنود",
+  "instructorInvoicesEntryCount": "{count, plural, =0{لا بنود} =1{بند واحد} =2{بندين} few{{count} بنود} many{{count} بنداً} other{{count} بند}}",
   "@instructorInvoicesEntryCount": {
     "placeholders": {
       "count": {

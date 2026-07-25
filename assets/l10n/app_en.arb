@@ -400,7 +400,7 @@
   "instructorInvoicesSessions": "Sessions",
   "instructorInvoicesListTitle": "Payout invoices",
   "instructorInvoicesEmpty": "No invoices recorded for this period.",
-  "instructorInvoicesEntryCount": "{count} entries",
+  "instructorInvoicesEntryCount": "{count, plural, =1{1 entry} other{{count} entries}}",
   "@instructorInvoicesEntryCount": {
     "placeholders": {
       "count": {
