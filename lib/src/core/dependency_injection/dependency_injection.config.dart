@@ -56,6 +56,8 @@ import 'package:qeyadah_mobile_app/src/features/auth/presentation/cubit/password
     as _i240;
 import 'package:qeyadah_mobile_app/src/features/auth/presentation/cubit/registration_cubit.dart'
     as _i958;
+import 'package:qeyadah_mobile_app/src/features/instructor/data/data_sources/instructor_local_data_source.dart'
+    as _i393;
 import 'package:qeyadah_mobile_app/src/features/instructor/data/data_sources/instructor_remote_data_source.dart'
     as _i348;
 import 'package:qeyadah_mobile_app/src/features/instructor/data/repositories/instructor_repository_impl.dart'
@@ -119,6 +121,11 @@ extension GetItInjectableX on _i174.GetIt {
       () => localDatabaseModule.authDatabase,
       instanceName: 'auth',
     );
+    gh.lazySingleton<_i393.InstructorLocalDataSource>(
+      () => _i393.InstructorLocalDataSourceImpl(
+        gh<_i698.LocalDatabaseInterface>(instanceName: 'auth'),
+      ),
+    );
     gh.lazySingleton<_i76.AuthLocalDataSource>(
       () => _i76.AuthLocalDataSourceImpl(
         gh<_i698.LocalDatabaseInterface>(instanceName: 'auth'),
@@ -161,6 +168,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i90.InstructorRepository>(
       () => _i461.InstructorRepositoryImpl(
         gh<_i348.InstructorRemoteDataSource>(),
+        gh<_i393.InstructorLocalDataSource>(),
       ),
     );
     gh.lazySingleton<_i916.SampleItemsRepository>(
@@ -187,6 +195,11 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i648.LoadInstructorWeeklyScheduleUseCase>(
       () => _i648.LoadInstructorWeeklyScheduleUseCase(
+        gh<_i90.InstructorRepository>(),
+      ),
+    );
+    gh.factory<_i648.InvalidateInstructorWeeklyScheduleCacheUseCase>(
+      () => _i648.InvalidateInstructorWeeklyScheduleCacheUseCase(
         gh<_i90.InstructorRepository>(),
       ),
     );

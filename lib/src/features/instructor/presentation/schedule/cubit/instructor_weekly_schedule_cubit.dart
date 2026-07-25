@@ -39,15 +39,29 @@ class InstructorWeeklyScheduleCubit
     ApiState<List<InstructorScheduleDayEntity>> apiState,
   ) => state.copyWith(apiState: apiState);
 
-  Future<void> load() async {
-    emit(state.copyWith(apiState: const ApiState.loading()));
-    final result = await _loadWeeklyScheduleUseCase();
+  Future<void> load({bool forceRefresh = false}) async {
+    final hasSucceededData = state.apiState.maybeWhen(
+      succeeded: (_) => true,
+      orElse: () => false,
+    );
+    // Skip the skeleton when a fresh cache can answer immediately.
+    if (!hasSucceededData) {
+      emit(state.copyWith(apiState: const ApiState.loading()));
+    }
+    final result = await _loadWeeklyScheduleUseCase(forceRefresh: forceRefresh);
     result.fold(
       (failure) => emit(
-        state.copyWith(apiState: ApiState.failed(failure, retryFunction: load)),
+        state.copyWith(
+          apiState: ApiState.failed(
+            failure,
+            retryFunction: () => load(forceRefresh: forceRefresh),
+          ),
+        ),
       ),
       (schedule) =>
           emit(state.copyWith(apiState: ApiState.succeeded(schedule))),
     );
   }
+
+  Future<void> refresh() => load(forceRefresh: true);
 }

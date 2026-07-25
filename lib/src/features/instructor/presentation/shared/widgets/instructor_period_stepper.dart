@@ -8,6 +8,8 @@ import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_month_year_picker.dart';
 
 /// Shared day/month period navigator used by earnings and invoices screens.
+///
+/// RTL-first: previous on the physical right, next on the physical left.
 class InstructorPeriodStepper extends StatelessWidget {
   const InstructorPeriodStepper({
     super.key,
@@ -48,14 +50,14 @@ class InstructorPeriodStepper extends StatelessWidget {
       child: Column(
         children: [
           Row(
-            // Keep chronological navigation: left = earlier, right = later.
-            textDirection: TextDirection.ltr,
+            // RTL: first child on the right (previous), last on the left (next).
+            textDirection: TextDirection.rtl,
             children: [
               IconButton(
                 tooltip: l10n.instructorPeriodPrevious,
                 onPressed: interactive ? onPrevious : null,
                 icon: const Icon(
-                  PhosphorIconsBold.caretLeft,
+                  PhosphorIconsBold.caretRight,
                   color: AppColors.brandPrimary,
                 ),
               ),
@@ -101,7 +103,7 @@ class InstructorPeriodStepper extends StatelessWidget {
                 tooltip: l10n.instructorPeriodNext,
                 onPressed: interactive ? onNext : null,
                 icon: const Icon(
-                  PhosphorIconsBold.caretRight,
+                  PhosphorIconsBold.caretLeft,
                   color: AppColors.brandPrimary,
                 ),
               ),
@@ -113,7 +115,9 @@ class InstructorPeriodStepper extends StatelessWidget {
               onPressed: interactive ? onJumpCurrent : null,
               icon: const Icon(PhosphorIconsBold.arrowUUpLeft, size: 16),
               label: Text(
-                isDay ? l10n.instructorPeriodToday : l10n.instructorPeriodThisMonth,
+                isDay
+                    ? l10n.instructorPeriodToday
+                    : l10n.instructorPeriodThisMonth,
               ),
             ),
           ],

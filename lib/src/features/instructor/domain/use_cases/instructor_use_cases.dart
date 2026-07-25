@@ -23,8 +23,10 @@ class LoadInstructorProfileUseCase {
 
   final InstructorRepository _repository;
 
-  FutureEither<InstructorProfileDashboardEntity> call() {
-    return _repository.loadProfileDashboard();
+  FutureEither<InstructorProfileDashboardEntity> call({
+    bool forceRefresh = false,
+  }) {
+    return _repository.loadProfileDashboard(forceRefresh: forceRefresh);
   }
 }
 
@@ -45,8 +47,21 @@ class LoadInstructorWeeklyScheduleUseCase {
 
   final InstructorRepository _repository;
 
-  FutureEither<List<InstructorScheduleDayEntity>> call() {
-    return _repository.getWeeklySchedule();
+  FutureEither<List<InstructorScheduleDayEntity>> call({
+    bool forceRefresh = false,
+  }) {
+    return _repository.getWeeklySchedule(forceRefresh: forceRefresh);
+  }
+}
+
+@injectable
+class InvalidateInstructorWeeklyScheduleCacheUseCase {
+  const InvalidateInstructorWeeklyScheduleCacheUseCase(this._repository);
+
+  final InstructorRepository _repository;
+
+  FutureEither<void> call() {
+    return _repository.invalidateWeeklyScheduleCache();
   }
 }
 
