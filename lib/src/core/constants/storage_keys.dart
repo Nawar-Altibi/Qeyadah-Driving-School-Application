@@ -4,4 +4,6 @@ abstract final class StorageKeys {
   static const String sessionJson = 'session_json';
   static const String visitorSessionToken = 'visitor_session_token';
   static const String instructorProfileCache = 'instructor_profile_cache';
+  static const String instructorWeeklyScheduleCache =
+      'instructor_weekly_schedule_cache';
 }

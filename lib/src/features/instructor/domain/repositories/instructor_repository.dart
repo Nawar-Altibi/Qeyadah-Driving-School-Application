@@ -3,7 +3,10 @@ import 'package:qeyadah_mobile_app/src/features/instructor/domain/entities/instr
 
 abstract interface class InstructorRepository {
   FutureEither<InstructorProfileEntity> getProfile({bool forceRefresh = false});
-  FutureEither<List<InstructorScheduleDayEntity>> getWeeklySchedule();
+  FutureEither<List<InstructorScheduleDayEntity>> getWeeklySchedule({
+    bool forceRefresh = false,
+  });
+  FutureEither<void> invalidateWeeklyScheduleCache();
   FutureEither<List<InstructorBookingEntity>> getDayBookings(DateTime date);
   FutureEither<List<InstructorBookingEntity>> getWeekBookings(
     DateTime weekStart,

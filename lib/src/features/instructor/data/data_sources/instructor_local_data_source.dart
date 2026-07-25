@@ -22,10 +22,31 @@ class CachedInstructorProfile {
   bool get isFresh => DateTime.now().isBefore(expiresAt);
 }
 
+/// Cached weekly working periods with an absolute expiry timestamp.
+class CachedInstructorWeeklySchedule {
+  const CachedInstructorWeeklySchedule({
+    required this.schedule,
+    required this.cachedAt,
+    required this.expiresAt,
+  });
+
+  final List<InstructorScheduleDayEntity> schedule;
+  final DateTime cachedAt;
+  final DateTime expiresAt;
+
+  bool get isFresh => DateTime.now().isBefore(expiresAt);
+}
+
 abstract interface class InstructorLocalDataSource {
   FutureEither<void> saveProfile(InstructorProfileEntity profile);
   FutureEither<CachedInstructorProfile?> readProfile();
   FutureEither<void> clearProfile();
+
+  FutureEither<void> saveWeeklySchedule(
+    List<InstructorScheduleDayEntity> schedule,
+  );
+  FutureEither<CachedInstructorWeeklySchedule?> readWeeklySchedule();
+  FutureEither<void> clearWeeklySchedule();
 }
 
 @LazySingleton(as: InstructorLocalDataSource)
@@ -35,7 +56,10 @@ class InstructorLocalDataSourceImpl implements InstructorLocalDataSource {
   );
 
   /// Profile fields change rarely; keep a 30-minute fresh window.
-  static const Duration cacheTtl = Duration(minutes: 30);
+  static const Duration profileCacheTtl = Duration(minutes: 30);
+
+  /// Weekly working periods rarely change; keep a 24-hour fresh window.
+  static const Duration weeklyScheduleCacheTtl = Duration(hours: 24);
 
   final LocalDatabaseInterface _database;
 
@@ -45,7 +69,7 @@ class InstructorLocalDataSourceImpl implements InstructorLocalDataSource {
       final now = DateTime.now();
       final payload = <String, dynamic>{
         'cachedAt': now.toIso8601String(),
-        'expiresAt': now.add(cacheTtl).toIso8601String(),
+        'expiresAt': now.add(profileCacheTtl).toIso8601String(),
         'profile': _profileToJson(profile),
       };
       final result = await _database.save(
@@ -91,6 +115,68 @@ class InstructorLocalDataSourceImpl implements InstructorLocalDataSource {
     return result.fold(left, (_) => right(null));
   }
 
+  @override
+  FutureEither<void> saveWeeklySchedule(
+    List<InstructorScheduleDayEntity> schedule,
+  ) async {
+    try {
+      final now = DateTime.now();
+      final payload = <String, dynamic>{
+        'cachedAt': now.toIso8601String(),
+        'expiresAt': now.add(weeklyScheduleCacheTtl).toIso8601String(),
+        'schedule': schedule.map(_scheduleDayToJson).toList(),
+      };
+      final result = await _database.save(
+        StorageKeys.instructorWeeklyScheduleCache,
+        payload,
+      );
+      return result.fold(left, (_) => right(null));
+    } on Exception catch (_, stackTrace) {
+      return left(UnknownFailure(stackTrace: stackTrace));
+    }
+  }
+
+  @override
+  FutureEither<CachedInstructorWeeklySchedule?> readWeeklySchedule() async {
+    try {
+      final result = await _database.get<Map<dynamic, dynamic>>(
+        StorageKeys.instructorWeeklyScheduleCache,
+      );
+      return result.fold(left, (value) {
+        if (value == null) return right(null);
+        final map = Map<String, dynamic>.from(value);
+        final scheduleJson = map['schedule'];
+        if (scheduleJson is! List) return right(null);
+        final cachedAt = DateTime.tryParse(map['cachedAt']?.toString() ?? '');
+        final expiresAt = DateTime.tryParse(map['expiresAt']?.toString() ?? '');
+        if (cachedAt == null || expiresAt == null) return right(null);
+        final schedule = scheduleJson
+            .whereType<Map>()
+            .map(
+              (item) => _scheduleDayFromJson(Map<String, dynamic>.from(item)),
+            )
+            .toList();
+        return right(
+          CachedInstructorWeeklySchedule(
+            schedule: schedule,
+            cachedAt: cachedAt,
+            expiresAt: expiresAt,
+          ),
+        );
+      });
+    } on Exception catch (_, stackTrace) {
+      return left(UnknownFailure(stackTrace: stackTrace));
+    }
+  }
+
+  @override
+  FutureEither<void> clearWeeklySchedule() async {
+    final result = await _database.delete(
+      StorageKeys.instructorWeeklyScheduleCache,
+    );
+    return result.fold(left, (_) => right(null));
+  }
+
   Map<String, dynamic> _profileToJson(InstructorProfileEntity profile) {
     return {
       'instructorId': profile.instructorId,
@@ -125,6 +211,37 @@ class InstructorLocalDataSourceImpl implements InstructorLocalDataSource {
       sessionWage: (json['sessionWage'] as num?)?.toInt() ?? 0,
       todayLessonsCount: (json['todayLessonsCount'] as num?)?.toInt() ?? 0,
       leaveStatus: json['leaveStatus']?.toString(),
+    );
+  }
+
+  Map<String, dynamic> _scheduleDayToJson(InstructorScheduleDayEntity day) {
+    return {
+      'dayOfWeek': day.dayOfWeek,
+      'periods': day.periods
+          .map(
+            (period) => {
+              'startTime': period.startTime,
+              'endTime': period.endTime,
+            },
+          )
+          .toList(),
+    };
+  }
+
+  InstructorScheduleDayEntity _scheduleDayFromJson(Map<String, dynamic> json) {
+    final periodsJson = json['periods'];
+    final periods = periodsJson is List
+        ? periodsJson.whereType<Map>().map((item) {
+            final map = Map<String, dynamic>.from(item);
+            return InstructorSchedulePeriodEntity(
+              startTime: map['startTime']?.toString() ?? '',
+              endTime: map['endTime']?.toString() ?? '',
+            );
+          }).toList()
+        : <InstructorSchedulePeriodEntity>[];
+    return InstructorScheduleDayEntity(
+      dayOfWeek: json['dayOfWeek']?.toString() ?? '',
+      periods: periods,
     );
   }
 }

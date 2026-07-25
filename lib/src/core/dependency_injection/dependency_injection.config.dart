@@ -198,6 +198,11 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i90.InstructorRepository>(),
       ),
     );
+    gh.factory<_i648.InvalidateInstructorWeeklyScheduleCacheUseCase>(
+      () => _i648.InvalidateInstructorWeeklyScheduleCacheUseCase(
+        gh<_i90.InstructorRepository>(),
+      ),
+    );
     gh.factory<_i648.LoadInstructorDuesUseCase>(
       () => _i648.LoadInstructorDuesUseCase(gh<_i90.InstructorRepository>()),
     );

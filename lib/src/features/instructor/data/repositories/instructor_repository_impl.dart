@@ -47,12 +47,40 @@ class InstructorRepositoryImpl implements InstructorRepository {
   }
 
   @override
-  FutureEither<List<InstructorScheduleDayEntity>> getWeeklySchedule() async {
+  FutureEither<List<InstructorScheduleDayEntity>> getWeeklySchedule({
+    bool forceRefresh = false,
+  }) async {
+    if (!forceRefresh) {
+      final cachedResult = await _localDataSource.readWeeklySchedule();
+      final fresh = cachedResult.fold((_) => null, (cached) {
+        if (cached == null || !cached.isFresh) return null;
+        return cached.schedule;
+      });
+      if (fresh != null) return right(fresh);
+    }
+
     final response = await _remoteDataSource.fetchWeeklySchedule();
     return response.fold(
-      (failure) => left(NetworkFailureMapper.toDomainFailure(failure)),
-      right,
+      (failure) async {
+        final cachedResult = await _localDataSource.readWeeklySchedule();
+        return cachedResult.fold(
+          (_) => left(NetworkFailureMapper.toDomainFailure(failure)),
+          (cached) {
+            if (cached != null) return right(cached.schedule);
+            return left(NetworkFailureMapper.toDomainFailure(failure));
+          },
+        );
+      },
+      (schedule) async {
+        await _localDataSource.saveWeeklySchedule(schedule);
+        return right(schedule);
+      },
     );
+  }
+
+  @override
+  FutureEither<void> invalidateWeeklyScheduleCache() {
+    return _localDataSource.clearWeeklySchedule();
   }
 
   @override

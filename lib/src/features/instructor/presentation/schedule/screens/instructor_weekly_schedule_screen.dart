@@ -48,7 +48,11 @@ class _InstructorWeeklyScheduleScreenState
             builder: (context, state) => state.apiState.when(
               initial: () => const _WeeklyScheduleSkeleton(),
               loading: () => const _WeeklyScheduleSkeleton(),
-              succeeded: (schedule) => _WeeklyScheduleBody(schedule: schedule),
+              succeeded: (schedule) => RefreshIndicator(
+                onRefresh: () =>
+                    context.read<InstructorWeeklyScheduleCubit>().refresh(),
+                child: _WeeklyScheduleBody(schedule: schedule),
+              ),
               failed: (failure, retry) => Center(
                 child: Padding(
                   padding: PaddingManager.paddingAll16,
@@ -74,6 +78,7 @@ class _WeeklyScheduleBody extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
     final byDay = {for (final item in schedule) item.dayOfWeek: item};
     return ListView(
+      physics: const AlwaysScrollableScrollPhysics(),
       padding: const EdgeInsets.all(AppDesignTokens.screenHorizontalPadding),
       children: [
         AppSectionHeading(
@@ -126,9 +131,7 @@ class _ScheduleDayCard extends StatelessWidget {
             width: 48,
             height: 48,
             decoration: BoxDecoration(
-              color: hasPeriods
-                  ? AppColors.brandMintSoft
-                  : AppColors.neutralBg,
+              color: hasPeriods ? AppColors.brandMintSoft : AppColors.neutralBg,
               borderRadius: BorderRadius.circular(AppDesignTokens.radiusLg),
             ),
             child: Icon(
@@ -189,7 +192,9 @@ class _ScheduleDayCard extends StatelessWidget {
                             style: theme.textTheme.bodyMedium?.copyWith(
                               color: AppColors.brandPrimary,
                               fontWeight: FontWeight.w700,
-                              fontFeatures: const [FontFeature.tabularFigures()],
+                              fontFeatures: const [
+                                FontFeature.tabularFigures(),
+                              ],
                             ),
                           ),
                         ),
@@ -216,8 +221,6 @@ class _WeeklyScheduleSkeleton extends StatelessWidget {
           today.add(Duration(days: i)),
         ),
     ];
-    return AppSkeletonizer(
-      child: _WeeklyScheduleBody(schedule: placeholder),
-    );
+    return AppSkeletonizer(child: _WeeklyScheduleBody(schedule: placeholder));
   }
 }
