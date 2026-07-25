@@ -8,9 +8,9 @@ import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart'
 import 'package:qeyadah_mobile_app/src/core/ui/app_button.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/responsive/app_breakpoints.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/notifications/coordinators/instructor_notifications_screen_coordinator.dart';
-import 'package:qeyadah_mobile_app/src/features/instructor/presentation/notifications/cubit/instructor_notifications_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/notifications/widgets/instructor_notifications_body.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/notifications/widgets/instructor_notifications_skeleton_body.dart';
+import 'package:qeyadah_mobile_app/src/features/notifications/presentation/cubit/notifications_inbox_cubit.dart';
 
 class InstructorNotificationsScreen extends StatelessWidget {
   const InstructorNotificationsScreen({super.key});
@@ -33,51 +33,38 @@ class InstructorNotificationsScreen extends StatelessWidget {
           centerTitle: true,
         ),
         body: ResponsiveShell(
-          child:
-              BlocBuilder<
-                InstructorNotificationsCubit,
-                InstructorNotificationsState
-              >(
-                builder: (context, state) {
-                  return state.apiState.when(
-                    initial: () =>
-                        const InstructorNotificationsSkeletonBody(),
-                    loading: () =>
-                        const InstructorNotificationsSkeletonBody(),
-                    succeeded: (page) => InstructorNotificationsBody(
-                      state: state,
-                      page: page,
-                    ),
-                    failed: (failure, retry) {
-                      final l10n = AppLocalizations.of(context);
-                      return Center(
-                        child: Padding(
-                          padding: PaddingManager.paddingAll16,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                CoreFailureMessageMapper.messageFor(
-                                  failure,
-                                  l10n,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                              const SizedBox(
-                                height: AppDesignTokens.spacingMd,
-                              ),
-                              AppButton.primary(
-                                label: l10n.retry,
-                                onPressed: retry,
-                              ),
-                            ],
+          child: BlocBuilder<NotificationsInboxCubit, NotificationsInboxState>(
+            builder: (context, state) {
+              return state.apiState.when(
+                initial: () => const InstructorNotificationsSkeletonBody(),
+                loading: () => const InstructorNotificationsSkeletonBody(),
+                succeeded: (page) =>
+                    InstructorNotificationsBody(state: state, page: page),
+                failed: (failure, retry) {
+                  final l10n = AppLocalizations.of(context);
+                  return Center(
+                    child: Padding(
+                      padding: PaddingManager.paddingAll16,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            CoreFailureMessageMapper.messageFor(failure, l10n),
+                            textAlign: TextAlign.center,
                           ),
-                        ),
-                      );
-                    },
+                          const SizedBox(height: AppDesignTokens.spacingMd),
+                          AppButton.primary(
+                            label: l10n.retry,
+                            onPressed: retry,
+                          ),
+                        ],
+                      ),
+                    ),
                   );
                 },
-              ),
+              );
+            },
+          ),
         ),
       ),
     );

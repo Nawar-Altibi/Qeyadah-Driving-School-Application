@@ -15,10 +15,12 @@ class InstructorScheduleGreetingHeader extends StatelessWidget {
     super.key,
     required this.name,
     required this.onNotificationsTap,
+    this.unreadCount = 0,
   });
 
   final String name;
   final VoidCallback? onNotificationsTap;
+  final int unreadCount;
 
   @override
   Widget build(BuildContext context) {
@@ -49,16 +51,20 @@ class InstructorScheduleGreetingHeader extends StatelessWidget {
             ],
           ),
         ),
-        _NotificationBellButton(onTap: onNotificationsTap),
+        _NotificationBellButton(
+          onTap: onNotificationsTap,
+          unreadCount: unreadCount,
+        ),
       ],
     );
   }
 }
 
 class _NotificationBellButton extends StatelessWidget {
-  const _NotificationBellButton({this.onTap});
+  const _NotificationBellButton({this.onTap, this.unreadCount = 0});
 
   final VoidCallback? onTap;
+  final int unreadCount;
 
   @override
   Widget build(BuildContext context) {
@@ -71,10 +77,44 @@ class _NotificationBellButton extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(13),
-        child: const SizedBox(
+        child: SizedBox(
           width: 38,
           height: 38,
-          child: Icon(PhosphorIconsBold.bell, size: 21, color: AppColors.ink),
+          child: Stack(
+            clipBehavior: Clip.none,
+            alignment: Alignment.center,
+            children: [
+              const Icon(
+                PhosphorIconsBold.bell,
+                size: 21,
+                color: AppColors.ink,
+              ),
+              if (unreadCount > 0)
+                Positioned(
+                  top: 4,
+                  left: 4,
+                  child: Container(
+                    constraints: const BoxConstraints(minWidth: 14),
+                    padding: const EdgeInsets.symmetric(horizontal: 3),
+                    height: 14,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: AppColors.danger,
+                      borderRadius: BorderRadius.circular(999),
+                    ),
+                    child: Text(
+                      unreadCount > 99 ? '99+' : '$unreadCount',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 9,
+                        fontWeight: FontWeight.w700,
+                        height: 1,
+                      ),
+                    ),
+                  ),
+                ),
+            ],
+          ),
         ),
       ),
     );

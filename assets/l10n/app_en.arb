@@ -432,5 +432,6 @@
         "type": "int"
       }
     }
-  }
+  },
+  "notificationsMarkAllRead": "Mark all read"
 }

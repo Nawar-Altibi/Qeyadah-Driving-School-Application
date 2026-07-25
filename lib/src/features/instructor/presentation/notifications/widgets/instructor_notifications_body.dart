@@ -8,11 +8,11 @@ import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_section_heading.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_skeleton_shell.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_status_badge.dart';
-import 'package:qeyadah_mobile_app/src/features/instructor/domain/entities/instructor_entities.dart';
-import 'package:qeyadah_mobile_app/src/features/instructor/presentation/notifications/cubit/instructor_notifications_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/shared/formatters/instructor_formatters.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/shared/widgets/instructor_load_more_button.dart';
-import 'package:qeyadah_mobile_app/src/shared/enums/instructor_notification_type.dart';
+import 'package:qeyadah_mobile_app/src/features/notifications/domain/entities/app_notification_entity.dart';
+import 'package:qeyadah_mobile_app/src/features/notifications/domain/entities/app_notification_type.dart';
+import 'package:qeyadah_mobile_app/src/features/notifications/presentation/cubit/notifications_inbox_cubit.dart';
 
 class InstructorNotificationsBody extends StatelessWidget {
   const InstructorNotificationsBody({
@@ -22,8 +22,8 @@ class InstructorNotificationsBody extends StatelessWidget {
     this.interactive = true,
   });
 
-  final InstructorNotificationsState state;
-  final InstructorNotificationsPageEntity page;
+  final NotificationsInboxState state;
+  final AppNotificationsPageEntity page;
   final bool interactive;
 
   @override
@@ -31,73 +31,100 @@ class InstructorNotificationsBody extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
     final unreadCount = page.notifications.where((n) => !n.isRead).length;
 
-    return ListView(
-      padding: const EdgeInsets.all(AppDesignTokens.screenHorizontalPadding),
-      children: [
-        Column(
-          children: [
-            Container(
-              width: 48,
-              height: 48,
-              decoration: BoxDecoration(
-                color: AppColors.brandMintSoft,
-                borderRadius: BorderRadius.circular(15),
+    return RefreshIndicator(
+      onRefresh: interactive
+          ? () => context.read<NotificationsInboxCubit>().load()
+          : () async {},
+      child: ListView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        padding: const EdgeInsets.all(AppDesignTokens.screenHorizontalPadding),
+        children: [
+          Column(
+            children: [
+              Container(
+                width: 48,
+                height: 48,
+                decoration: BoxDecoration(
+                  color: AppColors.brandMintSoft,
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: const Icon(
+                  PhosphorIconsBold.bell,
+                  color: AppColors.brandPrimary,
+                ),
               ),
-              child: const Icon(
-                PhosphorIconsBold.bell,
-                color: AppColors.brandPrimary,
+              const SizedBox(height: AppDesignTokens.spacingSm),
+              Text(
+                l10n.instructorNotificationsIntroTitle,
+                style: Theme.of(
+                  context,
+                ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
               ),
-            ),
-            const SizedBox(height: AppDesignTokens.spacingSm),
-            Text(
-              l10n.instructorNotificationsIntroTitle,
-              style: Theme.of(
-                context,
-              ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              l10n.instructorNotificationsIntroBody,
-              textAlign: TextAlign.center,
-              style: Theme.of(
-                context,
-              ).textTheme.bodySmall?.copyWith(color: AppColors.muted),
-            ),
+              const SizedBox(height: 4),
+              Text(
+                l10n.instructorNotificationsIntroBody,
+                textAlign: TextAlign.center,
+                style: Theme.of(
+                  context,
+                ).textTheme.bodySmall?.copyWith(color: AppColors.muted),
+              ),
+            ],
+          ),
+          const SizedBox(height: AppDesignTokens.spacingMd),
+          Row(
+            children: [
+              Expanded(
+                child: AppSectionHeading(
+                  title: l10n.instructorNotificationsListTitle,
+                  subtitle: unreadCount > 0
+                      ? l10n.instructorNotificationsUnreadCount(unreadCount)
+                      : null,
+                ),
+              ),
+              if (interactive && unreadCount > 0)
+                TextButton(
+                  onPressed: state.isMarkingAll
+                      ? null
+                      : () => context
+                            .read<NotificationsInboxCubit>()
+                            .markAllRead(),
+                  child: Text(l10n.notificationsMarkAllRead),
+                ),
+            ],
+          ),
+          const SizedBox(height: AppDesignTokens.spacing),
+          if (page.notifications.isEmpty)
+            AppCard(child: Text(l10n.instructorNotificationsEmpty))
+          else ...[
+            for (final notification in page.notifications) ...[
+              _NotificationCard(
+                notification: notification,
+                interactive: interactive,
+              ),
+              const SizedBox(height: AppDesignTokens.spacingSm),
+            ],
+            if (page.hasMorePages)
+              InstructorLoadMoreButton(
+                isLoading: state.isLoadingMore,
+                onPressed: interactive
+                    ? () => context.read<NotificationsInboxCubit>().loadMore()
+                    : null,
+              ),
           ],
-        ),
-        const SizedBox(height: AppDesignTokens.spacingMd),
-        AppSectionHeading(
-          title: l10n.instructorNotificationsListTitle,
-          subtitle: unreadCount > 0
-              ? l10n.instructorNotificationsUnreadCount(unreadCount)
-              : null,
-        ),
-        const SizedBox(height: AppDesignTokens.spacing),
-        if (page.notifications.isEmpty)
-          AppCard(child: Text(l10n.instructorNotificationsEmpty))
-        else ...[
-          for (final notification in page.notifications) ...[
-            _NotificationCard(notification: notification),
-            const SizedBox(height: AppDesignTokens.spacingSm),
-          ],
-          if (page.hasMorePages)
-            InstructorLoadMoreButton(
-              isLoading: state.isLoadingMore,
-              onPressed: interactive
-                  ? () =>
-                        context.read<InstructorNotificationsCubit>().loadMore()
-                  : null,
-            ),
         ],
-      ],
+      ),
     );
   }
 }
 
 class _NotificationCard extends StatelessWidget {
-  const _NotificationCard({required this.notification});
+  const _NotificationCard({
+    required this.notification,
+    required this.interactive,
+  });
 
-  final InstructorNotificationEntity notification;
+  final AppNotificationEntity notification;
+  final bool interactive;
 
   @override
   Widget build(BuildContext context) {
@@ -110,18 +137,20 @@ class _NotificationCard extends StatelessWidget {
       notification.notificationType,
     );
     final isCalendarIcon =
-        notification.notificationType ==
-            InstructorNotificationType.bookingConfirmed ||
-        notification.notificationType ==
-            InstructorNotificationType.bookingCancelled ||
-        notification.notificationType ==
-            InstructorNotificationType.instructorSchedule;
+        notification.notificationType == AppNotificationType.bookingConfirmed ||
+        notification.notificationType == AppNotificationType.bookingCancelled ||
+        notification.notificationType == AppNotificationType.instructorSchedule;
 
     return AppCard(
       backgroundColor: notification.isRead
           ? null
           : AppColors.brandMintSoft.withValues(alpha: 0.55),
       borderColor: notification.isRead ? null : AppColors.brandMint,
+      onTap: interactive
+          ? () => context.read<NotificationsInboxCubit>().openNotification(
+              notification,
+            )
+          : null,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -177,9 +206,9 @@ class _NotificationCard extends StatelessWidget {
                     notification.createdAt,
                     localeName,
                   ),
-                  style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                    color: AppColors.muted,
-                  ),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.labelSmall?.copyWith(color: AppColors.muted),
                 ),
               ],
             ),

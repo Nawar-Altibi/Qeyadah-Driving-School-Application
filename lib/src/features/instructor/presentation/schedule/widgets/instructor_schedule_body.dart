@@ -13,6 +13,7 @@ import 'package:qeyadah_mobile_app/src/features/instructor/presentation/schedule
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/schedule/widgets/instructor_schedule_widgets.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/shared/formatters/instructor_formatters.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/shared/navigation/instructor_navigation.dart';
+import 'package:qeyadah_mobile_app/src/features/notifications/presentation/cubit/notifications_unread_cubit.dart';
 
 class InstructorScheduleBody extends StatelessWidget {
   const InstructorScheduleBody({
@@ -41,6 +42,7 @@ class InstructorScheduleBody extends StatelessWidget {
       children: [
         InstructorScheduleGreetingHeader(
           name: dashboard.profile.name,
+          unreadCount: context.watch<NotificationsUnreadCubit>().state,
           onNotificationsTap: interactive
               ? () => InstructorNavigation.openNotifications(context)
               : null,
