@@ -4,9 +4,9 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_status_badge.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/domain/entities/instructor_entities.dart';
+import 'package:qeyadah_mobile_app/src/features/notifications/domain/entities/app_notification_type.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/instructor_booking_status.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/instructor_invoice_type.dart';
-import 'package:qeyadah_mobile_app/src/shared/enums/instructor_notification_type.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/instructor_payment_method.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/instructor_type.dart';
 
@@ -180,34 +180,30 @@ abstract final class InstructorFormatters {
     };
   }
 
-  static IconData notificationIcon(InstructorNotificationType type) {
+  static IconData notificationIcon(AppNotificationType type) {
     return switch (type) {
-      InstructorNotificationType.bookingConfirmed =>
-        PhosphorIconsBold.calendarCheck,
-      InstructorNotificationType.bookingCancelled =>
-        PhosphorIconsBold.calendarX,
-      InstructorNotificationType.bookingExpired =>
-        PhosphorIconsBold.clockCountdown,
-      InstructorNotificationType.paymentAccepted => PhosphorIconsBold.wallet,
-      InstructorNotificationType.paymentRejected => PhosphorIconsBold.xCircle,
-      InstructorNotificationType.certificateStatusChanged =>
+      AppNotificationType.bookingConfirmed => PhosphorIconsBold.calendarCheck,
+      AppNotificationType.bookingCancelled => PhosphorIconsBold.calendarX,
+      AppNotificationType.bookingExpired => PhosphorIconsBold.clockCountdown,
+      AppNotificationType.paymentAccepted => PhosphorIconsBold.wallet,
+      AppNotificationType.paymentRejected => PhosphorIconsBold.xCircle,
+      AppNotificationType.certificateStatusChanged =>
         PhosphorIconsBold.identificationCard,
-      InstructorNotificationType.instructorSchedule =>
-        PhosphorIconsBold.calendar,
-      InstructorNotificationType.general => PhosphorIconsBold.megaphone,
+      AppNotificationType.instructorSchedule => PhosphorIconsBold.calendar,
+      AppNotificationType.general => PhosphorIconsBold.megaphone,
     };
   }
 
-  static AppBadgeTone notificationTone(InstructorNotificationType type) {
+  static AppBadgeTone notificationTone(AppNotificationType type) {
     return switch (type) {
-      InstructorNotificationType.bookingConfirmed => AppBadgeTone.success,
-      InstructorNotificationType.bookingCancelled => AppBadgeTone.danger,
-      InstructorNotificationType.bookingExpired => AppBadgeTone.warning,
-      InstructorNotificationType.paymentAccepted => AppBadgeTone.success,
-      InstructorNotificationType.paymentRejected => AppBadgeTone.danger,
-      InstructorNotificationType.certificateStatusChanged => AppBadgeTone.info,
-      InstructorNotificationType.instructorSchedule => AppBadgeTone.info,
-      InstructorNotificationType.general => AppBadgeTone.neutral,
+      AppNotificationType.bookingConfirmed => AppBadgeTone.success,
+      AppNotificationType.bookingCancelled => AppBadgeTone.danger,
+      AppNotificationType.bookingExpired => AppBadgeTone.warning,
+      AppNotificationType.paymentAccepted => AppBadgeTone.success,
+      AppNotificationType.paymentRejected => AppBadgeTone.danger,
+      AppNotificationType.certificateStatusChanged => AppBadgeTone.info,
+      AppNotificationType.instructorSchedule => AppBadgeTone.info,
+      AppNotificationType.general => AppBadgeTone.neutral,
     };
   }
 

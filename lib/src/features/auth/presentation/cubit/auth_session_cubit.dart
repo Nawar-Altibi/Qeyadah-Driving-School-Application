@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:coore/lib.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:qeyadah_mobile_app/src/core/notifications/push_messaging_service.dart';
 import 'package:qeyadah_mobile_app/src/core/presentation/app_core_cubit.dart';
 import 'package:qeyadah_mobile_app/src/core/utils/future_either_timeout.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/domain/entities/auth_session_entity.dart';
@@ -11,6 +14,7 @@ import 'package:qeyadah_mobile_app/src/features/auth/domain/use_cases/login_use_
 import 'package:qeyadah_mobile_app/src/features/auth/domain/use_cases/logout_all_use_case.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/domain/use_cases/logout_use_case.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/domain/use_cases/refresh_profile_use_case.dart';
+import 'package:qeyadah_mobile_app/src/features/notifications/presentation/coordinators/push_notifications_coordinator.dart';
 
 part 'auth_session_state.dart';
 part 'auth_session_cubit.freezed.dart';
@@ -24,6 +28,8 @@ class AuthSessionCubit
     this._logoutAllUseCase,
     this._getPersistedSessionUseCase,
     this._refreshProfileUseCase,
+    this._pushCoordinator,
+    this._pushMessaging,
   ) : super(const AuthSessionState());
 
   final LoginUseCase _loginUseCase;
@@ -31,6 +37,8 @@ class AuthSessionCubit
   final LogoutAllUseCase _logoutAllUseCase;
   final GetPersistedSessionUseCase _getPersistedSessionUseCase;
   final RefreshProfileUseCase _refreshProfileUseCase;
+  final PushNotificationsCoordinator _pushCoordinator;
+  final PushMessagingService _pushMessaging;
 
   bool _initialRestoreComplete = false;
   int _loginGeneration = 0;
@@ -79,6 +87,7 @@ class AuthSessionCubit
             apiState: ApiState<AuthSessionEntity>.succeeded(session),
           ),
         );
+        unawaited(_pushCoordinator.startForAuthenticatedSession());
       });
     } on Object {
       _initialRestoreComplete = true;
@@ -106,12 +115,28 @@ class AuthSessionCubit
         final generation = ++_loginGeneration;
         emit(state.copyWith(isLoggingIn: true, loginEffect: null));
 
+        // Best-effort FCM token — never block/fail login if Firebase is absent.
+        String? fcmToken;
+        String? platform;
+        try {
+          await _pushMessaging.requestPermission();
+          fcmToken = await _pushMessaging.getToken();
+          if (fcmToken != null && fcmToken.isNotEmpty) {
+            platform = _pushMessaging.platformLabel();
+          }
+        } on Object {
+          fcmToken = null;
+          platform = null;
+        }
+
         final result = await FutureEitherTimeout.guard(
           _loginUseCase(
             LoginParams(
               phone: validatedPhone,
               password: password,
               deviceName: deviceName ?? AuthConstants.deviceName,
+              fcmToken: fcmToken,
+              platform: platform,
             ),
           ),
         );
@@ -130,13 +155,16 @@ class AuthSessionCubit
               loginEffect: AuthSessionEffectLoginFailed(failure),
             ),
           ),
-          (session) => emit(
-            state.copyWith(
-              isLoggingIn: false,
-              apiState: ApiState<AuthSessionEntity>.succeeded(session),
-              loginEffect: const AuthSessionEffectLoginSucceeded(),
-            ),
-          ),
+          (session) {
+            emit(
+              state.copyWith(
+                isLoggingIn: false,
+                apiState: ApiState<AuthSessionEntity>.succeeded(session),
+                loginEffect: const AuthSessionEffectLoginSucceeded(),
+              ),
+            );
+            unawaited(_pushCoordinator.startForAuthenticatedSession());
+          },
         );
       },
     );
@@ -180,17 +208,15 @@ class AuthSessionCubit
   }
 
   Future<void> logout() async {
+    await _pushCoordinator.stopAndUnregister();
     await _logoutUseCase(const NoParams());
-    emit(
-      const AuthSessionState(),
-    );
+    emit(const AuthSessionState());
   }
 
   Future<void> logoutAll() async {
+    await _pushCoordinator.stopAndUnregister();
     await _logoutAllUseCase(const NoParams());
-    emit(
-      const AuthSessionState(),
-    );
+    emit(const AuthSessionState());
   }
 
   void clearProfileEffect() {

@@ -2,18 +2,25 @@ import 'dart:async';
 
 import 'package:coore/lib.dart';
 import 'package:device_preview/device_preview.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:qeyadah_mobile_app/src/app.dart';
 import 'package:qeyadah_mobile_app/src/core/config/app_config.dart';
 import 'package:qeyadah_mobile_app/src/core/config/app_navigation/app_navigation_config.dart';
 import 'package:qeyadah_mobile_app/src/core/dependency_injection/dependency_injection.dart';
 import 'package:qeyadah_mobile_app/src/core/interceptors/headers_interceptor.dart';
+import 'package:qeyadah_mobile_app/src/core/notifications/firebase_bootstrap.dart';
+import 'package:qeyadah_mobile_app/src/core/notifications/push_messaging_service.dart';
 
 Future<void> mainCommon(
   CoreEnvironment environment, {
   Locale? forcedLocale,
 }) async {
   WidgetsFlutterBinding.ensureInitialized();
+  await FirebaseBootstrap.ensureInitialized();
+  if (FirebaseBootstrap.isReady) {
+    FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+  }
 
   runApp(
     DevicePreview(

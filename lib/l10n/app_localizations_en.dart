@@ -828,4 +828,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String instructorNotificationsUnreadCount(int count) {
     return '$count unread';
   }
+
+  @override
+  String get notificationsMarkAllRead => 'Mark all read';
 }
