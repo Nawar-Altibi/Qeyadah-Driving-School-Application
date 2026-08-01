@@ -6,12 +6,27 @@ Production-ready Flutter app built on the bundled **[coore](packages/coore)** pa
 
 ```bash
 flutter pub get
-dart run build_runner build
+dart run build_runner build --delete-conflicting-outputs
 flutter gen-l10n
 flutter run -t lib/main_development.dart
 ```
 
 **Demo login:** `0999400001` / `Test@12345`
+
+**CI Flutter pin:** `3.41.6` (see [docs/CI.md](docs/CI.md))
+
+## CI locally
+
+Run the same gates as GitHub Actions before opening a PR:
+
+```bash
+flutter pub get
+dart run build_runner build --delete-conflicting-outputs
+flutter gen-l10n
+dart format --output=none --set-exit-if-changed .
+flutter analyze --fatal-infos
+flutter test
+```
 
 ## Environments
 
@@ -51,6 +66,7 @@ Clone `lib/src/features/sample_items/` when adding a new feature. It demonstrate
 - [Package recommendations](docs/PACKAGE_RECOMMENDATIONS.md)
 - [Branch structure](docs/BRANCH_STRUCTURE.md)
 - [Feature branch map](docs/FEATURE_BRANCH_MAP.md)
+- [CI / CD](docs/CI.md)
 - [AI coding rules](AI_CODING_RULES.md)
 
 ## Dependency on coore

@@ -831,4 +831,149 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get notificationsMarkAllRead => 'Mark all read';
+
+  @override
+  String get studentHomePendingPaymentCta => 'Tap to complete payment';
+
+  @override
+  String get studentBookingPreferencesTitle => 'New booking';
+
+  @override
+  String get studentBookingPreferencesIntroTitle => 'Choose your preferences';
+
+  @override
+  String get studentBookingPreferencesIntroBody =>
+      'Select training type, vehicle, and instructor gender to see available slots.';
+
+  @override
+  String get studentBookingTrainingTypeLabel => 'Training type';
+
+  @override
+  String get studentBookingTrainingTypeManual => 'Manual';
+
+  @override
+  String get studentBookingTrainingTypeAutomatic => 'Automatic';
+
+  @override
+  String get studentBookingVehicleSourceLabel => 'Vehicle';
+
+  @override
+  String get studentBookingVehicleSourceSchool => 'School car';
+
+  @override
+  String get studentBookingVehicleSourceStudent => 'My own car';
+
+  @override
+  String get studentBookingInstructorGenderLabel => 'Instructor gender';
+
+  @override
+  String get studentBookingInstructorGenderMale => 'Male';
+
+  @override
+  String get studentBookingInstructorGenderFemale => 'Female';
+
+  @override
+  String get studentBookingContinueButton => 'Continue';
+
+  @override
+  String get studentBookingSlotsTitle => 'Available slots';
+
+  @override
+  String get studentBookingSlotsIntroBody =>
+      'Pick a day and time that works for you.';
+
+  @override
+  String get studentBookingSlotsEmptyTitle => 'No slots available';
+
+  @override
+  String get studentBookingSlotsEmptyMessage =>
+      'Try different preferences or check back later.';
+
+  @override
+  String studentBookingSlotsSelectedLabel(String instructor, String time) {
+    return 'Selected: $instructor · $time';
+  }
+
+  @override
+  String get studentBookingSlotsContinueButton => 'Continue to review';
+
+  @override
+  String get studentBookingReviewTitle => 'Review booking';
+
+  @override
+  String get studentBookingReviewSummaryTitle => 'Booking summary';
+
+  @override
+  String get studentBookingReviewInstructorLabel => 'Instructor';
+
+  @override
+  String get studentBookingReviewDateLabel => 'Date';
+
+  @override
+  String get studentBookingReviewTimeLabel => 'Time';
+
+  @override
+  String get studentBookingReviewTrainingTypeLabel => 'Training type';
+
+  @override
+  String get studentBookingReviewVehicleSourceLabel => 'Vehicle';
+
+  @override
+  String get studentBookingReviewCreateButton => 'Confirm booking';
+
+  @override
+  String get studentBookingErrorSlotConflict =>
+      'This slot was just booked by someone else. Please choose another one.';
+
+  @override
+  String get studentBookingErrorPendingPaymentExists =>
+      'You already have a booking awaiting payment.';
+
+  @override
+  String get studentPaymentTitle => 'ShamCash payment';
+
+  @override
+  String get studentPaymentShamCashTitle => 'Complete your ShamCash transfer';
+
+  @override
+  String get studentPaymentDepositAmount => 'Deposit amount';
+
+  @override
+  String get studentPaymentReceiverName => 'Receiver name';
+
+  @override
+  String get studentPaymentCountdownTitle => 'Time remaining';
+
+  @override
+  String studentPaymentCountdownMessage(String time) {
+    return 'Confirm within $time or the slot will be released.';
+  }
+
+  @override
+  String get studentPaymentExpiredTitle => 'Hold expired';
+
+  @override
+  String get studentPaymentExpiredMessage =>
+      'This booking hold has expired. Please start a new booking.';
+
+  @override
+  String get studentPaymentTransactionIdLabel => 'ShamCash transaction ID';
+
+  @override
+  String get studentPaymentTransactionIdHint =>
+      'Enter the 9-digit transaction ID from your ShamCash transfer.';
+
+  @override
+  String get studentPaymentConfirmButton => 'Confirm payment';
+
+  @override
+  String get studentPaymentBackToHomeButton => 'Back to home';
+
+  @override
+  String get studentPaymentSuccessMessage =>
+      'Payment confirmed! Your booking is complete.';
+
+  @override
+  String get studentPaymentInvalidTransactionId =>
+      'Transaction ID must be exactly 9 digits.';
 }

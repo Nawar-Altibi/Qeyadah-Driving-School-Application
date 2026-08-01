@@ -24,22 +24,30 @@ import 'package:qeyadah_mobile_app/src/features/instructor/presentation/invoices
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/leave/cubit/instructor_leave_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/leave/screens/instructor_leave_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/notifications/screens/instructor_notifications_screen.dart';
-import 'package:qeyadah_mobile_app/src/features/notifications/presentation/cubit/notifications_inbox_cubit.dart';
-import 'package:qeyadah_mobile_app/src/features/notifications/presentation/cubit/notifications_unread_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/profile/cubit/instructor_profile_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/profile/screens/instructor_profile_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/schedule/cubit/instructor_schedule_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/schedule/cubit/instructor_weekly_schedule_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/schedule/screens/instructor_schedule_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/schedule/screens/instructor_weekly_schedule_screen.dart';
+import 'package:qeyadah_mobile_app/src/features/notifications/presentation/cubit/notifications_inbox_cubit.dart';
+import 'package:qeyadah_mobile_app/src/features/notifications/presentation/cubit/notifications_unread_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/profile/presentation/screens/profile_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/sample_items/presentation/cubit/sample_items_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/sample_items/presentation/screens/sample_item_details_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/sample_items/presentation/screens/sample_items_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/splash/presentation/cubit/splash_screen_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/splash/presentation/screens/splash_screen.dart';
+import 'package:qeyadah_mobile_app/src/features/student_booking/presentation/cubit/student_booking_cubit.dart';
+import 'package:qeyadah_mobile_app/src/features/student_booking/presentation/navigation/student_booking_screen_params.dart';
+import 'package:qeyadah_mobile_app/src/features/student_booking/presentation/screens/student_booking_preferences_screen.dart';
+import 'package:qeyadah_mobile_app/src/features/student_booking/presentation/screens/student_booking_review_screen.dart';
+import 'package:qeyadah_mobile_app/src/features/student_booking/presentation/screens/student_booking_slots_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/student_home/presentation/cubit/student_home_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/student_home/presentation/screens/student_home_screen.dart';
+import 'package:qeyadah_mobile_app/src/features/student_payments/presentation/cubit/student_payment_cubit.dart';
+import 'package:qeyadah_mobile_app/src/features/student_payments/presentation/navigation/student_payment_screen_params.dart';
+import 'package:qeyadah_mobile_app/src/features/student_payments/presentation/screens/student_payment_screen.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/user_role.dart';
 
 @lazySingleton
@@ -164,6 +172,72 @@ class AppNavigationConfig {
               ),
             ),
           ),
+        ),
+        GoRoute(
+          path: StudentBookingPreferencesScreen.routePath,
+          name: StudentBookingPreferencesScreen.routeName,
+          pageBuilder: (context, state) => FadePage(
+            key: state.pageKey,
+            child: _withSession(
+              BlocProvider(
+                create: (_) => getIt<StudentBookingCubit>(),
+                child: const StudentBookingPreferencesScreen(),
+              ),
+            ),
+          ),
+        ),
+        GoRoute(
+          path: StudentBookingSlotsScreen.routePath,
+          name: StudentBookingSlotsScreen.routeName,
+          pageBuilder: (context, state) {
+            final cubit =
+                studentBookingCubitFromExtra(state.extra) ??
+                getIt<StudentBookingCubit>();
+            return FadePage(
+              key: state.pageKey,
+              child: _withSession(
+                BlocProvider<StudentBookingCubit>.value(
+                  value: cubit,
+                  child: const StudentBookingSlotsScreen(),
+                ),
+              ),
+            );
+          },
+        ),
+        GoRoute(
+          path: StudentBookingReviewScreen.routePath,
+          name: StudentBookingReviewScreen.routeName,
+          pageBuilder: (context, state) {
+            final cubit =
+                studentBookingCubitFromExtra(state.extra) ??
+                getIt<StudentBookingCubit>();
+            return FadePage(
+              key: state.pageKey,
+              child: _withSession(
+                BlocProvider<StudentBookingCubit>.value(
+                  value: cubit,
+                  child: const StudentBookingReviewScreen(),
+                ),
+              ),
+            );
+          },
+        ),
+        GoRoute(
+          path: StudentPaymentScreen.routePath,
+          name: StudentPaymentScreen.routeName,
+          pageBuilder: (context, state) {
+            final args = studentPaymentHoldArgsFromExtra(state.extra);
+            final child = args != null
+                ? BlocProvider(
+                    create: (_) => getIt<StudentPaymentCubit>(),
+                    child: StudentPaymentScreen(args: args),
+                  )
+                : BlocProvider(
+                    create: (_) => getIt<StudentHomeCubit>(),
+                    child: const StudentHomeScreen(),
+                  );
+            return FadePage(key: state.pageKey, child: _withSession(child));
+          },
         ),
         GoRoute(
           path: InstructorScheduleScreen.routePath,

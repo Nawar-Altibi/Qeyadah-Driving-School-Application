@@ -47,13 +47,37 @@ class StudentHomePendingPaymentEntity extends Equatable {
   const StudentHomePendingPaymentEntity({
     required this.remainingMinutes,
     required this.remainingSeconds,
+    this.bookingId,
+    this.depositAmount,
+    this.receiverName,
+    this.lockedUntil,
   });
 
   final int remainingMinutes;
   final int remainingSeconds;
 
+  /// When present, the pending payment banner can deep-link straight to the
+  /// ShamCash payment screen to resume this specific booking hold.
+  final int? bookingId;
+  final String? depositAmount;
+  final String? receiverName;
+  final DateTime? lockedUntil;
+
+  bool get canResumePayment =>
+      bookingId != null &&
+      depositAmount != null &&
+      receiverName != null &&
+      lockedUntil != null;
+
   @override
-  List<Object?> get props => [remainingMinutes, remainingSeconds];
+  List<Object?> get props => [
+    remainingMinutes,
+    remainingSeconds,
+    bookingId,
+    depositAmount,
+    receiverName,
+    lockedUntil,
+  ];
 }
 
 class StudentHomeTrainingProgressEntity extends Equatable {

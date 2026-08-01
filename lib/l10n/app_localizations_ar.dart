@@ -829,4 +829,147 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get notificationsMarkAllRead => 'قراءة الكل';
+
+  @override
+  String get studentHomePendingPaymentCta => 'اضغط لإكمال الدفع';
+
+  @override
+  String get studentBookingPreferencesTitle => 'حجز جديد';
+
+  @override
+  String get studentBookingPreferencesIntroTitle => 'اختر تفضيلاتك';
+
+  @override
+  String get studentBookingPreferencesIntroBody =>
+      'اختر نوع التدريب والمركبة وجنس المدرب لعرض المواعيد المتاحة.';
+
+  @override
+  String get studentBookingTrainingTypeLabel => 'نوع التدريب';
+
+  @override
+  String get studentBookingTrainingTypeManual => 'عادي';
+
+  @override
+  String get studentBookingTrainingTypeAutomatic => 'أوتوماتيكي';
+
+  @override
+  String get studentBookingVehicleSourceLabel => 'المركبة';
+
+  @override
+  String get studentBookingVehicleSourceSchool => 'سيارة المدرسة';
+
+  @override
+  String get studentBookingVehicleSourceStudent => 'سيارتي الخاصة';
+
+  @override
+  String get studentBookingInstructorGenderLabel => 'جنس المدرب';
+
+  @override
+  String get studentBookingInstructorGenderMale => 'ذكر';
+
+  @override
+  String get studentBookingInstructorGenderFemale => 'أنثى';
+
+  @override
+  String get studentBookingContinueButton => 'متابعة';
+
+  @override
+  String get studentBookingSlotsTitle => 'المواعيد المتاحة';
+
+  @override
+  String get studentBookingSlotsIntroBody => 'اختر اليوم والوقت المناسبين لك.';
+
+  @override
+  String get studentBookingSlotsEmptyTitle => 'لا توجد مواعيد متاحة';
+
+  @override
+  String get studentBookingSlotsEmptyMessage =>
+      'جرّب تفضيلات مختلفة أو حاول لاحقاً.';
+
+  @override
+  String studentBookingSlotsSelectedLabel(String instructor, String time) {
+    return 'المحدد: $instructor · $time';
+  }
+
+  @override
+  String get studentBookingSlotsContinueButton => 'متابعة إلى المراجعة';
+
+  @override
+  String get studentBookingReviewTitle => 'مراجعة الحجز';
+
+  @override
+  String get studentBookingReviewSummaryTitle => 'ملخص الحجز';
+
+  @override
+  String get studentBookingReviewInstructorLabel => 'المدرب';
+
+  @override
+  String get studentBookingReviewDateLabel => 'التاريخ';
+
+  @override
+  String get studentBookingReviewTimeLabel => 'الوقت';
+
+  @override
+  String get studentBookingReviewTrainingTypeLabel => 'نوع التدريب';
+
+  @override
+  String get studentBookingReviewVehicleSourceLabel => 'المركبة';
+
+  @override
+  String get studentBookingReviewCreateButton => 'تأكيد الحجز';
+
+  @override
+  String get studentBookingErrorSlotConflict =>
+      'تم حجز هذا الموعد للتو من قبل شخص آخر. الرجاء اختيار موعد آخر.';
+
+  @override
+  String get studentBookingErrorPendingPaymentExists =>
+      'لديك بالفعل حجز بانتظار الدفع.';
+
+  @override
+  String get studentPaymentTitle => 'دفع شام كاش';
+
+  @override
+  String get studentPaymentShamCashTitle => 'أكمل تحويل شام كاش';
+
+  @override
+  String get studentPaymentDepositAmount => 'مبلغ العربون';
+
+  @override
+  String get studentPaymentReceiverName => 'اسم المستلم';
+
+  @override
+  String get studentPaymentCountdownTitle => 'الوقت المتبقي';
+
+  @override
+  String studentPaymentCountdownMessage(String time) {
+    return 'أكّد خلال $time وإلا سيتم تحرير الموعد.';
+  }
+
+  @override
+  String get studentPaymentExpiredTitle => 'انتهت مهلة الحجز';
+
+  @override
+  String get studentPaymentExpiredMessage =>
+      'انتهت صلاحية هذا الحجز. الرجاء بدء حجز جديد.';
+
+  @override
+  String get studentPaymentTransactionIdLabel => 'رقم عملية شام كاش';
+
+  @override
+  String get studentPaymentTransactionIdHint =>
+      'أدخل رقم العملية المكوّن من 9 أرقام من تحويل شام كاش.';
+
+  @override
+  String get studentPaymentConfirmButton => 'تأكيد الدفع';
+
+  @override
+  String get studentPaymentBackToHomeButton => 'العودة إلى الرئيسية';
+
+  @override
+  String get studentPaymentSuccessMessage => 'تم تأكيد الدفع! تم إتمام حجزك.';
+
+  @override
+  String get studentPaymentInvalidTransactionId =>
+      'يجب أن يتكون رقم العملية من 9 أرقام بالضبط.';
 }

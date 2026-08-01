@@ -135,11 +135,14 @@ exist, but a formal leave approval workflow is not fully implemented yet.
 - Keep generated files in the same PR as the source change that generated them.
 - Each feature PR should update route registration, localization strings, and
   relevant tests.
-- Every PR should run:
-  - `dart format`
-  - `flutter analyze`
-  - relevant unit/widget tests
-  - `dart run build_runner build` when generated models/DI changed
+- Every PR should run the same gates as the CI `quality` job:
+  - `dart format --output=none --set-exit-if-changed .`
+  - `dart run build_runner build --delete-conflicting-outputs` when generated
+    models/DI changed
+  - `flutter gen-l10n`
+  - `flutter analyze --fatal-infos`
+  - relevant unit/widget tests (`flutter test`)
+- See [CI.md](CI.md) for workflow layout and the Flutter SDK pin.
 
 ## Repository Setup Notes
 

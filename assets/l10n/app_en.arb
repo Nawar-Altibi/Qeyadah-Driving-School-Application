@@ -433,5 +433,66 @@
       }
     }
   },
-  "notificationsMarkAllRead": "Mark all read"
+  "notificationsMarkAllRead": "Mark all read",
+  "studentHomePendingPaymentCta": "Tap to complete payment",
+  "studentBookingPreferencesTitle": "New booking",
+  "studentBookingPreferencesIntroTitle": "Choose your preferences",
+  "studentBookingPreferencesIntroBody": "Select training type, vehicle, and instructor gender to see available slots.",
+  "studentBookingTrainingTypeLabel": "Training type",
+  "studentBookingTrainingTypeManual": "Manual",
+  "studentBookingTrainingTypeAutomatic": "Automatic",
+  "studentBookingVehicleSourceLabel": "Vehicle",
+  "studentBookingVehicleSourceSchool": "School car",
+  "studentBookingVehicleSourceStudent": "My own car",
+  "studentBookingInstructorGenderLabel": "Instructor gender",
+  "studentBookingInstructorGenderMale": "Male",
+  "studentBookingInstructorGenderFemale": "Female",
+  "studentBookingContinueButton": "Continue",
+  "studentBookingSlotsTitle": "Available slots",
+  "studentBookingSlotsIntroBody": "Pick a day and time that works for you.",
+  "studentBookingSlotsEmptyTitle": "No slots available",
+  "studentBookingSlotsEmptyMessage": "Try different preferences or check back later.",
+  "studentBookingSlotsSelectedLabel": "Selected: {instructor} · {time}",
+  "@studentBookingSlotsSelectedLabel": {
+    "placeholders": {
+      "instructor": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "studentBookingSlotsContinueButton": "Continue to review",
+  "studentBookingReviewTitle": "Review booking",
+  "studentBookingReviewSummaryTitle": "Booking summary",
+  "studentBookingReviewInstructorLabel": "Instructor",
+  "studentBookingReviewDateLabel": "Date",
+  "studentBookingReviewTimeLabel": "Time",
+  "studentBookingReviewTrainingTypeLabel": "Training type",
+  "studentBookingReviewVehicleSourceLabel": "Vehicle",
+  "studentBookingReviewCreateButton": "Confirm booking",
+  "studentBookingErrorSlotConflict": "This slot was just booked by someone else. Please choose another one.",
+  "studentBookingErrorPendingPaymentExists": "You already have a booking awaiting payment.",
+  "studentPaymentTitle": "ShamCash payment",
+  "studentPaymentShamCashTitle": "Complete your ShamCash transfer",
+  "studentPaymentDepositAmount": "Deposit amount",
+  "studentPaymentReceiverName": "Receiver name",
+  "studentPaymentCountdownTitle": "Time remaining",
+  "studentPaymentCountdownMessage": "Confirm within {time} or the slot will be released.",
+  "@studentPaymentCountdownMessage": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "studentPaymentExpiredTitle": "Hold expired",
+  "studentPaymentExpiredMessage": "This booking hold has expired. Please start a new booking.",
+  "studentPaymentTransactionIdLabel": "ShamCash transaction ID",
+  "studentPaymentTransactionIdHint": "Enter the 9-digit transaction ID from your ShamCash transfer.",
+  "studentPaymentConfirmButton": "Confirm payment",
+  "studentPaymentBackToHomeButton": "Back to home",
+  "studentPaymentSuccessMessage": "Payment confirmed! Your booking is complete.",
+  "studentPaymentInvalidTransactionId": "Transaction ID must be exactly 9 digits."
 }

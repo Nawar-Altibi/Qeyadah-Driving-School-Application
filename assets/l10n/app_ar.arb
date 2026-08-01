@@ -412,5 +412,66 @@
       }
     }
   },
-  "notificationsMarkAllRead": "قراءة الكل"
+  "notificationsMarkAllRead": "قراءة الكل",
+  "studentHomePendingPaymentCta": "اضغط لإكمال الدفع",
+  "studentBookingPreferencesTitle": "حجز جديد",
+  "studentBookingPreferencesIntroTitle": "اختر تفضيلاتك",
+  "studentBookingPreferencesIntroBody": "اختر نوع التدريب والمركبة وجنس المدرب لعرض المواعيد المتاحة.",
+  "studentBookingTrainingTypeLabel": "نوع التدريب",
+  "studentBookingTrainingTypeManual": "عادي",
+  "studentBookingTrainingTypeAutomatic": "أوتوماتيكي",
+  "studentBookingVehicleSourceLabel": "المركبة",
+  "studentBookingVehicleSourceSchool": "سيارة المدرسة",
+  "studentBookingVehicleSourceStudent": "سيارتي الخاصة",
+  "studentBookingInstructorGenderLabel": "جنس المدرب",
+  "studentBookingInstructorGenderMale": "ذكر",
+  "studentBookingInstructorGenderFemale": "أنثى",
+  "studentBookingContinueButton": "متابعة",
+  "studentBookingSlotsTitle": "المواعيد المتاحة",
+  "studentBookingSlotsIntroBody": "اختر اليوم والوقت المناسبين لك.",
+  "studentBookingSlotsEmptyTitle": "لا توجد مواعيد متاحة",
+  "studentBookingSlotsEmptyMessage": "جرّب تفضيلات مختلفة أو حاول لاحقاً.",
+  "studentBookingSlotsSelectedLabel": "المحدد: {instructor} · {time}",
+  "@studentBookingSlotsSelectedLabel": {
+    "placeholders": {
+      "instructor": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "studentBookingSlotsContinueButton": "متابعة إلى المراجعة",
+  "studentBookingReviewTitle": "مراجعة الحجز",
+  "studentBookingReviewSummaryTitle": "ملخص الحجز",
+  "studentBookingReviewInstructorLabel": "المدرب",
+  "studentBookingReviewDateLabel": "التاريخ",
+  "studentBookingReviewTimeLabel": "الوقت",
+  "studentBookingReviewTrainingTypeLabel": "نوع التدريب",
+  "studentBookingReviewVehicleSourceLabel": "المركبة",
+  "studentBookingReviewCreateButton": "تأكيد الحجز",
+  "studentBookingErrorSlotConflict": "تم حجز هذا الموعد للتو من قبل شخص آخر. الرجاء اختيار موعد آخر.",
+  "studentBookingErrorPendingPaymentExists": "لديك بالفعل حجز بانتظار الدفع.",
+  "studentPaymentTitle": "دفع شام كاش",
+  "studentPaymentShamCashTitle": "أكمل تحويل شام كاش",
+  "studentPaymentDepositAmount": "مبلغ العربون",
+  "studentPaymentReceiverName": "اسم المستلم",
+  "studentPaymentCountdownTitle": "الوقت المتبقي",
+  "studentPaymentCountdownMessage": "أكّد خلال {time} وإلا سيتم تحرير الموعد.",
+  "@studentPaymentCountdownMessage": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "studentPaymentExpiredTitle": "انتهت مهلة الحجز",
+  "studentPaymentExpiredMessage": "انتهت صلاحية هذا الحجز. الرجاء بدء حجز جديد.",
+  "studentPaymentTransactionIdLabel": "رقم عملية شام كاش",
+  "studentPaymentTransactionIdHint": "أدخل رقم العملية المكوّن من 9 أرقام من تحويل شام كاش.",
+  "studentPaymentConfirmButton": "تأكيد الدفع",
+  "studentPaymentBackToHomeButton": "العودة إلى الرئيسية",
+  "studentPaymentSuccessMessage": "تم تأكيد الدفع! تم إتمام حجزك.",
+  "studentPaymentInvalidTransactionId": "يجب أن يتكون رقم العملية من 9 أرقام بالضبط."
 }

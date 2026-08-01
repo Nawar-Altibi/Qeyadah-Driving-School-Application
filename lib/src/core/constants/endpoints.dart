@@ -27,4 +27,10 @@ abstract final class Endpoints {
   static const String notificationsUnreadCount = 'notifications/unread-count';
   static const String notificationsReadAll = 'notifications/read-all';
   static String notificationRead(int id) => 'notifications/$id/read';
+
+  static const String studentBookingsAvailableSlots =
+      'student/bookings/available-slots';
+  static const String studentBookings = 'student/bookings';
+  static String studentBookingConfirmPayment(int bookingId) =>
+      'student/bookings/$bookingId/confirm-payment';
 }
