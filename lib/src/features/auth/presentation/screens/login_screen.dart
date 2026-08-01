@@ -27,9 +27,8 @@ class LoginScreen extends StatelessWidget {
             const AuthBrandHeader(),
             const SizedBox(height: 28),
             AuthLoginForm(
-              onForgotPassword: () => AuthNavigation.pushForgotPassword(
-                context: context,
-              ),
+              onForgotPassword: () =>
+                  AuthNavigation.pushForgotPassword(context: context),
             ),
             const SizedBox(height: 14),
             AuthOutlineButton(

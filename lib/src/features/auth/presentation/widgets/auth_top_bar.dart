@@ -4,11 +4,7 @@ import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 
 class AuthTopBar extends StatelessWidget {
-  const AuthTopBar({
-    super.key,
-    required this.title,
-    this.onBack,
-  });
+  const AuthTopBar({super.key, required this.title, this.onBack});
 
   final String title;
   final VoidCallback? onBack;
@@ -53,11 +49,7 @@ class AuthTopBar extends StatelessWidget {
 }
 
 class AuthHeroIcon extends StatelessWidget {
-  const AuthHeroIcon({
-    super.key,
-    required this.icon,
-    this.size = 46,
-  });
+  const AuthHeroIcon({super.key, required this.icon, this.size = 46});
 
   final IconData icon;
   final double size;

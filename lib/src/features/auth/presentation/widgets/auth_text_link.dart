@@ -3,11 +3,7 @@ import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
 
 class AuthTextLink extends StatelessWidget {
-  const AuthTextLink({
-    super.key,
-    required this.label,
-    required this.onPressed,
-  });
+  const AuthTextLink({super.key, required this.label, required this.onPressed});
 
   final String label;
   final VoidCallback onPressed;
@@ -22,10 +18,7 @@ class AuthTextLink extends StatelessWidget {
           padding: EdgeInsets.zero,
           minimumSize: Size.zero,
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          textStyle: const TextStyle(
-            fontSize: 11,
-            fontWeight: FontWeight.w700,
-          ),
+          textStyle: const TextStyle(fontSize: 11, fontWeight: FontWeight.w700),
         ),
         onPressed: onPressed,
         child: Text(label),

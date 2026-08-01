@@ -23,7 +23,7 @@ Run the same gates as GitHub Actions before opening a PR:
 flutter pub get
 dart run build_runner build --delete-conflicting-outputs
 flutter gen-l10n
-dart format --output=none --set-exit-if-changed .
+dart format --output=none --set-exit-if-changed lib test packages
 flutter analyze --fatal-infos
 flutter test
 ```
