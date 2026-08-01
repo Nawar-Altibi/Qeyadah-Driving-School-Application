@@ -136,7 +136,7 @@ exist, but a formal leave approval workflow is not fully implemented yet.
 - Each feature PR should update route registration, localization strings, and
   relevant tests.
 - Every PR should run the same gates as the CI `quality` job:
-  - `dart format --output=none --set-exit-if-changed .`
+  - `dart format --output=none --set-exit-if-changed lib test packages`
   - `dart run build_runner build --delete-conflicting-outputs` when generated
     models/DI changed
   - `flutter gen-l10n`

@@ -38,9 +38,7 @@ class AuthOtpInput extends StatelessWidget {
     final focusedPinTheme = defaultPinTheme.copyWith(
       decoration: defaultPinTheme.decoration?.copyWith(
         border: Border.all(color: AppColors.brandPrimary, width: 2),
-        boxShadow: const [
-          BoxShadow(color: Color(0x170F5132), spreadRadius: 3),
-        ],
+        boxShadow: const [BoxShadow(color: Color(0x170F5132), spreadRadius: 3)],
       ),
     );
 

@@ -40,11 +40,10 @@ class HiveLocalDatabase implements LocalDatabaseInterface {
         return right(unit);
       }
 
-      final openingFuture = _boxOpeningFutures[_boxName] ??= Hive.openBox<dynamic>(
-        _boxName,
-      )
-          .timeout(_openBoxTimeout)
-          .whenComplete(() => _boxOpeningFutures.remove(_boxName));
+      final openingFuture = _boxOpeningFutures[_boxName] ??=
+          Hive.openBox<dynamic>(_boxName)
+              .timeout(_openBoxTimeout)
+              .whenComplete(() => _boxOpeningFutures.remove(_boxName));
       _box = await openingFuture;
       _isInitialized = true;
       return right(unit);

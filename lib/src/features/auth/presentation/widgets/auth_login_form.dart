@@ -14,10 +14,7 @@ import 'package:typed_form_fields/typed_form_fields.dart';
 typedef AuthForgotPasswordCallback = void Function();
 
 class AuthLoginForm extends StatelessWidget {
-  const AuthLoginForm({
-    super.key,
-    required this.onForgotPassword,
-  });
+  const AuthLoginForm({super.key, required this.onForgotPassword});
 
   final AuthForgotPasswordCallback onForgotPassword;
 

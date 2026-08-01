@@ -74,5 +74,4 @@ class PlatformServiceImpl implements PlatformServiceInterface {
       platform: platform,
     );
   }
- 
 }

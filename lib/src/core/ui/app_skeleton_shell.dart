@@ -20,11 +20,7 @@ abstract final class AppSkeletonTheme {
 
 /// Applies the shared [AppSkeletonTheme] shimmer around [child].
 class AppSkeletonizer extends StatelessWidget {
-  const AppSkeletonizer({
-    super.key,
-    required this.child,
-    this.enabled = true,
-  });
+  const AppSkeletonizer({super.key, required this.child, this.enabled = true});
 
   final Widget child;
   final bool enabled;
@@ -63,12 +59,7 @@ Widget appSkeletonContentOverlay({
 
 /// Prevents RTL auto-mirroring for asymmetric icons (e.g. Phosphor calendar).
 class AppNonMirroredIcon extends StatelessWidget {
-  const AppNonMirroredIcon(
-    this.icon, {
-    super.key,
-    this.size,
-    this.color,
-  });
+  const AppNonMirroredIcon(this.icon, {super.key, this.size, this.color});
 
   final IconData icon;
   final double? size;

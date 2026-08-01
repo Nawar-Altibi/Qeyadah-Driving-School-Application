@@ -63,7 +63,9 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                   : () => AuthNavigation.pop(context: context),
             ),
             const SizedBox(height: 20),
-            const Center(child: AuthHeroIcon(icon: PhosphorIconsBold.shieldCheck)),
+            const Center(
+              child: AuthHeroIcon(icon: PhosphorIconsBold.shieldCheck),
+            ),
             const SizedBox(height: 14),
             Text(
               widget.isForced

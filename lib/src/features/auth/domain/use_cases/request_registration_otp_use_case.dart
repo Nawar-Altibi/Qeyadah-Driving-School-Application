@@ -7,13 +7,19 @@ import 'package:qeyadah_mobile_app/src/features/auth/domain/repositories/auth_re
 
 @lazySingleton
 class RequestRegistrationOtpUseCase
-    extends FutureEitherUseCase<AuthOtpChallengeEntity, RequestRegistrationOtpParams> {
+    extends
+        FutureEitherUseCase<
+          AuthOtpChallengeEntity,
+          RequestRegistrationOtpParams
+        > {
   RequestRegistrationOtpUseCase(this._repository);
 
   final AuthRepository _repository;
 
   @override
-  FutureEither<AuthOtpChallengeEntity> call(RequestRegistrationOtpParams params) {
+  FutureEither<AuthOtpChallengeEntity> call(
+    RequestRegistrationOtpParams params,
+  ) {
     return _repository.requestRegistrationOtp(params);
   }
 }
