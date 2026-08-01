@@ -49,12 +49,10 @@ class StudentHomeScreen extends StatelessWidget {
                       builder: (context, state) {
                         return state.apiState.when(
                           initial: () => const SizedBox.shrink(),
-                          loading: () => const Center(
-                            child: CircularProgressIndicator(),
-                          ),
-                          succeeded: (dashboard) => _StudentHomeContent(
-                            dashboard: dashboard,
-                          ),
+                          loading: () =>
+                              const Center(child: CircularProgressIndicator()),
+                          succeeded: (dashboard) =>
+                              _StudentHomeContent(dashboard: dashboard),
                           failed: (failure, retry) {
                             final l10n = AppLocalizations.of(context);
                             return Center(
@@ -172,7 +170,8 @@ class _StudentHomeContent extends StatelessWidget {
           StudentHomeNextLessonCard(
             lesson: dashboard.nextLesson!,
             localeName: localeName,
-            onDirectionsTap: () => StudentHomeNavigation.showComingSoon(context),
+            onDirectionsTap: () =>
+                StudentHomeNavigation.showComingSoon(context),
           )
         else
           AppCard(
@@ -186,23 +185,34 @@ class _StudentHomeContent extends StatelessWidget {
                 const SizedBox(height: AppDesignTokens.spacingSm),
                 Text(
                   l10n.studentHomeNoNextLessonBody,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: AppColors.muted,
-                  ),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyMedium?.copyWith(color: AppColors.muted),
                 ),
               ],
             ),
           ),
         if (dashboard.pendingPayment != null) ...[
           const SizedBox(height: AppDesignTokens.spacingMd),
-          AppAlertBanner(
-            icon: PhosphorIconsBold.timer,
-            title: l10n.studentHomePendingPaymentTitle,
-            message: l10n.studentHomePendingPaymentMessage(
-              StudentHomeFormatters.paymentCountdown(
-                minutes: dashboard.pendingPayment!.remainingMinutes,
-                seconds: dashboard.pendingPayment!.remainingSeconds,
-              ),
+          InkWell(
+            borderRadius: BorderRadius.circular(AppDesignTokens.radiusControl),
+            onTap: dashboard.pendingPayment!.canResumePayment
+                ? () => StudentHomeNavigation.resumePendingPayment(
+                    context: context,
+                    pendingPayment: dashboard.pendingPayment!,
+                  )
+                : null,
+            child: AppAlertBanner(
+              icon: PhosphorIconsBold.timer,
+              title: l10n.studentHomePendingPaymentTitle,
+              message: dashboard.pendingPayment!.canResumePayment
+                  ? '${l10n.studentHomePendingPaymentMessage(StudentHomeFormatters.paymentCountdown(minutes: dashboard.pendingPayment!.remainingMinutes, seconds: dashboard.pendingPayment!.remainingSeconds))} ${l10n.studentHomePendingPaymentCta}'
+                  : l10n.studentHomePendingPaymentMessage(
+                      StudentHomeFormatters.paymentCountdown(
+                        minutes: dashboard.pendingPayment!.remainingMinutes,
+                        seconds: dashboard.pendingPayment!.remainingSeconds,
+                      ),
+                    ),
             ),
           ),
         ],
@@ -214,9 +224,7 @@ class _StudentHomeContent extends StatelessWidget {
           onViewAllTap: () => StudentHomeNavigation.showComingSoon(context),
         ),
         const SizedBox(height: AppDesignTokens.spacingMd),
-        StudentHomeTrainingProgressCard(
-          progress: dashboard.trainingProgress,
-        ),
+        StudentHomeTrainingProgressCard(progress: dashboard.trainingProgress),
       ],
     );
   }
