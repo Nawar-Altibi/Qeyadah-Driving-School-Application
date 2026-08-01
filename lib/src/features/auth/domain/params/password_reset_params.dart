@@ -10,10 +10,7 @@ class ForgotPasswordParams extends Equatable {
 }
 
 class VerifyPasswordResetOtpParams extends Equatable {
-  const VerifyPasswordResetOtpParams({
-    required this.phone,
-    required this.code,
-  });
+  const VerifyPasswordResetOtpParams({required this.phone, required this.code});
 
   final String phone;
   final String code;

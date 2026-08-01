@@ -81,11 +81,12 @@ class StudentHomeNextLessonCard extends StatelessWidget {
                         const SizedBox(width: 5),
                         Text(
                           l10n.studentHomeNextLesson,
-                          style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                            color: const Color(0xFFC4E3D2),
-                            fontWeight: FontWeight.w800,
-                            letterSpacing: 0.8,
-                          ),
+                          style: Theme.of(context).textTheme.labelSmall
+                              ?.copyWith(
+                                color: const Color(0xFFC4E3D2),
+                                fontWeight: FontWeight.w800,
+                                letterSpacing: 0.8,
+                              ),
                         ),
                       ],
                     ),

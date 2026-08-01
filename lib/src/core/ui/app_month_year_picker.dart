@@ -144,8 +144,7 @@ class _AppMonthYearPickerDialogState extends State<_AppMonthYearPickerDialog> {
                 for (var month = 1; month <= 12; month++)
                   _MonthChip(
                     label: monthFormat.format(DateTime(_year, month)),
-                    selected:
-                        month == _selectedMonth && _year == _selectedYear,
+                    selected: month == _selectedMonth && _year == _selectedYear,
                     enabled: _isMonthEnabled(month),
                     onTap: () {
                       setState(() {

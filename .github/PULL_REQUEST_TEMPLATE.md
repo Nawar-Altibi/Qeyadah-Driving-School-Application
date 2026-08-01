@@ -30,7 +30,7 @@ Relevant backend/report dependency:
 
 Must match the CI `quality` job:
 
-- [ ] `dart format --output=none --set-exit-if-changed .`
+- [ ] `dart format --output=none --set-exit-if-changed lib test packages`
 - [ ] `dart run build_runner build --delete-conflicting-outputs` (if generated files changed)
 - [ ] `flutter gen-l10n`
 - [ ] `flutter analyze --fatal-infos`

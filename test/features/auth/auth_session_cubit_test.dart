@@ -137,9 +137,7 @@ void main() {
 
         final pushCoordinator = MockPushNotificationsCoordinator();
         final pushMessaging = MockPushMessagingService();
-        when(
-          () => pushMessaging.requestPermission(),
-        ).thenAnswer((_) async {});
+        when(() => pushMessaging.requestPermission()).thenAnswer((_) async {});
         when(() => pushMessaging.getToken()).thenAnswer((_) async => null);
         when(
           () => pushCoordinator.startForAuthenticatedSession(),

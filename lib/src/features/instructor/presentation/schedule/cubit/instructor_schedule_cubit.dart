@@ -43,9 +43,7 @@ class InstructorScheduleCubit
     final selectedViewMode = viewMode ?? state.viewMode;
     _selectedDate = selectedDate;
     if (silent) {
-      emit(
-        state.copyWith(isSilentRefresh: true, viewMode: selectedViewMode),
-      );
+      emit(state.copyWith(isSilentRefresh: true, viewMode: selectedViewMode));
     } else {
       emit(
         state.copyWith(
