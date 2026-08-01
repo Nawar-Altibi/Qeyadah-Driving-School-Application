@@ -122,6 +122,18 @@ import 'package:qeyadah_mobile_app/src/features/student_booking/domain/use_cases
     as _i843;
 import 'package:qeyadah_mobile_app/src/features/student_booking/presentation/cubit/student_booking_cubit.dart'
     as _i1016;
+import 'package:qeyadah_mobile_app/src/features/student_bookings/data/data_sources/student_bookings_remote_data_source.dart'
+    as _i14;
+import 'package:qeyadah_mobile_app/src/features/student_bookings/data/repositories/student_bookings_repository_impl.dart'
+    as _i568;
+import 'package:qeyadah_mobile_app/src/features/student_bookings/domain/repositories/student_bookings_repository.dart'
+    as _i770;
+import 'package:qeyadah_mobile_app/src/features/student_bookings/domain/use_cases/student_bookings_use_cases.dart'
+    as _i981;
+import 'package:qeyadah_mobile_app/src/features/student_bookings/presentation/cubit/student_booking_detail_cubit.dart'
+    as _i207;
+import 'package:qeyadah_mobile_app/src/features/student_bookings/presentation/cubit/student_bookings_list_cubit.dart'
+    as _i611;
 import 'package:qeyadah_mobile_app/src/features/student_home/data/repositories/student_home_repository_impl.dart'
     as _i502;
 import 'package:qeyadah_mobile_app/src/features/student_home/domain/repositories/student_home_repository.dart'
@@ -220,6 +232,11 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i698.ApiHandlerInterface>(),
       ),
     );
+    gh.lazySingleton<_i14.StudentBookingsRemoteDataSource>(
+      () => _i14.StudentBookingsRemoteDataSourceImpl(
+        gh<_i698.ApiHandlerInterface>(),
+      ),
+    );
     gh.factory<_i876.StudentHomeCubit>(
       () => _i876.StudentHomeCubit(gh<_i869.LoadStudentHomeUseCase>()),
     );
@@ -248,6 +265,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i916.SampleItemsRepository>(
       () => _i272.SampleItemsRepositoryImpl(
         gh<_i272.SampleItemsRemoteDataSource>(),
+      ),
+    );
+    gh.lazySingleton<_i770.StudentBookingsRepository>(
+      () => _i568.StudentBookingsRepositoryImpl(
+        gh<_i14.StudentBookingsRemoteDataSource>(),
       ),
     );
     gh.lazySingleton<_i208.OfflineQueueService>(
@@ -404,6 +426,26 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i648.LoadInstructorEarningsUseCase>(),
       ),
     );
+    gh.factory<_i981.LoadStudentBookingsUseCase>(
+      () => _i981.LoadStudentBookingsUseCase(
+        gh<_i770.StudentBookingsRepository>(),
+      ),
+    );
+    gh.factory<_i981.LoadStudentBookingDetailUseCase>(
+      () => _i981.LoadStudentBookingDetailUseCase(
+        gh<_i770.StudentBookingsRepository>(),
+      ),
+    );
+    gh.factory<_i981.CancelStudentBookingUseCase>(
+      () => _i981.CancelStudentBookingUseCase(
+        gh<_i770.StudentBookingsRepository>(),
+      ),
+    );
+    gh.factory<_i611.StudentBookingsListCubit>(
+      () => _i611.StudentBookingsListCubit(
+        gh<_i981.LoadStudentBookingsUseCase>(),
+      ),
+    );
     gh.factory<_i843.LoadStudentAvailableSlotsUseCase>(
       () => _i843.LoadStudentAvailableSlotsUseCase(
         gh<_i151.StudentBookingRepository>(),
@@ -416,6 +458,13 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i843.GetPendingStudentBookingHoldUseCase>(
       () => _i843.GetPendingStudentBookingHoldUseCase(
+        gh<_i151.StudentBookingRepository>(),
+      ),
+    );
+    gh.factory<_i207.StudentBookingDetailCubit>(
+      () => _i207.StudentBookingDetailCubit(
+        gh<_i981.LoadStudentBookingDetailUseCase>(),
+        gh<_i981.CancelStudentBookingUseCase>(),
         gh<_i151.StudentBookingRepository>(),
       ),
     );

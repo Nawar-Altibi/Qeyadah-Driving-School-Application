@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/presentation/navigation/auth_navigation.dart';
 import 'package:qeyadah_mobile_app/src/features/student_booking/presentation/navigation/student_booking_navigation.dart';
+import 'package:qeyadah_mobile_app/src/features/student_bookings/presentation/navigation/student_bookings_navigation.dart';
 import 'package:qeyadah_mobile_app/src/features/student_home/domain/entities/student_home_dashboard_entity.dart';
 import 'package:qeyadah_mobile_app/src/features/student_payments/presentation/navigation/student_payment_hold_args.dart';
 import 'package:qeyadah_mobile_app/src/features/student_payments/presentation/navigation/student_payment_navigation.dart';
@@ -54,6 +55,7 @@ abstract final class StudentHomeNavigation {
       case StudentHomeQuickActionType.newBooking:
         StudentBookingNavigation.pushPreferences(context: context);
       case StudentHomeQuickActionType.myBookings:
+        StudentBookingsNavigation.pushList(context: context);
       case StudentHomeQuickActionType.certificateRequest:
       case StudentHomeQuickActionType.theorySimulation:
         showComingSoon(context);
@@ -67,6 +69,7 @@ abstract final class StudentHomeNavigation {
       case 'profile':
         goProfile(context: context);
       case 'bookings':
+        StudentBookingsNavigation.pushList(context: context);
       case 'certificate':
         showComingSoon(context);
     }
