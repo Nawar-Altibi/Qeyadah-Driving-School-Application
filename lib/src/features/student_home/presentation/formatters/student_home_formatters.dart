@@ -9,7 +9,9 @@ abstract final class StudentHomeFormatters {
   }) {
     final hour = referenceDate.hour;
     final trimmedName = name.trim();
-    final displayName = trimmedName.isEmpty ? l10n.studentHomeGuestName : trimmedName;
+    final displayName = trimmedName.isEmpty
+        ? l10n.studentHomeGuestName
+        : trimmedName;
 
     if (hour < 12) {
       return l10n.studentHomeGreetingMorning(displayName);
@@ -41,10 +43,7 @@ abstract final class StudentHomeFormatters {
     return '${formatter.format(startsAt)} - ${formatter.format(endsAt)}';
   }
 
-  static String paymentCountdown({
-    required int minutes,
-    required int seconds,
-  }) {
+  static String paymentCountdown({required int minutes, required int seconds}) {
     final paddedMinutes = minutes.toString().padLeft(2, '0');
     final paddedSeconds = seconds.toString().padLeft(2, '0');
     return '$paddedMinutes:$paddedSeconds';

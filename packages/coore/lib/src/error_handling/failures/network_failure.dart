@@ -54,7 +54,7 @@ class PayloadTooLargeFailure extends NetworkFailure {
 
 /// 422 Validation Failure: When the user submits a request with invalid data.
 class ValidationFailure extends NetworkFailure {
-  final Map<String,String> errors;
+  final Map<String, String> errors;
 
   /// This is used when the server cannot process the entity due to semantic errors in the request.
   const ValidationFailure({

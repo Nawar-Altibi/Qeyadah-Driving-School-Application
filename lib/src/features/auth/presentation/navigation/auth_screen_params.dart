@@ -17,10 +17,7 @@ class RegisterOtpScreenParams extends BaseScreenParams {
 }
 
 class NewPasswordScreenParams extends BaseScreenParams {
-  const NewPasswordScreenParams({
-    required this.cubit,
-    required this.phone,
-  });
+  const NewPasswordScreenParams({required this.cubit, required this.phone});
 
   final PasswordResetCubit cubit;
   final String phone;

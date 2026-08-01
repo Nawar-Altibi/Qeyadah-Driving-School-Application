@@ -42,11 +42,7 @@ class RegistrationCubit extends Cubit<RegistrationState> {
 
     final generation = ++_actionGeneration;
     emit(
-      state.copyWith(
-        isRequestingOtp: true,
-        draft: draft,
-        clearEffect: true,
-      ),
+      state.copyWith(isRequestingOtp: true, draft: draft, clearEffect: true),
     );
 
     final result = await FutureEitherTimeout.guard(
@@ -257,10 +253,7 @@ class RegistrationCubit extends Cubit<RegistrationState> {
         );
       },
       (challenge) => emit(
-        state.copyWith(
-          isRequestingOtp: false,
-          effect: onSuccess(challenge),
-        ),
+        state.copyWith(isRequestingOtp: false, effect: onSuccess(challenge)),
       ),
     );
   }

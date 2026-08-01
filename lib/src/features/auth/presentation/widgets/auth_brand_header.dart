@@ -31,16 +31,18 @@ class AuthBrandHeader extends StatelessWidget {
       crossAxisAlignment: crossAxis,
       children: [
         Row(
-          mainAxisAlignment:
-              centered ? MainAxisAlignment.center : MainAxisAlignment.start,
+          mainAxisAlignment: centered
+              ? MainAxisAlignment.center
+              : MainAxisAlignment.start,
           children: [
             Container(
               width: 46,
               height: 46,
               decoration: BoxDecoration(
                 color: AppColors.brandPrimary,
-                borderRadius:
-                    BorderRadius.circular(AppDesignTokens.radiusBrandIcon),
+                borderRadius: BorderRadius.circular(
+                  AppDesignTokens.radiusBrandIcon,
+                ),
                 boxShadow: const [
                   BoxShadow(
                     color: Color(0x330F5132),

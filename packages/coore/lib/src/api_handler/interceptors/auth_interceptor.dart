@@ -22,10 +22,7 @@ abstract class AuthInterceptor extends Interceptor {
       Queue();
 
   @override
-  void onRequest(
-    RequestOptions options,
-    RequestInterceptorHandler handler,
-  ) {
+  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     if (options.extra['isAuthorized'] == true) {
       unawaited(_attachAuthorizedRequest(options, handler));
       return;
@@ -202,10 +199,7 @@ class TokenAuthInterceptor extends AuthInterceptor {
       if (rt.isEmpty) return false;
 
       final api = getIt<ApiHandlerInterface>();
-      final result = await api.post(
-        'auth/refresh',
-        body: {'refreshToken': rt},
-      );
+      final result = await api.post('auth/refresh', body: {'refreshToken': rt});
 
       return result.fold((l) => false, (data) async {
         final payload = data['data'] is Map
@@ -235,10 +229,7 @@ class CookieAuthInterceptor extends AuthInterceptor {
   CookieAuthInterceptor(super._tokenManager);
 
   @override
-  void onRequest(
-    RequestOptions options,
-    RequestInterceptorHandler handler,
-  ) {
+  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     options.extra['withCredentials'] = true;
     super.onRequest(options, handler);
   }

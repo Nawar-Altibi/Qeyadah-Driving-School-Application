@@ -55,9 +55,7 @@ class InstructorEarningsBody extends StatelessWidget {
         ),
         const SizedBox(height: AppDesignTokens.spacingSm),
         Text(
-          isDay
-              ? l10n.instructorPeriodHintDay
-              : l10n.instructorPeriodHintMonth,
+          isDay ? l10n.instructorPeriodHintDay : l10n.instructorPeriodHintMonth,
           style: Theme.of(
             context,
           ).textTheme.bodySmall?.copyWith(color: AppColors.muted),
@@ -108,11 +106,7 @@ class InstructorEarningsBody extends StatelessWidget {
     );
   }
 
-  Future<void> _stepPeriod(
-    BuildContext context,
-    bool isDay,
-    int delta,
-  ) async {
+  Future<void> _stepPeriod(BuildContext context, bool isDay, int delta) async {
     if (!interactive) return;
     final current = state.selectedDate;
     final next = isDay
