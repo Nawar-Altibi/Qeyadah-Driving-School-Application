@@ -1,0 +1,34 @@
+import 'package:flutter/material.dart';
+import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
+import 'package:qeyadah_mobile_app/src/core/ui/responsive/app_breakpoints.dart';
+import 'package:qeyadah_mobile_app/src/features/student_booking/presentation/coordinators/student_booking_screen_coordinators.dart';
+import 'package:qeyadah_mobile_app/src/features/student_booking/presentation/widgets/student_booking_preferences_body.dart';
+
+class StudentBookingPreferencesScreen extends StatelessWidget {
+  const StudentBookingPreferencesScreen({super.key});
+
+  static const String routePath = '/student/booking/preferences';
+  static const String routeName = 'student-booking-preferences';
+
+  @override
+  Widget build(BuildContext context) {
+    return StudentBookingPreferencesScreenCoordinator(
+      child: Scaffold(
+        backgroundColor: AppColors.appCanvas,
+        appBar: AppBar(
+          backgroundColor: AppColors.appCanvas,
+          surfaceTintColor: Colors.transparent,
+          elevation: 0,
+          title: Text(
+            AppLocalizations.of(context).studentBookingPreferencesTitle,
+          ),
+          centerTitle: true,
+        ),
+        body: const SafeArea(
+          child: ResponsiveShell(child: StudentBookingPreferencesBody()),
+        ),
+      ),
+    );
+  }
+}

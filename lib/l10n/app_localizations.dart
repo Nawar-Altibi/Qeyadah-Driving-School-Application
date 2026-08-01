@@ -1579,6 +1579,270 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Mark all read'**
   String get notificationsMarkAllRead;
+
+  /// No description provided for @studentHomePendingPaymentCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to complete payment'**
+  String get studentHomePendingPaymentCta;
+
+  /// No description provided for @studentBookingPreferencesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'New booking'**
+  String get studentBookingPreferencesTitle;
+
+  /// No description provided for @studentBookingPreferencesIntroTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose your preferences'**
+  String get studentBookingPreferencesIntroTitle;
+
+  /// No description provided for @studentBookingPreferencesIntroBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Select training type, vehicle, and instructor gender to see available slots.'**
+  String get studentBookingPreferencesIntroBody;
+
+  /// No description provided for @studentBookingTrainingTypeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Training type'**
+  String get studentBookingTrainingTypeLabel;
+
+  /// No description provided for @studentBookingTrainingTypeManual.
+  ///
+  /// In en, this message translates to:
+  /// **'Manual'**
+  String get studentBookingTrainingTypeManual;
+
+  /// No description provided for @studentBookingTrainingTypeAutomatic.
+  ///
+  /// In en, this message translates to:
+  /// **'Automatic'**
+  String get studentBookingTrainingTypeAutomatic;
+
+  /// No description provided for @studentBookingVehicleSourceLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Vehicle'**
+  String get studentBookingVehicleSourceLabel;
+
+  /// No description provided for @studentBookingVehicleSourceSchool.
+  ///
+  /// In en, this message translates to:
+  /// **'School car'**
+  String get studentBookingVehicleSourceSchool;
+
+  /// No description provided for @studentBookingVehicleSourceStudent.
+  ///
+  /// In en, this message translates to:
+  /// **'My own car'**
+  String get studentBookingVehicleSourceStudent;
+
+  /// No description provided for @studentBookingInstructorGenderLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Instructor gender'**
+  String get studentBookingInstructorGenderLabel;
+
+  /// No description provided for @studentBookingInstructorGenderMale.
+  ///
+  /// In en, this message translates to:
+  /// **'Male'**
+  String get studentBookingInstructorGenderMale;
+
+  /// No description provided for @studentBookingInstructorGenderFemale.
+  ///
+  /// In en, this message translates to:
+  /// **'Female'**
+  String get studentBookingInstructorGenderFemale;
+
+  /// No description provided for @studentBookingContinueButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get studentBookingContinueButton;
+
+  /// No description provided for @studentBookingSlotsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Available slots'**
+  String get studentBookingSlotsTitle;
+
+  /// No description provided for @studentBookingSlotsIntroBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a day and time that works for you.'**
+  String get studentBookingSlotsIntroBody;
+
+  /// No description provided for @studentBookingSlotsEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No slots available'**
+  String get studentBookingSlotsEmptyTitle;
+
+  /// No description provided for @studentBookingSlotsEmptyMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Try different preferences or check back later.'**
+  String get studentBookingSlotsEmptyMessage;
+
+  /// No description provided for @studentBookingSlotsSelectedLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected: {instructor} · {time}'**
+  String studentBookingSlotsSelectedLabel(String instructor, String time);
+
+  /// No description provided for @studentBookingSlotsContinueButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue to review'**
+  String get studentBookingSlotsContinueButton;
+
+  /// No description provided for @studentBookingReviewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Review booking'**
+  String get studentBookingReviewTitle;
+
+  /// No description provided for @studentBookingReviewSummaryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Booking summary'**
+  String get studentBookingReviewSummaryTitle;
+
+  /// No description provided for @studentBookingReviewInstructorLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Instructor'**
+  String get studentBookingReviewInstructorLabel;
+
+  /// No description provided for @studentBookingReviewDateLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get studentBookingReviewDateLabel;
+
+  /// No description provided for @studentBookingReviewTimeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Time'**
+  String get studentBookingReviewTimeLabel;
+
+  /// No description provided for @studentBookingReviewTrainingTypeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Training type'**
+  String get studentBookingReviewTrainingTypeLabel;
+
+  /// No description provided for @studentBookingReviewVehicleSourceLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Vehicle'**
+  String get studentBookingReviewVehicleSourceLabel;
+
+  /// No description provided for @studentBookingReviewCreateButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm booking'**
+  String get studentBookingReviewCreateButton;
+
+  /// No description provided for @studentBookingErrorSlotConflict.
+  ///
+  /// In en, this message translates to:
+  /// **'This slot was just booked by someone else. Please choose another one.'**
+  String get studentBookingErrorSlotConflict;
+
+  /// No description provided for @studentBookingErrorPendingPaymentExists.
+  ///
+  /// In en, this message translates to:
+  /// **'You already have a booking awaiting payment.'**
+  String get studentBookingErrorPendingPaymentExists;
+
+  /// No description provided for @studentPaymentTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'ShamCash payment'**
+  String get studentPaymentTitle;
+
+  /// No description provided for @studentPaymentShamCashTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete your ShamCash transfer'**
+  String get studentPaymentShamCashTitle;
+
+  /// No description provided for @studentPaymentDepositAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Deposit amount'**
+  String get studentPaymentDepositAmount;
+
+  /// No description provided for @studentPaymentReceiverName.
+  ///
+  /// In en, this message translates to:
+  /// **'Receiver name'**
+  String get studentPaymentReceiverName;
+
+  /// No description provided for @studentPaymentCountdownTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Time remaining'**
+  String get studentPaymentCountdownTitle;
+
+  /// No description provided for @studentPaymentCountdownMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm within {time} or the slot will be released.'**
+  String studentPaymentCountdownMessage(String time);
+
+  /// No description provided for @studentPaymentExpiredTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Hold expired'**
+  String get studentPaymentExpiredTitle;
+
+  /// No description provided for @studentPaymentExpiredMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'This booking hold has expired. Please start a new booking.'**
+  String get studentPaymentExpiredMessage;
+
+  /// No description provided for @studentPaymentTransactionIdLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'ShamCash transaction ID'**
+  String get studentPaymentTransactionIdLabel;
+
+  /// No description provided for @studentPaymentTransactionIdHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the 9-digit transaction ID from your ShamCash transfer.'**
+  String get studentPaymentTransactionIdHint;
+
+  /// No description provided for @studentPaymentConfirmButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm payment'**
+  String get studentPaymentConfirmButton;
+
+  /// No description provided for @studentPaymentBackToHomeButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to home'**
+  String get studentPaymentBackToHomeButton;
+
+  /// No description provided for @studentPaymentSuccessMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment confirmed! Your booking is complete.'**
+  String get studentPaymentSuccessMessage;
+
+  /// No description provided for @studentPaymentInvalidTransactionId.
+  ///
+  /// In en, this message translates to:
+  /// **'Transaction ID must be exactly 9 digits.'**
+  String get studentPaymentInvalidTransactionId;
 }
 
 class _AppLocalizationsDelegate

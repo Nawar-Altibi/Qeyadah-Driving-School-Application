@@ -6,4 +6,6 @@ abstract final class StorageKeys {
   static const String instructorProfileCache = 'instructor_profile_cache';
   static const String instructorWeeklyScheduleCache =
       'instructor_weekly_schedule_cache';
+  static const String studentBookingPendingHold =
+      'student_booking_pending_hold';
 }

@@ -87,6 +87,7 @@ class DioNetworkExceptionMapper implements NetworkExceptionMapper {
       case DioExceptionType.connectionTimeout:
       case DioExceptionType.sendTimeout:
       case DioExceptionType.receiveTimeout:
+      case DioExceptionType.transformTimeout:
         return RequestTimeoutFailure(
           'Request timed out',
           stackTrace: stackTrace,

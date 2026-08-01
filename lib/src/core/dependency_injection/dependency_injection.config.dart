@@ -110,6 +110,18 @@ import 'package:qeyadah_mobile_app/src/features/sample_items/presentation/cubit/
     as _i60;
 import 'package:qeyadah_mobile_app/src/features/splash/presentation/cubit/splash_screen_cubit.dart'
     as _i127;
+import 'package:qeyadah_mobile_app/src/features/student_booking/data/data_sources/student_booking_local_data_source.dart'
+    as _i509;
+import 'package:qeyadah_mobile_app/src/features/student_booking/data/data_sources/student_booking_remote_data_source.dart'
+    as _i795;
+import 'package:qeyadah_mobile_app/src/features/student_booking/data/repositories/student_booking_repository_impl.dart'
+    as _i253;
+import 'package:qeyadah_mobile_app/src/features/student_booking/domain/repositories/student_booking_repository.dart'
+    as _i151;
+import 'package:qeyadah_mobile_app/src/features/student_booking/domain/use_cases/student_booking_use_cases.dart'
+    as _i843;
+import 'package:qeyadah_mobile_app/src/features/student_booking/presentation/cubit/student_booking_cubit.dart'
+    as _i1016;
 import 'package:qeyadah_mobile_app/src/features/student_home/data/repositories/student_home_repository_impl.dart'
     as _i502;
 import 'package:qeyadah_mobile_app/src/features/student_home/domain/repositories/student_home_repository.dart'
@@ -118,6 +130,16 @@ import 'package:qeyadah_mobile_app/src/features/student_home/domain/use_cases/lo
     as _i869;
 import 'package:qeyadah_mobile_app/src/features/student_home/presentation/cubit/student_home_cubit.dart'
     as _i876;
+import 'package:qeyadah_mobile_app/src/features/student_payments/data/data_sources/student_payment_remote_data_source.dart'
+    as _i371;
+import 'package:qeyadah_mobile_app/src/features/student_payments/data/repositories/student_payment_repository_impl.dart'
+    as _i293;
+import 'package:qeyadah_mobile_app/src/features/student_payments/domain/repositories/student_payment_repository.dart'
+    as _i955;
+import 'package:qeyadah_mobile_app/src/features/student_payments/domain/use_cases/student_payment_use_cases.dart'
+    as _i660;
+import 'package:qeyadah_mobile_app/src/features/student_payments/presentation/cubit/student_payment_cubit.dart'
+    as _i696;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -156,6 +178,16 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i76.AuthLocalDataSource>(
       () => _i76.AuthLocalDataSourceImpl(
         gh<_i698.LocalDatabaseInterface>(instanceName: 'auth'),
+      ),
+    );
+    gh.lazySingleton<_i371.StudentPaymentRemoteDataSource>(
+      () => _i371.StudentPaymentRemoteDataSourceImpl(
+        gh<_i698.ApiHandlerInterface>(),
+      ),
+    );
+    gh.lazySingleton<_i795.StudentBookingRemoteDataSource>(
+      () => _i795.StudentBookingRemoteDataSourceImpl(
+        gh<_i698.ApiHandlerInterface>(),
       ),
     );
     gh.lazySingleton<_i1067.OfflineQueueLocalDataSource>(
@@ -206,6 +238,11 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i461.InstructorRepositoryImpl(
         gh<_i348.InstructorRemoteDataSource>(),
         gh<_i393.InstructorLocalDataSource>(),
+      ),
+    );
+    gh.lazySingleton<_i509.StudentBookingLocalDataSource>(
+      () => _i509.StudentBookingLocalDataSourceImpl(
+        gh<_i698.LocalDatabaseInterface>(instanceName: 'auth'),
       ),
     );
     gh.lazySingleton<_i916.SampleItemsRepository>(
@@ -356,9 +393,30 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i612.LoadUnreadNotificationsCountUseCase>(),
       ),
     );
+    gh.lazySingleton<_i151.StudentBookingRepository>(
+      () => _i253.StudentBookingRepositoryImpl(
+        gh<_i795.StudentBookingRemoteDataSource>(),
+        gh<_i509.StudentBookingLocalDataSource>(),
+      ),
+    );
     gh.factory<_i905.InstructorEarningsCubit>(
       () => _i905.InstructorEarningsCubit(
         gh<_i648.LoadInstructorEarningsUseCase>(),
+      ),
+    );
+    gh.factory<_i843.LoadStudentAvailableSlotsUseCase>(
+      () => _i843.LoadStudentAvailableSlotsUseCase(
+        gh<_i151.StudentBookingRepository>(),
+      ),
+    );
+    gh.factory<_i843.CreateStudentBookingUseCase>(
+      () => _i843.CreateStudentBookingUseCase(
+        gh<_i151.StudentBookingRepository>(),
+      ),
+    );
+    gh.factory<_i843.GetPendingStudentBookingHoldUseCase>(
+      () => _i843.GetPendingStudentBookingHoldUseCase(
+        gh<_i151.StudentBookingRepository>(),
       ),
     );
     gh.factory<_i330.InstructorLeaveCubit>(
@@ -389,6 +447,12 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i823.RegisterStudentUseCase>(),
       ),
     );
+    gh.factory<_i1016.StudentBookingCubit>(
+      () => _i1016.StudentBookingCubit(
+        gh<_i843.LoadStudentAvailableSlotsUseCase>(),
+        gh<_i843.CreateStudentBookingUseCase>(),
+      ),
+    );
     gh.factory<_i240.PasswordResetCubit>(
       () => _i240.PasswordResetCubit(
         gh<_i226.RequestPasswordResetOtpUseCase>(),
@@ -398,6 +462,12 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i60.SampleItemDetailsCubit>(
       () => _i60.SampleItemDetailsCubit(gh<_i38.GetSampleItemUseCase>()),
+    );
+    gh.lazySingleton<_i955.StudentPaymentRepository>(
+      () => _i293.StudentPaymentRepositoryImpl(
+        gh<_i371.StudentPaymentRemoteDataSource>(),
+        gh<_i151.StudentBookingRepository>(),
+      ),
     );
     gh.factory<_i404.NotificationsInboxCubit>(
       () => _i404.NotificationsInboxCubit(
@@ -419,6 +489,11 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i941.PushMessagingService>(),
       ),
     );
+    gh.factory<_i660.ConfirmStudentPaymentUseCase>(
+      () => _i660.ConfirmStudentPaymentUseCase(
+        gh<_i955.StudentPaymentRepository>(),
+      ),
+    );
     gh.factory<_i60.SampleItemsCubit>(
       () => _i60.SampleItemsCubit(gh<_i38.LoadSampleItemsUseCase>()),
     );
@@ -427,6 +502,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i706.AuthSessionCubit>(),
         gh<_i127.SplashScreenCubit>(),
       ),
+    );
+    gh.factory<_i696.StudentPaymentCubit>(
+      () => _i696.StudentPaymentCubit(gh<_i660.ConfirmStudentPaymentUseCase>()),
     );
     return this;
   }

@@ -38,9 +38,15 @@ class StudentHomeRemoteDataSourceImpl implements StudentHomeRemoteDataSource {
           status: StudentHomeLessonStatus.confirmed,
           meetingPointLabel: 'مدرسة قيادة',
         ),
-        pendingPayment: const StudentHomePendingPaymentEntity(
+        pendingPayment: StudentHomePendingPaymentEntity(
           remainingMinutes: 9,
           remainingSeconds: 42,
+          bookingId: 4821,
+          depositAmount: '25000',
+          receiverName: 'مدرسة قيادة - شام كاش',
+          lockedUntil: DateTime.now().add(
+            const Duration(minutes: 9, seconds: 42),
+          ),
         ),
         quickActions: const [
           StudentHomeQuickActionType.newBooking,
