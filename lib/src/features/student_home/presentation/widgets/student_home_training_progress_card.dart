@@ -5,10 +5,7 @@ import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
 import 'package:qeyadah_mobile_app/src/features/student_home/domain/entities/student_home_dashboard_entity.dart';
 
 class StudentHomeTrainingProgressCard extends StatelessWidget {
-  const StudentHomeTrainingProgressCard({
-    super.key,
-    required this.progress,
-  });
+  const StudentHomeTrainingProgressCard({super.key, required this.progress});
 
   final StudentHomeTrainingProgressEntity progress;
 

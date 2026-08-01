@@ -26,9 +26,9 @@ class StudentHomeGreetingHeader extends StatelessWidget {
             children: [
               Text(
                 dateLabel,
-                style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                  color: AppColors.muted,
-                ),
+                style: Theme.of(
+                  context,
+                ).textTheme.labelSmall?.copyWith(color: AppColors.muted),
               ),
               const SizedBox(height: 3),
               Text(

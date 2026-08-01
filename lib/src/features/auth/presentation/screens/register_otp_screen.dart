@@ -48,7 +48,9 @@ class _RegisterOtpScreenState extends State<RegisterOtpScreen> {
               onBack: () => AuthNavigation.pop(context: context),
             ),
             const SizedBox(height: 24),
-            const Center(child: AuthHeroIcon(icon: PhosphorIconsBold.bellRinging)),
+            const Center(
+              child: AuthHeroIcon(icon: PhosphorIconsBold.bellRinging),
+            ),
             const SizedBox(height: 14),
             Text(
               l10n.otpEyebrow,
@@ -80,16 +82,12 @@ class _RegisterOtpScreenState extends State<RegisterOtpScreen> {
             ),
             const SizedBox(height: 28),
             Center(
-              child: AuthOtpInput(
-                controller: _otpController,
-                autofocus: true,
-              ),
+              child: AuthOtpInput(controller: _otpController, autofocus: true),
             ),
             const SizedBox(height: 16),
             Center(
               child: AuthResendTimer(
-                onResend: () =>
-                    context.read<RegistrationCubit>().resendOtp(),
+                onResend: () => context.read<RegistrationCubit>().resendOtp(),
               ),
             ),
             const SizedBox(height: 24),

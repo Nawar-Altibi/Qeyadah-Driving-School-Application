@@ -34,12 +34,7 @@ class PasswordResetCubit extends Cubit<PasswordResetState> {
     if (validatedPhone == null) return;
 
     final generation = ++_actionGeneration;
-    emit(
-      state.copyWith(
-        isRequestingOtp: true,
-        phone: validatedPhone,
-      ),
-    );
+    emit(state.copyWith(isRequestingOtp: true, phone: validatedPhone));
 
     final result = await FutureEitherTimeout.guard(
       _requestOtpUseCase(ForgotPasswordParams(phone: validatedPhone)),
@@ -71,12 +66,7 @@ class PasswordResetCubit extends Cubit<PasswordResetState> {
     if (validatedPhone == null) return;
 
     final generation = ++_actionGeneration;
-    emit(
-      state.copyWith(
-        isRequestingOtp: true,
-        phone: validatedPhone,
-      ),
-    );
+    emit(state.copyWith(isRequestingOtp: true, phone: validatedPhone));
 
     final result = await FutureEitherTimeout.guard(
       _requestOtpUseCase(ForgotPasswordParams(phone: validatedPhone)),

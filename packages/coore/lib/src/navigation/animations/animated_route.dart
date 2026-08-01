@@ -349,7 +349,7 @@ class CrossfadePage extends AnimatedPage {
 }
 
 /// Usage example with GoRouter:
-/// 
+///
 /// ```dart
 /// GoRoute(
 ///   path: '/home',
@@ -362,7 +362,7 @@ class CrossfadePage extends AnimatedPage {
 ///     );
 ///   },
 /// ),
-/// 
+///
 /// GoRoute(
 ///   path: '/profile',
 ///   name: 'profile',
@@ -373,7 +373,7 @@ class CrossfadePage extends AnimatedPage {
 ///     );
 ///   },
 /// ),
-/// 
+///
 /// GoRoute(
 ///   path: '/settings',
 ///   name: 'settings',

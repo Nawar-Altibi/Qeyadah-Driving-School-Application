@@ -62,11 +62,12 @@ class AuthGradientButton extends StatelessWidget {
                         ],
                         Text(
                           label,
-                          style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                            color: AppColors.white,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 14,
-                          ),
+                          style: Theme.of(context).textTheme.labelLarge
+                              ?.copyWith(
+                                color: AppColors.white,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 14,
+                              ),
                         ),
                       ],
                     ),

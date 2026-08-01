@@ -19,9 +19,9 @@ class HeadersInterceptor extends Interceptor {
     resetForStartup();
 
     try {
-      final language = await getIt<ConfigService>()
-          .getLanguageCode()
-          .timeout(const Duration(seconds: 3));
+      final language = await getIt<ConfigService>().getLanguageCode().timeout(
+        const Duration(seconds: 3),
+      );
       if (language.isNotEmpty) {
         _cachedLanguageCode = language;
       }
@@ -35,9 +35,9 @@ class HeadersInterceptor extends Interceptor {
       );
       _authDatabase = authDatabase;
 
-      final initResult = await authDatabase
-          .initialize()
-          .timeout(const Duration(seconds: 3));
+      final initResult = await authDatabase.initialize().timeout(
+        const Duration(seconds: 3),
+      );
       if (initResult.isLeft()) return;
 
       final response = await authDatabase
@@ -100,10 +100,9 @@ class HeadersInterceptor extends Interceptor {
 
     _cachedVisitorToken = latestToken;
     try {
-      final authDatabase = _authDatabase ??
-          getIt<LocalDatabaseInterface>(
-            param1: RawValues.authNamedInstance,
-          );
+      final authDatabase =
+          _authDatabase ??
+          getIt<LocalDatabaseInterface>(param1: RawValues.authNamedInstance);
       _authDatabase = authDatabase;
       await authDatabase.save(StorageKeys.visitorSessionToken, latestToken);
     } on Object {

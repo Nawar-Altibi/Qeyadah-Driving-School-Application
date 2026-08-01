@@ -7,10 +7,9 @@ abstract final class CoreFailureMessageMapper {
     return switch (failure) {
       NoInternetConnectionFailure() => l10n.errorNoInternet,
       UnauthorizedRequestFailure(:final message) ||
-      AuthFailure(:final message) =>
-        message.isNotEmpty
-            ? message
-            : l10n.errorUnauthorized,
+      AuthFailure(
+        :final message,
+      ) => message.isNotEmpty ? message : l10n.errorUnauthorized,
       ForbiddenFailure() => l10n.errorForbidden,
       ValidationFailure() => l10n.errorValidation,
       NotFoundFailure() => l10n.errorNotFound,
