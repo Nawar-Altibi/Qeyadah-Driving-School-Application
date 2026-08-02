@@ -134,10 +134,7 @@ class NotificationsRemoteDataSourceImpl
     } on Object catch (error, stackTrace) {
       return left(
         NetworkFailureMapper.toDomainFailure(
-          NoInternetConnectionFailure(
-            error.toString(),
-            stackTrace: stackTrace,
-          ),
+          NoInternetConnectionFailure(error.toString(), stackTrace: stackTrace),
         ),
       );
     }
