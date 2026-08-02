@@ -12,6 +12,7 @@ import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_mobile_bottom_nav.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/responsive/app_breakpoints.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/presentation/cubit/auth_session_cubit.dart';
+import 'package:qeyadah_mobile_app/src/features/notifications/presentation/cubit/notifications_unread_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/student_home/domain/entities/student_home_dashboard_entity.dart';
 import 'package:qeyadah_mobile_app/src/features/student_home/presentation/coordinators/student_home_screen_coordinator.dart';
 import 'package:qeyadah_mobile_app/src/features/student_home/presentation/cubit/student_home_cubit.dart';
@@ -173,9 +174,11 @@ class _StudentHomeContent extends StatelessWidget {
               name: studentName,
               referenceDate: dashboard.referenceDate,
             ),
-            hasUnreadNotifications: dashboard.hasUnreadNotifications,
+            hasUnreadNotifications:
+                context.watch<NotificationsUnreadCubit>().state > 0 ||
+                dashboard.hasUnreadNotifications,
             onNotificationsTap: () =>
-                StudentHomeNavigation.showComingSoon(context),
+                StudentHomeNavigation.openNotifications(context: context),
           ),
           const SizedBox(height: AppDesignTokens.spacingLg),
           if (dashboard.nextLesson != null)

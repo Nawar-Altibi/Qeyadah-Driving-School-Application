@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/presentation/navigation/auth_navigation.dart';
+import 'package:qeyadah_mobile_app/src/features/notifications/presentation/navigation/notifications_navigation.dart';
 import 'package:qeyadah_mobile_app/src/features/student_booking/presentation/navigation/student_booking_navigation.dart';
 import 'package:qeyadah_mobile_app/src/features/student_bookings/presentation/navigation/student_bookings_navigation.dart';
 import 'package:qeyadah_mobile_app/src/features/student_certificates/presentation/navigation/student_certificates_navigation.dart';
@@ -29,6 +30,10 @@ abstract final class StudentHomeNavigation {
         lockedUntil: pendingPayment.lockedUntil!,
       ),
     );
+  }
+
+  static void openNotifications({BuildContext? context}) {
+    NotificationsNavigation.pushInbox(context: context);
   }
 
   static void showComingSoon(BuildContext context) {

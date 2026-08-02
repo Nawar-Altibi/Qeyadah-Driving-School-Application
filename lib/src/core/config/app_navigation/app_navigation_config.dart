@@ -23,7 +23,6 @@ import 'package:qeyadah_mobile_app/src/features/instructor/presentation/invoices
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/invoices/screens/instructor_invoices_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/leave/cubit/instructor_leave_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/leave/screens/instructor_leave_screen.dart';
-import 'package:qeyadah_mobile_app/src/features/instructor/presentation/notifications/screens/instructor_notifications_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/profile/cubit/instructor_profile_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/profile/screens/instructor_profile_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/schedule/cubit/instructor_schedule_cubit.dart';
@@ -32,6 +31,7 @@ import 'package:qeyadah_mobile_app/src/features/instructor/presentation/schedule
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/schedule/screens/instructor_weekly_schedule_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/notifications/presentation/cubit/notifications_inbox_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/notifications/presentation/cubit/notifications_unread_cubit.dart';
+import 'package:qeyadah_mobile_app/src/features/notifications/presentation/screens/notifications_inbox_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/profile/presentation/screens/profile_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/sample_items/presentation/cubit/sample_items_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/sample_items/presentation/screens/sample_item_details_screen.dart';
@@ -445,17 +445,22 @@ class AppNavigationConfig {
           ),
         ),
         GoRoute(
-          path: InstructorNotificationsScreen.routePath,
-          name: InstructorNotificationsScreen.routeName,
+          path: NotificationsInboxScreen.routePath,
+          name: NotificationsInboxScreen.routeName,
           pageBuilder: (context, state) => FadePage(
             key: state.pageKey,
             child: _withSession(
               BlocProvider(
                 create: (_) => getIt<NotificationsInboxCubit>(),
-                child: const InstructorNotificationsScreen(),
+                child: const NotificationsInboxScreen(),
               ),
             ),
           ),
+        ),
+        GoRoute(
+          path: '/instructor/notifications',
+          name: 'instructor-notifications',
+          redirect: (context, state) => NotificationsInboxScreen.routePath,
         ),
         GoRoute(
           path: ProfileScreen.routePath,

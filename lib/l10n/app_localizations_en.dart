@@ -832,6 +832,30 @@ class AppLocalizationsEn extends AppLocalizations {
   String get notificationsMarkAllRead => 'Mark all read';
 
   @override
+  String get notificationsInboxTitle => 'Notifications';
+
+  @override
+  String get notificationsInboxIntroTitle => 'Your notifications';
+
+  @override
+  String get notificationsInboxIntroBody =>
+      'Stay up to date with bookings, payments, certificates, and schedule updates.';
+
+  @override
+  String get notificationsInboxListTitle => 'Recent';
+
+  @override
+  String get notificationsInboxEmpty => 'No notifications yet.';
+
+  @override
+  String get notificationsInboxLoadMore => 'Load more';
+
+  @override
+  String notificationsInboxUnreadCount(int count) {
+    return '$count unread';
+  }
+
+  @override
   String get studentHomePendingPaymentCta => 'Tap to complete payment';
 
   @override

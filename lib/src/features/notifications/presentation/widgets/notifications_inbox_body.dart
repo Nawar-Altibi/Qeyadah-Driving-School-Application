@@ -4,18 +4,17 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
+import 'package:qeyadah_mobile_app/src/core/ui/app_button.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_section_heading.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_skeleton_shell.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_status_badge.dart';
-import 'package:qeyadah_mobile_app/src/features/instructor/presentation/shared/formatters/instructor_formatters.dart';
-import 'package:qeyadah_mobile_app/src/features/instructor/presentation/shared/widgets/instructor_load_more_button.dart';
 import 'package:qeyadah_mobile_app/src/features/notifications/domain/entities/app_notification_entity.dart';
-import 'package:qeyadah_mobile_app/src/features/notifications/domain/entities/app_notification_type.dart';
 import 'package:qeyadah_mobile_app/src/features/notifications/presentation/cubit/notifications_inbox_cubit.dart';
+import 'package:qeyadah_mobile_app/src/features/notifications/presentation/formatters/notifications_formatters.dart';
 
-class InstructorNotificationsBody extends StatelessWidget {
-  const InstructorNotificationsBody({
+class NotificationsInboxBody extends StatelessWidget {
+  const NotificationsInboxBody({
     super.key,
     required this.state,
     required this.page,
@@ -55,14 +54,14 @@ class InstructorNotificationsBody extends StatelessWidget {
               ),
               const SizedBox(height: AppDesignTokens.spacingSm),
               Text(
-                l10n.instructorNotificationsIntroTitle,
+                l10n.notificationsInboxIntroTitle,
                 style: Theme.of(
                   context,
                 ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
               ),
               const SizedBox(height: 4),
               Text(
-                l10n.instructorNotificationsIntroBody,
+                l10n.notificationsInboxIntroBody,
                 textAlign: TextAlign.center,
                 style: Theme.of(
                   context,
@@ -75,9 +74,9 @@ class InstructorNotificationsBody extends StatelessWidget {
             children: [
               Expanded(
                 child: AppSectionHeading(
-                  title: l10n.instructorNotificationsListTitle,
+                  title: l10n.notificationsInboxListTitle,
                   subtitle: unreadCount > 0
-                      ? l10n.instructorNotificationsUnreadCount(unreadCount)
+                      ? l10n.notificationsInboxUnreadCount(unreadCount)
                       : null,
                 ),
               ),
@@ -94,7 +93,7 @@ class InstructorNotificationsBody extends StatelessWidget {
           ),
           const SizedBox(height: AppDesignTokens.spacing),
           if (page.notifications.isEmpty)
-            AppCard(child: Text(l10n.instructorNotificationsEmpty))
+            AppCard(child: Text(l10n.notificationsInboxEmpty))
           else ...[
             for (final notification in page.notifications) ...[
               _NotificationCard(
@@ -104,11 +103,15 @@ class InstructorNotificationsBody extends StatelessWidget {
               const SizedBox(height: AppDesignTokens.spacingSm),
             ],
             if (page.hasMorePages)
-              InstructorLoadMoreButton(
-                isLoading: state.isLoadingMore,
-                onPressed: interactive
-                    ? () => context.read<NotificationsInboxCubit>().loadMore()
-                    : null,
+              Padding(
+                padding: const EdgeInsets.only(top: AppDesignTokens.spacingSm),
+                child: AppButton.secondary(
+                  label: l10n.notificationsInboxLoadMore,
+                  isLoading: state.isLoadingMore,
+                  onPressed: interactive && !state.isLoadingMore
+                      ? () => context.read<NotificationsInboxCubit>().loadMore()
+                      : null,
+                ),
               ),
           ],
         ],
@@ -129,17 +132,16 @@ class _NotificationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final localeName = Localizations.localeOf(context).toLanguageTag();
-    final tone = InstructorFormatters.notificationTone(
+    final tone = NotificationsFormatters.notificationTone(
       notification.notificationType,
     );
     final colors = _colorsForTone(tone);
-    final icon = InstructorFormatters.notificationIcon(
+    final icon = NotificationsFormatters.notificationIcon(
       notification.notificationType,
     );
-    final isCalendarIcon =
-        notification.notificationType == AppNotificationType.bookingConfirmed ||
-        notification.notificationType == AppNotificationType.bookingCancelled ||
-        notification.notificationType == AppNotificationType.instructorSchedule;
+    final isCalendarIcon = NotificationsFormatters.isCalendarIcon(
+      notification.notificationType,
+    );
 
     return AppCard(
       backgroundColor: notification.isRead
@@ -202,7 +204,7 @@ class _NotificationCard extends StatelessWidget {
                 ),
                 const SizedBox(height: AppDesignTokens.spacingSm),
                 Text(
-                  InstructorFormatters.notificationTimestampLabel(
+                  NotificationsFormatters.notificationTimestampLabel(
                     notification.createdAt,
                     localeName,
                   ),

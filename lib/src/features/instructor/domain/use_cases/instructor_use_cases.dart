@@ -124,17 +124,3 @@ class LoadInstructorInvoicesUseCase {
     return _repository.getInvoices(month: month, page: page, limit: limit);
   }
 }
-
-@injectable
-class LoadInstructorNotificationsUseCase {
-  const LoadInstructorNotificationsUseCase(this._repository);
-
-  final InstructorRepository _repository;
-
-  FutureEither<InstructorNotificationsPageEntity> call({
-    int page = 1,
-    int limit = 20,
-  }) {
-    return _repository.getNotifications(page: page, limit: limit);
-  }
-}

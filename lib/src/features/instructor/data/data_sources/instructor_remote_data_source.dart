@@ -6,7 +6,6 @@ import 'package:qeyadah_mobile_app/src/core/constants/endpoints.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/domain/entities/instructor_entities.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/instructor_booking_status.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/instructor_invoice_type.dart';
-import 'package:qeyadah_mobile_app/src/shared/enums/instructor_notification_type.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/instructor_payment_method.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/instructor_type.dart';
 
@@ -24,10 +23,6 @@ abstract interface class InstructorRemoteDataSource {
   RemoteResponse<InstructorInvoicesPageEntity> fetchInvoices({
     DateTime? date,
     String? month,
-    int page = 1,
-    int limit = 20,
-  });
-  RemoteResponse<InstructorNotificationsPageEntity> fetchNotifications({
     int page = 1,
     int limit = 20,
   });
@@ -299,28 +294,6 @@ class InstructorRemoteDataSourceImpl implements InstructorRemoteDataSource {
     });
   }
 
-  @override
-  RemoteResponse<InstructorNotificationsPageEntity> fetchNotifications({
-    int page = 1,
-    int limit = 20,
-  }) async {
-    final response = await _apiHandler.get(
-      Endpoints.instructorMeNotifications,
-      queryParameters: {'page': page, 'limit': limit},
-    );
-    return response.fold(left, (json) {
-      try {
-        return right(_notificationsPageFromJson(_unwrapData(json)));
-      } on Exception {
-        return left(
-          const InternalServerErrorFailure(
-            'Failed to parse instructor notifications',
-          ),
-        );
-      }
-    });
-  }
-
   InstructorProfileEntity _profileFromJson(Map<String, dynamic> json) {
     final instructorType = InstructorType.fromApi(
       json['instructorType']?.toString(),
@@ -471,40 +444,6 @@ class InstructorRemoteDataSourceImpl implements InstructorRemoteDataSource {
           expenseIds: expenseIds is Iterable
               ? expenseIds.map((id) => (id as num).toInt()).toList()
               : const [],
-        );
-      }).toList(),
-      page: (meta['page'] as num?)?.toInt() ?? 1,
-      totalPages: (meta['totalPages'] as num?)?.toInt() ?? 1,
-    );
-  }
-
-  InstructorNotificationsPageEntity _notificationsPageFromJson(
-    Map<String, dynamic> json,
-  ) {
-    final rawList = json['data'];
-    if (rawList is! Iterable) {
-      throw const FormatException('Invalid notifications response');
-    }
-    final meta = json['meta'] is Map
-        ? Map<String, dynamic>.from(json['meta'] as Map)
-        : const <String, dynamic>{};
-    return InstructorNotificationsPageEntity(
-      notifications: rawList.map((item) {
-        final map = Map<String, dynamic>.from(item as Map);
-        final readAtRaw = map['readAt'];
-        final readAt = readAtRaw == null
-            ? null
-            : DateTime.parse(readAtRaw.toString());
-        return InstructorNotificationEntity(
-          id: (map['id'] as num).toInt(),
-          title: map['title']?.toString() ?? '',
-          body: map['body']?.toString() ?? '',
-          notificationType: InstructorNotificationType.fromApi(
-            map['notificationType']?.toString(),
-          ),
-          isRead: map['isRead'] == true || readAt != null,
-          readAt: readAt,
-          createdAt: DateTime.parse(map['createdAt'].toString()),
         );
       }).toList(),
       page: (meta['page'] as num?)?.toInt() ?? 1,

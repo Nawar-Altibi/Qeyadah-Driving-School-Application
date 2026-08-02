@@ -3,11 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qeyadah_mobile_app/src/core/presentation/route_resumed_refresh.dart';
 import 'package:qeyadah_mobile_app/src/features/notifications/presentation/cubit/notifications_inbox_cubit.dart';
 
-class InstructorNotificationsScreenCoordinator extends StatelessWidget {
-  const InstructorNotificationsScreenCoordinator({
-    super.key,
-    required this.child,
-  });
+class NotificationsInboxScreenCoordinator extends StatelessWidget {
+  const NotificationsInboxScreenCoordinator({super.key, required this.child});
 
   final Widget child;
 
