@@ -424,6 +424,20 @@
     }
   },
   "notificationsMarkAllRead": "Mark all read",
+  "notificationsInboxTitle": "Notifications",
+  "notificationsInboxIntroTitle": "Your notifications",
+  "notificationsInboxIntroBody": "Stay up to date with bookings, payments, certificates, and schedule updates.",
+  "notificationsInboxListTitle": "Recent",
+  "notificationsInboxEmpty": "No notifications yet.",
+  "notificationsInboxLoadMore": "Load more",
+  "notificationsInboxUnreadCount": "{count} unread",
+  "@notificationsInboxUnreadCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "studentHomePendingPaymentCta": "Tap to complete payment",
   "studentBookingPreferencesTitle": "New booking",
   "studentBookingPreferencesIntroTitle": "Choose your preferences",

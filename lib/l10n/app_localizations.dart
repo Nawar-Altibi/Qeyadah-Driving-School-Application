@@ -1580,6 +1580,48 @@ abstract class AppLocalizations {
   /// **'Mark all read'**
   String get notificationsMarkAllRead;
 
+  /// No description provided for @notificationsInboxTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get notificationsInboxTitle;
+
+  /// No description provided for @notificationsInboxIntroTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your notifications'**
+  String get notificationsInboxIntroTitle;
+
+  /// No description provided for @notificationsInboxIntroBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Stay up to date with bookings, payments, certificates, and schedule updates.'**
+  String get notificationsInboxIntroBody;
+
+  /// No description provided for @notificationsInboxListTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent'**
+  String get notificationsInboxListTitle;
+
+  /// No description provided for @notificationsInboxEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No notifications yet.'**
+  String get notificationsInboxEmpty;
+
+  /// No description provided for @notificationsInboxLoadMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Load more'**
+  String get notificationsInboxLoadMore;
+
+  /// No description provided for @notificationsInboxUnreadCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} unread'**
+  String notificationsInboxUnreadCount(int count);
+
   /// No description provided for @studentHomePendingPaymentCta.
   ///
   /// In en, this message translates to:

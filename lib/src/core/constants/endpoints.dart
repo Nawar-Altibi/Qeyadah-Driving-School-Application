@@ -20,7 +20,6 @@ abstract final class Endpoints {
   static const String instructorMeDues = 'instructor/me/dues';
   static const String instructorMeEarnings = 'instructor/me/earnings';
   static const String instructorMePayments = 'instructor/me/payments';
-  static const String instructorMeNotifications = 'instructor/me/notifications';
 
   static const String devicesToken = 'devices/token';
   static const String notifications = 'notifications';

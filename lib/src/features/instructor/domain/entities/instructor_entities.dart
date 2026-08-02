@@ -1,7 +1,6 @@
 import 'package:qeyadah_mobile_app/src/shared/enums/instructor_booking_status.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/instructor_day_of_week.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/instructor_invoice_type.dart';
-import 'package:qeyadah_mobile_app/src/shared/enums/instructor_notification_type.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/instructor_payment_method.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/instructor_type.dart';
 
@@ -382,77 +381,6 @@ class InstructorInvoicesPageEntity {
       sessionCount: next.sessionCount,
       invoiceCount: next.invoiceCount,
       invoices: [...invoices, ...next.invoices],
-      page: next.page,
-      totalPages: next.totalPages,
-    );
-  }
-}
-
-class InstructorNotificationEntity {
-  const InstructorNotificationEntity({
-    required this.id,
-    required this.title,
-    required this.body,
-    required this.notificationType,
-    required this.isRead,
-    this.readAt,
-    required this.createdAt,
-  });
-
-  factory InstructorNotificationEntity.placeholder({
-    int id = 1,
-    bool isRead = false,
-  }) {
-    final now = DateTime.now();
-    return InstructorNotificationEntity(
-      id: id,
-      title: 'Placeholder notification title',
-      body: 'Placeholder notification body text for skeleton loading.',
-      notificationType: InstructorNotificationType.general,
-      isRead: isRead,
-      readAt: isRead ? now : null,
-      createdAt: now.subtract(Duration(hours: id)),
-    );
-  }
-
-  final int id;
-  final String title;
-  final String body;
-  final InstructorNotificationType notificationType;
-  final bool isRead;
-  final DateTime? readAt;
-  final DateTime createdAt;
-}
-
-class InstructorNotificationsPageEntity {
-  const InstructorNotificationsPageEntity({
-    required this.notifications,
-    required this.page,
-    required this.totalPages,
-  });
-
-  factory InstructorNotificationsPageEntity.placeholder() =>
-      InstructorNotificationsPageEntity(
-        notifications: [
-          InstructorNotificationEntity.placeholder(),
-          InstructorNotificationEntity.placeholder(id: 2, isRead: true),
-          InstructorNotificationEntity.placeholder(id: 3, isRead: true),
-        ],
-        page: 1,
-        totalPages: 1,
-      );
-
-  final List<InstructorNotificationEntity> notifications;
-  final int page;
-  final int totalPages;
-
-  bool get hasMorePages => page < totalPages;
-
-  InstructorNotificationsPageEntity appendPage(
-    InstructorNotificationsPageEntity next,
-  ) {
-    return InstructorNotificationsPageEntity(
-      notifications: [...notifications, ...next.notifications],
       page: next.page,
       totalPages: next.totalPages,
     );

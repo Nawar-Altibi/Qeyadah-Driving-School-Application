@@ -830,6 +830,30 @@ class AppLocalizationsAr extends AppLocalizations {
   String get notificationsMarkAllRead => 'قراءة الكل';
 
   @override
+  String get notificationsInboxTitle => 'الإشعارات';
+
+  @override
+  String get notificationsInboxIntroTitle => 'إشعاراتك';
+
+  @override
+  String get notificationsInboxIntroBody =>
+      'تابع مستجدات الحجوزات والمدفوعات والشهادات وتحديثات الجدول.';
+
+  @override
+  String get notificationsInboxListTitle => 'الأحدث';
+
+  @override
+  String get notificationsInboxEmpty => 'لا توجد إشعارات بعد.';
+
+  @override
+  String get notificationsInboxLoadMore => 'تحميل المزيد';
+
+  @override
+  String notificationsInboxUnreadCount(int count) {
+    return '$count غير مقروءة';
+  }
+
+  @override
   String get studentHomePendingPaymentCta => 'اضغط لإكمال الدفع';
 
   @override

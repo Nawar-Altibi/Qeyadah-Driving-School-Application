@@ -1,10 +1,10 @@
 import 'package:coore/lib.dart';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:qeyadah_mobile_app/src/features/instructor/presentation/notifications/screens/instructor_notifications_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/schedule/screens/instructor_weekly_schedule_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/notifications/domain/entities/app_notification_entity.dart';
 import 'package:qeyadah_mobile_app/src/features/notifications/domain/entities/app_notification_type.dart';
+import 'package:qeyadah_mobile_app/src/features/notifications/presentation/navigation/notifications_navigation.dart';
 import 'package:qeyadah_mobile_app/src/features/student_bookings/presentation/navigation/student_bookings_navigation.dart';
 import 'package:qeyadah_mobile_app/src/features/student_certificates/presentation/navigation/student_certificates_navigation.dart';
 
@@ -124,8 +124,7 @@ class NotificationDeepLinkRouter {
       case NotificationDeepLinkKind.instructorSchedule:
         CoreNavigator.pushNamed(InstructorWeeklyScheduleScreen.routeName);
       case NotificationDeepLinkKind.inbox:
-        // Shared /notifications route lands in PR 4C; keep working path for now.
-        CoreNavigator.pushNamed(InstructorNotificationsScreen.routeName);
+        NotificationsNavigation.goInbox();
     }
   }
 

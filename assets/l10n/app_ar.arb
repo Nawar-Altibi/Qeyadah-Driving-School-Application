@@ -403,6 +403,20 @@
     }
   },
   "notificationsMarkAllRead": "قراءة الكل",
+  "notificationsInboxTitle": "الإشعارات",
+  "notificationsInboxIntroTitle": "إشعاراتك",
+  "notificationsInboxIntroBody": "تابع مستجدات الحجوزات والمدفوعات والشهادات وتحديثات الجدول.",
+  "notificationsInboxListTitle": "الأحدث",
+  "notificationsInboxEmpty": "لا توجد إشعارات بعد.",
+  "notificationsInboxLoadMore": "تحميل المزيد",
+  "notificationsInboxUnreadCount": "{count} غير مقروءة",
+  "@notificationsInboxUnreadCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "studentHomePendingPaymentCta": "اضغط لإكمال الدفع",
   "studentBookingPreferencesTitle": "حجز جديد",
   "studentBookingPreferencesIntroTitle": "اختر تفضيلاتك",

@@ -21,10 +21,6 @@ abstract interface class InstructorRepository {
     int page = 1,
     int limit = 20,
   });
-  FutureEither<InstructorNotificationsPageEntity> getNotifications({
-    int page = 1,
-    int limit = 20,
-  });
   FutureEither<InstructorScheduleDashboardEntity> loadScheduleDashboard(
     DateTime selectedDate,
     InstructorBookingsViewMode viewMode,
