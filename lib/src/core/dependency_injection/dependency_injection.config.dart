@@ -173,11 +173,15 @@ extension GetItInjectableX on _i174.GetIt {
       () => localDatabaseModule.offlineQueueDatabase,
       instanceName: 'offline_queue',
     );
-    gh.lazySingleton<_i502.StudentHomeRemoteDataSource>(
-      () => _i502.StudentHomeRemoteDataSourceImpl(),
-    );
     gh.lazySingleton<_i941.PushMessagingService>(
       () => _i941.PushMessagingService(gh<_i941.LocalNotificationPresenter>()),
+    );
+    gh.lazySingleton<_i809.NotificationsRemoteDataSource>(
+      () => _i809.NotificationsRemoteDataSourceImpl(
+        gh<_i698.ApiHandlerInterface>(),
+        gh<_i361.Dio>(),
+        gh<_i698.NetworkExceptionMapper>(),
+      ),
     );
     gh.factory<_i698.LocalDatabaseInterface>(
       () => localDatabaseModule.authDatabase,
@@ -212,11 +216,6 @@ extension GetItInjectableX on _i174.GetIt {
       () =>
           _i348.InstructorRemoteDataSourceImpl(gh<_i698.ApiHandlerInterface>()),
     );
-    gh.lazySingleton<_i80.StudentHomeRepository>(
-      () => _i502.StudentHomeRepositoryImpl(
-        gh<_i502.StudentHomeRemoteDataSource>(),
-      ),
-    );
     gh.lazySingleton<_i272.SampleItemsRemoteDataSource>(
       () => _i272.SampleItemsRemoteDataSourceImpl(
         gh<_i698.ApiHandlerInterface>(),
@@ -225,23 +224,10 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i1021.AuthRemoteDataSource>(
       () => _i1021.AuthRemoteDataSourceImpl(gh<_i698.ApiHandlerInterface>()),
     );
-    gh.lazySingleton<_i869.LoadStudentHomeUseCase>(
-      () => _i869.LoadStudentHomeUseCase(gh<_i80.StudentHomeRepository>()),
-    );
-    gh.lazySingleton<_i809.NotificationsRemoteDataSource>(
-      () => _i809.NotificationsRemoteDataSourceImpl(
-        gh<_i698.ApiHandlerInterface>(),
-        gh<_i361.Dio>(),
-        gh<_i698.NetworkExceptionMapper>(),
-      ),
-    );
     gh.lazySingleton<_i14.StudentBookingsRemoteDataSource>(
       () => _i14.StudentBookingsRemoteDataSourceImpl(
         gh<_i698.ApiHandlerInterface>(),
       ),
-    );
-    gh.factory<_i876.StudentHomeCubit>(
-      () => _i876.StudentHomeCubit(gh<_i869.LoadStudentHomeUseCase>()),
     );
     gh.lazySingleton<_i16.AuthRepository>(
       () => _i516.AuthRepositoryImpl(
@@ -493,6 +479,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i38.GetSampleItemUseCase>(
       () => _i38.GetSampleItemUseCase(gh<_i916.SampleItemsRepository>()),
     );
+    gh.lazySingleton<_i80.StudentHomeRepository>(
+      () => _i502.StudentHomeRepositoryImpl(
+        gh<_i981.LoadStudentBookingsUseCase>(),
+        gh<_i981.LoadStudentBookingDetailUseCase>(),
+        gh<_i843.GetPendingStudentBookingHoldUseCase>(),
+        gh<_i612.LoadUnreadNotificationsCountUseCase>(),
+      ),
+    );
     gh.factory<_i958.RegistrationCubit>(
       () => _i958.RegistrationCubit(
         gh<_i852.RequestRegistrationOtpUseCase>(),
@@ -512,6 +506,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i421.ResetPasswordUseCase>(),
       ),
     );
+    gh.lazySingleton<_i869.LoadStudentHomeUseCase>(
+      () => _i869.LoadStudentHomeUseCase(gh<_i80.StudentHomeRepository>()),
+    );
     gh.factory<_i60.SampleItemDetailsCubit>(
       () => _i60.SampleItemDetailsCubit(gh<_i38.GetSampleItemUseCase>()),
     );
@@ -529,6 +526,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i188.NotificationsUnreadCubit>(),
         gh<_i836.NotificationDeepLinkRouter>(),
       ),
+    );
+    gh.factory<_i876.StudentHomeCubit>(
+      () => _i876.StudentHomeCubit(gh<_i869.LoadStudentHomeUseCase>()),
     );
     gh.lazySingleton<_i706.AuthSessionCubit>(
       () => _i706.AuthSessionCubit(

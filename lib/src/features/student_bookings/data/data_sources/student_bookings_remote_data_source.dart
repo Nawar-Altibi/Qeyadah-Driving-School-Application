@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:qeyadah_mobile_app/src/core/constants/endpoints.dart';
 import 'package:qeyadah_mobile_app/src/features/student_bookings/domain/entities/student_bookings_entities.dart';
 import 'package:qeyadah_mobile_app/src/features/student_bookings/domain/params/student_bookings_params.dart';
+import 'package:qeyadah_mobile_app/src/shared/enums/instructor_gender.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/student_booking_status.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/student_charge_status.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/student_payment_status.dart';
@@ -202,6 +203,7 @@ class StudentBookingsRemoteDataSourceImpl
       id: _parseInt(json['id']) ?? 0,
       name: json['name']?.toString() ?? '',
       phone: json['phone']?.toString(),
+      gender: InstructorGender.fromApi(json['gender']?.toString()),
     );
   }
 
