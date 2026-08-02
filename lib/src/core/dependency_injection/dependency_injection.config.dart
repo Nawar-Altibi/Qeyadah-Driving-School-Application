@@ -10,6 +10,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:coore/lib.dart' as _i698;
+import 'package:dio/dio.dart' as _i361;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:qeyadah_mobile_app/src/core/config/app_navigation/app_navigation_config.dart'
@@ -230,6 +231,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i809.NotificationsRemoteDataSource>(
       () => _i809.NotificationsRemoteDataSourceImpl(
         gh<_i698.ApiHandlerInterface>(),
+        gh<_i361.Dio>(),
+        gh<_i698.NetworkExceptionMapper>(),
       ),
     );
     gh.lazySingleton<_i14.StudentBookingsRemoteDataSource>(
