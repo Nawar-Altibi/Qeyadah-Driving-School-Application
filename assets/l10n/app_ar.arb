@@ -453,6 +453,90 @@
   "studentBookingReviewCreateButton": "تأكيد الحجز",
   "studentBookingErrorSlotConflict": "تم حجز هذا الموعد للتو من قبل شخص آخر. الرجاء اختيار موعد آخر.",
   "studentBookingErrorPendingPaymentExists": "لديك بالفعل حجز بانتظار الدفع.",
+  "studentBookingsTitle": "حجوزاتي",
+  "studentBookingsFilterAll": "الكل",
+  "studentBookingsSearchHint": "ابحث باسم المدرب",
+  "studentBookingsEmptyTitle": "لا توجد حجوزات بعد",
+  "studentBookingsEmptyMessage": "ستظهر حجوزاتك هنا بعد حجز حصة تدريبية.",
+  "studentBookingsRemainingAtSchool": "المتبقي {amount} في المدرسة",
+  "@studentBookingsRemainingAtSchool": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "studentBookingsCurrencyAmount": "{amount} ل.س",
+  "@studentBookingsCurrencyAmount": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "studentBookingsStatusPendingPayment": "بانتظار الدفع",
+  "studentBookingsStatusBooked": "محجوز",
+  "studentBookingsStatusCompleted": "مكتمل",
+  "studentBookingsStatusCancelled": "ملغى",
+  "studentBookingsStatusExpired": "منتهي",
+  "studentBookingsStatusNoShow": "لم يحضر",
+  "studentBookingsPaymentPendingDeposit": "بانتظار العربون",
+  "studentBookingsPaymentDepositPaid": "تم دفع العربون",
+  "studentBookingsPaymentFullyPaid": "مدفوع بالكامل",
+  "studentBookingsPaymentDepositNonRefundable": "العربون غير قابل للاسترداد",
+  "studentBookingsPaymentDepositAvailableForRebooking": "العربون متاح لإعادة الحجز",
+  "studentBookingsPaymentDepositUsedInRebooking": "تم استخدام العربون في حجز جديد",
+  "studentBookingsChargeUnpaid": "غير مدفوع",
+  "studentBookingsChargePartiallyPaid": "مدفوع جزئيًا",
+  "studentBookingsChargePaid": "مدفوع",
+  "studentBookingsChargeCancelled": "ملغى",
+  "studentBookingDetailTitle": "تفاصيل الحجز",
+  "studentBookingDetailCompletePayment": "إتمام الدفع",
+  "studentBookingDetailInstructorTitle": "المدرب",
+  "studentBookingDetailVehicleTitle": "المركبة",
+  "studentBookingDetailOwnVehicleNote": "أنت تستخدم سيارتك الخاصة لهذه الحصة.",
+  "studentBookingDetailChargesTitle": "الرسوم",
+  "studentBookingDetailChargesEmpty": "لا توجد رسوم مسجلة لهذا الحجز بعد.",
+  "studentBookingDetailChargeAmountDue": "المبلغ المستحق: {amount}",
+  "@studentBookingDetailChargeAmountDue": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "studentBookingDetailRemainingCallout": "تم دفع {paid} من أصل {total} — المتبقي {remaining} في المدرسة",
+  "@studentBookingDetailRemainingCallout": {
+    "placeholders": {
+      "paid": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      },
+      "remaining": {
+        "type": "String"
+      }
+    }
+  },
+  "studentBookingDetailCancelButton": "إلغاء الحجز",
+  "studentBookingDetailDepositRebookTitle": "العربون متاح لإعادة الحجز",
+  "studentBookingDetailDepositRebookMessage": "يتم الاحتفاظ بعربونك ويمكن استخدامه لحجز جديد.",
+  "studentBookingDetailDepositRebookCta": "احجز مجددًا",
+  "studentBookingDetailDepositLostTitle": "العربون غير قابل للاسترداد",
+  "studentBookingDetailDepositLostMessage": "لم يتم استرداد عربون هذا الحجز وفقًا لسياسة الإلغاء.",
+  "studentBookingDetailPendingPaymentNoHoldMessage": "هذا الحجز بانتظار الدفع، ولكن تعذر العثور على جلسة الدفع. الرجاء التواصل مع الدعم.",
+  "studentBookingDetailHoldExpiredMessage": "انتهت مهلة الدفع لهذا الحجز.",
+  "studentBookingDetailHoldExpiredCta": "حجز جديد",
+  "studentBookingDetailCancelSuccessMessage": "تم إلغاء حجزك.",
+  "studentBookingDetailCancelSheetTitle": "هل تريد إلغاء هذا الحجز؟",
+  "studentBookingDetailCancelSheetMessage": "الرجاء إخبارنا بسبب الإلغاء، فذلك يساعدنا على التحسين.",
+  "studentBookingDetailCancelReasonLabel": "سبب الإلغاء",
+  "studentBookingDetailCancelReasonHint": "مثال: تعارض في الموعد",
+  "studentBookingDetailCancelReasonRequired": "الرجاء إدخال سبب الإلغاء.",
+  "studentBookingDetailCancelReasonTooLong": "يجب ألا يتجاوز سبب الإلغاء 255 حرفًا.",
+  "studentBookingDetailCancelSheetKeep": "الاحتفاظ بالحجز",
+  "studentBookingDetailCancelSheetConfirm": "إلغاء الحجز",
   "studentPaymentTitle": "دفع شام كاش",
   "studentPaymentShamCashTitle": "أكمل تحويل شام كاش",
   "studentPaymentDepositAmount": "مبلغ العربون",

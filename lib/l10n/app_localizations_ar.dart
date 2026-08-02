@@ -927,6 +927,183 @@ class AppLocalizationsAr extends AppLocalizations {
       'لديك بالفعل حجز بانتظار الدفع.';
 
   @override
+  String get studentBookingsTitle => 'حجوزاتي';
+
+  @override
+  String get studentBookingsFilterAll => 'الكل';
+
+  @override
+  String get studentBookingsSearchHint => 'ابحث باسم المدرب';
+
+  @override
+  String get studentBookingsEmptyTitle => 'لا توجد حجوزات بعد';
+
+  @override
+  String get studentBookingsEmptyMessage =>
+      'ستظهر حجوزاتك هنا بعد حجز حصة تدريبية.';
+
+  @override
+  String studentBookingsRemainingAtSchool(String amount) {
+    return 'المتبقي $amount في المدرسة';
+  }
+
+  @override
+  String studentBookingsCurrencyAmount(String amount) {
+    return '$amount ل.س';
+  }
+
+  @override
+  String get studentBookingsStatusPendingPayment => 'بانتظار الدفع';
+
+  @override
+  String get studentBookingsStatusBooked => 'محجوز';
+
+  @override
+  String get studentBookingsStatusCompleted => 'مكتمل';
+
+  @override
+  String get studentBookingsStatusCancelled => 'ملغى';
+
+  @override
+  String get studentBookingsStatusExpired => 'منتهي';
+
+  @override
+  String get studentBookingsStatusNoShow => 'لم يحضر';
+
+  @override
+  String get studentBookingsPaymentPendingDeposit => 'بانتظار العربون';
+
+  @override
+  String get studentBookingsPaymentDepositPaid => 'تم دفع العربون';
+
+  @override
+  String get studentBookingsPaymentFullyPaid => 'مدفوع بالكامل';
+
+  @override
+  String get studentBookingsPaymentDepositNonRefundable =>
+      'العربون غير قابل للاسترداد';
+
+  @override
+  String get studentBookingsPaymentDepositAvailableForRebooking =>
+      'العربون متاح لإعادة الحجز';
+
+  @override
+  String get studentBookingsPaymentDepositUsedInRebooking =>
+      'تم استخدام العربون في حجز جديد';
+
+  @override
+  String get studentBookingsChargeUnpaid => 'غير مدفوع';
+
+  @override
+  String get studentBookingsChargePartiallyPaid => 'مدفوع جزئيًا';
+
+  @override
+  String get studentBookingsChargePaid => 'مدفوع';
+
+  @override
+  String get studentBookingsChargeCancelled => 'ملغى';
+
+  @override
+  String get studentBookingDetailTitle => 'تفاصيل الحجز';
+
+  @override
+  String get studentBookingDetailCompletePayment => 'إتمام الدفع';
+
+  @override
+  String get studentBookingDetailInstructorTitle => 'المدرب';
+
+  @override
+  String get studentBookingDetailVehicleTitle => 'المركبة';
+
+  @override
+  String get studentBookingDetailOwnVehicleNote =>
+      'أنت تستخدم سيارتك الخاصة لهذه الحصة.';
+
+  @override
+  String get studentBookingDetailChargesTitle => 'الرسوم';
+
+  @override
+  String get studentBookingDetailChargesEmpty =>
+      'لا توجد رسوم مسجلة لهذا الحجز بعد.';
+
+  @override
+  String studentBookingDetailChargeAmountDue(String amount) {
+    return 'المبلغ المستحق: $amount';
+  }
+
+  @override
+  String studentBookingDetailRemainingCallout(
+    String paid,
+    String total,
+    String remaining,
+  ) {
+    return 'تم دفع $paid من أصل $total — المتبقي $remaining في المدرسة';
+  }
+
+  @override
+  String get studentBookingDetailCancelButton => 'إلغاء الحجز';
+
+  @override
+  String get studentBookingDetailDepositRebookTitle =>
+      'العربون متاح لإعادة الحجز';
+
+  @override
+  String get studentBookingDetailDepositRebookMessage =>
+      'يتم الاحتفاظ بعربونك ويمكن استخدامه لحجز جديد.';
+
+  @override
+  String get studentBookingDetailDepositRebookCta => 'احجز مجددًا';
+
+  @override
+  String get studentBookingDetailDepositLostTitle =>
+      'العربون غير قابل للاسترداد';
+
+  @override
+  String get studentBookingDetailDepositLostMessage =>
+      'لم يتم استرداد عربون هذا الحجز وفقًا لسياسة الإلغاء.';
+
+  @override
+  String get studentBookingDetailPendingPaymentNoHoldMessage =>
+      'هذا الحجز بانتظار الدفع، ولكن تعذر العثور على جلسة الدفع. الرجاء التواصل مع الدعم.';
+
+  @override
+  String get studentBookingDetailHoldExpiredMessage =>
+      'انتهت مهلة الدفع لهذا الحجز.';
+
+  @override
+  String get studentBookingDetailHoldExpiredCta => 'حجز جديد';
+
+  @override
+  String get studentBookingDetailCancelSuccessMessage => 'تم إلغاء حجزك.';
+
+  @override
+  String get studentBookingDetailCancelSheetTitle => 'هل تريد إلغاء هذا الحجز؟';
+
+  @override
+  String get studentBookingDetailCancelSheetMessage =>
+      'الرجاء إخبارنا بسبب الإلغاء، فذلك يساعدنا على التحسين.';
+
+  @override
+  String get studentBookingDetailCancelReasonLabel => 'سبب الإلغاء';
+
+  @override
+  String get studentBookingDetailCancelReasonHint => 'مثال: تعارض في الموعد';
+
+  @override
+  String get studentBookingDetailCancelReasonRequired =>
+      'الرجاء إدخال سبب الإلغاء.';
+
+  @override
+  String get studentBookingDetailCancelReasonTooLong =>
+      'يجب ألا يتجاوز سبب الإلغاء 255 حرفًا.';
+
+  @override
+  String get studentBookingDetailCancelSheetKeep => 'الاحتفاظ بالحجز';
+
+  @override
+  String get studentBookingDetailCancelSheetConfirm => 'إلغاء الحجز';
+
+  @override
   String get studentPaymentTitle => 'دفع شام كاش';
 
   @override

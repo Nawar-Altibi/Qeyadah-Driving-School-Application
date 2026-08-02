@@ -31,6 +31,10 @@ abstract final class Endpoints {
   static const String studentBookingsAvailableSlots =
       'student/bookings/available-slots';
   static const String studentBookings = 'student/bookings';
+  static String studentBookingById(int bookingId) =>
+      'student/bookings/$bookingId';
   static String studentBookingConfirmPayment(int bookingId) =>
       'student/bookings/$bookingId/confirm-payment';
+  static String studentBookingCancel(int bookingId) =>
+      'student/bookings/$bookingId/cancel';
 }

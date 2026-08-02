@@ -474,6 +474,90 @@
   "studentBookingReviewCreateButton": "Confirm booking",
   "studentBookingErrorSlotConflict": "This slot was just booked by someone else. Please choose another one.",
   "studentBookingErrorPendingPaymentExists": "You already have a booking awaiting payment.",
+  "studentBookingsTitle": "My bookings",
+  "studentBookingsFilterAll": "All",
+  "studentBookingsSearchHint": "Search by instructor name",
+  "studentBookingsEmptyTitle": "No bookings yet",
+  "studentBookingsEmptyMessage": "Your bookings will show up here once you book a lesson.",
+  "studentBookingsRemainingAtSchool": "Remainder {amount} at school",
+  "@studentBookingsRemainingAtSchool": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "studentBookingsCurrencyAmount": "{amount} SYP",
+  "@studentBookingsCurrencyAmount": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "studentBookingsStatusPendingPayment": "Pending payment",
+  "studentBookingsStatusBooked": "Booked",
+  "studentBookingsStatusCompleted": "Completed",
+  "studentBookingsStatusCancelled": "Cancelled",
+  "studentBookingsStatusExpired": "Expired",
+  "studentBookingsStatusNoShow": "No show",
+  "studentBookingsPaymentPendingDeposit": "Deposit pending",
+  "studentBookingsPaymentDepositPaid": "Deposit paid",
+  "studentBookingsPaymentFullyPaid": "Fully paid",
+  "studentBookingsPaymentDepositNonRefundable": "Deposit not refundable",
+  "studentBookingsPaymentDepositAvailableForRebooking": "Deposit available for rebooking",
+  "studentBookingsPaymentDepositUsedInRebooking": "Deposit used in rebooking",
+  "studentBookingsChargeUnpaid": "Unpaid",
+  "studentBookingsChargePartiallyPaid": "Partially paid",
+  "studentBookingsChargePaid": "Paid",
+  "studentBookingsChargeCancelled": "Cancelled",
+  "studentBookingDetailTitle": "Booking details",
+  "studentBookingDetailCompletePayment": "Complete payment",
+  "studentBookingDetailInstructorTitle": "Instructor",
+  "studentBookingDetailVehicleTitle": "Vehicle",
+  "studentBookingDetailOwnVehicleNote": "You're using your own car for this lesson.",
+  "studentBookingDetailChargesTitle": "Charges",
+  "studentBookingDetailChargesEmpty": "No charges recorded for this booking yet.",
+  "studentBookingDetailChargeAmountDue": "Amount due: {amount}",
+  "@studentBookingDetailChargeAmountDue": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "studentBookingDetailRemainingCallout": "Paid {paid} of {total} — remainder {remaining} at school",
+  "@studentBookingDetailRemainingCallout": {
+    "placeholders": {
+      "paid": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      },
+      "remaining": {
+        "type": "String"
+      }
+    }
+  },
+  "studentBookingDetailCancelButton": "Cancel booking",
+  "studentBookingDetailDepositRebookTitle": "Deposit available for rebooking",
+  "studentBookingDetailDepositRebookMessage": "Your deposit is being held and can be used toward a new booking.",
+  "studentBookingDetailDepositRebookCta": "Book again",
+  "studentBookingDetailDepositLostTitle": "Deposit not refundable",
+  "studentBookingDetailDepositLostMessage": "This booking's deposit was not refunded per the cancellation policy.",
+  "studentBookingDetailPendingPaymentNoHoldMessage": "This booking is awaiting payment, but the payment session could not be found. Please contact support.",
+  "studentBookingDetailHoldExpiredMessage": "The payment window for this booking has expired.",
+  "studentBookingDetailHoldExpiredCta": "New booking",
+  "studentBookingDetailCancelSuccessMessage": "Your booking was cancelled.",
+  "studentBookingDetailCancelSheetTitle": "Cancel this booking?",
+  "studentBookingDetailCancelSheetMessage": "Please tell us why you're cancelling. This helps us improve.",
+  "studentBookingDetailCancelReasonLabel": "Cancellation reason",
+  "studentBookingDetailCancelReasonHint": "e.g. Schedule conflict",
+  "studentBookingDetailCancelReasonRequired": "Please enter a cancellation reason.",
+  "studentBookingDetailCancelReasonTooLong": "Cancellation reason must be at most 255 characters.",
+  "studentBookingDetailCancelSheetKeep": "Keep booking",
+  "studentBookingDetailCancelSheetConfirm": "Cancel booking",
   "studentPaymentTitle": "ShamCash payment",
   "studentPaymentShamCashTitle": "Complete your ShamCash transfer",
   "studentPaymentDepositAmount": "Deposit amount",
