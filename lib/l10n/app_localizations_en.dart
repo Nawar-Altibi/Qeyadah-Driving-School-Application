@@ -419,18 +419,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get studentHomeTheorySimulation => 'Theory simulation';
 
   @override
-  String get studentHomeTrainingProgress => 'Training progress';
-
-  @override
-  String studentHomeTrainingProgressDetail(int completed, int total) {
-    return 'Completed $completed of $total hours';
-  }
-
-  @override
-  String get studentHomeTrainingProgressFootnote =>
-      'After completing training, administration will follow up on theory and practical exam appointments.';
-
-  @override
   String get studentHomeNavBookings => 'My bookings';
 
   @override
@@ -449,6 +437,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get studentHomeNoNextLessonBody =>
       'Create a booking and complete ShamCash payment to confirm it.';
+
+  @override
+  String get studentHomePendingPaymentOpenBookings =>
+      'You have a booking awaiting payment. Open My bookings to continue.';
 
   @override
   String get instructorWelcomeBackEyebrow => 'Welcome back';

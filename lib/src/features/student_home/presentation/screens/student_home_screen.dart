@@ -20,7 +20,6 @@ import 'package:qeyadah_mobile_app/src/features/student_home/presentation/naviga
 import 'package:qeyadah_mobile_app/src/features/student_home/presentation/widgets/student_home_greeting_header.dart';
 import 'package:qeyadah_mobile_app/src/features/student_home/presentation/widgets/student_home_next_lesson_card.dart';
 import 'package:qeyadah_mobile_app/src/features/student_home/presentation/widgets/student_home_quick_actions_section.dart';
-import 'package:qeyadah_mobile_app/src/features/student_home/presentation/widgets/student_home_training_progress_card.dart';
 
 class StudentHomeScreen extends StatelessWidget {
   const StudentHomeScreen({super.key});
@@ -144,102 +143,104 @@ class _StudentHomeContent extends StatelessWidget {
     final studentName = sessionUser?.displayName ?? '';
     final isBlocked = sessionUser?.isBlocked ?? false;
 
-    return ListView(
-      padding: const EdgeInsets.fromLTRB(
-        AppDesignTokens.screenHorizontalPadding,
-        AppDesignTokens.spacingMd,
-        AppDesignTokens.screenHorizontalPadding,
-        AppDesignTokens.bottomNavHeight + AppDesignTokens.spacing2xl,
-      ),
-      children: [
-        if (isBlocked) ...[
-          AppAlertBanner(
-            tone: AppAlertTone.danger,
-            icon: PhosphorIconsBold.prohibit,
-            title: l10n.studentHomeBlockedTitle,
-            message: l10n.studentHomeBlockedMessage,
-          ),
-          const SizedBox(height: AppDesignTokens.spacingMd),
-        ],
-        StudentHomeGreetingHeader(
-          dateLabel: StudentHomeFormatters.dateLabel(
-            dashboard.referenceDate,
-            localeName,
-          ),
-          greeting: StudentHomeFormatters.greetingFor(
-            l10n: l10n,
-            name: studentName,
-            referenceDate: dashboard.referenceDate,
-          ),
-          hasUnreadNotifications: dashboard.hasUnreadNotifications,
-          onNotificationsTap: () =>
-              StudentHomeNavigation.showComingSoon(context),
+    return RefreshIndicator(
+      onRefresh: () => context.read<StudentHomeCubit>().load(silent: true),
+      child: ListView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        padding: const EdgeInsets.fromLTRB(
+          AppDesignTokens.screenHorizontalPadding,
+          AppDesignTokens.spacingMd,
+          AppDesignTokens.screenHorizontalPadding,
+          AppDesignTokens.bottomNavHeight + AppDesignTokens.spacing2xl,
         ),
-        const SizedBox(height: AppDesignTokens.spacingLg),
-        if (dashboard.nextLesson != null)
-          StudentHomeNextLessonCard(
-            lesson: dashboard.nextLesson!,
-            localeName: localeName,
-            onDirectionsTap: () =>
+        children: [
+          if (isBlocked) ...[
+            AppAlertBanner(
+              tone: AppAlertTone.danger,
+              icon: PhosphorIconsBold.prohibit,
+              title: l10n.studentHomeBlockedTitle,
+              message: l10n.studentHomeBlockedMessage,
+            ),
+            const SizedBox(height: AppDesignTokens.spacingMd),
+          ],
+          StudentHomeGreetingHeader(
+            dateLabel: StudentHomeFormatters.dateLabel(
+              dashboard.referenceDate,
+              localeName,
+            ),
+            greeting: StudentHomeFormatters.greetingFor(
+              l10n: l10n,
+              name: studentName,
+              referenceDate: dashboard.referenceDate,
+            ),
+            hasUnreadNotifications: dashboard.hasUnreadNotifications,
+            onNotificationsTap: () =>
                 StudentHomeNavigation.showComingSoon(context),
-          )
-        else
-          AppCard(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  l10n.studentHomeNoNextLessonTitle,
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-                const SizedBox(height: AppDesignTokens.spacingSm),
-                Text(
-                  l10n.studentHomeNoNextLessonBody,
-                  style: Theme.of(
-                    context,
-                  ).textTheme.bodyMedium?.copyWith(color: AppColors.muted),
-                ),
-              ],
-            ),
           ),
-        if (dashboard.pendingPayment != null) ...[
-          const SizedBox(height: AppDesignTokens.spacingMd),
-          InkWell(
-            borderRadius: BorderRadius.circular(AppDesignTokens.radiusControl),
-            onTap: dashboard.pendingPayment!.canResumePayment
-                ? () => StudentHomeNavigation.resumePendingPayment(
-                    context: context,
-                    pendingPayment: dashboard.pendingPayment!,
-                  )
-                : null,
-            child: AppAlertBanner(
-              icon: PhosphorIconsBold.timer,
-              title: l10n.studentHomePendingPaymentTitle,
-              message: dashboard.pendingPayment!.canResumePayment
-                  ? '${l10n.studentHomePendingPaymentMessage(StudentHomeFormatters.paymentCountdown(minutes: dashboard.pendingPayment!.remainingMinutes, seconds: dashboard.pendingPayment!.remainingSeconds))} ${l10n.studentHomePendingPaymentCta}'
-                  : l10n.studentHomePendingPaymentMessage(
-                      StudentHomeFormatters.paymentCountdown(
-                        minutes: dashboard.pendingPayment!.remainingMinutes,
-                        seconds: dashboard.pendingPayment!.remainingSeconds,
-                      ),
-                    ),
+          const SizedBox(height: AppDesignTokens.spacingLg),
+          if (dashboard.nextLesson != null)
+            StudentHomeNextLessonCard(
+              lesson: dashboard.nextLesson!,
+              localeName: localeName,
+              onDirectionsTap: () =>
+                  StudentHomeNavigation.showComingSoon(context),
+            )
+          else
+            AppCard(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    l10n.studentHomeNoNextLessonTitle,
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  const SizedBox(height: AppDesignTokens.spacingSm),
+                  Text(
+                    l10n.studentHomeNoNextLessonBody,
+                    style: Theme.of(
+                      context,
+                    ).textTheme.bodyMedium?.copyWith(color: AppColors.muted),
+                  ),
+                ],
+              ),
             ),
+          if (dashboard.pendingPayment != null) ...[
+            const SizedBox(height: AppDesignTokens.spacingMd),
+            InkWell(
+              borderRadius: BorderRadius.circular(
+                AppDesignTokens.radiusControl,
+              ),
+              onTap: dashboard.pendingPayment!.canResumePayment
+                  ? () => StudentHomeNavigation.resumePendingPayment(
+                      context: context,
+                      pendingPayment: dashboard.pendingPayment!,
+                    )
+                  : () => StudentHomeNavigation.handleQuickAction(
+                      context,
+                      StudentHomeQuickActionType.myBookings,
+                    ),
+              child: AppAlertBanner(
+                icon: PhosphorIconsBold.timer,
+                title: l10n.studentHomePendingPaymentTitle,
+                message: dashboard.pendingPayment!.canResumePayment
+                    ? '${l10n.studentHomePendingPaymentMessage(StudentHomeFormatters.paymentCountdown(minutes: dashboard.pendingPayment!.remainingMinutes, seconds: dashboard.pendingPayment!.remainingSeconds))} ${l10n.studentHomePendingPaymentCta}'
+                    : l10n.studentHomePendingPaymentOpenBookings,
+              ),
+            ),
+          ],
+          const SizedBox(height: AppDesignTokens.spacingLg),
+          StudentHomeQuickActionsSection(
+            actions: dashboard.quickActions,
+            isActionEnabled: (action) =>
+                !isBlocked ||
+                (action != StudentHomeQuickActionType.newBooking &&
+                    action != StudentHomeQuickActionType.certificateRequest),
+            onActionTap: (action) =>
+                StudentHomeNavigation.handleQuickAction(context, action),
+            onViewAllTap: () => StudentHomeNavigation.showComingSoon(context),
           ),
         ],
-        const SizedBox(height: AppDesignTokens.spacingLg),
-        StudentHomeQuickActionsSection(
-          actions: dashboard.quickActions,
-          isActionEnabled: (action) =>
-              !isBlocked ||
-              (action != StudentHomeQuickActionType.newBooking &&
-                  action != StudentHomeQuickActionType.certificateRequest),
-          onActionTap: (action) =>
-              StudentHomeNavigation.handleQuickAction(context, action),
-          onViewAllTap: () => StudentHomeNavigation.showComingSoon(context),
-        ),
-        const SizedBox(height: AppDesignTokens.spacingMd),
-        StudentHomeTrainingProgressCard(progress: dashboard.trainingProgress),
-      ],
+      ),
     );
   }
 }

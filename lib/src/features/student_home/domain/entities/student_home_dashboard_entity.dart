@@ -80,32 +80,11 @@ class StudentHomePendingPaymentEntity extends Equatable {
   ];
 }
 
-class StudentHomeTrainingProgressEntity extends Equatable {
-  const StudentHomeTrainingProgressEntity({
-    required this.completedHours,
-    required this.totalHours,
-  });
-
-  final int completedHours;
-  final int totalHours;
-
-  int get progressPercent {
-    if (totalHours <= 0) {
-      return 0;
-    }
-    return ((completedHours / totalHours) * 100).round();
-  }
-
-  @override
-  List<Object?> get props => [completedHours, totalHours];
-}
-
 class StudentHomeDashboardEntity extends Equatable {
   const StudentHomeDashboardEntity({
     required this.referenceDate,
     required this.hasUnreadNotifications,
     required this.quickActions,
-    required this.trainingProgress,
     this.nextLesson,
     this.pendingPayment,
   });
@@ -115,7 +94,6 @@ class StudentHomeDashboardEntity extends Equatable {
   final StudentHomeNextLessonEntity? nextLesson;
   final StudentHomePendingPaymentEntity? pendingPayment;
   final List<StudentHomeQuickActionType> quickActions;
-  final StudentHomeTrainingProgressEntity trainingProgress;
 
   @override
   List<Object?> get props => [
@@ -124,6 +102,5 @@ class StudentHomeDashboardEntity extends Equatable {
     nextLesson,
     pendingPayment,
     quickActions,
-    trainingProgress,
   ];
 }

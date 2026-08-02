@@ -415,18 +415,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get studentHomeTheorySimulation => 'محاكاة النظري';
 
   @override
-  String get studentHomeTrainingProgress => 'تقدم التدريب';
-
-  @override
-  String studentHomeTrainingProgressDetail(int completed, int total) {
-    return 'أكملت $completed من أصل $total ساعة';
-  }
-
-  @override
-  String get studentHomeTrainingProgressFootnote =>
-      'بعد إكمال التدريب ستتابع الإدارة مواعيد الفحص النظري والعملي.';
-
-  @override
   String get studentHomeNavBookings => 'حجوزاتي';
 
   @override
@@ -444,6 +432,10 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get studentHomeNoNextLessonBody =>
       'أنشئ حجزاً وأكمل دفع شام كاش لتأكيد الموعد.';
+
+  @override
+  String get studentHomePendingPaymentOpenBookings =>
+      'لديك حجز بانتظار الدفع. افتح حجوزاتي للمتابعة.';
 
   @override
   String get instructorWelcomeBackEyebrow => 'أهلاً بعودتك';

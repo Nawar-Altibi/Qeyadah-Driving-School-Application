@@ -848,24 +848,6 @@ abstract class AppLocalizations {
   /// **'Theory simulation'**
   String get studentHomeTheorySimulation;
 
-  /// No description provided for @studentHomeTrainingProgress.
-  ///
-  /// In en, this message translates to:
-  /// **'Training progress'**
-  String get studentHomeTrainingProgress;
-
-  /// No description provided for @studentHomeTrainingProgressDetail.
-  ///
-  /// In en, this message translates to:
-  /// **'Completed {completed} of {total} hours'**
-  String studentHomeTrainingProgressDetail(int completed, int total);
-
-  /// No description provided for @studentHomeTrainingProgressFootnote.
-  ///
-  /// In en, this message translates to:
-  /// **'After completing training, administration will follow up on theory and practical exam appointments.'**
-  String get studentHomeTrainingProgressFootnote;
-
   /// No description provided for @studentHomeNavBookings.
   ///
   /// In en, this message translates to:
@@ -901,6 +883,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Create a booking and complete ShamCash payment to confirm it.'**
   String get studentHomeNoNextLessonBody;
+
+  /// No description provided for @studentHomePendingPaymentOpenBookings.
+  ///
+  /// In en, this message translates to:
+  /// **'You have a booking awaiting payment. Open My bookings to continue.'**
+  String get studentHomePendingPaymentOpenBookings;
 
   /// No description provided for @instructorWelcomeBackEyebrow.
   ///
