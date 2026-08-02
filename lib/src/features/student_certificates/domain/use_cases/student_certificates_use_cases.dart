@@ -39,3 +39,25 @@ class LoadStudentCertificateDetailUseCase {
     return _repository.getCertificateDetail(id);
   }
 }
+
+@injectable
+class SubmitStudentCertificateUseCase {
+  const SubmitStudentCertificateUseCase(this._repository);
+
+  final StudentCertificatesRepository _repository;
+
+  FutureEither<void> call(SubmitStudentCertificateParams params) {
+    return _repository.submitCertificate(params);
+  }
+}
+
+@injectable
+class SubmitStudentCertificateReexamUseCase {
+  const SubmitStudentCertificateReexamUseCase(this._repository);
+
+  final StudentCertificatesRepository _repository;
+
+  FutureEither<void> call(SubmitStudentCertificateReexamParams params) {
+    return _repository.submitReexam(params);
+  }
+}

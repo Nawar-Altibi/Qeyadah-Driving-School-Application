@@ -11,4 +11,8 @@ abstract interface class StudentCertificatesRepository {
   );
 
   FutureEither<StudentCertificateDetailEntity> getCertificateDetail(String id);
+
+  FutureEither<void> submitCertificate(SubmitStudentCertificateParams params);
+
+  FutureEither<void> submitReexam(SubmitStudentCertificateReexamParams params);
 }

@@ -2477,6 +2477,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No items available.'**
   String get studentCertificatesSectionEmpty;
+
+  /// No description provided for @studentCertificatesNewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'New certificate request'**
+  String get studentCertificatesNewTitle;
+
+  /// No description provided for @studentCertificatesTransmissionChoice.
+  ///
+  /// In en, this message translates to:
+  /// **'Transmission type'**
+  String get studentCertificatesTransmissionChoice;
+
+  /// No description provided for @studentCertificatesTransportRequested.
+  ///
+  /// In en, this message translates to:
+  /// **'I need school transport'**
+  String get studentCertificatesTransportRequested;
+
+  /// No description provided for @studentCertificatesImagesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Required photos'**
+  String get studentCertificatesImagesTitle;
+
+  /// No description provided for @studentCertificatesImagesHint.
+  ///
+  /// In en, this message translates to:
+  /// **'JPEG, PNG, or WebP. Maximum 5 MB per image.'**
+  String get studentCertificatesImagesHint;
+
+  /// No description provided for @studentCertificatesFeeGuidance.
+  ///
+  /// In en, this message translates to:
+  /// **'Transfer approximately 600,000 SYP via ShamCash, then enter the transaction ID.'**
+  String get studentCertificatesFeeGuidance;
+
+  /// No description provided for @studentCertificatesSubmitNew.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit certificate request'**
+  String get studentCertificatesSubmitNew;
+
+  /// No description provided for @studentCertificatesNewSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Your certificate request was submitted successfully.'**
+  String get studentCertificatesNewSuccess;
+
+  /// No description provided for @studentCertificatesInvalidImage.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a JPEG, PNG, or WebP image.'**
+  String get studentCertificatesInvalidImage;
+
+  /// No description provided for @studentCertificatesImageTooLarge.
+  ///
+  /// In en, this message translates to:
+  /// **'Each image must be 5 MB or smaller.'**
+  String get studentCertificatesImageTooLarge;
+
+  /// No description provided for @studentCertificatesReexamPayCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Pay and register for re-exam'**
+  String get studentCertificatesReexamPayCta;
+
+  /// No description provided for @studentCertificatesReexamSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Your re-exam registration was submitted successfully.'**
+  String get studentCertificatesReexamSuccess;
+
+  /// No description provided for @studentCertificatesRegistrationExpired.
+  ///
+  /// In en, this message translates to:
+  /// **'The re-exam registration deadline has passed.'**
+  String get studentCertificatesRegistrationExpired;
 }
 
 class _AppLocalizationsDelegate

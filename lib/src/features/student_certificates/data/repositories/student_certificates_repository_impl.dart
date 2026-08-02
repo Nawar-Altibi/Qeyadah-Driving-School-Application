@@ -1,3 +1,4 @@
+import 'package:coore/lib.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:injectable/injectable.dart';
 import 'package:qeyadah_mobile_app/src/core/error_handling/network_failure_mapper.dart';
@@ -5,6 +6,7 @@ import 'package:qeyadah_mobile_app/src/core/typedefs/app_typedefs.dart';
 import 'package:qeyadah_mobile_app/src/features/student_certificates/data/data_sources/student_certificates_remote_data_source.dart';
 import 'package:qeyadah_mobile_app/src/features/student_certificates/domain/entities/certificate_eligibility_entity.dart';
 import 'package:qeyadah_mobile_app/src/features/student_certificates/domain/entities/student_certificate_entities.dart';
+import 'package:qeyadah_mobile_app/src/features/student_certificates/domain/failures/student_certificate_failures.dart';
 import 'package:qeyadah_mobile_app/src/features/student_certificates/domain/params/student_certificates_params.dart';
 import 'package:qeyadah_mobile_app/src/features/student_certificates/domain/repositories/student_certificates_repository.dart';
 
@@ -14,6 +16,32 @@ class StudentCertificatesRepositoryImpl
   StudentCertificatesRepositoryImpl(this._remoteDataSource);
 
   final StudentCertificatesRemoteDataSource _remoteDataSource;
+
+  @override
+  FutureEither<void> submitCertificate(
+    SubmitStudentCertificateParams params,
+  ) async {
+    final response = await _remoteDataSource.submitCertificate(params);
+    return response.fold(
+      (failure) => left(
+        failure is ConflictFailure
+            ? ActiveCertificateConflictFailure(message: failure.message)
+            : NetworkFailureMapper.toDomainFailure(failure),
+      ),
+      right,
+    );
+  }
+
+  @override
+  FutureEither<void> submitReexam(
+    SubmitStudentCertificateReexamParams params,
+  ) async {
+    final response = await _remoteDataSource.submitReexam(params);
+    return response.fold(
+      (failure) => left(NetworkFailureMapper.toDomainFailure(failure)),
+      right,
+    );
+  }
 
   @override
   FutureEither<StudentCertificatesPageEntity> getCertificates(

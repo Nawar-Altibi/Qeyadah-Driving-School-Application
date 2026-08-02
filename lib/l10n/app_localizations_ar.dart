@@ -1348,4 +1348,50 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get studentCertificatesSectionEmpty => 'لا توجد عناصر.';
+
+  @override
+  String get studentCertificatesNewTitle => 'طلب شهادة جديد';
+
+  @override
+  String get studentCertificatesTransmissionChoice => 'نوع ناقل الحركة';
+
+  @override
+  String get studentCertificatesTransportRequested =>
+      'أحتاج إلى النقل من المدرسة';
+
+  @override
+  String get studentCertificatesImagesTitle => 'الصور المطلوبة';
+
+  @override
+  String get studentCertificatesImagesHint =>
+      'JPEG أو PNG أو WebP، وبحد أقصى 5 ميغابايت لكل صورة.';
+
+  @override
+  String get studentCertificatesFeeGuidance =>
+      'حوّل نحو 600,000 ل.س عبر شام كاش، ثم أدخل رقم العملية.';
+
+  @override
+  String get studentCertificatesSubmitNew => 'إرسال طلب الشهادة';
+
+  @override
+  String get studentCertificatesNewSuccess => 'تم تقديم طلب الشهادة بنجاح.';
+
+  @override
+  String get studentCertificatesInvalidImage =>
+      'اختر صورة بصيغة JPEG أو PNG أو WebP.';
+
+  @override
+  String get studentCertificatesImageTooLarge =>
+      'يجب ألا يتجاوز حجم كل صورة 5 ميغابايت.';
+
+  @override
+  String get studentCertificatesReexamPayCta => 'الدفع والتسجيل للإعادة';
+
+  @override
+  String get studentCertificatesReexamSuccess =>
+      'تم تسجيل طلب إعادة الامتحان بنجاح.';
+
+  @override
+  String get studentCertificatesRegistrationExpired =>
+      'انتهت مهلة التسجيل لإعادة الامتحان.';
 }

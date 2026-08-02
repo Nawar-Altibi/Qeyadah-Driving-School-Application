@@ -135,6 +135,8 @@ import 'package:qeyadah_mobile_app/src/features/student_bookings/presentation/cu
     as _i207;
 import 'package:qeyadah_mobile_app/src/features/student_bookings/presentation/cubit/student_bookings_list_cubit.dart'
     as _i611;
+import 'package:qeyadah_mobile_app/src/features/student_certificates/data/data_sources/student_certificates_local_data_source.dart'
+    as _i512;
 import 'package:qeyadah_mobile_app/src/features/student_certificates/data/data_sources/student_certificates_remote_data_source.dart'
     as _i320;
 import 'package:qeyadah_mobile_app/src/features/student_certificates/data/repositories/student_certificates_repository_impl.dart'
@@ -145,6 +147,8 @@ import 'package:qeyadah_mobile_app/src/features/student_certificates/domain/use_
     as _i390;
 import 'package:qeyadah_mobile_app/src/features/student_certificates/presentation/cubit/student_certificate_detail_cubit.dart'
     as _i582;
+import 'package:qeyadah_mobile_app/src/features/student_certificates/presentation/cubit/student_certificate_write_cubit.dart'
+    as _i89;
 import 'package:qeyadah_mobile_app/src/features/student_certificates/presentation/cubit/student_certificates_hub_cubit.dart'
     as _i489;
 import 'package:qeyadah_mobile_app/src/features/student_certificates/presentation/cubit/student_certificates_list_cubit.dart'
@@ -257,6 +261,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i1034.NotificationsRepository>(
       () => _i37.NotificationsRepositoryImpl(
         gh<_i809.NotificationsRemoteDataSource>(),
+      ),
+    );
+    gh.lazySingleton<_i512.StudentCertificatesLocalDataSource>(
+      () => _i512.StudentCertificatesLocalDataSourceImpl(
+        gh<_i698.LocalDatabaseInterface>(instanceName: 'auth'),
       ),
     );
     gh.lazySingleton<_i90.InstructorRepository>(
@@ -494,6 +503,24 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i390.LoadStudentCertificateDetailUseCase>(
       () => _i390.LoadStudentCertificateDetailUseCase(
         gh<_i892.StudentCertificatesRepository>(),
+      ),
+    );
+    gh.factory<_i390.SubmitStudentCertificateUseCase>(
+      () => _i390.SubmitStudentCertificateUseCase(
+        gh<_i892.StudentCertificatesRepository>(),
+      ),
+    );
+    gh.factory<_i390.SubmitStudentCertificateReexamUseCase>(
+      () => _i390.SubmitStudentCertificateReexamUseCase(
+        gh<_i892.StudentCertificatesRepository>(),
+      ),
+    );
+    gh.factory<_i89.StudentCertificateWriteCubit>(
+      () => _i89.StudentCertificateWriteCubit(
+        gh<_i390.LoadCertificateEligibilityUseCase>(),
+        gh<_i390.SubmitStudentCertificateUseCase>(),
+        gh<_i390.SubmitStudentCertificateReexamUseCase>(),
+        gh<_i512.StudentCertificatesLocalDataSource>(),
       ),
     );
     gh.factory<_i330.InstructorLeaveCubit>(

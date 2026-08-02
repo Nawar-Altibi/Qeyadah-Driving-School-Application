@@ -1355,4 +1355,50 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get studentCertificatesSectionEmpty => 'No items available.';
+
+  @override
+  String get studentCertificatesNewTitle => 'New certificate request';
+
+  @override
+  String get studentCertificatesTransmissionChoice => 'Transmission type';
+
+  @override
+  String get studentCertificatesTransportRequested => 'I need school transport';
+
+  @override
+  String get studentCertificatesImagesTitle => 'Required photos';
+
+  @override
+  String get studentCertificatesImagesHint =>
+      'JPEG, PNG, or WebP. Maximum 5 MB per image.';
+
+  @override
+  String get studentCertificatesFeeGuidance =>
+      'Transfer approximately 600,000 SYP via ShamCash, then enter the transaction ID.';
+
+  @override
+  String get studentCertificatesSubmitNew => 'Submit certificate request';
+
+  @override
+  String get studentCertificatesNewSuccess =>
+      'Your certificate request was submitted successfully.';
+
+  @override
+  String get studentCertificatesInvalidImage =>
+      'Choose a JPEG, PNG, or WebP image.';
+
+  @override
+  String get studentCertificatesImageTooLarge =>
+      'Each image must be 5 MB or smaller.';
+
+  @override
+  String get studentCertificatesReexamPayCta => 'Pay and register for re-exam';
+
+  @override
+  String get studentCertificatesReexamSuccess =>
+      'Your re-exam registration was submitted successfully.';
+
+  @override
+  String get studentCertificatesRegistrationExpired =>
+      'The re-exam registration deadline has passed.';
 }

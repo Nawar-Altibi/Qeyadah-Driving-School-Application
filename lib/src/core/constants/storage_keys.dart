@@ -8,4 +8,8 @@ abstract final class StorageKeys {
       'instructor_weekly_schedule_cache';
   static const String studentBookingPendingHold =
       'student_booking_pending_hold';
+  static const String studentCertificateNewTransactionId =
+      'student_certificate_new_transaction_id';
+  static const String studentCertificateReexamTransaction =
+      'student_certificate_reexam_transaction';
 }
