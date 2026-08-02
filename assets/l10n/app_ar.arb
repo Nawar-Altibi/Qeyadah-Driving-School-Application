@@ -632,6 +632,62 @@
   "studentCertificatesStatusWaitingForPracticalExam": "بانتظار الامتحان العملي",
   "studentCertificatesStatusCompleted": "مكتملة",
   "studentCertificatesStatusFailed": "راسبة",
-  "studentCertificatesStatusCancelled": "ملغاة"
+  "studentCertificatesStatusCancelled": "ملغاة",
+  "studentCertificatesHistoryTitle": "سجل الشهادات",
+  "studentCertificatesHistoryCta": "عرض سجل الشهادات",
+  "studentCertificatesViewDetailsCta": "عرض التفاصيل",
+  "studentCertificatesDetailTitle": "تفاصيل الشهادة",
+  "studentCertificatesFilterStatus": "الحالة",
+  "studentCertificatesFilterAll": "كل الحالات",
+  "studentCertificatesHistoryEmpty": "لا توجد طلبات شهادات.",
+  "studentCertificatesLoadMore": "تحميل المزيد",
+  "studentCertificatesCategory": "الفئة: {category}",
+  "@studentCertificatesCategory": {
+    "placeholders": {
+      "category": { "type": "String" }
+    }
+  },
+  "studentCertificatesRequestedAt": "تاريخ الطلب: {date}",
+  "@studentCertificatesRequestedAt": {
+    "placeholders": {
+      "date": { "type": "String" }
+    }
+  },
+  "studentCertificatesStudentName": "الطالب: {name}",
+  "@studentCertificatesStudentName": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "studentCertificatesTransmission": "ناقل الحركة: {type}",
+  "@studentCertificatesTransmission": {
+    "placeholders": {
+      "type": { "type": "String" }
+    }
+  },
+  "studentCertificatesDocumentsTitle": "المستندات",
+  "studentCertificatesPersonalPhoto": "الصورة الشخصية",
+  "studentCertificatesIdFront": "الهوية - الوجه الأمامي",
+  "studentCertificatesIdBack": "الهوية - الوجه الخلفي",
+  "studentCertificatesSessionsTitle": "جلسات التدريب",
+  "studentCertificatesSessionNumber": "الجلسة {number}",
+  "@studentCertificatesSessionNumber": {
+    "placeholders": {
+      "number": { "type": "int" }
+    }
+  },
+  "studentCertificatesExamsTitle": "الامتحانات",
+  "studentCertificatesNotScheduled": "لم يحدد الموعد",
+  "studentCertificatesExamResultPass": "ناجح",
+  "studentCertificatesExamResultFail": "راسب",
+  "studentCertificatesExamResultAbsent": "غائب",
+  "studentCertificatesChargesTitle": "الرسوم",
+  "studentCertificatesAmountDue": "المبلغ المستحق: {amount} ل.س",
+  "@studentCertificatesAmountDue": {
+    "placeholders": {
+      "amount": { "type": "String" }
+    }
+  },
+  "studentCertificatesSectionEmpty": "لا توجد عناصر."
 }
 

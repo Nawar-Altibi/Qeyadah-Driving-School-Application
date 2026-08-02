@@ -653,6 +653,62 @@
   "studentCertificatesStatusWaitingForPracticalExam": "Waiting for practical exam",
   "studentCertificatesStatusCompleted": "Completed",
   "studentCertificatesStatusFailed": "Failed",
-  "studentCertificatesStatusCancelled": "Cancelled"
+  "studentCertificatesStatusCancelled": "Cancelled",
+  "studentCertificatesHistoryTitle": "Certificate history",
+  "studentCertificatesHistoryCta": "View certificate history",
+  "studentCertificatesViewDetailsCta": "View details",
+  "studentCertificatesDetailTitle": "Certificate details",
+  "studentCertificatesFilterStatus": "Status",
+  "studentCertificatesFilterAll": "All statuses",
+  "studentCertificatesHistoryEmpty": "No certificate requests found.",
+  "studentCertificatesLoadMore": "Load more",
+  "studentCertificatesCategory": "Category: {category}",
+  "@studentCertificatesCategory": {
+    "placeholders": {
+      "category": { "type": "String" }
+    }
+  },
+  "studentCertificatesRequestedAt": "Requested: {date}",
+  "@studentCertificatesRequestedAt": {
+    "placeholders": {
+      "date": { "type": "String" }
+    }
+  },
+  "studentCertificatesStudentName": "Student: {name}",
+  "@studentCertificatesStudentName": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "studentCertificatesTransmission": "Transmission: {type}",
+  "@studentCertificatesTransmission": {
+    "placeholders": {
+      "type": { "type": "String" }
+    }
+  },
+  "studentCertificatesDocumentsTitle": "Documents",
+  "studentCertificatesPersonalPhoto": "Personal photo",
+  "studentCertificatesIdFront": "ID front",
+  "studentCertificatesIdBack": "ID back",
+  "studentCertificatesSessionsTitle": "Training sessions",
+  "studentCertificatesSessionNumber": "Session {number}",
+  "@studentCertificatesSessionNumber": {
+    "placeholders": {
+      "number": { "type": "int" }
+    }
+  },
+  "studentCertificatesExamsTitle": "Exams",
+  "studentCertificatesNotScheduled": "Not scheduled",
+  "studentCertificatesExamResultPass": "Passed",
+  "studentCertificatesExamResultFail": "Failed",
+  "studentCertificatesExamResultAbsent": "Absent",
+  "studentCertificatesChargesTitle": "Charges",
+  "studentCertificatesAmountDue": "Amount due: {amount} SYP",
+  "@studentCertificatesAmountDue": {
+    "placeholders": {
+      "amount": { "type": "String" }
+    }
+  },
+  "studentCertificatesSectionEmpty": "No items available."
 }
 

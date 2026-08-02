@@ -1264,4 +1264,95 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get studentCertificatesStatusCancelled => 'Cancelled';
+
+  @override
+  String get studentCertificatesHistoryTitle => 'Certificate history';
+
+  @override
+  String get studentCertificatesHistoryCta => 'View certificate history';
+
+  @override
+  String get studentCertificatesViewDetailsCta => 'View details';
+
+  @override
+  String get studentCertificatesDetailTitle => 'Certificate details';
+
+  @override
+  String get studentCertificatesFilterStatus => 'Status';
+
+  @override
+  String get studentCertificatesFilterAll => 'All statuses';
+
+  @override
+  String get studentCertificatesHistoryEmpty =>
+      'No certificate requests found.';
+
+  @override
+  String get studentCertificatesLoadMore => 'Load more';
+
+  @override
+  String studentCertificatesCategory(String category) {
+    return 'Category: $category';
+  }
+
+  @override
+  String studentCertificatesRequestedAt(String date) {
+    return 'Requested: $date';
+  }
+
+  @override
+  String studentCertificatesStudentName(String name) {
+    return 'Student: $name';
+  }
+
+  @override
+  String studentCertificatesTransmission(String type) {
+    return 'Transmission: $type';
+  }
+
+  @override
+  String get studentCertificatesDocumentsTitle => 'Documents';
+
+  @override
+  String get studentCertificatesPersonalPhoto => 'Personal photo';
+
+  @override
+  String get studentCertificatesIdFront => 'ID front';
+
+  @override
+  String get studentCertificatesIdBack => 'ID back';
+
+  @override
+  String get studentCertificatesSessionsTitle => 'Training sessions';
+
+  @override
+  String studentCertificatesSessionNumber(int number) {
+    return 'Session $number';
+  }
+
+  @override
+  String get studentCertificatesExamsTitle => 'Exams';
+
+  @override
+  String get studentCertificatesNotScheduled => 'Not scheduled';
+
+  @override
+  String get studentCertificatesExamResultPass => 'Passed';
+
+  @override
+  String get studentCertificatesExamResultFail => 'Failed';
+
+  @override
+  String get studentCertificatesExamResultAbsent => 'Absent';
+
+  @override
+  String get studentCertificatesChargesTitle => 'Charges';
+
+  @override
+  String studentCertificatesAmountDue(String amount) {
+    return 'Amount due: $amount SYP';
+  }
+
+  @override
+  String get studentCertificatesSectionEmpty => 'No items available.';
 }

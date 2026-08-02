@@ -1258,4 +1258,94 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get studentCertificatesStatusCancelled => 'ملغاة';
+
+  @override
+  String get studentCertificatesHistoryTitle => 'سجل الشهادات';
+
+  @override
+  String get studentCertificatesHistoryCta => 'عرض سجل الشهادات';
+
+  @override
+  String get studentCertificatesViewDetailsCta => 'عرض التفاصيل';
+
+  @override
+  String get studentCertificatesDetailTitle => 'تفاصيل الشهادة';
+
+  @override
+  String get studentCertificatesFilterStatus => 'الحالة';
+
+  @override
+  String get studentCertificatesFilterAll => 'كل الحالات';
+
+  @override
+  String get studentCertificatesHistoryEmpty => 'لا توجد طلبات شهادات.';
+
+  @override
+  String get studentCertificatesLoadMore => 'تحميل المزيد';
+
+  @override
+  String studentCertificatesCategory(String category) {
+    return 'الفئة: $category';
+  }
+
+  @override
+  String studentCertificatesRequestedAt(String date) {
+    return 'تاريخ الطلب: $date';
+  }
+
+  @override
+  String studentCertificatesStudentName(String name) {
+    return 'الطالب: $name';
+  }
+
+  @override
+  String studentCertificatesTransmission(String type) {
+    return 'ناقل الحركة: $type';
+  }
+
+  @override
+  String get studentCertificatesDocumentsTitle => 'المستندات';
+
+  @override
+  String get studentCertificatesPersonalPhoto => 'الصورة الشخصية';
+
+  @override
+  String get studentCertificatesIdFront => 'الهوية - الوجه الأمامي';
+
+  @override
+  String get studentCertificatesIdBack => 'الهوية - الوجه الخلفي';
+
+  @override
+  String get studentCertificatesSessionsTitle => 'جلسات التدريب';
+
+  @override
+  String studentCertificatesSessionNumber(int number) {
+    return 'الجلسة $number';
+  }
+
+  @override
+  String get studentCertificatesExamsTitle => 'الامتحانات';
+
+  @override
+  String get studentCertificatesNotScheduled => 'لم يحدد الموعد';
+
+  @override
+  String get studentCertificatesExamResultPass => 'ناجح';
+
+  @override
+  String get studentCertificatesExamResultFail => 'راسب';
+
+  @override
+  String get studentCertificatesExamResultAbsent => 'غائب';
+
+  @override
+  String get studentCertificatesChargesTitle => 'الرسوم';
+
+  @override
+  String studentCertificatesAmountDue(String amount) {
+    return 'المبلغ المستحق: $amount ل.س';
+  }
+
+  @override
+  String get studentCertificatesSectionEmpty => 'لا توجد عناصر.';
 }

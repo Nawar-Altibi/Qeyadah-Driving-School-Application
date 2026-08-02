@@ -14,6 +14,14 @@ abstract final class StudentCertificatesFormatters {
     return StudentBookingFormatters.countdown(remaining);
   }
 
+  static String date(DateTime value) {
+    return DateFormat('yyyy-MM-dd').format(value.toLocal());
+  }
+
+  static String dateTime(DateTime value) {
+    return DateFormat('yyyy-MM-dd HH:mm').format(value.toLocal());
+  }
+
   static String examTypeLabel(AppLocalizations l10n, ExamType type) {
     return switch (type) {
       ExamType.theory => l10n.studentCertificatesExamTypeTheory,

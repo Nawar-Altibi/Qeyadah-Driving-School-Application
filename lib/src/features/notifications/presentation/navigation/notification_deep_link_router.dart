@@ -4,6 +4,7 @@ import 'package:qeyadah_mobile_app/src/features/instructor/presentation/notifica
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/schedule/screens/instructor_weekly_schedule_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/notifications/domain/entities/app_notification_entity.dart';
 import 'package:qeyadah_mobile_app/src/features/notifications/domain/entities/app_notification_type.dart';
+import 'package:qeyadah_mobile_app/src/features/student_certificates/presentation/navigation/student_certificates_navigation.dart';
 
 /// Defensive deep-link routing for push + inbox taps.
 @lazySingleton
@@ -39,7 +40,14 @@ class NotificationDeepLinkRouter {
       case AppNotificationType.bookingConfirmed:
       case AppNotificationType.bookingCancelled:
       case AppNotificationType.bookingExpired:
+        CoreNavigator.pushNamed(InstructorNotificationsScreen.routeName);
       case AppNotificationType.certificateStatusChanged:
+        final id = certificateId?.trim();
+        if (id != null && id.isNotEmpty && id != 'null') {
+          StudentCertificatesNavigation.goDetail(certificateId: id);
+        } else {
+          StudentCertificatesNavigation.goHub();
+        }
       case AppNotificationType.paymentAccepted:
       case AppNotificationType.paymentRejected:
       case AppNotificationType.general:
