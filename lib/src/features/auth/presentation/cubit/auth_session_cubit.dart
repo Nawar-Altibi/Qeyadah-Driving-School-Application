@@ -174,6 +174,7 @@ class AuthSessionCubit
     emit(
       state.copyWith(apiState: ApiState<AuthSessionEntity>.succeeded(session)),
     );
+    unawaited(_pushCoordinator.startForAuthenticatedSession());
   }
 
   Future<void> refreshProfile() async {

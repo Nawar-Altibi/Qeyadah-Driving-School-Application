@@ -483,6 +483,13 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i151.StudentBookingRepository>(),
       ),
     );
+    gh.factory<_i958.RegistrationCubit>(
+      () => _i958.RegistrationCubit(
+        gh<_i852.RequestRegistrationOtpUseCase>(),
+        gh<_i823.RegisterStudentUseCase>(),
+        gh<_i941.PushMessagingService>(),
+      ),
+    );
     gh.factory<_i207.StudentBookingDetailCubit>(
       () => _i207.StudentBookingDetailCubit(
         gh<_i981.LoadStudentBookingDetailUseCase>(),
@@ -556,12 +563,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i582.StudentCertificateDetailCubit>(
       () => _i582.StudentCertificateDetailCubit(
         gh<_i390.LoadStudentCertificateDetailUseCase>(),
-      ),
-    );
-    gh.factory<_i958.RegistrationCubit>(
-      () => _i958.RegistrationCubit(
-        gh<_i852.RequestRegistrationOtpUseCase>(),
-        gh<_i823.RegisterStudentUseCase>(),
       ),
     );
     gh.factory<_i489.StudentCertificatesHubCubit>(

@@ -31,6 +31,8 @@ abstract interface class AuthRemoteDataSource {
     required String code,
     required String password,
     String? deviceName,
+    String? fcmToken,
+    String? platform,
   });
   FutureEither<AuthOtpChallengeEntity> forgotPassword(String phone);
   FutureEither<String> verifyPasswordResetOtp({
@@ -172,6 +174,8 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     required String code,
     required String password,
     String? deviceName,
+    String? fcmToken,
+    String? platform,
   }) async {
     final response = await _apiHandler.post(
       Endpoints.authRegister,
@@ -183,6 +187,8 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         'password': password,
         if (deviceName?.trim().isNotEmpty ?? false)
           'deviceName': deviceName!.trim(),
+        if (fcmToken?.trim().isNotEmpty ?? false) 'fcmToken': fcmToken!.trim(),
+        if (platform?.trim().isNotEmpty ?? false) 'platform': platform!.trim(),
       },
     );
     return response.fold(_networkFailure, _sessionFromResponse);
