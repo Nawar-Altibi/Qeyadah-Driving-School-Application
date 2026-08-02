@@ -12,11 +12,23 @@ abstract final class StudentBookingsNavigation {
     );
   }
 
+  static void goList({BuildContext? context}) {
+    CoreNavigator.toPath(StudentBookingsListScreen.routePath, context: context);
+  }
+
   static void pushDetail({
     required BuildContext context,
     required int bookingId,
   }) {
     CoreNavigator.pushPath(
+      StudentBookingDetailScreen.routePath,
+      context: context,
+      arguments: StudentBookingDetailScreenParams(bookingId: bookingId),
+    );
+  }
+
+  static void goDetail({BuildContext? context, required int bookingId}) {
+    CoreNavigator.toPath(
       StudentBookingDetailScreen.routePath,
       context: context,
       arguments: StudentBookingDetailScreenParams(bookingId: bookingId),
