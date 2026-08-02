@@ -1,10 +1,12 @@
 import 'package:bloc_test/bloc_test.dart';
+import 'package:coore/lib.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:qeyadah_mobile_app/src/core/notifications/push_messaging_service.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/domain/entities/auth_session_entity.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/domain/params/login_params.dart';
+import 'package:qeyadah_mobile_app/src/features/auth/domain/params/register_params.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/domain/repositories/auth_repository.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/domain/use_cases/get_persisted_session_use_case.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/domain/use_cases/login_use_case.dart';
@@ -29,6 +31,19 @@ class MockPushNotificationsCoordinator extends Mock
 
 class MockPushMessagingService extends Mock implements PushMessagingService {}
 
+const _demoSession = AuthSessionEntity(
+  user: UserEntity(
+    id: '1',
+    phone: '0999400001',
+    displayName: 'Demo',
+    roles: [UserRole.student],
+    permissions: ['bookings.create'],
+    mustChangePassword: false,
+    accountStatus: AccountStatus.active,
+  ),
+  accessToken: 'token',
+);
+
 void main() {
   setUpAll(() {
     registerFallbackValue(
@@ -47,28 +62,33 @@ void main() {
     });
 
     test('returns session on success', () async {
-      const session = AuthSessionEntity(
-        user: UserEntity(
-          id: '1',
-          phone: '0999400001',
-          displayName: 'Demo',
-          roles: [UserRole.student],
-          permissions: ['bookings.create'],
-          mustChangePassword: false,
-          accountStatus: AccountStatus.active,
-        ),
-        accessToken: 'token',
-      );
-
       when(
         () => repository.login(any()),
-      ).thenAnswer((_) async => right(session));
+      ).thenAnswer((_) async => right(_demoSession));
 
       final result = await useCase(
         const LoginParams(phone: '0999400001', password: 'Test@12345'),
       );
 
       expect(result.isRight(), isTrue);
+    });
+  });
+
+  group('RegisterStudentParams', () {
+    test('includes optional fcmToken and platform in props', () {
+      const params = RegisterStudentParams(
+        name: 'Demo',
+        phone: '0999400001',
+        email: 'demo@example.com',
+        code: '123456',
+        password: 'Test@12345',
+        fcmToken: 'fcm-token',
+        platform: 'ANDROID',
+      );
+
+      expect(params.fcmToken, 'fcm-token');
+      expect(params.platform, 'ANDROID');
+      expect(params.props, containsAll(<Object?>['fcm-token', 'ANDROID']));
     });
   });
 
@@ -97,69 +117,49 @@ void main() {
   });
 
   group('AuthSessionCubit', () {
+    late MockAuthRepository repository;
+    late MockPushNotificationsCoordinator pushCoordinator;
+    late MockPushMessagingService pushMessaging;
+
+    AuthSessionCubit buildCubit() {
+      when(
+        () => repository.login(any()),
+      ).thenAnswer((_) async => right(_demoSession));
+      when(() => repository.logout()).thenAnswer((_) async => right(null));
+      when(() => repository.logoutAll()).thenAnswer((_) async => right(null));
+      when(
+        () => repository.getPersistedSession(),
+      ).thenAnswer((_) async => right(null));
+      when(
+        () => repository.refreshProfile(),
+      ).thenAnswer((_) async => right(_demoSession));
+      when(() => pushMessaging.requestPermission()).thenAnswer((_) async {});
+      when(() => pushMessaging.getToken()).thenAnswer((_) async => null);
+      when(
+        () => pushCoordinator.startForAuthenticatedSession(),
+      ).thenAnswer((_) async {});
+      when(() => pushCoordinator.stopAndUnregister()).thenAnswer((_) async {});
+
+      return AuthSessionCubit(
+        LoginUseCase(repository),
+        LogoutUseCase(repository),
+        LogoutAllUseCase(repository),
+        GetPersistedSessionUseCase(repository),
+        RefreshProfileUseCase(repository),
+        pushCoordinator,
+        pushMessaging,
+      );
+    }
+
+    setUp(() {
+      repository = MockAuthRepository();
+      pushCoordinator = MockPushNotificationsCoordinator();
+      pushMessaging = MockPushMessagingService();
+    });
+
     blocTest<AuthSessionCubit, AuthSessionState>(
       'login emits succeeded session on success',
-      build: () {
-        final repository = MockAuthRepository();
-        when(() => repository.login(any())).thenAnswer(
-          (_) async => right(
-            const AuthSessionEntity(
-              user: UserEntity(
-                id: '1',
-                phone: '0999400001',
-                displayName: 'Demo',
-                roles: [UserRole.student],
-                permissions: ['bookings.create'],
-                mustChangePassword: false,
-                accountStatus: AccountStatus.active,
-              ),
-              accessToken: 'token',
-            ),
-          ),
-        );
-        when(() => repository.logout()).thenAnswer((_) async => right(null));
-        when(() => repository.logoutAll()).thenAnswer((_) async => right(null));
-        when(
-          () => repository.getPersistedSession(),
-        ).thenAnswer((_) async => right(null));
-        when(() => repository.refreshProfile()).thenAnswer(
-          (_) async => right(
-            const AuthSessionEntity(
-              user: UserEntity(
-                id: '1',
-                phone: '0999400001',
-                displayName: 'Demo',
-                roles: [UserRole.student],
-                permissions: ['bookings.create'],
-                mustChangePassword: false,
-                accountStatus: AccountStatus.active,
-              ),
-              accessToken: 'token',
-            ),
-          ),
-        );
-
-        final pushCoordinator = MockPushNotificationsCoordinator();
-        final pushMessaging = MockPushMessagingService();
-        when(() => pushMessaging.requestPermission()).thenAnswer((_) async {});
-        when(() => pushMessaging.getToken()).thenAnswer((_) async => null);
-        when(
-          () => pushCoordinator.startForAuthenticatedSession(),
-        ).thenAnswer((_) async {});
-        when(
-          () => pushCoordinator.stopAndUnregister(),
-        ).thenAnswer((_) async {});
-
-        return AuthSessionCubit(
-          LoginUseCase(repository),
-          LogoutUseCase(repository),
-          LogoutAllUseCase(repository),
-          GetPersistedSessionUseCase(repository),
-          RefreshProfileUseCase(repository),
-          pushCoordinator,
-          pushMessaging,
-        );
-      },
+      build: buildCubit,
       act: (cubit) => cubit.login(phone: '0999400001', password: 'Test@12345'),
       expect: () => [
         isA<AuthSessionState>().having((s) => s.isLoggingIn, 'loading', true),
@@ -169,6 +169,38 @@ void main() {
           true,
         ),
       ],
+      verify: (_) {
+        verify(() => pushCoordinator.startForAuthenticatedSession()).called(1);
+      },
+    );
+
+    blocTest<AuthSessionCubit, AuthSessionState>(
+      'applySession starts push for authenticated session',
+      build: buildCubit,
+      act: (cubit) => cubit.applySession(_demoSession),
+      expect: () => [
+        isA<AuthSessionState>().having(
+          (s) => s.apiState.isSuccess,
+          'success',
+          true,
+        ),
+      ],
+      verify: (_) {
+        verify(() => pushCoordinator.startForAuthenticatedSession()).called(1);
+      },
+    );
+
+    blocTest<AuthSessionCubit, AuthSessionState>(
+      'logout unregisters device token before clearing session',
+      build: buildCubit,
+      seed: () =>
+          const AuthSessionState(apiState: ApiState.succeeded(_demoSession)),
+      act: (cubit) => cubit.logout(),
+      expect: () => [isA<AuthSessionState>()],
+      verify: (_) {
+        verify(() => pushCoordinator.stopAndUnregister()).called(1);
+        verify(() => repository.logout()).called(1);
+      },
     );
   });
 }

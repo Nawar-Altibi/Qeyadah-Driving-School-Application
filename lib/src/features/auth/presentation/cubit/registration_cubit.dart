@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:injectable/injectable.dart';
 import 'package:qeyadah_mobile_app/src/core/error_handling/app_failures.dart';
+import 'package:qeyadah_mobile_app/src/core/notifications/push_messaging_service.dart';
 import 'package:qeyadah_mobile_app/src/core/utils/future_either_timeout.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/domain/entities/auth_otp_challenge_entity.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/domain/entities/auth_session_entity.dart';
@@ -16,11 +17,15 @@ part 'registration_effect.dart';
 
 @injectable
 class RegistrationCubit extends Cubit<RegistrationState> {
-  RegistrationCubit(this._requestOtpUseCase, this._registerStudentUseCase)
-    : super(const RegistrationState());
+  RegistrationCubit(
+    this._requestOtpUseCase,
+    this._registerStudentUseCase,
+    this._pushMessaging,
+  ) : super(const RegistrationState());
 
   final RequestRegistrationOtpUseCase _requestOtpUseCase;
   final RegisterStudentUseCase _registerStudentUseCase;
+  final PushMessagingService _pushMessaging;
 
   int _actionGeneration = 0;
 
@@ -133,6 +138,20 @@ class RegistrationCubit extends Cubit<RegistrationState> {
     final generation = ++_actionGeneration;
     emit(state.copyWith(isRegistering: true, clearEffect: true));
 
+    // Best-effort FCM token — never block/fail register if Firebase is absent.
+    String? fcmToken;
+    String? platform;
+    try {
+      await _pushMessaging.requestPermission();
+      fcmToken = await _pushMessaging.getToken();
+      if (fcmToken != null && fcmToken.isNotEmpty) {
+        platform = _pushMessaging.platformLabel();
+      }
+    } on Object {
+      fcmToken = null;
+      platform = null;
+    }
+
     final result = await FutureEitherTimeout.guard(
       _registerStudentUseCase(
         RegisterStudentParams(
@@ -142,6 +161,8 @@ class RegistrationCubit extends Cubit<RegistrationState> {
           code: validatedCode,
           password: draft.password,
           deviceName: AuthConstants.deviceName,
+          fcmToken: fcmToken,
+          platform: platform,
         ),
       ),
     );

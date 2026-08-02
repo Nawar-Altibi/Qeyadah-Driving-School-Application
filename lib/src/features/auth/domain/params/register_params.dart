@@ -25,6 +25,8 @@ class RegisterStudentParams extends Equatable {
     required this.code,
     required this.password,
     this.deviceName,
+    this.fcmToken,
+    this.platform,
   });
 
   final String name;
@@ -33,9 +35,20 @@ class RegisterStudentParams extends Equatable {
   final String code;
   final String password;
   final String? deviceName;
+  final String? fcmToken;
+  final String? platform;
 
   @override
-  List<Object?> get props => [name, phone, email, code, password, deviceName];
+  List<Object?> get props => [
+    name,
+    phone,
+    email,
+    code,
+    password,
+    deviceName,
+    fcmToken,
+    platform,
+  ];
 }
 
 class RegisterDraft {

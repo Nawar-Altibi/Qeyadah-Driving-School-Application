@@ -132,6 +132,8 @@ class AuthRepositoryImpl implements AuthRepository {
       code: params.code,
       password: params.password,
       deviceName: params.deviceName,
+      fcmToken: params.fcmToken,
+      platform: params.platform,
     );
     return remote.fold((failure) async => left(failure), _persistMobileSession);
   }
