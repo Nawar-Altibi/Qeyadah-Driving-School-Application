@@ -394,6 +394,13 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get studentHomeBlockedTitle => 'Account restricted';
+
+  @override
+  String get studentHomeBlockedMessage =>
+      'You can still view your existing bookings and certificates, but you cannot request new services until administration lifts the block. Please contact the school.';
+
+  @override
   String get studentHomeQuickActions => 'Quick actions';
 
   @override

@@ -140,8 +140,9 @@ class _StudentHomeContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final localeName = Localizations.localeOf(context).toLanguageTag();
-    final studentName =
-        context.read<AuthSessionCubit>().currentSession?.user.displayName ?? '';
+    final sessionUser = context.watch<AuthSessionCubit>().currentSession?.user;
+    final studentName = sessionUser?.displayName ?? '';
+    final isBlocked = sessionUser?.isBlocked ?? false;
 
     return ListView(
       padding: const EdgeInsets.fromLTRB(
@@ -151,6 +152,15 @@ class _StudentHomeContent extends StatelessWidget {
         AppDesignTokens.bottomNavHeight + AppDesignTokens.spacing2xl,
       ),
       children: [
+        if (isBlocked) ...[
+          AppAlertBanner(
+            tone: AppAlertTone.danger,
+            icon: PhosphorIconsBold.prohibit,
+            title: l10n.studentHomeBlockedTitle,
+            message: l10n.studentHomeBlockedMessage,
+          ),
+          const SizedBox(height: AppDesignTokens.spacingMd),
+        ],
         StudentHomeGreetingHeader(
           dateLabel: StudentHomeFormatters.dateLabel(
             dashboard.referenceDate,
@@ -219,6 +229,10 @@ class _StudentHomeContent extends StatelessWidget {
         const SizedBox(height: AppDesignTokens.spacingLg),
         StudentHomeQuickActionsSection(
           actions: dashboard.quickActions,
+          isActionEnabled: (action) =>
+              !isBlocked ||
+              (action != StudentHomeQuickActionType.newBooking &&
+                  action != StudentHomeQuickActionType.certificateRequest),
           onActionTap: (action) =>
               StudentHomeNavigation.handleQuickAction(context, action),
           onViewAllTap: () => StudentHomeNavigation.showComingSoon(context),

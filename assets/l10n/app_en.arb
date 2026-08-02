@@ -180,6 +180,8 @@
       }
     }
   },
+  "studentHomeBlockedTitle": "Account restricted",
+  "studentHomeBlockedMessage": "You can still view your existing bookings and certificates, but you cannot request new services until administration lifts the block. Please contact the school.",
   "studentHomeQuickActions": "Quick actions",
   "studentHomeViewAll": "View all",
   "studentHomeNewBooking": "Book a new session",

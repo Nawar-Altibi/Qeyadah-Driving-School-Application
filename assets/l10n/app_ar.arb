@@ -159,6 +159,8 @@
       }
     }
   },
+  "studentHomeBlockedTitle": "الحساب مقيد",
+  "studentHomeBlockedMessage": "يمكنك عرض حجوزاتك وشهاداتك الحالية، لكن لا يمكنك طلب خدمات جديدة حتى ترفع الإدارة الحظر. يرجى التواصل مع المدرسة.",
   "studentHomeQuickActions": "إجراءات سريعة",
   "studentHomeViewAll": "عرض الكل",
   "studentHomeNewBooking": "حجز جلسة جديدة",

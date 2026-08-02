@@ -390,6 +390,13 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String get studentHomeBlockedTitle => 'الحساب مقيد';
+
+  @override
+  String get studentHomeBlockedMessage =>
+      'يمكنك عرض حجوزاتك وشهاداتك الحالية، لكن لا يمكنك طلب خدمات جديدة حتى ترفع الإدارة الحظر. يرجى التواصل مع المدرسة.';
+
+  @override
   String get studentHomeQuickActions => 'إجراءات سريعة';
 
   @override
