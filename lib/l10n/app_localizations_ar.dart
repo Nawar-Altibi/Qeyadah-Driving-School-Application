@@ -1148,4 +1148,114 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get studentPaymentInvalidTransactionId =>
       'يجب أن يتكون رقم العملية من 9 أرقام بالضبط.';
+
+  @override
+  String get studentCertificatesTitle => 'الشهادات';
+
+  @override
+  String get studentCertificatesActiveRequestTitle => 'الطلب الحالي';
+
+  @override
+  String studentCertificatesCourseNumber(int courseNumber) {
+    return 'رقم الدورة $courseNumber';
+  }
+
+  @override
+  String studentCertificatesRequestId(String id) {
+    return 'طلب رقم $id';
+  }
+
+  @override
+  String get studentCertificatesNewRequestFirst => 'طلب شهادة لأول مرة';
+
+  @override
+  String get studentCertificatesNewRequestExtra => 'طلب شهادة إضافية';
+
+  @override
+  String studentCertificatesAvailableTypes(String types) {
+    return 'الأنواع المتاحة: $types';
+  }
+
+  @override
+  String get studentCertificatesBlockedWriteHint =>
+      'لا يمكن تقديم طلب شهادة جديد بينما حسابك مقيّد.';
+
+  @override
+  String get studentCertificatesReexamTitle => 'طلب إعادة امتحان';
+
+  @override
+  String studentCertificatesReexamTitleTyped(String examType) {
+    return 'طلب إعادة الامتحان $examType';
+  }
+
+  @override
+  String studentCertificatesReexamFee(String amount) {
+    return 'الرسم: $amount ل.س';
+  }
+
+  @override
+  String studentCertificatesExamScheduled(String label) {
+    return 'الموعد: $label';
+  }
+
+  @override
+  String studentCertificatesRegistrationCloses(String label) {
+    return 'آخر موعد للتسجيل: $label';
+  }
+
+  @override
+  String studentCertificatesRegistrationCountdown(String time) {
+    return 'الوقت المتبقي للتسجيل: $time';
+  }
+
+  @override
+  String get studentCertificatesReexamCta => 'طلب إعادة';
+
+  @override
+  String get studentCertificatesStatusTitle => 'حالة الشهادة';
+
+  @override
+  String get studentCertificatesStatusFallback =>
+      'لا تتوفر إجراءات شهادة حالياً.';
+
+  @override
+  String get studentCertificatesWriteComingSoon =>
+      'تقديم طلبات الشهادة سيكون متاحاً في التحديث القادم.';
+
+  @override
+  String get studentCertificatesExamTypeTheory => 'النظري';
+
+  @override
+  String get studentCertificatesExamTypePractical => 'العملي';
+
+  @override
+  String get studentCertificatesTransmissionManual => 'عادي';
+
+  @override
+  String get studentCertificatesTransmissionAutomatic => 'أوتوماتيك';
+
+  @override
+  String get studentCertificatesStatusWaitingForTrainingSchedule =>
+      'بانتظار تحديد جدول التدريب';
+
+  @override
+  String get studentCertificatesStatusInGovernmentTraining =>
+      'في التدريب الحكومي';
+
+  @override
+  String get studentCertificatesStatusWaitingForTheoreticalExam =>
+      'بانتظار الامتحان النظري';
+
+  @override
+  String get studentCertificatesStatusWaitingForPracticalExam =>
+      'بانتظار الامتحان العملي';
+
+  @override
+  String get studentCertificatesStatusCompleted => 'مكتملة';
+
+  @override
+  String get studentCertificatesStatusFailed => 'راسبة';
+
+  @override
+  String get studentCertificatesStatusCancelled => 'ملغاة';
 }

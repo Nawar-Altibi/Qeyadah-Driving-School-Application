@@ -135,6 +135,16 @@ import 'package:qeyadah_mobile_app/src/features/student_bookings/presentation/cu
     as _i207;
 import 'package:qeyadah_mobile_app/src/features/student_bookings/presentation/cubit/student_bookings_list_cubit.dart'
     as _i611;
+import 'package:qeyadah_mobile_app/src/features/student_certificates/data/data_sources/student_certificates_remote_data_source.dart'
+    as _i320;
+import 'package:qeyadah_mobile_app/src/features/student_certificates/data/repositories/student_certificates_repository_impl.dart'
+    as _i1058;
+import 'package:qeyadah_mobile_app/src/features/student_certificates/domain/repositories/student_certificates_repository.dart'
+    as _i892;
+import 'package:qeyadah_mobile_app/src/features/student_certificates/domain/use_cases/student_certificates_use_cases.dart'
+    as _i390;
+import 'package:qeyadah_mobile_app/src/features/student_certificates/presentation/cubit/student_certificates_hub_cubit.dart'
+    as _i489;
 import 'package:qeyadah_mobile_app/src/features/student_home/data/repositories/student_home_repository_impl.dart'
     as _i502;
 import 'package:qeyadah_mobile_app/src/features/student_home/domain/repositories/student_home_repository.dart'
@@ -229,6 +239,11 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i698.ApiHandlerInterface>(),
       ),
     );
+    gh.lazySingleton<_i320.StudentCertificatesRemoteDataSource>(
+      () => _i320.StudentCertificatesRemoteDataSourceImpl(
+        gh<_i698.ApiHandlerInterface>(),
+      ),
+    );
     gh.lazySingleton<_i16.AuthRepository>(
       () => _i516.AuthRepositoryImpl(
         gh<_i1021.AuthRemoteDataSource>(),
@@ -312,6 +327,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i161.InstructorInvoicesCubit>(
       () => _i161.InstructorInvoicesCubit(
         gh<_i648.LoadInstructorInvoicesUseCase>(),
+      ),
+    );
+    gh.lazySingleton<_i892.StudentCertificatesRepository>(
+      () => _i1058.StudentCertificatesRepositoryImpl(
+        gh<_i320.StudentCertificatesRemoteDataSource>(),
       ),
     );
     gh.factory<_i1027.InstructorScheduleCubit>(
@@ -457,6 +477,11 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i151.StudentBookingRepository>(),
       ),
     );
+    gh.factory<_i390.LoadCertificateEligibilityUseCase>(
+      () => _i390.LoadCertificateEligibilityUseCase(
+        gh<_i892.StudentCertificatesRepository>(),
+      ),
+    );
     gh.factory<_i330.InstructorLeaveCubit>(
       () => _i330.InstructorLeaveCubit(gh<_i648.LoadInstructorLeavesUseCase>()),
     );
@@ -491,6 +516,11 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i958.RegistrationCubit(
         gh<_i852.RequestRegistrationOtpUseCase>(),
         gh<_i823.RegisterStudentUseCase>(),
+      ),
+    );
+    gh.factory<_i489.StudentCertificatesHubCubit>(
+      () => _i489.StudentCertificatesHubCubit(
+        gh<_i390.LoadCertificateEligibilityUseCase>(),
       ),
     );
     gh.factory<_i1016.StudentBookingCubit>(

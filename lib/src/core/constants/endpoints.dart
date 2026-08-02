@@ -37,4 +37,11 @@ abstract final class Endpoints {
       'student/bookings/$bookingId/confirm-payment';
   static String studentBookingCancel(int bookingId) =>
       'student/bookings/$bookingId/cancel';
+
+  static const String studentCertificates = 'student/certificates';
+  static const String studentCertificatesEligibility =
+      'student/certificates/eligibility';
+  static String studentCertificateById(String id) => 'student/certificates/$id';
+  static String studentCertificateReexam(String id) =>
+      'student/certificates/$id/reexam';
 }

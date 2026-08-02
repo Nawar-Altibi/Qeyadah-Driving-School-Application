@@ -1152,4 +1152,116 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get studentPaymentInvalidTransactionId =>
       'Transaction ID must be exactly 9 digits.';
+
+  @override
+  String get studentCertificatesTitle => 'Certificates';
+
+  @override
+  String get studentCertificatesActiveRequestTitle => 'Active request';
+
+  @override
+  String studentCertificatesCourseNumber(int courseNumber) {
+    return 'Course number $courseNumber';
+  }
+
+  @override
+  String studentCertificatesRequestId(String id) {
+    return 'Request #$id';
+  }
+
+  @override
+  String get studentCertificatesNewRequestFirst =>
+      'Request a certificate for the first time';
+
+  @override
+  String get studentCertificatesNewRequestExtra =>
+      'Request an additional certificate';
+
+  @override
+  String studentCertificatesAvailableTypes(String types) {
+    return 'Available types: $types';
+  }
+
+  @override
+  String get studentCertificatesBlockedWriteHint =>
+      'New certificate requests are unavailable while your account is restricted.';
+
+  @override
+  String get studentCertificatesReexamTitle => 'Request a re-exam';
+
+  @override
+  String studentCertificatesReexamTitleTyped(String examType) {
+    return 'Request a $examType re-exam';
+  }
+
+  @override
+  String studentCertificatesReexamFee(String amount) {
+    return 'Fee: $amount SYP';
+  }
+
+  @override
+  String studentCertificatesExamScheduled(String label) {
+    return 'Exam: $label';
+  }
+
+  @override
+  String studentCertificatesRegistrationCloses(String label) {
+    return 'Registration closes: $label';
+  }
+
+  @override
+  String studentCertificatesRegistrationCountdown(String time) {
+    return 'Time left to register: $time';
+  }
+
+  @override
+  String get studentCertificatesReexamCta => 'Request re-exam';
+
+  @override
+  String get studentCertificatesStatusTitle => 'Certificate status';
+
+  @override
+  String get studentCertificatesStatusFallback =>
+      'No certificate actions are available right now.';
+
+  @override
+  String get studentCertificatesWriteComingSoon =>
+      'Submitting certificate requests will be available in the next update.';
+
+  @override
+  String get studentCertificatesExamTypeTheory => 'theory';
+
+  @override
+  String get studentCertificatesExamTypePractical => 'practical';
+
+  @override
+  String get studentCertificatesTransmissionManual => 'Manual';
+
+  @override
+  String get studentCertificatesTransmissionAutomatic => 'Automatic';
+
+  @override
+  String get studentCertificatesStatusWaitingForTrainingSchedule =>
+      'Waiting for training schedule';
+
+  @override
+  String get studentCertificatesStatusInGovernmentTraining =>
+      'In government training';
+
+  @override
+  String get studentCertificatesStatusWaitingForTheoreticalExam =>
+      'Waiting for theoretical exam';
+
+  @override
+  String get studentCertificatesStatusWaitingForPracticalExam =>
+      'Waiting for practical exam';
+
+  @override
+  String get studentCertificatesStatusCompleted => 'Completed';
+
+  @override
+  String get studentCertificatesStatusFailed => 'Failed';
+
+  @override
+  String get studentCertificatesStatusCancelled => 'Cancelled';
 }

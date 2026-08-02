@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:injectable/injectable.dart';
 import 'package:qeyadah_mobile_app/src/core/notifications/push_messaging_service.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/domain/use_cases/instructor_use_cases.dart';
@@ -26,6 +29,13 @@ class PushNotificationsCoordinator {
   final InvalidateInstructorWeeklyScheduleCacheUseCase
   _invalidateWeeklyScheduleCache;
 
+  final StreamController<void> _certificateStatusChangedController =
+      StreamController<void>.broadcast();
+
+  /// Emits when a foreground push of type `CERTIFICATE_STATUS_CHANGED` arrives.
+  Stream<void> get certificateStatusChanged =>
+      _certificateStatusChangedController.stream;
+
   bool _started = false;
 
   Future<void> startForAuthenticatedSession() async {
@@ -36,9 +46,7 @@ class PushNotificationsCoordinator {
     _pushMessaging.onOpened = (data) {
       _handleOpened(data);
     };
-    _pushMessaging.onForegroundMessage = (_) {
-      _unreadCubit.refresh();
-    };
+    _pushMessaging.onForegroundMessage = _handleForegroundMessage;
 
     await _pushMessaging.startListeners();
     _pushMessaging.listenTokenRefresh(_registerCurrentToken);
@@ -66,6 +74,17 @@ class PushNotificationsCoordinator {
       token: token,
       platform: _pushMessaging.platformLabel(),
     );
+  }
+
+  void _handleForegroundMessage(RemoteMessage message) {
+    _unreadCubit.refresh();
+    final type = AppNotificationType.fromApi(
+      message.data['type']?.toString() ??
+          message.data['notificationType']?.toString(),
+    );
+    if (type == AppNotificationType.certificateStatusChanged) {
+      _certificateStatusChangedController.add(null);
+    }
   }
 
   Future<void> _handleOpened(Map<String, dynamic> data) async {
