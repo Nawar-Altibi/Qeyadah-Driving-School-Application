@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:qeyadah_mobile_app/src/shared/enums/instructor_gender.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/student_booking_status.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/student_charge_status.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/student_payment_status.dart';
@@ -131,6 +132,7 @@ class StudentBookingDetailPersonEntity extends Equatable {
     required this.id,
     required this.name,
     this.phone,
+    this.gender,
   });
 
   factory StudentBookingDetailPersonEntity.placeholder({int id = 1}) {
@@ -144,9 +146,10 @@ class StudentBookingDetailPersonEntity extends Equatable {
   final int id;
   final String name;
   final String? phone;
+  final InstructorGender? gender;
 
   @override
-  List<Object?> get props => [id, name, phone];
+  List<Object?> get props => [id, name, phone, gender];
 }
 
 class StudentBookingDetailVehicleEntity extends Equatable {

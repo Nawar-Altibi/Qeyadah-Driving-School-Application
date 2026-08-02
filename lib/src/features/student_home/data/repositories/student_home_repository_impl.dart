@@ -1,82 +1,205 @@
 import 'package:coore/lib.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:injectable/injectable.dart';
-import 'package:qeyadah_mobile_app/src/core/error_handling/network_failure_mapper.dart';
 import 'package:qeyadah_mobile_app/src/core/typedefs/app_typedefs.dart';
+import 'package:qeyadah_mobile_app/src/features/notifications/domain/use_cases/notifications_use_cases.dart';
+import 'package:qeyadah_mobile_app/src/features/student_booking/domain/entities/student_booking_entities.dart';
+import 'package:qeyadah_mobile_app/src/features/student_booking/domain/use_cases/student_booking_use_cases.dart';
+import 'package:qeyadah_mobile_app/src/features/student_bookings/domain/entities/student_bookings_entities.dart';
+import 'package:qeyadah_mobile_app/src/features/student_bookings/domain/params/student_bookings_params.dart';
+import 'package:qeyadah_mobile_app/src/features/student_bookings/domain/use_cases/student_bookings_use_cases.dart';
 import 'package:qeyadah_mobile_app/src/features/student_home/domain/entities/student_home_dashboard_entity.dart';
 import 'package:qeyadah_mobile_app/src/features/student_home/domain/repositories/student_home_repository.dart';
-
-abstract interface class StudentHomeRemoteDataSource {
-  RemoteResponse<StudentHomeDashboardEntity> fetchDashboard(
-    LoadStudentHomeParams params,
-  );
-}
-
-@LazySingleton(as: StudentHomeRemoteDataSource)
-class StudentHomeRemoteDataSourceImpl implements StudentHomeRemoteDataSource {
-  @override
-  RemoteResponse<StudentHomeDashboardEntity> fetchDashboard(
-    LoadStudentHomeParams params,
-  ) async {
-    await Future<void>.delayed(const Duration(milliseconds: 350));
-
-    final referenceDate = DateTime(2025, 6, 25);
-    final lessonStart = DateTime(2025, 6, 25, 11);
-    final lessonEnd = DateTime(2025, 6, 25, 12, 30);
-
-    return right(
-      StudentHomeDashboardEntity(
-        referenceDate: referenceDate,
-        hasUnreadNotifications: true,
-        nextLesson: StudentHomeNextLessonEntity(
-          startsAt: lessonStart,
-          endsAt: lessonEnd,
-          instructorName: 'لينا درويش',
-          instructorIsFemale: true,
-          isAutomatic: true,
-          isSchoolVehicle: true,
-          status: StudentHomeLessonStatus.confirmed,
-          meetingPointLabel: 'مدرسة قيادة',
-        ),
-        pendingPayment: StudentHomePendingPaymentEntity(
-          remainingMinutes: 9,
-          remainingSeconds: 42,
-          bookingId: 4821,
-          depositAmount: '25000',
-          receiverName: 'مدرسة قيادة - شام كاش',
-          lockedUntil: DateTime.now().add(
-            const Duration(minutes: 9, seconds: 42),
-          ),
-        ),
-        quickActions: const [
-          StudentHomeQuickActionType.newBooking,
-          StudentHomeQuickActionType.myBookings,
-          StudentHomeQuickActionType.certificateRequest,
-          StudentHomeQuickActionType.theorySimulation,
-        ],
-        trainingProgress: const StudentHomeTrainingProgressEntity(
-          completedHours: 12,
-          totalHours: 20,
-        ),
-      ),
-    );
-  }
-}
+import 'package:qeyadah_mobile_app/src/shared/enums/instructor_gender.dart';
+import 'package:qeyadah_mobile_app/src/shared/enums/student_booking_status.dart';
+import 'package:qeyadah_mobile_app/src/shared/enums/training_type.dart';
+import 'package:qeyadah_mobile_app/src/shared/enums/vehicle_source.dart';
 
 @LazySingleton(as: StudentHomeRepository)
 class StudentHomeRepositoryImpl implements StudentHomeRepository {
-  StudentHomeRepositoryImpl(this._remoteDataSource);
+  StudentHomeRepositoryImpl(
+    this._loadStudentBookings,
+    this._loadStudentBookingDetail,
+    this._getPendingHold,
+    this._loadUnreadCount,
+  );
 
-  final StudentHomeRemoteDataSource _remoteDataSource;
+  final LoadStudentBookingsUseCase _loadStudentBookings;
+  final LoadStudentBookingDetailUseCase _loadStudentBookingDetail;
+  final GetPendingStudentBookingHoldUseCase _getPendingHold;
+  final LoadUnreadNotificationsCountUseCase _loadUnreadCount;
+
+  static const _quickActions = [
+    StudentHomeQuickActionType.newBooking,
+    StudentHomeQuickActionType.myBookings,
+    StudentHomeQuickActionType.certificateRequest,
+    StudentHomeQuickActionType.theorySimulation,
+  ];
 
   @override
   FutureEither<StudentHomeDashboardEntity> loadDashboard(
     LoadStudentHomeParams params,
   ) async {
-    final response = await _remoteDataSource.fetchDashboard(params);
-    return response.fold(
-      (failure) => left(NetworkFailureMapper.toDomainFailure(failure)),
-      right,
+    final now = DateTime.now();
+
+    final bookedResult = await _loadStudentBookings(
+      LoadStudentBookingsParams(
+        bookingStatus: StudentBookingStatus.booked,
+        limit: 50,
+      ),
     );
+    final bookedPage = bookedResult.fold<StudentBookingsPageEntity?>(
+      (_) => null,
+      (page) => page,
+    );
+    if (bookedPage == null) {
+      return left(
+        bookedResult.fold((failure) => failure, (_) => const UnknownFailure()),
+      );
+    }
+
+    final nextLesson = await _resolveNextLesson(bookedPage.items, now);
+
+    final pendingPayment = await _resolvePendingPayment(now);
+
+    final unreadResult = await _loadUnreadCount();
+    final hasUnread = unreadResult.fold((_) => false, (count) => count > 0);
+
+    return right(
+      StudentHomeDashboardEntity(
+        referenceDate: now,
+        hasUnreadNotifications: hasUnread,
+        nextLesson: nextLesson,
+        pendingPayment: pendingPayment,
+        quickActions: _quickActions,
+      ),
+    );
+  }
+
+  Future<StudentHomeNextLessonEntity?> _resolveNextLesson(
+    List<StudentBookingListItemEntity> items,
+    DateTime now,
+  ) async {
+    StudentBookingListItemEntity? earliest;
+    DateTime? earliestStart;
+
+    for (final item in items) {
+      final startsAt = _combineDateAndTime(item.date, item.startTime);
+      if (startsAt == null) continue;
+      if (!startsAt.isAfter(now)) continue;
+      if (earliestStart == null || startsAt.isBefore(earliestStart)) {
+        earliest = item;
+        earliestStart = startsAt;
+      }
+    }
+
+    if (earliest == null || earliestStart == null) {
+      return null;
+    }
+
+    final bookingId = int.tryParse(earliest.id);
+    if (bookingId == null) {
+      return _nextLessonFromListItem(earliest, earliestStart);
+    }
+
+    final detailResult = await _loadStudentBookingDetail(bookingId);
+    return detailResult.fold(
+      (_) => _nextLessonFromListItem(earliest!, earliestStart!),
+      (detail) => _nextLessonFromDetail(detail, earliest!, earliestStart!),
+    );
+  }
+
+  StudentHomeNextLessonEntity _nextLessonFromListItem(
+    StudentBookingListItemEntity item,
+    DateTime startsAt,
+  ) {
+    final endsAt =
+        _combineDateAndTime(item.date, item.endTime) ??
+        startsAt.add(const Duration(minutes: 90));
+    return StudentHomeNextLessonEntity(
+      startsAt: startsAt,
+      endsAt: endsAt,
+      instructorName: item.instructorName,
+      instructorIsFemale: false,
+      isAutomatic: item.trainingType == TrainingType.automatic,
+      isSchoolVehicle: item.vehicleSource != VehicleSource.studentCar,
+      status: StudentHomeLessonStatus.confirmed,
+    );
+  }
+
+  StudentHomeNextLessonEntity _nextLessonFromDetail(
+    StudentBookingDetailEntity detail,
+    StudentBookingListItemEntity listItem,
+    DateTime startsAt,
+  ) {
+    final booking = detail.booking;
+    final endsAt =
+        _combineDateAndTime(booking.date ?? listItem.date, booking.endTime) ??
+        _combineDateAndTime(listItem.date, listItem.endTime) ??
+        startsAt.add(const Duration(minutes: 90));
+    final trainingType = booking.trainingType ?? listItem.trainingType;
+    final vehicleSource = booking.vehicleSource ?? listItem.vehicleSource;
+
+    return StudentHomeNextLessonEntity(
+      startsAt: startsAt,
+      endsAt: endsAt,
+      instructorName: detail.instructor.name.isNotEmpty
+          ? detail.instructor.name
+          : listItem.instructorName,
+      instructorIsFemale: detail.instructor.gender == InstructorGender.female,
+      isAutomatic: trainingType == TrainingType.automatic,
+      isSchoolVehicle: vehicleSource != VehicleSource.studentCar,
+      status: StudentHomeLessonStatus.confirmed,
+    );
+  }
+
+  Future<StudentHomePendingPaymentEntity?> _resolvePendingPayment(
+    DateTime now,
+  ) async {
+    final holdResult = await _getPendingHold();
+    final hold = holdResult.fold<StudentBookingHoldEntity?>(
+      (_) => null,
+      (value) => value,
+    );
+
+    if (hold != null) {
+      final remaining = hold.lockedUntil.difference(now);
+      if (!remaining.isNegative) {
+        final totalSeconds = remaining.inSeconds;
+        return StudentHomePendingPaymentEntity(
+          remainingMinutes: totalSeconds ~/ 60,
+          remainingSeconds: totalSeconds % 60,
+          bookingId: hold.booking.id,
+          depositAmount: hold.depositAmount,
+          receiverName: hold.receiverName,
+          lockedUntil: hold.lockedUntil,
+        );
+      }
+    }
+
+    final pendingResult = await _loadStudentBookings(
+      LoadStudentBookingsParams(
+        bookingStatus: StudentBookingStatus.pendingPayment,
+        limit: 1,
+      ),
+    );
+
+    return pendingResult.fold((_) => null, (page) {
+      if (page.items.isEmpty) return null;
+      return const StudentHomePendingPaymentEntity(
+        remainingMinutes: 0,
+        remainingSeconds: 0,
+      );
+    });
+  }
+
+  DateTime? _combineDateAndTime(DateTime? date, String? time) {
+    if (date == null || time == null || time.trim().isEmpty) return null;
+    final parts = time.trim().split(':');
+    if (parts.length < 2) return null;
+    final hour = int.tryParse(parts[0]);
+    final minute = int.tryParse(parts[1]);
+    if (hour == null || minute == null) return null;
+    return DateTime(date.year, date.month, date.day, hour, minute);
   }
 }

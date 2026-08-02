@@ -188,25 +188,13 @@
   "studentHomeMyBookings": "My bookings",
   "studentHomeCertificateRequest": "Certificate request",
   "studentHomeTheorySimulation": "Theory simulation",
-  "studentHomeTrainingProgress": "Training progress",
-  "studentHomeTrainingProgressDetail": "Completed {completed} of {total} hours",
-  "@studentHomeTrainingProgressDetail": {
-    "placeholders": {
-      "completed": {
-        "type": "int"
-      },
-      "total": {
-        "type": "int"
-      }
-    }
-  },
-  "studentHomeTrainingProgressFootnote": "After completing training, administration will follow up on theory and practical exam appointments.",
   "studentHomeNavBookings": "My bookings",
   "studentHomeNavCertificate": "Certificate",
   "studentHomeNavProfile": "My account",
   "studentHomeFeatureComingSoon": "This feature will be available soon.",
   "studentHomeNoNextLessonTitle": "No confirmed lesson yet",
   "studentHomeNoNextLessonBody": "Create a booking and complete ShamCash payment to confirm it.",
+  "studentHomePendingPaymentOpenBookings": "You have a booking awaiting payment. Open My bookings to continue.",
   "instructorWelcomeBackEyebrow": "Welcome back",
   "instructorWelcomeBack": "{name}",
   "@instructorWelcomeBack": {

@@ -167,25 +167,13 @@
   "studentHomeMyBookings": "حجوزاتي",
   "studentHomeCertificateRequest": "طلب الشهادة",
   "studentHomeTheorySimulation": "محاكاة النظري",
-  "studentHomeTrainingProgress": "تقدم التدريب",
-  "studentHomeTrainingProgressDetail": "أكملت {completed} من أصل {total} ساعة",
-  "@studentHomeTrainingProgressDetail": {
-    "placeholders": {
-      "completed": {
-        "type": "int"
-      },
-      "total": {
-        "type": "int"
-      }
-    }
-  },
-  "studentHomeTrainingProgressFootnote": "بعد إكمال التدريب ستتابع الإدارة مواعيد الفحص النظري والعملي.",
   "studentHomeNavBookings": "حجوزاتي",
   "studentHomeNavCertificate": "الشهادة",
   "studentHomeNavProfile": "حسابي",
   "studentHomeFeatureComingSoon": "هذه الميزة ستكون متاحة قريباً.",
   "studentHomeNoNextLessonTitle": "لا توجد جلسة مؤكدة بعد",
   "studentHomeNoNextLessonBody": "أنشئ حجزاً وأكمل دفع شام كاش لتأكيد الموعد.",
+  "studentHomePendingPaymentOpenBookings": "لديك حجز بانتظار الدفع. افتح حجوزاتي للمتابعة.",
   "instructorWelcomeBackEyebrow": "أهلاً بعودتك",
   "instructorWelcomeBack": "{name}",
   "@instructorWelcomeBack": {
