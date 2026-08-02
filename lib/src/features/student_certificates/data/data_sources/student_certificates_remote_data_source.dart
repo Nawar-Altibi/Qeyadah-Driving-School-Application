@@ -22,6 +22,12 @@ abstract interface class StudentCertificatesRemoteDataSource {
   RemoteResponse<StudentCertificateDetailEntity> fetchCertificateDetail(
     String id,
   );
+
+  RemoteResponse<void> submitCertificate(SubmitStudentCertificateParams params);
+
+  RemoteResponse<void> submitReexam(
+    SubmitStudentCertificateReexamParams params,
+  );
 }
 
 @LazySingleton(as: StudentCertificatesRemoteDataSource)
@@ -30,6 +36,37 @@ class StudentCertificatesRemoteDataSourceImpl
   StudentCertificatesRemoteDataSourceImpl(this._apiHandler);
 
   final ApiHandlerInterface _apiHandler;
+
+  @override
+  RemoteResponse<void> submitCertificate(
+    SubmitStudentCertificateParams params,
+  ) async {
+    final response = await _apiHandler.post(
+      Endpoints.studentCertificates,
+      formData: MultipartFormDataAdapter({
+        'transmissionType': params.transmissionType.apiValue,
+        'transportRequested': params.transportRequested ? 'true' : 'false',
+        'transactionId': params.transactionId,
+        'personalPhoto': params.personalPhoto,
+        'idFront': params.idFront,
+        'idBack': params.idBack,
+      }),
+      isAuthorized: true,
+    );
+    return response.fold(left, (_) => right(null));
+  }
+
+  @override
+  RemoteResponse<void> submitReexam(
+    SubmitStudentCertificateReexamParams params,
+  ) async {
+    final response = await _apiHandler.post(
+      Endpoints.studentCertificateReexam(params.certificateId),
+      body: {'transactionId': params.transactionId},
+      isAuthorized: true,
+    );
+    return response.fold(left, (_) => right(null));
+  }
 
   @override
   RemoteResponse<StudentCertificatesPageEntity> fetchCertificates(

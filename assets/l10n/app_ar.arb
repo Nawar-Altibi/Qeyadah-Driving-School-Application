@@ -688,6 +688,19 @@
       "amount": { "type": "String" }
     }
   },
-  "studentCertificatesSectionEmpty": "لا توجد عناصر."
+  "studentCertificatesSectionEmpty": "لا توجد عناصر.",
+  "studentCertificatesNewTitle": "طلب شهادة جديد",
+  "studentCertificatesTransmissionChoice": "نوع ناقل الحركة",
+  "studentCertificatesTransportRequested": "أحتاج إلى النقل من المدرسة",
+  "studentCertificatesImagesTitle": "الصور المطلوبة",
+  "studentCertificatesImagesHint": "JPEG أو PNG أو WebP، وبحد أقصى 5 ميغابايت لكل صورة.",
+  "studentCertificatesFeeGuidance": "حوّل نحو 600,000 ل.س عبر شام كاش، ثم أدخل رقم العملية.",
+  "studentCertificatesSubmitNew": "إرسال طلب الشهادة",
+  "studentCertificatesNewSuccess": "تم تقديم طلب الشهادة بنجاح.",
+  "studentCertificatesInvalidImage": "اختر صورة بصيغة JPEG أو PNG أو WebP.",
+  "studentCertificatesImageTooLarge": "يجب ألا يتجاوز حجم كل صورة 5 ميغابايت.",
+  "studentCertificatesReexamPayCta": "الدفع والتسجيل للإعادة",
+  "studentCertificatesReexamSuccess": "تم تسجيل طلب إعادة الامتحان بنجاح.",
+  "studentCertificatesRegistrationExpired": "انتهت مهلة التسجيل لإعادة الامتحان."
 }
 

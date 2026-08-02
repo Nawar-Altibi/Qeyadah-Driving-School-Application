@@ -7,9 +7,9 @@ import 'package:qeyadah_mobile_app/src/core/presentation/app_core_cubit.dart';
 import 'package:qeyadah_mobile_app/src/core/utils/future_either_timeout.dart';
 import 'package:qeyadah_mobile_app/src/features/student_payments/domain/entities/student_payment_entities.dart';
 import 'package:qeyadah_mobile_app/src/features/student_payments/domain/params/student_payment_params.dart';
-import 'package:qeyadah_mobile_app/src/features/student_payments/domain/services/student_payment_validation_rules.dart';
 import 'package:qeyadah_mobile_app/src/features/student_payments/domain/use_cases/student_payment_use_cases.dart';
 import 'package:qeyadah_mobile_app/src/features/student_payments/presentation/navigation/student_payment_hold_args.dart';
+import 'package:qeyadah_mobile_app/src/shared/payments/sham_cash_validation_rules.dart';
 
 part 'student_payment_cubit.freezed.dart';
 part 'student_payment_state.dart';
@@ -63,8 +63,9 @@ class StudentPaymentCubit extends AppCoreCubit<StudentPaymentState> {
     final args = state.args;
     if (args == null || state.isExpired || state.isSubmitting) return;
 
-    final validationResult =
-        StudentPaymentValidationRules.validateTransactionId(rawTransactionId);
+    final validationResult = ShamCashValidationRules.validateTransactionId(
+      rawTransactionId,
+    );
     final transactionId = validationResult.fold<String?>((failure) {
       emit(state.copyWith(effect: StudentPaymentEffectActionFailed(failure)));
       return null;

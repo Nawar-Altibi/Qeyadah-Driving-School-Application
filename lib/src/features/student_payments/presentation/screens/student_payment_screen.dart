@@ -13,7 +13,7 @@ import 'package:qeyadah_mobile_app/src/features/student_payments/presentation/co
 import 'package:qeyadah_mobile_app/src/features/student_payments/presentation/cubit/student_payment_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/student_payments/presentation/navigation/student_payment_hold_args.dart';
 import 'package:qeyadah_mobile_app/src/features/student_payments/presentation/navigation/student_payment_navigation.dart';
-import 'package:qeyadah_mobile_app/src/features/student_payments/presentation/widgets/student_payment_transaction_input.dart';
+import 'package:qeyadah_mobile_app/src/shared/payments/sham_cash_transaction_input.dart';
 
 class StudentPaymentScreen extends StatefulWidget {
   const StudentPaymentScreen({super.key, required this.args});
@@ -142,7 +142,7 @@ class _StudentPaymentScreenState extends State<StudentPaymentScreen> {
                     ),
                     const SizedBox(height: AppDesignTokens.spacingMd),
                     Center(
-                      child: StudentPaymentTransactionInput(
+                      child: ShamCashTransactionInput(
                         controller: _transactionController,
                         autofocus: true,
                       ),

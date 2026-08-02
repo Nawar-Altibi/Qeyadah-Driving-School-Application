@@ -9,10 +9,12 @@ import 'package:qeyadah_mobile_app/src/core/ui/app_button.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_status_badge.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/responsive/app_breakpoints.dart';
+import 'package:qeyadah_mobile_app/src/features/auth/presentation/cubit/auth_session_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/student_certificates/domain/entities/student_certificate_entities.dart';
 import 'package:qeyadah_mobile_app/src/features/student_certificates/presentation/coordinators/student_certificates_read_coordinators.dart';
 import 'package:qeyadah_mobile_app/src/features/student_certificates/presentation/cubit/student_certificate_detail_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/student_certificates/presentation/formatters/student_certificates_formatters.dart';
+import 'package:qeyadah_mobile_app/src/features/student_certificates/presentation/navigation/student_certificates_navigation.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/exam_result.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -89,6 +91,9 @@ class _DetailBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final certificate = detail.certificate;
+    final isBlocked =
+        context.watch<AuthSessionCubit>().currentSession?.user.isBlocked ??
+        false;
     return RefreshIndicator(
       onRefresh: () => context.read<StudentCertificateDetailCubit>().refresh(),
       child: ListView(
@@ -224,6 +229,16 @@ class _DetailBody extends StatelessWidget {
               padding: const EdgeInsets.only(top: AppDesignTokens.spacingMd),
               child: Text(detail.actions.reexam.message!),
             ),
+          if (detail.actions.reexam.eligible && !isBlocked) ...[
+            const SizedBox(height: AppDesignTokens.spacingMd),
+            AppButton.primary(
+              label: l10n.studentCertificatesReexamCta,
+              onPressed: () => StudentCertificatesNavigation.pushReexam(
+                context: context,
+                certificateId: certificate.id,
+              ),
+            ),
+          ],
         ],
       ),
     );

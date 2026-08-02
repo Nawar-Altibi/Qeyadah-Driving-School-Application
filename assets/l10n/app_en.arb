@@ -709,6 +709,19 @@
       "amount": { "type": "String" }
     }
   },
-  "studentCertificatesSectionEmpty": "No items available."
+  "studentCertificatesSectionEmpty": "No items available.",
+  "studentCertificatesNewTitle": "New certificate request",
+  "studentCertificatesTransmissionChoice": "Transmission type",
+  "studentCertificatesTransportRequested": "I need school transport",
+  "studentCertificatesImagesTitle": "Required photos",
+  "studentCertificatesImagesHint": "JPEG, PNG, or WebP. Maximum 5 MB per image.",
+  "studentCertificatesFeeGuidance": "Transfer approximately 600,000 SYP via ShamCash, then enter the transaction ID.",
+  "studentCertificatesSubmitNew": "Submit certificate request",
+  "studentCertificatesNewSuccess": "Your certificate request was submitted successfully.",
+  "studentCertificatesInvalidImage": "Choose a JPEG, PNG, or WebP image.",
+  "studentCertificatesImageTooLarge": "Each image must be 5 MB or smaller.",
+  "studentCertificatesReexamPayCta": "Pay and register for re-exam",
+  "studentCertificatesReexamSuccess": "Your re-exam registration was submitted successfully.",
+  "studentCertificatesRegistrationExpired": "The re-exam registration deadline has passed."
 }
 

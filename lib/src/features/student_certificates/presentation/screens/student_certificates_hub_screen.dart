@@ -73,33 +73,17 @@ class StudentCertificatesHubScreen extends StatelessWidget {
                                 eligibility: eligibility,
                                 state: state,
                                 isBlocked: isBlocked,
-                                onNewRequestTap: () {
-                                  final messenger = ScaffoldMessenger.maybeOf(
-                                    context,
-                                  );
-                                  messenger
-                                    ?..hideCurrentSnackBar()
-                                    ..showSnackBar(
-                                      SnackBar(
-                                        content: Text(
-                                          l10n.studentCertificatesWriteComingSoon,
-                                        ),
-                                      ),
-                                    );
-                                },
+                                onNewRequestTap: () =>
+                                    StudentCertificatesNavigation.pushNewRequest(
+                                      context: context,
+                                    ),
                                 onReexamTap: () {
-                                  final messenger = ScaffoldMessenger.maybeOf(
-                                    context,
+                                  final id = eligibility.activeCertificateId;
+                                  if (id == null) return;
+                                  StudentCertificatesNavigation.pushReexam(
+                                    context: context,
+                                    certificateId: id,
                                   );
-                                  messenger
-                                    ?..hideCurrentSnackBar()
-                                    ..showSnackBar(
-                                      SnackBar(
-                                        content: Text(
-                                          l10n.studentCertificatesWriteComingSoon,
-                                        ),
-                                      ),
-                                    );
                                 },
                                 onHistoryTap: () =>
                                     StudentCertificatesNavigation.pushHistory(
