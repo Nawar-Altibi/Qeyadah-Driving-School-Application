@@ -2147,6 +2147,180 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Transaction ID must be exactly 9 digits.'**
   String get studentPaymentInvalidTransactionId;
+
+  /// No description provided for @studentCertificatesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Certificates'**
+  String get studentCertificatesTitle;
+
+  /// No description provided for @studentCertificatesActiveRequestTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Active request'**
+  String get studentCertificatesActiveRequestTitle;
+
+  /// No description provided for @studentCertificatesCourseNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Course number {courseNumber}'**
+  String studentCertificatesCourseNumber(int courseNumber);
+
+  /// No description provided for @studentCertificatesRequestId.
+  ///
+  /// In en, this message translates to:
+  /// **'Request #{id}'**
+  String studentCertificatesRequestId(String id);
+
+  /// No description provided for @studentCertificatesNewRequestFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Request a certificate for the first time'**
+  String get studentCertificatesNewRequestFirst;
+
+  /// No description provided for @studentCertificatesNewRequestExtra.
+  ///
+  /// In en, this message translates to:
+  /// **'Request an additional certificate'**
+  String get studentCertificatesNewRequestExtra;
+
+  /// No description provided for @studentCertificatesAvailableTypes.
+  ///
+  /// In en, this message translates to:
+  /// **'Available types: {types}'**
+  String studentCertificatesAvailableTypes(String types);
+
+  /// No description provided for @studentCertificatesBlockedWriteHint.
+  ///
+  /// In en, this message translates to:
+  /// **'New certificate requests are unavailable while your account is restricted.'**
+  String get studentCertificatesBlockedWriteHint;
+
+  /// No description provided for @studentCertificatesReexamTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Request a re-exam'**
+  String get studentCertificatesReexamTitle;
+
+  /// No description provided for @studentCertificatesReexamTitleTyped.
+  ///
+  /// In en, this message translates to:
+  /// **'Request a {examType} re-exam'**
+  String studentCertificatesReexamTitleTyped(String examType);
+
+  /// No description provided for @studentCertificatesReexamFee.
+  ///
+  /// In en, this message translates to:
+  /// **'Fee: {amount} SYP'**
+  String studentCertificatesReexamFee(String amount);
+
+  /// No description provided for @studentCertificatesExamScheduled.
+  ///
+  /// In en, this message translates to:
+  /// **'Exam: {label}'**
+  String studentCertificatesExamScheduled(String label);
+
+  /// No description provided for @studentCertificatesRegistrationCloses.
+  ///
+  /// In en, this message translates to:
+  /// **'Registration closes: {label}'**
+  String studentCertificatesRegistrationCloses(String label);
+
+  /// No description provided for @studentCertificatesRegistrationCountdown.
+  ///
+  /// In en, this message translates to:
+  /// **'Time left to register: {time}'**
+  String studentCertificatesRegistrationCountdown(String time);
+
+  /// No description provided for @studentCertificatesReexamCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Request re-exam'**
+  String get studentCertificatesReexamCta;
+
+  /// No description provided for @studentCertificatesStatusTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Certificate status'**
+  String get studentCertificatesStatusTitle;
+
+  /// No description provided for @studentCertificatesStatusFallback.
+  ///
+  /// In en, this message translates to:
+  /// **'No certificate actions are available right now.'**
+  String get studentCertificatesStatusFallback;
+
+  /// No description provided for @studentCertificatesWriteComingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Submitting certificate requests will be available in the next update.'**
+  String get studentCertificatesWriteComingSoon;
+
+  /// No description provided for @studentCertificatesExamTypeTheory.
+  ///
+  /// In en, this message translates to:
+  /// **'theory'**
+  String get studentCertificatesExamTypeTheory;
+
+  /// No description provided for @studentCertificatesExamTypePractical.
+  ///
+  /// In en, this message translates to:
+  /// **'practical'**
+  String get studentCertificatesExamTypePractical;
+
+  /// No description provided for @studentCertificatesTransmissionManual.
+  ///
+  /// In en, this message translates to:
+  /// **'Manual'**
+  String get studentCertificatesTransmissionManual;
+
+  /// No description provided for @studentCertificatesTransmissionAutomatic.
+  ///
+  /// In en, this message translates to:
+  /// **'Automatic'**
+  String get studentCertificatesTransmissionAutomatic;
+
+  /// No description provided for @studentCertificatesStatusWaitingForTrainingSchedule.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for training schedule'**
+  String get studentCertificatesStatusWaitingForTrainingSchedule;
+
+  /// No description provided for @studentCertificatesStatusInGovernmentTraining.
+  ///
+  /// In en, this message translates to:
+  /// **'In government training'**
+  String get studentCertificatesStatusInGovernmentTraining;
+
+  /// No description provided for @studentCertificatesStatusWaitingForTheoreticalExam.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for theoretical exam'**
+  String get studentCertificatesStatusWaitingForTheoreticalExam;
+
+  /// No description provided for @studentCertificatesStatusWaitingForPracticalExam.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for practical exam'**
+  String get studentCertificatesStatusWaitingForPracticalExam;
+
+  /// No description provided for @studentCertificatesStatusCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed'**
+  String get studentCertificatesStatusCompleted;
+
+  /// No description provided for @studentCertificatesStatusFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed'**
+  String get studentCertificatesStatusFailed;
+
+  /// No description provided for @studentCertificatesStatusCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelled'**
+  String get studentCertificatesStatusCancelled;
 }
 
 class _AppLocalizationsDelegate

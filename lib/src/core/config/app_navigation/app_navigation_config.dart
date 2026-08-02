@@ -48,6 +48,8 @@ import 'package:qeyadah_mobile_app/src/features/student_bookings/presentation/cu
 import 'package:qeyadah_mobile_app/src/features/student_bookings/presentation/navigation/student_bookings_screen_params.dart';
 import 'package:qeyadah_mobile_app/src/features/student_bookings/presentation/screens/student_booking_detail_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/student_bookings/presentation/screens/student_bookings_list_screen.dart';
+import 'package:qeyadah_mobile_app/src/features/student_certificates/presentation/cubit/student_certificates_hub_cubit.dart';
+import 'package:qeyadah_mobile_app/src/features/student_certificates/presentation/screens/student_certificates_hub_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/student_home/presentation/cubit/student_home_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/student_home/presentation/screens/student_home_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/student_payments/presentation/cubit/student_payment_cubit.dart';
@@ -272,6 +274,19 @@ class AppNavigationConfig {
               ),
             );
           },
+        ),
+        GoRoute(
+          path: StudentCertificatesHubScreen.routePath,
+          name: StudentCertificatesHubScreen.routeName,
+          pageBuilder: (context, state) => FadePage(
+            key: state.pageKey,
+            child: _withSession(
+              BlocProvider(
+                create: (_) => getIt<StudentCertificatesHubCubit>(),
+                child: const StudentCertificatesHubScreen(),
+              ),
+            ),
+          ),
         ),
         GoRoute(
           path: InstructorScheduleScreen.routePath,

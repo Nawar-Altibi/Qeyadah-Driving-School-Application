@@ -568,5 +568,91 @@
   "studentPaymentConfirmButton": "Confirm payment",
   "studentPaymentBackToHomeButton": "Back to home",
   "studentPaymentSuccessMessage": "Payment confirmed! Your booking is complete.",
-  "studentPaymentInvalidTransactionId": "Transaction ID must be exactly 9 digits."
+  "studentPaymentInvalidTransactionId": "Transaction ID must be exactly 9 digits.",
+  "studentCertificatesTitle": "Certificates",
+  "studentCertificatesActiveRequestTitle": "Active request",
+  "studentCertificatesCourseNumber": "Course number {courseNumber}",
+  "@studentCertificatesCourseNumber": {
+    "placeholders": {
+      "courseNumber": {
+        "type": "int"
+      }
+    }
+  },
+  "studentCertificatesRequestId": "Request #{id}",
+  "@studentCertificatesRequestId": {
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "studentCertificatesNewRequestFirst": "Request a certificate for the first time",
+  "studentCertificatesNewRequestExtra": "Request an additional certificate",
+  "studentCertificatesAvailableTypes": "Available types: {types}",
+  "@studentCertificatesAvailableTypes": {
+    "placeholders": {
+      "types": {
+        "type": "String"
+      }
+    }
+  },
+  "studentCertificatesBlockedWriteHint": "New certificate requests are unavailable while your account is restricted.",
+  "studentCertificatesReexamTitle": "Request a re-exam",
+  "studentCertificatesReexamTitleTyped": "Request a {examType} re-exam",
+  "@studentCertificatesReexamTitleTyped": {
+    "placeholders": {
+      "examType": {
+        "type": "String"
+      }
+    }
+  },
+  "studentCertificatesReexamFee": "Fee: {amount} SYP",
+  "@studentCertificatesReexamFee": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "studentCertificatesExamScheduled": "Exam: {label}",
+  "@studentCertificatesExamScheduled": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "studentCertificatesRegistrationCloses": "Registration closes: {label}",
+  "@studentCertificatesRegistrationCloses": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "studentCertificatesRegistrationCountdown": "Time left to register: {time}",
+  "@studentCertificatesRegistrationCountdown": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "studentCertificatesReexamCta": "Request re-exam",
+  "studentCertificatesStatusTitle": "Certificate status",
+  "studentCertificatesStatusFallback": "No certificate actions are available right now.",
+  "studentCertificatesWriteComingSoon": "Submitting certificate requests will be available in the next update.",
+  "studentCertificatesExamTypeTheory": "theory",
+  "studentCertificatesExamTypePractical": "practical",
+  "studentCertificatesTransmissionManual": "Manual",
+  "studentCertificatesTransmissionAutomatic": "Automatic",
+  "studentCertificatesStatusWaitingForTrainingSchedule": "Waiting for training schedule",
+  "studentCertificatesStatusInGovernmentTraining": "In government training",
+  "studentCertificatesStatusWaitingForTheoreticalExam": "Waiting for theoretical exam",
+  "studentCertificatesStatusWaitingForPracticalExam": "Waiting for practical exam",
+  "studentCertificatesStatusCompleted": "Completed",
+  "studentCertificatesStatusFailed": "Failed",
+  "studentCertificatesStatusCancelled": "Cancelled"
 }
+

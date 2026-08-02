@@ -547,5 +547,91 @@
   "studentPaymentConfirmButton": "تأكيد الدفع",
   "studentPaymentBackToHomeButton": "العودة إلى الرئيسية",
   "studentPaymentSuccessMessage": "تم تأكيد الدفع! تم إتمام حجزك.",
-  "studentPaymentInvalidTransactionId": "يجب أن يتكون رقم العملية من 9 أرقام بالضبط."
+  "studentPaymentInvalidTransactionId": "يجب أن يتكون رقم العملية من 9 أرقام بالضبط.",
+  "studentCertificatesTitle": "الشهادات",
+  "studentCertificatesActiveRequestTitle": "الطلب الحالي",
+  "studentCertificatesCourseNumber": "رقم الدورة {courseNumber}",
+  "@studentCertificatesCourseNumber": {
+    "placeholders": {
+      "courseNumber": {
+        "type": "int"
+      }
+    }
+  },
+  "studentCertificatesRequestId": "طلب رقم {id}",
+  "@studentCertificatesRequestId": {
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "studentCertificatesNewRequestFirst": "طلب شهادة لأول مرة",
+  "studentCertificatesNewRequestExtra": "طلب شهادة إضافية",
+  "studentCertificatesAvailableTypes": "الأنواع المتاحة: {types}",
+  "@studentCertificatesAvailableTypes": {
+    "placeholders": {
+      "types": {
+        "type": "String"
+      }
+    }
+  },
+  "studentCertificatesBlockedWriteHint": "لا يمكن تقديم طلب شهادة جديد بينما حسابك مقيّد.",
+  "studentCertificatesReexamTitle": "طلب إعادة امتحان",
+  "studentCertificatesReexamTitleTyped": "طلب إعادة الامتحان {examType}",
+  "@studentCertificatesReexamTitleTyped": {
+    "placeholders": {
+      "examType": {
+        "type": "String"
+      }
+    }
+  },
+  "studentCertificatesReexamFee": "الرسم: {amount} ل.س",
+  "@studentCertificatesReexamFee": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "studentCertificatesExamScheduled": "الموعد: {label}",
+  "@studentCertificatesExamScheduled": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "studentCertificatesRegistrationCloses": "آخر موعد للتسجيل: {label}",
+  "@studentCertificatesRegistrationCloses": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "studentCertificatesRegistrationCountdown": "الوقت المتبقي للتسجيل: {time}",
+  "@studentCertificatesRegistrationCountdown": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "studentCertificatesReexamCta": "طلب إعادة",
+  "studentCertificatesStatusTitle": "حالة الشهادة",
+  "studentCertificatesStatusFallback": "لا تتوفر إجراءات شهادة حالياً.",
+  "studentCertificatesWriteComingSoon": "تقديم طلبات الشهادة سيكون متاحاً في التحديث القادم.",
+  "studentCertificatesExamTypeTheory": "النظري",
+  "studentCertificatesExamTypePractical": "العملي",
+  "studentCertificatesTransmissionManual": "عادي",
+  "studentCertificatesTransmissionAutomatic": "أوتوماتيك",
+  "studentCertificatesStatusWaitingForTrainingSchedule": "بانتظار تحديد جدول التدريب",
+  "studentCertificatesStatusInGovernmentTraining": "في التدريب الحكومي",
+  "studentCertificatesStatusWaitingForTheoreticalExam": "بانتظار الامتحان النظري",
+  "studentCertificatesStatusWaitingForPracticalExam": "بانتظار الامتحان العملي",
+  "studentCertificatesStatusCompleted": "مكتملة",
+  "studentCertificatesStatusFailed": "راسبة",
+  "studentCertificatesStatusCancelled": "ملغاة"
 }
+
