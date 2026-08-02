@@ -1760,6 +1760,310 @@ abstract class AppLocalizations {
   /// **'You already have a booking awaiting payment.'**
   String get studentBookingErrorPendingPaymentExists;
 
+  /// No description provided for @studentBookingsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'My bookings'**
+  String get studentBookingsTitle;
+
+  /// No description provided for @studentBookingsFilterAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get studentBookingsFilterAll;
+
+  /// No description provided for @studentBookingsSearchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search by instructor name'**
+  String get studentBookingsSearchHint;
+
+  /// No description provided for @studentBookingsEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No bookings yet'**
+  String get studentBookingsEmptyTitle;
+
+  /// No description provided for @studentBookingsEmptyMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Your bookings will show up here once you book a lesson.'**
+  String get studentBookingsEmptyMessage;
+
+  /// No description provided for @studentBookingsRemainingAtSchool.
+  ///
+  /// In en, this message translates to:
+  /// **'Remainder {amount} at school'**
+  String studentBookingsRemainingAtSchool(String amount);
+
+  /// No description provided for @studentBookingsCurrencyAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'{amount} SYP'**
+  String studentBookingsCurrencyAmount(String amount);
+
+  /// No description provided for @studentBookingsStatusPendingPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending payment'**
+  String get studentBookingsStatusPendingPayment;
+
+  /// No description provided for @studentBookingsStatusBooked.
+  ///
+  /// In en, this message translates to:
+  /// **'Booked'**
+  String get studentBookingsStatusBooked;
+
+  /// No description provided for @studentBookingsStatusCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed'**
+  String get studentBookingsStatusCompleted;
+
+  /// No description provided for @studentBookingsStatusCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelled'**
+  String get studentBookingsStatusCancelled;
+
+  /// No description provided for @studentBookingsStatusExpired.
+  ///
+  /// In en, this message translates to:
+  /// **'Expired'**
+  String get studentBookingsStatusExpired;
+
+  /// No description provided for @studentBookingsStatusNoShow.
+  ///
+  /// In en, this message translates to:
+  /// **'No show'**
+  String get studentBookingsStatusNoShow;
+
+  /// No description provided for @studentBookingsPaymentPendingDeposit.
+  ///
+  /// In en, this message translates to:
+  /// **'Deposit pending'**
+  String get studentBookingsPaymentPendingDeposit;
+
+  /// No description provided for @studentBookingsPaymentDepositPaid.
+  ///
+  /// In en, this message translates to:
+  /// **'Deposit paid'**
+  String get studentBookingsPaymentDepositPaid;
+
+  /// No description provided for @studentBookingsPaymentFullyPaid.
+  ///
+  /// In en, this message translates to:
+  /// **'Fully paid'**
+  String get studentBookingsPaymentFullyPaid;
+
+  /// No description provided for @studentBookingsPaymentDepositNonRefundable.
+  ///
+  /// In en, this message translates to:
+  /// **'Deposit not refundable'**
+  String get studentBookingsPaymentDepositNonRefundable;
+
+  /// No description provided for @studentBookingsPaymentDepositAvailableForRebooking.
+  ///
+  /// In en, this message translates to:
+  /// **'Deposit available for rebooking'**
+  String get studentBookingsPaymentDepositAvailableForRebooking;
+
+  /// No description provided for @studentBookingsPaymentDepositUsedInRebooking.
+  ///
+  /// In en, this message translates to:
+  /// **'Deposit used in rebooking'**
+  String get studentBookingsPaymentDepositUsedInRebooking;
+
+  /// No description provided for @studentBookingsChargeUnpaid.
+  ///
+  /// In en, this message translates to:
+  /// **'Unpaid'**
+  String get studentBookingsChargeUnpaid;
+
+  /// No description provided for @studentBookingsChargePartiallyPaid.
+  ///
+  /// In en, this message translates to:
+  /// **'Partially paid'**
+  String get studentBookingsChargePartiallyPaid;
+
+  /// No description provided for @studentBookingsChargePaid.
+  ///
+  /// In en, this message translates to:
+  /// **'Paid'**
+  String get studentBookingsChargePaid;
+
+  /// No description provided for @studentBookingsChargeCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelled'**
+  String get studentBookingsChargeCancelled;
+
+  /// No description provided for @studentBookingDetailTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Booking details'**
+  String get studentBookingDetailTitle;
+
+  /// No description provided for @studentBookingDetailCompletePayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete payment'**
+  String get studentBookingDetailCompletePayment;
+
+  /// No description provided for @studentBookingDetailInstructorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Instructor'**
+  String get studentBookingDetailInstructorTitle;
+
+  /// No description provided for @studentBookingDetailVehicleTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Vehicle'**
+  String get studentBookingDetailVehicleTitle;
+
+  /// No description provided for @studentBookingDetailOwnVehicleNote.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re using your own car for this lesson.'**
+  String get studentBookingDetailOwnVehicleNote;
+
+  /// No description provided for @studentBookingDetailChargesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Charges'**
+  String get studentBookingDetailChargesTitle;
+
+  /// No description provided for @studentBookingDetailChargesEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No charges recorded for this booking yet.'**
+  String get studentBookingDetailChargesEmpty;
+
+  /// No description provided for @studentBookingDetailChargeAmountDue.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount due: {amount}'**
+  String studentBookingDetailChargeAmountDue(String amount);
+
+  /// No description provided for @studentBookingDetailRemainingCallout.
+  ///
+  /// In en, this message translates to:
+  /// **'Paid {paid} of {total} — remainder {remaining} at school'**
+  String studentBookingDetailRemainingCallout(
+    String paid,
+    String total,
+    String remaining,
+  );
+
+  /// No description provided for @studentBookingDetailCancelButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel booking'**
+  String get studentBookingDetailCancelButton;
+
+  /// No description provided for @studentBookingDetailDepositRebookTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Deposit available for rebooking'**
+  String get studentBookingDetailDepositRebookTitle;
+
+  /// No description provided for @studentBookingDetailDepositRebookMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Your deposit is being held and can be used toward a new booking.'**
+  String get studentBookingDetailDepositRebookMessage;
+
+  /// No description provided for @studentBookingDetailDepositRebookCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Book again'**
+  String get studentBookingDetailDepositRebookCta;
+
+  /// No description provided for @studentBookingDetailDepositLostTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Deposit not refundable'**
+  String get studentBookingDetailDepositLostTitle;
+
+  /// No description provided for @studentBookingDetailDepositLostMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'This booking\'s deposit was not refunded per the cancellation policy.'**
+  String get studentBookingDetailDepositLostMessage;
+
+  /// No description provided for @studentBookingDetailPendingPaymentNoHoldMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'This booking is awaiting payment, but the payment session could not be found. Please contact support.'**
+  String get studentBookingDetailPendingPaymentNoHoldMessage;
+
+  /// No description provided for @studentBookingDetailHoldExpiredMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'The payment window for this booking has expired.'**
+  String get studentBookingDetailHoldExpiredMessage;
+
+  /// No description provided for @studentBookingDetailHoldExpiredCta.
+  ///
+  /// In en, this message translates to:
+  /// **'New booking'**
+  String get studentBookingDetailHoldExpiredCta;
+
+  /// No description provided for @studentBookingDetailCancelSuccessMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Your booking was cancelled.'**
+  String get studentBookingDetailCancelSuccessMessage;
+
+  /// No description provided for @studentBookingDetailCancelSheetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel this booking?'**
+  String get studentBookingDetailCancelSheetTitle;
+
+  /// No description provided for @studentBookingDetailCancelSheetMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Please tell us why you\'re cancelling. This helps us improve.'**
+  String get studentBookingDetailCancelSheetMessage;
+
+  /// No description provided for @studentBookingDetailCancelReasonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancellation reason'**
+  String get studentBookingDetailCancelReasonLabel;
+
+  /// No description provided for @studentBookingDetailCancelReasonHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Schedule conflict'**
+  String get studentBookingDetailCancelReasonHint;
+
+  /// No description provided for @studentBookingDetailCancelReasonRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a cancellation reason.'**
+  String get studentBookingDetailCancelReasonRequired;
+
+  /// No description provided for @studentBookingDetailCancelReasonTooLong.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancellation reason must be at most 255 characters.'**
+  String get studentBookingDetailCancelReasonTooLong;
+
+  /// No description provided for @studentBookingDetailCancelSheetKeep.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep booking'**
+  String get studentBookingDetailCancelSheetKeep;
+
+  /// No description provided for @studentBookingDetailCancelSheetConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel booking'**
+  String get studentBookingDetailCancelSheetConfirm;
+
   /// No description provided for @studentPaymentTitle.
   ///
   /// In en, this message translates to:

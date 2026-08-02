@@ -1,4 +1,5 @@
 import 'package:coore/lib.dart';
+import 'package:dio/dio.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:injectable/injectable.dart';
 import 'package:qeyadah_mobile_app/src/core/constants/endpoints.dart';
@@ -31,9 +32,18 @@ abstract interface class NotificationsRemoteDataSource {
 @LazySingleton(as: NotificationsRemoteDataSource)
 class NotificationsRemoteDataSourceImpl
     implements NotificationsRemoteDataSource {
-  NotificationsRemoteDataSourceImpl(this._apiHandler);
+  NotificationsRemoteDataSourceImpl(
+    this._apiHandler,
+    this._dio,
+    this._exceptionMapper,
+  );
 
   final ApiHandlerInterface _apiHandler;
+
+  /// Shared Dio (auth interceptors already attached). Used only for DELETE with
+  /// a JSON body — Coore's [ApiHandlerInterface.delete] does not accept a body.
+  final Dio _dio;
+  final NetworkExceptionMapper _exceptionMapper;
 
   @override
   FutureEither<AppNotificationsPageEntity> fetchNotifications({
@@ -106,15 +116,28 @@ class NotificationsRemoteDataSourceImpl
 
   @override
   FutureEither<void> unregisterDeviceToken(String token) async {
-    // Coore delete has no body; send token as query per Dio DELETE conventions.
-    final response = await _apiHandler.delete(
-      Endpoints.devicesToken,
-      queryParameters: {'token': token},
-    );
-    return response.fold(
-      (failure) => left(NetworkFailureMapper.toDomainFailure(failure)),
-      (_) => right(null),
-    );
+    // Backend DELETE /devices/token expects `{ "token": "..." }` in the body
+    // (RegisterDeviceTokenDto). Coore's delete API has no body arg, so call Dio
+    // directly without changing Coore.
+    try {
+      await _dio.delete<void>(
+        Endpoints.devicesToken,
+        data: <String, dynamic>{'token': token},
+      );
+      return right(null);
+    } on DioException catch (error, stackTrace) {
+      return left(
+        NetworkFailureMapper.toDomainFailure(
+          _exceptionMapper.mapException(error, stackTrace),
+        ),
+      );
+    } on Object catch (error, stackTrace) {
+      return left(
+        NetworkFailureMapper.toDomainFailure(
+          NoInternetConnectionFailure(error.toString(), stackTrace: stackTrace),
+        ),
+      );
+    }
   }
 
   AppNotificationsPageEntity _pageFromJson(

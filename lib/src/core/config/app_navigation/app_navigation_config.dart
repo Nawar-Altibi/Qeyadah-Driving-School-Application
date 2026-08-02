@@ -43,6 +43,11 @@ import 'package:qeyadah_mobile_app/src/features/student_booking/presentation/nav
 import 'package:qeyadah_mobile_app/src/features/student_booking/presentation/screens/student_booking_preferences_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/student_booking/presentation/screens/student_booking_review_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/student_booking/presentation/screens/student_booking_slots_screen.dart';
+import 'package:qeyadah_mobile_app/src/features/student_bookings/presentation/cubit/student_booking_detail_cubit.dart';
+import 'package:qeyadah_mobile_app/src/features/student_bookings/presentation/cubit/student_bookings_list_cubit.dart';
+import 'package:qeyadah_mobile_app/src/features/student_bookings/presentation/navigation/student_bookings_screen_params.dart';
+import 'package:qeyadah_mobile_app/src/features/student_bookings/presentation/screens/student_booking_detail_screen.dart';
+import 'package:qeyadah_mobile_app/src/features/student_bookings/presentation/screens/student_bookings_list_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/student_home/presentation/cubit/student_home_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/student_home/presentation/screens/student_home_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/student_payments/presentation/cubit/student_payment_cubit.dart';
@@ -237,6 +242,35 @@ class AppNavigationConfig {
                     child: const StudentHomeScreen(),
                   );
             return FadePage(key: state.pageKey, child: _withSession(child));
+          },
+        ),
+        GoRoute(
+          path: StudentBookingsListScreen.routePath,
+          name: StudentBookingsListScreen.routeName,
+          pageBuilder: (context, state) => FadePage(
+            key: state.pageKey,
+            child: _withSession(
+              BlocProvider(
+                create: (_) => getIt<StudentBookingsListCubit>(),
+                child: const StudentBookingsListScreen(),
+              ),
+            ),
+          ),
+        ),
+        GoRoute(
+          path: StudentBookingDetailScreen.routePath,
+          name: StudentBookingDetailScreen.routeName,
+          pageBuilder: (context, state) {
+            final bookingId = studentBookingDetailIdFromExtra(state.extra) ?? 0;
+            return FadePage(
+              key: state.pageKey,
+              child: _withSession(
+                BlocProvider(
+                  create: (_) => getIt<StudentBookingDetailCubit>(),
+                  child: StudentBookingDetailScreen(bookingId: bookingId),
+                ),
+              ),
+            );
           },
         ),
         GoRoute(

@@ -930,6 +930,183 @@ class AppLocalizationsEn extends AppLocalizations {
       'You already have a booking awaiting payment.';
 
   @override
+  String get studentBookingsTitle => 'My bookings';
+
+  @override
+  String get studentBookingsFilterAll => 'All';
+
+  @override
+  String get studentBookingsSearchHint => 'Search by instructor name';
+
+  @override
+  String get studentBookingsEmptyTitle => 'No bookings yet';
+
+  @override
+  String get studentBookingsEmptyMessage =>
+      'Your bookings will show up here once you book a lesson.';
+
+  @override
+  String studentBookingsRemainingAtSchool(String amount) {
+    return 'Remainder $amount at school';
+  }
+
+  @override
+  String studentBookingsCurrencyAmount(String amount) {
+    return '$amount SYP';
+  }
+
+  @override
+  String get studentBookingsStatusPendingPayment => 'Pending payment';
+
+  @override
+  String get studentBookingsStatusBooked => 'Booked';
+
+  @override
+  String get studentBookingsStatusCompleted => 'Completed';
+
+  @override
+  String get studentBookingsStatusCancelled => 'Cancelled';
+
+  @override
+  String get studentBookingsStatusExpired => 'Expired';
+
+  @override
+  String get studentBookingsStatusNoShow => 'No show';
+
+  @override
+  String get studentBookingsPaymentPendingDeposit => 'Deposit pending';
+
+  @override
+  String get studentBookingsPaymentDepositPaid => 'Deposit paid';
+
+  @override
+  String get studentBookingsPaymentFullyPaid => 'Fully paid';
+
+  @override
+  String get studentBookingsPaymentDepositNonRefundable =>
+      'Deposit not refundable';
+
+  @override
+  String get studentBookingsPaymentDepositAvailableForRebooking =>
+      'Deposit available for rebooking';
+
+  @override
+  String get studentBookingsPaymentDepositUsedInRebooking =>
+      'Deposit used in rebooking';
+
+  @override
+  String get studentBookingsChargeUnpaid => 'Unpaid';
+
+  @override
+  String get studentBookingsChargePartiallyPaid => 'Partially paid';
+
+  @override
+  String get studentBookingsChargePaid => 'Paid';
+
+  @override
+  String get studentBookingsChargeCancelled => 'Cancelled';
+
+  @override
+  String get studentBookingDetailTitle => 'Booking details';
+
+  @override
+  String get studentBookingDetailCompletePayment => 'Complete payment';
+
+  @override
+  String get studentBookingDetailInstructorTitle => 'Instructor';
+
+  @override
+  String get studentBookingDetailVehicleTitle => 'Vehicle';
+
+  @override
+  String get studentBookingDetailOwnVehicleNote =>
+      'You\'re using your own car for this lesson.';
+
+  @override
+  String get studentBookingDetailChargesTitle => 'Charges';
+
+  @override
+  String get studentBookingDetailChargesEmpty =>
+      'No charges recorded for this booking yet.';
+
+  @override
+  String studentBookingDetailChargeAmountDue(String amount) {
+    return 'Amount due: $amount';
+  }
+
+  @override
+  String studentBookingDetailRemainingCallout(
+    String paid,
+    String total,
+    String remaining,
+  ) {
+    return 'Paid $paid of $total — remainder $remaining at school';
+  }
+
+  @override
+  String get studentBookingDetailCancelButton => 'Cancel booking';
+
+  @override
+  String get studentBookingDetailDepositRebookTitle =>
+      'Deposit available for rebooking';
+
+  @override
+  String get studentBookingDetailDepositRebookMessage =>
+      'Your deposit is being held and can be used toward a new booking.';
+
+  @override
+  String get studentBookingDetailDepositRebookCta => 'Book again';
+
+  @override
+  String get studentBookingDetailDepositLostTitle => 'Deposit not refundable';
+
+  @override
+  String get studentBookingDetailDepositLostMessage =>
+      'This booking\'s deposit was not refunded per the cancellation policy.';
+
+  @override
+  String get studentBookingDetailPendingPaymentNoHoldMessage =>
+      'This booking is awaiting payment, but the payment session could not be found. Please contact support.';
+
+  @override
+  String get studentBookingDetailHoldExpiredMessage =>
+      'The payment window for this booking has expired.';
+
+  @override
+  String get studentBookingDetailHoldExpiredCta => 'New booking';
+
+  @override
+  String get studentBookingDetailCancelSuccessMessage =>
+      'Your booking was cancelled.';
+
+  @override
+  String get studentBookingDetailCancelSheetTitle => 'Cancel this booking?';
+
+  @override
+  String get studentBookingDetailCancelSheetMessage =>
+      'Please tell us why you\'re cancelling. This helps us improve.';
+
+  @override
+  String get studentBookingDetailCancelReasonLabel => 'Cancellation reason';
+
+  @override
+  String get studentBookingDetailCancelReasonHint => 'e.g. Schedule conflict';
+
+  @override
+  String get studentBookingDetailCancelReasonRequired =>
+      'Please enter a cancellation reason.';
+
+  @override
+  String get studentBookingDetailCancelReasonTooLong =>
+      'Cancellation reason must be at most 255 characters.';
+
+  @override
+  String get studentBookingDetailCancelSheetKeep => 'Keep booking';
+
+  @override
+  String get studentBookingDetailCancelSheetConfirm => 'Cancel booking';
+
+  @override
   String get studentPaymentTitle => 'ShamCash payment';
 
   @override

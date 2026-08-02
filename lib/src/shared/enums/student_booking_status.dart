@@ -1,6 +1,5 @@
 enum StudentBookingStatus {
   pendingPayment,
-  depositPaid,
   booked,
   completed,
   cancelled,
@@ -10,7 +9,6 @@ enum StudentBookingStatus {
   static StudentBookingStatus? fromApi(String? value) {
     return switch (value?.toUpperCase()) {
       'PENDING_PAYMENT' => StudentBookingStatus.pendingPayment,
-      'DEPOSIT_PAID' => StudentBookingStatus.depositPaid,
       'BOOKED' => StudentBookingStatus.booked,
       'COMPLETED' => StudentBookingStatus.completed,
       'CANCELLED' => StudentBookingStatus.cancelled,
@@ -22,7 +20,6 @@ enum StudentBookingStatus {
 
   String get apiValue => switch (this) {
     StudentBookingStatus.pendingPayment => 'PENDING_PAYMENT',
-    StudentBookingStatus.depositPaid => 'DEPOSIT_PAID',
     StudentBookingStatus.booked => 'BOOKED',
     StudentBookingStatus.completed => 'COMPLETED',
     StudentBookingStatus.cancelled => 'CANCELLED',

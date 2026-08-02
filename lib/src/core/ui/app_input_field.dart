@@ -13,6 +13,9 @@ class AppInputField extends StatelessWidget {
     this.prefixIcon,
     this.textInputAction,
     this.autoFillHints,
+    this.maxLines = 1,
+    this.minLines,
+    this.maxLength,
   });
 
   final String name;
@@ -24,6 +27,14 @@ class AppInputField extends StatelessWidget {
   final Widget? prefixIcon;
   final TextInputAction? textInputAction;
   final Iterable<String>? autoFillHints;
+
+  /// Set [maxLines] > 1 (with [minLines]) for a multiline text area.
+  final int? maxLines;
+  final int? minLines;
+
+  /// When set, also renders Flutter's built-in "x/maxLength" counter below
+  /// the field.
+  final int? maxLength;
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +48,9 @@ class AppInputField extends StatelessWidget {
       prefixIcon: prefixIcon,
       textInputAction: textInputAction,
       autoFillHints: autoFillHints,
+      maxLines: maxLines,
+      minLines: minLines,
+      maxLength: maxLength,
     );
   }
 }
