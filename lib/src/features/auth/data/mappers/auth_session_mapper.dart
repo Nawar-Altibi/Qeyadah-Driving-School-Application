@@ -1,6 +1,7 @@
 import 'package:qeyadah_mobile_app/src/features/auth/data/models/auth_session_model.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/domain/entities/auth_session_entity.dart';
 import 'package:qeyadah_mobile_app/src/shared/entities/user_entity.dart';
+import 'package:qeyadah_mobile_app/src/shared/enums/account_status.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/user_role.dart';
 
 AuthSessionEntity authSessionModelToEntity(AuthSessionModel model) {
@@ -12,6 +13,7 @@ AuthSessionEntity authSessionModelToEntity(AuthSessionModel model) {
       roles: model.roles.map(UserRoleX.fromValue).toList(growable: false),
       permissions: model.permissions,
       mustChangePassword: model.mustChangePassword,
+      accountStatus: AccountStatus.fromValue(model.accountStatus),
     ),
     accessToken: model.accessToken,
     refreshToken: model.refreshToken,
@@ -30,5 +32,6 @@ AuthSessionModel authSessionEntityToModel(AuthSessionEntity entity) {
     mustChangePassword: entity.user.mustChangePassword,
     accessToken: entity.accessToken,
     refreshToken: entity.refreshToken,
+    accountStatus: entity.user.accountStatus.apiValue,
   );
 }

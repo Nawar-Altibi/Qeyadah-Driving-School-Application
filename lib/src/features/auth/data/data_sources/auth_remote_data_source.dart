@@ -105,6 +105,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
               'roles': user['roles'],
               'permissions': user['permissions'],
               'mustChangePassword': user['mustChangePassword'],
+              'accountStatus': user['accountStatus'],
               'accessToken': '',
             }),
           ),
@@ -242,6 +243,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         'roles': user['roles'],
         'permissions': user['permissions'],
         'mustChangePassword': user['mustChangePassword'],
+        'accountStatus': user['accountStatus'],
         'accessToken': data['accessToken'],
         'refreshToken': data['refreshToken'],
       });

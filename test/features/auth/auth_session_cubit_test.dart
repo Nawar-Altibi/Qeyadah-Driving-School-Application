@@ -17,6 +17,7 @@ import 'package:qeyadah_mobile_app/src/features/sample_items/domain/entities/sam
 import 'package:qeyadah_mobile_app/src/features/sample_items/domain/repositories/sample_items_repository.dart';
 import 'package:qeyadah_mobile_app/src/features/sample_items/domain/use_cases/sample_items_use_cases.dart';
 import 'package:qeyadah_mobile_app/src/shared/entities/user_entity.dart';
+import 'package:qeyadah_mobile_app/src/shared/enums/account_status.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/user_role.dart';
 
 class MockAuthRepository extends Mock implements AuthRepository {}
@@ -54,6 +55,7 @@ void main() {
           roles: [UserRole.student],
           permissions: ['bookings.create'],
           mustChangePassword: false,
+          accountStatus: AccountStatus.active,
         ),
         accessToken: 'token',
       );
@@ -109,6 +111,7 @@ void main() {
                 roles: [UserRole.student],
                 permissions: ['bookings.create'],
                 mustChangePassword: false,
+                accountStatus: AccountStatus.active,
               ),
               accessToken: 'token',
             ),
@@ -129,6 +132,7 @@ void main() {
                 roles: [UserRole.student],
                 permissions: ['bookings.create'],
                 mustChangePassword: false,
+                accountStatus: AccountStatus.active,
               ),
               accessToken: 'token',
             ),
