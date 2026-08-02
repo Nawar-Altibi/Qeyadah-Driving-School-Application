@@ -1,5 +1,4 @@
 // File generated for Firebase project `qeyadah`.
-// Replace values by running: dart pub global run flutterfire_cli:flutterfire configure
 // NEVER commit firebase-adminsdk service-account JSON into this mobile app.
 
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
@@ -25,22 +24,18 @@ class DefaultFirebaseOptions {
     }
   }
 
-  /// Placeholder Android options for project `qeyadah`.
-  /// Replace via `flutterfire configure` before shipping push to devices.
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'REPLACE_WITH_ANDROID_API_KEY',
-    appId: '1:000000000000:android:REPLACE',
-    messagingSenderId: '000000000000',
+    apiKey: 'AIzaSyA8Vrr_ZsOSHbIPHD1Xei5W7BrYG0q8OJU',
+    appId: '1:869422894847:android:923129f544beb2686ac6ca',
+    messagingSenderId: '869422894847',
     projectId: 'qeyadah',
     storageBucket: 'qeyadah.firebasestorage.app',
   );
 
-  /// Placeholder iOS options for project `qeyadah`.
-  /// Replace via `flutterfire configure` and upload APNs key in Firebase console.
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'REPLACE_WITH_IOS_API_KEY',
-    appId: '1:000000000000:ios:REPLACE',
-    messagingSenderId: '000000000000',
+    apiKey: 'AIzaSyCfunh0n7NIKWzzUYErg0vEWTPqA2hSvLQ',
+    appId: '1:869422894847:ios:f8ec6d1529fdae216ac6ca',
+    messagingSenderId: '869422894847',
     projectId: 'qeyadah',
     storageBucket: 'qeyadah.firebasestorage.app',
     iosBundleId: 'com.qeyadah.mobile',
