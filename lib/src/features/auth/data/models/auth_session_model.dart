@@ -8,6 +8,7 @@ class AuthSessionModel {
     required this.mustChangePassword,
     required this.accessToken,
     this.refreshToken,
+    this.accountStatus = 'ACTIVE',
   });
 
   factory AuthSessionModel.fromJson(Map<String, dynamic> json) {
@@ -20,6 +21,7 @@ class AuthSessionModel {
       mustChangePassword: json['mustChangePassword'] == true,
       accessToken: (json['accessToken'] ?? '').toString(),
       refreshToken: json['refreshToken']?.toString(),
+      accountStatus: (json['accountStatus'] ?? 'ACTIVE').toString(),
     );
   }
 
@@ -31,6 +33,7 @@ class AuthSessionModel {
   final bool mustChangePassword;
   final String accessToken;
   final String? refreshToken;
+  final String accountStatus;
 
   Map<String, dynamic> toJson() {
     return {
@@ -42,6 +45,7 @@ class AuthSessionModel {
       'mustChangePassword': mustChangePassword,
       'accessToken': accessToken,
       'refreshToken': refreshToken,
+      'accountStatus': accountStatus,
     };
   }
 }

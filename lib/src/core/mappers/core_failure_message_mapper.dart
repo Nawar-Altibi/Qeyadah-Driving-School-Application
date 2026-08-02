@@ -10,7 +10,8 @@ abstract final class CoreFailureMessageMapper {
       AuthFailure(
         :final message,
       ) => message.isNotEmpty ? message : l10n.errorUnauthorized,
-      ForbiddenFailure() => l10n.errorForbidden,
+      ForbiddenFailure(:final message) =>
+        message.isNotEmpty ? message : l10n.errorForbidden,
       ValidationFailure() => l10n.errorValidation,
       NotFoundFailure() => l10n.errorNotFound,
       RequestTimeoutFailure() => l10n.errorRequestTimeout,

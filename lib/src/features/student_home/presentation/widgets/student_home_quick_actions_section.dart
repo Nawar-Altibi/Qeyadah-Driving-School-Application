@@ -12,11 +12,13 @@ class StudentHomeQuickActionsSection extends StatelessWidget {
     required this.actions,
     required this.onActionTap,
     this.onViewAllTap,
+    this.isActionEnabled,
   });
 
   final List<StudentHomeQuickActionType> actions;
   final ValueChanged<StudentHomeQuickActionType> onActionTap;
   final VoidCallback? onViewAllTap;
+  final bool Function(StudentHomeQuickActionType)? isActionEnabled;
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +47,7 @@ class StudentHomeQuickActionsSection extends StatelessWidget {
               AppQuickActionTile(
                 label: _labelForAction(l10n, action),
                 icon: _iconForAction(action),
+                enabled: isActionEnabled?.call(action) ?? true,
                 onTap: () => onActionTap(action),
               ),
           ],

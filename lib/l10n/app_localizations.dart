@@ -800,6 +800,18 @@ abstract class AppLocalizations {
   /// **'You have {time} to enter your ShamCash transaction ID before the slot is released.'**
   String studentHomePendingPaymentMessage(String time);
 
+  /// No description provided for @studentHomeBlockedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Account restricted'**
+  String get studentHomeBlockedTitle;
+
+  /// No description provided for @studentHomeBlockedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'You can still view your existing bookings and certificates, but you cannot request new services until administration lifts the block. Please contact the school.'**
+  String get studentHomeBlockedMessage;
+
   /// No description provided for @studentHomeQuickActions.
   ///
   /// In en, this message translates to:
