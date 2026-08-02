@@ -15,6 +15,8 @@ class StudentCertificatesHubBody extends StatelessWidget {
     required this.isBlocked,
     this.onNewRequestTap,
     this.onReexamTap,
+    this.onHistoryTap,
+    this.onViewDetailsTap,
     super.key,
   });
 
@@ -23,6 +25,8 @@ class StudentCertificatesHubBody extends StatelessWidget {
   final bool isBlocked;
   final VoidCallback? onNewRequestTap;
   final VoidCallback? onReexamTap;
+  final VoidCallback? onHistoryTap;
+  final VoidCallback? onViewDetailsTap;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +35,11 @@ class StudentCertificatesHubBody extends StatelessWidget {
 
     if (eligibility.hasActiveCertificate) {
       children.add(
-        _ActiveRequestSummaryCard(eligibility: eligibility, l10n: l10n),
+        _ActiveRequestSummaryCard(
+          eligibility: eligibility,
+          l10n: l10n,
+          onViewDetailsTap: onViewDetailsTap,
+        ),
       );
       children.add(const SizedBox(height: AppDesignTokens.spacingMd));
     }
@@ -62,6 +70,14 @@ class StudentCertificatesHubBody extends StatelessWidget {
       );
     }
 
+    children.add(const SizedBox(height: AppDesignTokens.spacingMd));
+    children.add(
+      AppButton.secondary(
+        label: l10n.studentCertificatesHistoryCta,
+        onPressed: onHistoryTap,
+      ),
+    );
+
     return ListView(
       padding: const EdgeInsets.all(AppDesignTokens.spacingMd),
       children: children,
@@ -73,10 +89,12 @@ class _ActiveRequestSummaryCard extends StatelessWidget {
   const _ActiveRequestSummaryCard({
     required this.eligibility,
     required this.l10n,
+    this.onViewDetailsTap,
   });
 
   final CertificateEligibilityEntity eligibility;
   final AppLocalizations l10n;
+  final VoidCallback? onViewDetailsTap;
 
   @override
   Widget build(BuildContext context) {
@@ -111,6 +129,11 @@ class _ActiveRequestSummaryCard extends StatelessWidget {
               ),
               style: Theme.of(context).textTheme.bodySmall,
             ),
+          const SizedBox(height: AppDesignTokens.spacingMd),
+          AppButton.secondary(
+            label: l10n.studentCertificatesViewDetailsCta,
+            onPressed: onViewDetailsTap,
+          ),
         ],
       ),
     );

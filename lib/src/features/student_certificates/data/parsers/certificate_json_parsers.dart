@@ -1,3 +1,4 @@
+import 'package:qeyadah_mobile_app/src/core/constants/environment_variables.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/certificate_category.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/certificate_request_status.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/exam_type.dart';
@@ -43,6 +44,17 @@ abstract final class CertificateJsonParsers {
     return double.tryParse(raw.toString().trim());
   }
 
+  static String parseMoneyString(Object? raw, {String fallback = '0'}) {
+    if (raw == null) return fallback;
+    final value = raw.toString().trim();
+    return value.isEmpty || value == 'null' ? fallback : value;
+  }
+
+  static int parseInt(Object? raw, {int fallback = 0}) {
+    if (raw is num) return raw.toInt();
+    return int.tryParse(raw?.toString().trim() ?? '') ?? fallback;
+  }
+
   static DateTime? parseDateTime(Object? raw) {
     if (raw == null) return null;
     return DateTime.tryParse(raw.toString());
@@ -70,5 +82,25 @@ abstract final class CertificateJsonParsers {
 
   static ExamType? parseExamType(Object? raw) {
     return ExamType.fromApi(raw?.toString());
+  }
+
+  static String? resolveDocumentUrl(Object? raw, {String? baseUrl}) {
+    final value = raw?.toString().trim();
+    if (value == null || value.isEmpty || value == 'null') return null;
+    if (value.startsWith('http://') || value.startsWith('https://')) {
+      return value;
+    }
+
+    final base = (baseUrl ?? EnvironmentVariables.apiBaseUrl).replaceAll(
+      RegExp(r'/+$'),
+      '',
+    );
+    if (value.startsWith('/')) {
+      final apiIndex = base.indexOf('/api/');
+      final origin = apiIndex >= 0 ? base.substring(0, apiIndex) : base;
+      return '$origin$value';
+    }
+    final normalized = value.replaceFirst(RegExp(r'^/+'), '');
+    return '$base/$normalized';
   }
 }

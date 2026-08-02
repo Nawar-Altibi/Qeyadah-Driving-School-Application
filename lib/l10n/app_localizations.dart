@@ -2321,6 +2321,162 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Cancelled'**
   String get studentCertificatesStatusCancelled;
+
+  /// No description provided for @studentCertificatesHistoryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Certificate history'**
+  String get studentCertificatesHistoryTitle;
+
+  /// No description provided for @studentCertificatesHistoryCta.
+  ///
+  /// In en, this message translates to:
+  /// **'View certificate history'**
+  String get studentCertificatesHistoryCta;
+
+  /// No description provided for @studentCertificatesViewDetailsCta.
+  ///
+  /// In en, this message translates to:
+  /// **'View details'**
+  String get studentCertificatesViewDetailsCta;
+
+  /// No description provided for @studentCertificatesDetailTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Certificate details'**
+  String get studentCertificatesDetailTitle;
+
+  /// No description provided for @studentCertificatesFilterStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get studentCertificatesFilterStatus;
+
+  /// No description provided for @studentCertificatesFilterAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All statuses'**
+  String get studentCertificatesFilterAll;
+
+  /// No description provided for @studentCertificatesHistoryEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No certificate requests found.'**
+  String get studentCertificatesHistoryEmpty;
+
+  /// No description provided for @studentCertificatesLoadMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Load more'**
+  String get studentCertificatesLoadMore;
+
+  /// No description provided for @studentCertificatesCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Category: {category}'**
+  String studentCertificatesCategory(String category);
+
+  /// No description provided for @studentCertificatesRequestedAt.
+  ///
+  /// In en, this message translates to:
+  /// **'Requested: {date}'**
+  String studentCertificatesRequestedAt(String date);
+
+  /// No description provided for @studentCertificatesStudentName.
+  ///
+  /// In en, this message translates to:
+  /// **'Student: {name}'**
+  String studentCertificatesStudentName(String name);
+
+  /// No description provided for @studentCertificatesTransmission.
+  ///
+  /// In en, this message translates to:
+  /// **'Transmission: {type}'**
+  String studentCertificatesTransmission(String type);
+
+  /// No description provided for @studentCertificatesDocumentsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Documents'**
+  String get studentCertificatesDocumentsTitle;
+
+  /// No description provided for @studentCertificatesPersonalPhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Personal photo'**
+  String get studentCertificatesPersonalPhoto;
+
+  /// No description provided for @studentCertificatesIdFront.
+  ///
+  /// In en, this message translates to:
+  /// **'ID front'**
+  String get studentCertificatesIdFront;
+
+  /// No description provided for @studentCertificatesIdBack.
+  ///
+  /// In en, this message translates to:
+  /// **'ID back'**
+  String get studentCertificatesIdBack;
+
+  /// No description provided for @studentCertificatesSessionsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Training sessions'**
+  String get studentCertificatesSessionsTitle;
+
+  /// No description provided for @studentCertificatesSessionNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Session {number}'**
+  String studentCertificatesSessionNumber(int number);
+
+  /// No description provided for @studentCertificatesExamsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Exams'**
+  String get studentCertificatesExamsTitle;
+
+  /// No description provided for @studentCertificatesNotScheduled.
+  ///
+  /// In en, this message translates to:
+  /// **'Not scheduled'**
+  String get studentCertificatesNotScheduled;
+
+  /// No description provided for @studentCertificatesExamResultPass.
+  ///
+  /// In en, this message translates to:
+  /// **'Passed'**
+  String get studentCertificatesExamResultPass;
+
+  /// No description provided for @studentCertificatesExamResultFail.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed'**
+  String get studentCertificatesExamResultFail;
+
+  /// No description provided for @studentCertificatesExamResultAbsent.
+  ///
+  /// In en, this message translates to:
+  /// **'Absent'**
+  String get studentCertificatesExamResultAbsent;
+
+  /// No description provided for @studentCertificatesChargesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Charges'**
+  String get studentCertificatesChargesTitle;
+
+  /// No description provided for @studentCertificatesAmountDue.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount due: {amount} SYP'**
+  String studentCertificatesAmountDue(String amount);
+
+  /// No description provided for @studentCertificatesSectionEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No items available.'**
+  String get studentCertificatesSectionEmpty;
 }
 
 class _AppLocalizationsDelegate

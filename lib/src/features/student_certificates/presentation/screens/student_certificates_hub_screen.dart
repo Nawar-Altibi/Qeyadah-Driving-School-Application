@@ -11,6 +11,7 @@ import 'package:qeyadah_mobile_app/src/core/ui/responsive/app_breakpoints.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/presentation/cubit/auth_session_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/student_certificates/presentation/coordinators/student_certificates_hub_screen_coordinator.dart';
 import 'package:qeyadah_mobile_app/src/features/student_certificates/presentation/cubit/student_certificates_hub_cubit.dart';
+import 'package:qeyadah_mobile_app/src/features/student_certificates/presentation/navigation/student_certificates_navigation.dart';
 import 'package:qeyadah_mobile_app/src/features/student_certificates/presentation/widgets/student_certificates_hub_body.dart';
 import 'package:qeyadah_mobile_app/src/features/student_certificates/presentation/widgets/student_certificates_hub_skeleton_body.dart';
 
@@ -99,6 +100,18 @@ class StudentCertificatesHubScreen extends StatelessWidget {
                                         ),
                                       ),
                                     );
+                                },
+                                onHistoryTap: () =>
+                                    StudentCertificatesNavigation.pushHistory(
+                                      context: context,
+                                    ),
+                                onViewDetailsTap: () {
+                                  final id = eligibility.activeCertificateId;
+                                  if (id == null) return;
+                                  StudentCertificatesNavigation.pushDetail(
+                                    context: context,
+                                    certificateId: id,
+                                  );
                                 },
                               ),
                             ),

@@ -143,8 +143,12 @@ import 'package:qeyadah_mobile_app/src/features/student_certificates/domain/repo
     as _i892;
 import 'package:qeyadah_mobile_app/src/features/student_certificates/domain/use_cases/student_certificates_use_cases.dart'
     as _i390;
+import 'package:qeyadah_mobile_app/src/features/student_certificates/presentation/cubit/student_certificate_detail_cubit.dart'
+    as _i582;
 import 'package:qeyadah_mobile_app/src/features/student_certificates/presentation/cubit/student_certificates_hub_cubit.dart'
     as _i489;
+import 'package:qeyadah_mobile_app/src/features/student_certificates/presentation/cubit/student_certificates_list_cubit.dart'
+    as _i323;
 import 'package:qeyadah_mobile_app/src/features/student_home/data/repositories/student_home_repository_impl.dart'
     as _i502;
 import 'package:qeyadah_mobile_app/src/features/student_home/domain/repositories/student_home_repository.dart'
@@ -482,6 +486,16 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i892.StudentCertificatesRepository>(),
       ),
     );
+    gh.factory<_i390.LoadStudentCertificatesUseCase>(
+      () => _i390.LoadStudentCertificatesUseCase(
+        gh<_i892.StudentCertificatesRepository>(),
+      ),
+    );
+    gh.factory<_i390.LoadStudentCertificateDetailUseCase>(
+      () => _i390.LoadStudentCertificateDetailUseCase(
+        gh<_i892.StudentCertificatesRepository>(),
+      ),
+    );
     gh.factory<_i330.InstructorLeaveCubit>(
       () => _i330.InstructorLeaveCubit(gh<_i648.LoadInstructorLeavesUseCase>()),
     );
@@ -510,6 +524,11 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i981.LoadStudentBookingDetailUseCase>(),
         gh<_i843.GetPendingStudentBookingHoldUseCase>(),
         gh<_i612.LoadUnreadNotificationsCountUseCase>(),
+      ),
+    );
+    gh.factory<_i582.StudentCertificateDetailCubit>(
+      () => _i582.StudentCertificateDetailCubit(
+        gh<_i390.LoadStudentCertificateDetailUseCase>(),
       ),
     );
     gh.factory<_i958.RegistrationCubit>(
@@ -569,6 +588,11 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i880.RefreshProfileUseCase>(),
         gh<_i1029.PushNotificationsCoordinator>(),
         gh<_i941.PushMessagingService>(),
+      ),
+    );
+    gh.factory<_i323.StudentCertificatesListCubit>(
+      () => _i323.StudentCertificatesListCubit(
+        gh<_i390.LoadStudentCertificatesUseCase>(),
       ),
     );
     gh.factory<_i660.ConfirmStudentPaymentUseCase>(
