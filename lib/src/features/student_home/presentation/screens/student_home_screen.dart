@@ -148,11 +148,8 @@ class _StudentHomeContent extends StatelessWidget {
       onRefresh: () => context.read<StudentHomeCubit>().load(silent: true),
       child: ListView(
         physics: const AlwaysScrollableScrollPhysics(),
-        padding: const EdgeInsets.fromLTRB(
-          AppDesignTokens.screenHorizontalPadding,
-          AppDesignTokens.spacingMd,
-          AppDesignTokens.screenHorizontalPadding,
-          AppDesignTokens.bottomNavHeight + AppDesignTokens.spacing2xl,
+        padding: AppDesignTokens.screenContentPadding(
+          extraBottom: AppDesignTokens.bottomNavHeight,
         ),
         children: [
           if (isBlocked) ...[
@@ -240,7 +237,6 @@ class _StudentHomeContent extends StatelessWidget {
                     action != StudentHomeQuickActionType.certificateRequest),
             onActionTap: (action) =>
                 StudentHomeNavigation.handleQuickAction(context, action),
-            onViewAllTap: () => StudentHomeNavigation.showComingSoon(context),
           ),
         ],
       ),
