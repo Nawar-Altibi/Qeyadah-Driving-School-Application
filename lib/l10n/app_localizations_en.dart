@@ -1431,4 +1431,69 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get studentCertificatesRegistrationExpired =>
       'The re-exam registration deadline has passed.';
+
+  @override
+  String get studentTheoryTitle => 'Theory exam practice';
+
+  @override
+  String get studentTheoryBeforeYouStartTitle => 'Before you start';
+
+  @override
+  String get studentTheoryIntroBody =>
+      'Practice safety and mechanics questions in the style of the theory exam. Answer each question, then review the explanation before moving on.';
+
+  @override
+  String studentTheoryQuestionCount(int count) {
+    return '$count questions in this round';
+  }
+
+  @override
+  String get studentTheoryStartButton => 'Start the exam now';
+
+  @override
+  String studentTheoryProgress(int current, int total) {
+    return 'Question $current of $total';
+  }
+
+  @override
+  String get studentTheoryNextButton => 'Next';
+
+  @override
+  String get studentTheoryFinishButton => 'Finish';
+
+  @override
+  String get studentTheoryExplanationTitle => 'Explanation';
+
+  @override
+  String get studentTheoryResultsTitle => 'Exam result';
+
+  @override
+  String get studentTheoryFinalScoreTitle => 'Final score';
+
+  @override
+  String studentTheoryScoreSummary(int score, int total) {
+    return '$score / $total';
+  }
+
+  @override
+  String get studentTheoryResultsBody =>
+      'You can practice again with a new set of questions anytime.';
+
+  @override
+  String get studentTheoryPracticeAgainButton => 'New questions';
+
+  @override
+  String get studentTheoryBackToHomeButton => 'Back to home';
+
+  @override
+  String get studentTheoryCategorySigns => 'Traffic signs';
+
+  @override
+  String get studentTheoryCategorySafety => 'Safety';
+
+  @override
+  String get studentTheoryCategoryMechanics => 'Mechanics';
+
+  @override
+  String get studentTheoryCategoryUnknown => 'General';
 }

@@ -1424,4 +1424,69 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get studentCertificatesRegistrationExpired =>
       'انتهت مهلة التسجيل لإعادة الامتحان.';
+
+  @override
+  String get studentTheoryTitle => 'محاكاة الفحص النظري';
+
+  @override
+  String get studentTheoryBeforeYouStartTitle => 'قبل أن تبدأ';
+
+  @override
+  String get studentTheoryIntroBody =>
+      'راجع أسئلة السلامة والميكانيك بنفس أسلوب الفحص النظري. أجب عن كل سؤال، ثم اطّلع على الشرح قبل الانتقال للسؤال التالي.';
+
+  @override
+  String studentTheoryQuestionCount(int count) {
+    return '$count سؤال في هذه الجولة';
+  }
+
+  @override
+  String get studentTheoryStartButton => 'بدء الفحص الآن';
+
+  @override
+  String studentTheoryProgress(int current, int total) {
+    return 'السؤال $current من $total';
+  }
+
+  @override
+  String get studentTheoryNextButton => 'التالي';
+
+  @override
+  String get studentTheoryFinishButton => 'إنهاء';
+
+  @override
+  String get studentTheoryExplanationTitle => 'الشرح';
+
+  @override
+  String get studentTheoryResultsTitle => 'نتيجة الفحص';
+
+  @override
+  String get studentTheoryFinalScoreTitle => 'التقييم النهائي';
+
+  @override
+  String studentTheoryScoreSummary(int score, int total) {
+    return '$score / $total';
+  }
+
+  @override
+  String get studentTheoryResultsBody =>
+      'يمكنك التدرّب مجدداً بمجموعة أسئلة جديدة في أي وقت.';
+
+  @override
+  String get studentTheoryPracticeAgainButton => 'أسئلة جديدة';
+
+  @override
+  String get studentTheoryBackToHomeButton => 'العودة إلى الرئيسية';
+
+  @override
+  String get studentTheoryCategorySigns => 'إشارات المرور';
+
+  @override
+  String get studentTheoryCategorySafety => 'السلامة';
+
+  @override
+  String get studentTheoryCategoryMechanics => 'الميكانيك';
+
+  @override
+  String get studentTheoryCategoryUnknown => 'عام';
 }
