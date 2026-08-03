@@ -54,7 +54,8 @@ class NotificationDeepLinkRouter {
       bookingIdRaw: item.data['bookingId'],
       certificateIdRaw: item.data['certificateId'],
     );
-    _navigate(destination);
+    // Inbox is already pushed on the stack — prefer push so back returns here.
+    _navigate(destination, preferPush: true);
   }
 
   @visibleForTesting
@@ -101,26 +102,55 @@ class NotificationDeepLinkRouter {
     }
   }
 
-  void _navigate(NotificationDeepLinkDestination destination) {
+  void _navigate(
+    NotificationDeepLinkDestination destination, {
+    bool preferPush = false,
+  }) {
     switch (destination.kind) {
       case NotificationDeepLinkKind.bookingDetail:
         final bookingId = destination.bookingId;
         if (bookingId == null) {
-          StudentBookingsNavigation.goList();
+          if (preferPush) {
+            StudentBookingsNavigation.pushList();
+          } else {
+            StudentBookingsNavigation.goList();
+          }
           return;
         }
-        StudentBookingsNavigation.goDetail(bookingId: bookingId);
+        if (preferPush) {
+          StudentBookingsNavigation.pushDetail(bookingId: bookingId);
+        } else {
+          StudentBookingsNavigation.goDetail(bookingId: bookingId);
+        }
       case NotificationDeepLinkKind.bookingsList:
-        StudentBookingsNavigation.goList();
+        if (preferPush) {
+          StudentBookingsNavigation.pushList();
+        } else {
+          StudentBookingsNavigation.goList();
+        }
       case NotificationDeepLinkKind.certificateDetail:
         final certificateId = destination.certificateId;
         if (certificateId == null || certificateId.isEmpty) {
-          StudentCertificatesNavigation.goHub();
+          if (preferPush) {
+            StudentCertificatesNavigation.pushHub();
+          } else {
+            StudentCertificatesNavigation.goHub();
+          }
           return;
         }
-        StudentCertificatesNavigation.goDetail(certificateId: certificateId);
+        if (preferPush) {
+          StudentCertificatesNavigation.pushDetail(
+            certificateId: certificateId,
+          );
+        } else {
+          StudentCertificatesNavigation.goDetail(certificateId: certificateId);
+        }
       case NotificationDeepLinkKind.certificatesHub:
-        StudentCertificatesNavigation.goHub();
+        if (preferPush) {
+          StudentCertificatesNavigation.pushHub();
+        } else {
+          StudentCertificatesNavigation.goHub();
+        }
       case NotificationDeepLinkKind.instructorSchedule:
         CoreNavigator.pushNamed(InstructorWeeklyScheduleScreen.routeName);
       case NotificationDeepLinkKind.inbox:

@@ -7,7 +7,7 @@ import 'package:qeyadah_mobile_app/src/features/student_certificates/presentatio
 import 'package:qeyadah_mobile_app/src/features/student_certificates/presentation/screens/student_certificates_list_screen.dart';
 
 abstract final class StudentCertificatesNavigation {
-  static void pushHub({required BuildContext context}) {
+  static void pushHub({BuildContext? context}) {
     CoreNavigator.pushPath(
       StudentCertificatesHubScreen.routePath,
       context: context,
