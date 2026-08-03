@@ -6,6 +6,7 @@ import 'package:qeyadah_mobile_app/src/core/mappers/core_failure_message_mapper.
 import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_button.dart';
+import 'package:qeyadah_mobile_app/src/core/ui/app_flow_back_button.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/responsive/app_breakpoints.dart';
 import 'package:qeyadah_mobile_app/src/features/student_booking/presentation/coordinators/student_booking_screen_coordinators.dart';
 import 'package:qeyadah_mobile_app/src/features/student_booking/presentation/cubit/student_booking_cubit.dart';
@@ -42,6 +43,9 @@ class _StudentBookingSlotsScreenState extends State<StudentBookingSlotsScreen> {
           backgroundColor: AppColors.appCanvas,
           surfaceTintColor: Colors.transparent,
           elevation: 0,
+          leading: AppFlowBackButton(
+            onCancel: context.read<StudentBookingCubit>().resetDraft,
+          ),
           title: Text(AppLocalizations.of(context).studentBookingSlotsTitle),
           centerTitle: true,
         ),

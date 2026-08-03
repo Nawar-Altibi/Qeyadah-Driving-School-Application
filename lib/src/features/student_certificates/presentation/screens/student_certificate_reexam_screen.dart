@@ -6,6 +6,7 @@ import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_button.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
+import 'package:qeyadah_mobile_app/src/core/ui/app_flow_back_button.dart';
 import 'package:qeyadah_mobile_app/src/features/student_certificates/presentation/cubit/student_certificate_write_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/student_certificates/presentation/formatters/student_certificates_formatters.dart';
 import 'package:qeyadah_mobile_app/src/features/student_certificates/presentation/mappers/student_certificate_write_failure_mapper.dart';
@@ -104,6 +105,9 @@ class _StudentCertificateReexamScreenState
           title: Text(l10n.studentCertificatesReexamTitle),
           backgroundColor: AppColors.appCanvas,
           surfaceTintColor: Colors.transparent,
+          leading: AppFlowBackButton(
+            onCancel: context.read<StudentCertificateWriteCubit>().resetDraft,
+          ),
         ),
         body: state.eligibilityState.when(
           initial: () => const Center(child: CircularProgressIndicator()),
