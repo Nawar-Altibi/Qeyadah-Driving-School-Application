@@ -603,7 +603,6 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i455.GetPersistedSessionUseCase>(),
         gh<_i880.RefreshProfileUseCase>(),
         gh<_i1029.PushNotificationsCoordinator>(),
-        gh<_i941.PushMessagingService>(),
       ),
     );
     gh.factory<_i323.StudentCertificatesListCubit>(

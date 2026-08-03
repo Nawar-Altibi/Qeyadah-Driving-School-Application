@@ -94,7 +94,13 @@ FlutterSecureStorage _createFlutterSecureStorage() {
   const iosOptions = IOSOptions(
     accessibility: KeychainAccessibility.first_unlock,
   );
-  const androidOptions = AndroidOptions(encryptedSharedPreferences: true);
+  // encryptedSharedPreferences:true can hang indefinitely on some
+  // Samsung / OEM devices during write — use the default Android prefs
+  // backend for reliability during auth persist.
+  const androidOptions = AndroidOptions(
+    encryptedSharedPreferences: false,
+    resetOnError: true,
+  );
   return const FlutterSecureStorage(
     aOptions: androidOptions,
     iOptions: iosOptions,
