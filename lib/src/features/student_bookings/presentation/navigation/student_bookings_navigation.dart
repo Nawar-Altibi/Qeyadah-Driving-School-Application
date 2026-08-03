@@ -5,7 +5,7 @@ import 'package:qeyadah_mobile_app/src/features/student_bookings/presentation/sc
 import 'package:qeyadah_mobile_app/src/features/student_bookings/presentation/screens/student_bookings_list_screen.dart';
 
 abstract final class StudentBookingsNavigation {
-  static void pushList({required BuildContext context}) {
+  static void pushList({BuildContext? context}) {
     CoreNavigator.pushPath(
       StudentBookingsListScreen.routePath,
       context: context,
@@ -16,10 +16,7 @@ abstract final class StudentBookingsNavigation {
     CoreNavigator.toPath(StudentBookingsListScreen.routePath, context: context);
   }
 
-  static void pushDetail({
-    required BuildContext context,
-    required int bookingId,
-  }) {
+  static void pushDetail({BuildContext? context, required int bookingId}) {
     CoreNavigator.pushPath(
       StudentBookingDetailScreen.routePath,
       context: context,
