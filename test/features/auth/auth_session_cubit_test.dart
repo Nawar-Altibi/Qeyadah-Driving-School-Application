@@ -3,7 +3,6 @@ import 'package:coore/lib.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:qeyadah_mobile_app/src/core/notifications/push_messaging_service.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/domain/entities/auth_session_entity.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/domain/params/login_params.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/domain/params/register_params.dart';
@@ -28,8 +27,6 @@ class MockSampleItemsRepository extends Mock implements SampleItemsRepository {}
 
 class MockPushNotificationsCoordinator extends Mock
     implements PushNotificationsCoordinator {}
-
-class MockPushMessagingService extends Mock implements PushMessagingService {}
 
 const _demoSession = AuthSessionEntity(
   user: UserEntity(
@@ -119,7 +116,6 @@ void main() {
   group('AuthSessionCubit', () {
     late MockAuthRepository repository;
     late MockPushNotificationsCoordinator pushCoordinator;
-    late MockPushMessagingService pushMessaging;
 
     AuthSessionCubit buildCubit() {
       when(
@@ -133,8 +129,6 @@ void main() {
       when(
         () => repository.refreshProfile(),
       ).thenAnswer((_) async => right(_demoSession));
-      when(() => pushMessaging.requestPermission()).thenAnswer((_) async {});
-      when(() => pushMessaging.getToken()).thenAnswer((_) async => null);
       when(
         () => pushCoordinator.startForAuthenticatedSession(),
       ).thenAnswer((_) async {});
@@ -147,14 +141,12 @@ void main() {
         GetPersistedSessionUseCase(repository),
         RefreshProfileUseCase(repository),
         pushCoordinator,
-        pushMessaging,
       );
     }
 
     setUp(() {
       repository = MockAuthRepository();
       pushCoordinator = MockPushNotificationsCoordinator();
-      pushMessaging = MockPushMessagingService();
     });
 
     blocTest<AuthSessionCubit, AuthSessionState>(

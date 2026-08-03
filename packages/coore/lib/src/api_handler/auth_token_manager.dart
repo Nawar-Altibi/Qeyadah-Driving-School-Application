@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:coore/lib.dart';
 
 class AuthTokenManager {
@@ -5,6 +7,11 @@ class AuthTokenManager {
     this._secureDatabaseInterface, {
     this.secureStorageEnabled = false,
   });
+
+  /// Samsung / some OEMs can hang indefinitely on
+  /// `FlutterSecureStorage` + encryptedSharedPreferences. Keep memory
+  /// tokens authoritative and treat disk writes as best-effort.
+  static const _secureWriteTimeout = Duration(seconds: 2);
 
   final SecureDatabaseInterface _secureDatabaseInterface;
   String? _accessToken;
@@ -17,22 +24,22 @@ class AuthTokenManager {
   /// in memory. If not, it reads the token from secure storage. In case of a failure
   /// (or an empty value), it returns an empty string.
   Future<String> get accessToken async {
-    if (secureStorageEnabled) {
-      if (_accessToken != null && _accessToken!.isNotEmpty) {
-        return _accessToken!;
-      }
-      final tokenFromStorage = await _secureDatabaseInterface.read(
-        'accessToken',
-      );
-      return tokenFromStorage.fold(
-        (failure) => '', // On failure, return an empty string.
-        (token) {
-          _accessToken = token;
-          return token ?? '';
-        },
-      );
+    if (!secureStorageEnabled) return _accessToken ?? '';
+    if (_accessToken != null && _accessToken!.isNotEmpty) {
+      return _accessToken!;
     }
-    return _accessToken ?? '';
+
+    try {
+      final tokenFromStorage = await _secureDatabaseInterface
+          .read('accessToken')
+          .timeout(_secureWriteTimeout);
+      return tokenFromStorage.fold((failure) => '', (token) {
+        _accessToken = token;
+        return token ?? '';
+      });
+    } on Object {
+      return '';
+    }
   }
 
   /// Retrieves the refresh token.
@@ -41,22 +48,22 @@ class AuthTokenManager {
   /// in memory. If not, it reads the token from secure storage. In case of a failure
   /// (or an empty value), it returns an empty string.
   Future<String> get refreshToken async {
-    if (secureStorageEnabled) {
-      if (_refreshToken != null && _refreshToken!.isNotEmpty) {
-        return _refreshToken!;
-      }
-      final tokenFromStorage = await _secureDatabaseInterface.read(
-        'refreshToken',
-      );
-      return tokenFromStorage.fold(
-        (failure) => '', // On failure, return an empty string.
-        (token) {
-          _refreshToken = token;
-          return token ?? '';
-        },
-      );
+    if (!secureStorageEnabled) return _refreshToken ?? '';
+    if (_refreshToken != null && _refreshToken!.isNotEmpty) {
+      return _refreshToken!;
     }
-    return _refreshToken ?? '';
+
+    try {
+      final tokenFromStorage = await _secureDatabaseInterface
+          .read('refreshToken')
+          .timeout(_secureWriteTimeout);
+      return tokenFromStorage.fold((failure) => '', (token) {
+        _refreshToken = token;
+        return token ?? '';
+      });
+    } on Object {
+      return '';
+    }
   }
 
   /// Sets the tokens in memory and, if secure storage is enabled, persists them.
@@ -64,16 +71,16 @@ class AuthTokenManager {
     _accessToken = accessToken;
     _refreshToken = refreshToken;
 
-    if (secureStorageEnabled) {
+    if (!secureStorageEnabled) return;
+
+    await _bestEffortSecureWrite(() async {
       if (accessToken != null && accessToken.isNotEmpty) {
-        // Persist the access token.
         await _secureDatabaseInterface.write('accessToken', accessToken);
       }
       if (refreshToken != null && refreshToken.isNotEmpty) {
-        // Persist the refresh token.
         await _secureDatabaseInterface.write('refreshToken', refreshToken);
       }
-    }
+    });
   }
 
   /// Clears tokens from memory and secure storage (if enabled).
@@ -81,10 +88,19 @@ class AuthTokenManager {
     _accessToken = null;
     _refreshToken = null;
 
-    if (secureStorageEnabled) {
-      // Remove tokens from secure storage.
+    if (!secureStorageEnabled) return;
+
+    await _bestEffortSecureWrite(() async {
       await _secureDatabaseInterface.delete('accessToken');
       await _secureDatabaseInterface.delete('refreshToken');
+    });
+  }
+
+  Future<void> _bestEffortSecureWrite(Future<void> Function() action) async {
+    try {
+      await action().timeout(_secureWriteTimeout);
+    } on Object {
+      // Memory tokens already updated; disk persistence is optional.
     }
   }
 }

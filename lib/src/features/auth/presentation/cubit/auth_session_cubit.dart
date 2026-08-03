@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:coore/lib.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:qeyadah_mobile_app/src/core/notifications/push_messaging_service.dart';
 import 'package:qeyadah_mobile_app/src/core/presentation/app_core_cubit.dart';
 import 'package:qeyadah_mobile_app/src/core/utils/future_either_timeout.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/domain/entities/auth_session_entity.dart';
@@ -29,7 +28,6 @@ class AuthSessionCubit
     this._getPersistedSessionUseCase,
     this._refreshProfileUseCase,
     this._pushCoordinator,
-    this._pushMessaging,
   ) : super(const AuthSessionState());
 
   final LoginUseCase _loginUseCase;
@@ -38,7 +36,6 @@ class AuthSessionCubit
   final GetPersistedSessionUseCase _getPersistedSessionUseCase;
   final RefreshProfileUseCase _refreshProfileUseCase;
   final PushNotificationsCoordinator _pushCoordinator;
-  final PushMessagingService _pushMessaging;
 
   bool _initialRestoreComplete = false;
   int _loginGeneration = 0;
@@ -115,30 +112,19 @@ class AuthSessionCubit
         final generation = ++_loginGeneration;
         emit(state.copyWith(isLoggingIn: true, loginEffect: null));
 
-        // Best-effort FCM token — never block/fail login if Firebase is absent.
-        String? fcmToken;
-        String? platform;
-        try {
-          await _pushMessaging.requestPermission();
-          fcmToken = await _pushMessaging.getToken();
-          if (fcmToken != null && fcmToken.isNotEmpty) {
-            platform = _pushMessaging.platformLabel();
-          }
-        } on Object {
-          fcmToken = null;
-          platform = null;
-        }
-
+        // Do NOT await FCM before login — Firebase getToken/requestPermission
+        // can hang on some Android OEMs and trip the login timeout even after
+        // HTTP 200. Device registration happens in
+        // startForAuthenticatedSession() after a successful login.
         final result = await FutureEitherTimeout.guard(
           _loginUseCase(
             LoginParams(
               phone: validatedPhone,
               password: password,
               deviceName: deviceName ?? AuthConstants.deviceName,
-              fcmToken: fcmToken,
-              platform: platform,
             ),
           ),
+          timeout: const Duration(seconds: 25),
         );
 
         if (!isActiveGeneration(

@@ -22,8 +22,13 @@ Future<void> mainCommon(
     FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
   }
 
+  // DevicePreview stays available for manual desktop QA, but stays off by
+  // default on web so browser automation and real viewport testing work.
+  const previewEnabled = bool.fromEnvironment('ENABLE_DEVICE_PREVIEW');
+
   runApp(
     DevicePreview(
+      enabled: previewEnabled,
       availableLocales: const [Locale('ar'), Locale('en')],
       builder: (context) => const _StartupLoadingApp(),
     ),
@@ -34,6 +39,7 @@ Future<void> mainCommon(
   } catch (error) {
     runApp(
       DevicePreview(
+        enabled: previewEnabled,
         availableLocales: const [Locale('ar'), Locale('en')],
         builder: (context) => _StartupErrorApp(error: error),
       ),
@@ -43,6 +49,7 @@ Future<void> mainCommon(
 
   runApp(
     DevicePreview(
+      enabled: previewEnabled,
       availableLocales: const [Locale('ar'), Locale('en')],
       builder: (context) => App(forcedLocale: forcedLocale),
     ),
