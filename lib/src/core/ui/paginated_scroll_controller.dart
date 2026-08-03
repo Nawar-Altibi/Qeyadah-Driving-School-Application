@@ -5,10 +5,7 @@ import 'package:flutter/widgets.dart';
 /// Generic on purpose so any future paginated list in the app can reuse it
 /// instead of each feature writing its own ScrollController + threshold math.
 class PaginatedScrollController extends ScrollController {
-  PaginatedScrollController({
-    required this.onLoadMore,
-    this.threshold = 240,
-  }) {
+  PaginatedScrollController({required this.onLoadMore, this.threshold = 240}) {
     addListener(_onScroll);
   }
 

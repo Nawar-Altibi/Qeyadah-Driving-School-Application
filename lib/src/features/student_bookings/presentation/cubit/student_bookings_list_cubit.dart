@@ -72,10 +72,7 @@ class StudentBookingsListCubit
         ),
       ),
       (page) => emit(
-        state.copyWith(
-          isRefreshing: false,
-          apiState: ApiState.succeeded(page),
-        ),
+        state.copyWith(isRefreshing: false, apiState: ApiState.succeeded(page)),
       ),
     );
   }
@@ -138,10 +135,7 @@ class StudentBookingsListCubit
   void setSearchQuery(String query) {
     emit(state.copyWith(searchQuery: query));
     _searchDebounce?.cancel();
-    _searchDebounce = Timer(
-      _searchDebounceDuration,
-      () => load(silent: true),
-    );
+    _searchDebounce = Timer(_searchDebounceDuration, () => load(silent: true));
   }
 
   void toggleSortOrder() {

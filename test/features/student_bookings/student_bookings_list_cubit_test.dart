@@ -51,9 +51,9 @@ void main() {
     blocTest<StudentBookingsListCubit, StudentBookingsListState>(
       'silent search reload keeps succeeded page and sets isRefreshing',
       build: () {
-        when(() => repository.getBookings(any())).thenAnswer(
-          (_) async => right(_page(items: [_item('1')])),
-        );
+        when(
+          () => repository.getBookings(any()),
+        ).thenAnswer((_) async => right(_page(items: [_item('1')])));
         return cubit;
       },
       act: (c) async {
@@ -90,7 +90,9 @@ void main() {
     blocTest<StudentBookingsListCubit, StudentBookingsListState>(
       'loadMore appends next page once while hasMorePages',
       build: () {
-        when(() => repository.getBookings(any())).thenAnswer((invocation) async {
+        when(() => repository.getBookings(any())).thenAnswer((
+          invocation,
+        ) async {
           final params =
               invocation.positionalArguments.first as LoadStudentBookingsParams;
           if (params.page == 1) {

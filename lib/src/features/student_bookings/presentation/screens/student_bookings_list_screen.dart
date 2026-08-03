@@ -44,10 +44,8 @@ class StudentBookingsListScreen extends StatelessWidget {
                               const StudentBookingsListSkeletonBody(),
                           loading: () =>
                               const StudentBookingsListSkeletonBody(),
-                          succeeded: (page) => StudentBookingsListBody(
-                            state: state,
-                            page: page,
-                          ),
+                          succeeded: (page) =>
+                              StudentBookingsListBody(state: state, page: page),
                           failed: (failure, retry) {
                             final l10n = AppLocalizations.of(context);
                             return Center(
