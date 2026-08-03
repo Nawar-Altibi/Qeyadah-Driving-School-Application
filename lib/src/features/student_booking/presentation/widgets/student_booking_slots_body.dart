@@ -22,6 +22,9 @@ class StudentBookingSlotsBody extends StatelessWidget {
   final StudentAvailableSlotsPageEntity page;
   final bool interactive;
 
+  /// Extra bottom clearance so the last cards clear the sticky continue bar.
+  static const double _stickyBarClearance = 120;
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
@@ -29,11 +32,8 @@ class StudentBookingSlotsBody extends StatelessWidget {
 
     final list = page.hasAnySlots
         ? ListView(
-            padding: const EdgeInsets.fromLTRB(
-              AppDesignTokens.screenHorizontalPadding,
-              AppDesignTokens.spacingMd,
-              AppDesignTokens.screenHorizontalPadding,
-              AppDesignTokens.spacing2xl * 2,
+            padding: AppDesignTokens.screenContentPadding(
+              extraBottom: interactive ? _stickyBarClearance : 0,
             ),
             children: [
               for (final instructorSlots in page.instructors) ...[
@@ -93,6 +93,7 @@ class _InstructorSlotsCard extends StatelessWidget {
     for (final slot in instructorSlots.slots) {
       slotsByDate.putIfAbsent(slot.date, () => []).add(slot);
     }
+    final dateEntries = slotsByDate.entries.toList();
 
     return AppCard(
       child: Column(
@@ -134,19 +135,25 @@ class _InstructorSlotsCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: AppDesignTokens.spacingMd),
-          for (final entry in slotsByDate.entries) ...[
-            Text(
-              StudentBookingFormatters.dayLabel(entry.key, localeName),
-              style: Theme.of(
-                context,
-              ).textTheme.bodySmall?.copyWith(color: AppColors.muted),
+          for (var i = 0; i < dateEntries.length; i++) ...[
+            if (i > 0) ...[
+              Divider(
+                height: AppDesignTokens.spacingLg,
+                color: AppColors.line.withValues(alpha: 0.55),
+              ),
+            ],
+            _DateGroupHeader(
+              label: StudentBookingFormatters.dayLabel(
+                dateEntries[i].key,
+                localeName,
+              ),
             ),
             const SizedBox(height: AppDesignTokens.spacingSm),
             Wrap(
               spacing: AppDesignTokens.spacingSm,
               runSpacing: AppDesignTokens.spacingSm,
               children: [
-                for (final slot in entry.value)
+                for (final slot in dateEntries[i].value)
                   _SlotChip(
                     instructor: instructor,
                     slot: slot,
@@ -154,9 +161,35 @@ class _InstructorSlotsCard extends StatelessWidget {
                   ),
               ],
             ),
-            const SizedBox(height: AppDesignTokens.spacingSm),
           ],
         ],
+      ),
+    );
+  }
+}
+
+class _DateGroupHeader extends StatelessWidget {
+  const _DateGroupHeader({required this.label});
+
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppDesignTokens.spacingSm,
+        vertical: AppDesignTokens.spacingXs,
+      ),
+      decoration: BoxDecoration(
+        color: AppColors.neutralBg,
+        borderRadius: BorderRadius.circular(AppDesignTokens.radiusSm),
+      ),
+      child: Text(
+        label,
+        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+          color: AppColors.muted,
+          fontWeight: FontWeight.w600,
+        ),
       ),
     );
   }
@@ -186,7 +219,12 @@ class _SlotChip extends StatelessWidget {
 
     return Material(
       color: selected ? AppColors.brandPrimary : AppColors.neutralBg,
-      borderRadius: BorderRadius.circular(AppDesignTokens.radiusControl),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(AppDesignTokens.radiusControl),
+        side: BorderSide(
+          color: selected ? AppColors.brandPrimary : AppColors.line,
+        ),
+      ),
       child: InkWell(
         borderRadius: BorderRadius.circular(AppDesignTokens.radiusControl),
         onTap: interactive
@@ -200,15 +238,28 @@ class _SlotChip extends StatelessWidget {
             horizontal: AppDesignTokens.spacing,
             vertical: AppDesignTokens.spacingSm,
           ),
-          child: Text(
-            StudentBookingFormatters.timeRangeLabel(
-              slot.startTime,
-              slot.endTime,
-            ),
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              color: selected ? AppColors.white : AppColors.ink,
-              fontWeight: FontWeight.w600,
-            ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (selected) ...[
+                const Icon(
+                  PhosphorIconsBold.check,
+                  size: 13,
+                  color: AppColors.white,
+                ),
+                const SizedBox(width: 4),
+              ],
+              Text(
+                StudentBookingFormatters.timeRangeLabel(
+                  slot.startTime,
+                  slot.endTime,
+                ),
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: selected ? AppColors.white : AppColors.ink,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
           ),
         ),
       ),
@@ -249,17 +300,13 @@ class _StickyContinueBar extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               if (selection != null) ...[
-                Text(
-                  l10n.studentBookingSlotsSelectedLabel(
-                    selection.instructor.name,
-                    StudentBookingFormatters.timeRangeLabel(
-                      selection.slot.startTime,
-                      selection.slot.endTime,
-                    ),
+                _SelectedSummaryText(
+                  l10n: l10n,
+                  instructorName: selection.instructor.name,
+                  timeLabel: StudentBookingFormatters.timeRangeLabel(
+                    selection.slot.startTime,
+                    selection.slot.endTime,
                   ),
-                  style: Theme.of(
-                    context,
-                  ).textTheme.bodySmall?.copyWith(color: AppColors.muted),
                 ),
                 const SizedBox(height: AppDesignTokens.spacingSm),
               ],
@@ -277,6 +324,52 @@ class _StickyContinueBar extends StatelessWidget {
   }
 }
 
+class _SelectedSummaryText extends StatelessWidget {
+  const _SelectedSummaryText({
+    required this.l10n,
+    required this.instructorName,
+    required this.timeLabel,
+  });
+
+  final AppLocalizations l10n;
+  final String instructorName;
+  final String timeLabel;
+
+  @override
+  Widget build(BuildContext context) {
+    final mutedStyle = Theme.of(
+      context,
+    ).textTheme.bodySmall?.copyWith(color: AppColors.muted);
+    final full = l10n.studentBookingSlotsSelectedLabel(
+      instructorName,
+      timeLabel,
+    );
+    final timeIndex = full.lastIndexOf(timeLabel);
+
+    if (timeIndex < 0) {
+      return Text(full, style: mutedStyle);
+    }
+
+    return Text.rich(
+      TextSpan(
+        style: mutedStyle,
+        children: [
+          TextSpan(text: full.substring(0, timeIndex)),
+          TextSpan(
+            text: timeLabel,
+            style: mutedStyle?.copyWith(
+              color: AppColors.ink,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          if (timeIndex + timeLabel.length < full.length)
+            TextSpan(text: full.substring(timeIndex + timeLabel.length)),
+        ],
+      ),
+    );
+  }
+}
+
 class _EmptySlotsView extends StatelessWidget {
   const _EmptySlotsView({required this.l10n});
 
@@ -285,7 +378,7 @@ class _EmptySlotsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      padding: const EdgeInsets.all(AppDesignTokens.screenHorizontalPadding),
+      padding: AppDesignTokens.screenContentPadding(),
       children: [
         const SizedBox(height: AppDesignTokens.spacingXl),
         Container(
