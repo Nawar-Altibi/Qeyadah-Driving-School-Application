@@ -1,4 +1,5 @@
 import 'package:coore/lib.dart';
+import 'package:flutter/painting.dart';
 
 /// Design token references for spacing and radii.
 /// Prefer Coore managers ([PaddingManager], [BorderRadiusManager]) in widgets.
@@ -24,6 +25,21 @@ abstract final class AppDesignTokens {
   static const double inputHeight = 52;
   static const double bottomNavHeight = 64;
   static const double screenHorizontalPadding = 18;
+
+  /// Comfortable bottom breathing room for scrollable screen bodies.
+  static const double screenBottomPadding = spacing2xl + spacingLg;
+
+  /// Shared content padding for student/instructor scroll views.
+  /// Use [extraBottom] for sticky bars or bottom navigation clearance.
+  static EdgeInsets screenContentPadding({
+    double top = spacingMd,
+    double extraBottom = 0,
+  }) => EdgeInsets.fromLTRB(
+    screenHorizontalPadding,
+    top,
+    screenHorizontalPadding,
+    screenBottomPadding + extraBottom,
+  );
 
   static const Duration animationFast = Duration(milliseconds: 150);
   static const Duration animationNormal = Duration(milliseconds: 300);

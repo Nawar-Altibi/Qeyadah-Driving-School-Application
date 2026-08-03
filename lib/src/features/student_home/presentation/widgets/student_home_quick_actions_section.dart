@@ -11,13 +11,11 @@ class StudentHomeQuickActionsSection extends StatelessWidget {
     super.key,
     required this.actions,
     required this.onActionTap,
-    this.onViewAllTap,
     this.isActionEnabled,
   });
 
   final List<StudentHomeQuickActionType> actions;
   final ValueChanged<StudentHomeQuickActionType> onActionTap;
-  final VoidCallback? onViewAllTap;
   final bool Function(StudentHomeQuickActionType)? isActionEnabled;
 
   @override
@@ -27,13 +25,7 @@ class StudentHomeQuickActionsSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        AppSectionHeading(
-          title: l10n.studentHomeQuickActions,
-          trailing: TextButton(
-            onPressed: onViewAllTap,
-            child: Text(l10n.studentHomeViewAll),
-          ),
-        ),
+        AppSectionHeading(title: l10n.studentHomeQuickActions),
         const SizedBox(height: AppDesignTokens.spacing),
         GridView.count(
           crossAxisCount: 2,
