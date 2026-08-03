@@ -4,7 +4,8 @@ import 'package:qeyadah_mobile_app/src/features/student_bookings/domain/entities
 import 'package:qeyadah_mobile_app/src/features/student_bookings/presentation/cubit/student_bookings_list_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/student_bookings/presentation/widgets/student_bookings_list_body.dart';
 
-/// Shimmer loading state for the student bookings list screen.
+/// Shimmer loading state for the bookings results area only
+/// (search/filters stay mounted in the parent screen).
 class StudentBookingsListSkeletonBody extends StatelessWidget {
   const StudentBookingsListSkeletonBody({super.key});
 

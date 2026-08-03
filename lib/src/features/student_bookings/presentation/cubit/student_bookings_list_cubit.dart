@@ -37,13 +37,20 @@ class StudentBookingsListCubit
     ApiState<StudentBookingsPageEntity> apiState,
   ) => state.copyWith(apiState: apiState);
 
-  Future<void> load() async {
+  /// Loads page 1.
+  ///
+  /// When [silent] is true and we already have succeeded data (search/filter
+  /// reloads), keep the list mounted and show an inline progress indicator
+  /// instead of swapping to the full-screen skeleton (which dismisses the
+  /// keyboard).
+  Future<void> load({bool silent = false}) async {
     final generation = ++_loadGeneration;
+    final keepExisting = silent && state.apiState.isSuccess;
     emit(
       state.copyWith(
-        apiState: const ApiState.loading(),
+        apiState: keepExisting ? state.apiState : const ApiState.loading(),
         isLoadingMore: false,
-        isRefreshing: false,
+        isRefreshing: keepExisting,
       ),
     );
 
@@ -57,9 +64,19 @@ class StudentBookingsListCubit
 
     result.fold(
       (failure) => emit(
-        state.copyWith(apiState: ApiState.failed(failure, retryFunction: load)),
+        state.copyWith(
+          isRefreshing: false,
+          apiState: keepExisting
+              ? state.apiState
+              : ApiState.failed(failure, retryFunction: load),
+        ),
       ),
-      (page) => emit(state.copyWith(apiState: ApiState.succeeded(page))),
+      (page) => emit(
+        state.copyWith(
+          isRefreshing: false,
+          apiState: ApiState.succeeded(page),
+        ),
+      ),
     );
   }
 
@@ -115,13 +132,23 @@ class StudentBookingsListCubit
   void setStatusFilter(StudentBookingStatus? status) {
     if (state.selectedStatus == status) return;
     emit(state.withStatus(status));
-    load();
+    load(silent: true);
   }
 
   void setSearchQuery(String query) {
     emit(state.copyWith(searchQuery: query));
     _searchDebounce?.cancel();
-    _searchDebounce = Timer(_searchDebounceDuration, load);
+    _searchDebounce = Timer(
+      _searchDebounceDuration,
+      () => load(silent: true),
+    );
+  }
+
+  void toggleSortOrder() {
+    final next = state.sortOrder == StudentBookingsSortOrder.newestFirst
+        ? StudentBookingsSortOrder.oldestFirst
+        : StudentBookingsSortOrder.newestFirst;
+    emit(state.copyWith(sortOrder: next));
   }
 
   FutureEither<StudentBookingsPageEntity> _fetchPage({required int page}) {

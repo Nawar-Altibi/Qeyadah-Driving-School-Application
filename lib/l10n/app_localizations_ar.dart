@@ -959,6 +959,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get studentBookingsSearchHint => 'ابحث باسم المدرب';
 
   @override
+  String get studentBookingsSortNewestFirst => 'الأحدث أولاً';
+
+  @override
+  String get studentBookingsSortOldestFirst => 'الأقدم أولاً';
+
+  @override
   String get studentBookingsEmptyTitle => 'لا توجد حجوزات بعد';
 
   @override
