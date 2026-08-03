@@ -41,7 +41,7 @@ class StudentBookingDetailBody extends StatelessWidget {
         : StudentBookingDepositOutcome.none;
 
     return ListView(
-      padding: const EdgeInsets.all(AppDesignTokens.screenHorizontalPadding),
+      padding: AppDesignTokens.screenContentPadding(),
       children: [
         AppCard(
           child: Column(
