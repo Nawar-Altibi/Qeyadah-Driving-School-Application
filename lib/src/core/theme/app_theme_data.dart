@@ -138,7 +138,9 @@ abstract interface class AppThemeData {
             minimumSize: const Size.fromHeight(AppDesignTokens.buttonHeight),
             textStyle: AppTextStylesExtension.defaults.bold16,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(AppDesignTokens.radiusControl),
+              borderRadius: BorderRadius.circular(
+                AppDesignTokens.radiusControl,
+              ),
             ),
           ),
         ),
@@ -147,7 +149,9 @@ abstract interface class AppThemeData {
             minimumSize: const Size.fromHeight(AppDesignTokens.buttonHeight),
             textStyle: AppTextStylesExtension.defaults.bold16,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(AppDesignTokens.radiusControl),
+              borderRadius: BorderRadius.circular(
+                AppDesignTokens.radiusControl,
+              ),
             ),
           ),
         ),
