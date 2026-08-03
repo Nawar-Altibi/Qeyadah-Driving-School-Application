@@ -133,7 +133,7 @@ class _StudentCertificateNewRequestScreenState
             if (!eligibility.newRequest.allowed || available.isEmpty) {
               return Center(
                 child: Padding(
-                  padding: const EdgeInsets.all(AppDesignTokens.spacingMd),
+                  padding: AppDesignTokens.screenContentPadding(),
                   child: Text(
                     eligibility.newRequest.message ??
                         l10n.studentCertificatesStatusFallback,
@@ -147,7 +147,7 @@ class _StudentCertificateNewRequestScreenState
               _transmissionType = available.first;
             }
             return ListView(
-              padding: const EdgeInsets.all(AppDesignTokens.spacingMd),
+              padding: AppDesignTokens.screenContentPadding(),
               children: [
                 Text(
                   eligibility.newRequest.message ?? '',

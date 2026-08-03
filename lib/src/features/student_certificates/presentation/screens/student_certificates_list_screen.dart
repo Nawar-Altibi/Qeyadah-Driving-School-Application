@@ -71,12 +71,43 @@ class _CertificatesListBody extends StatelessWidget {
     return RefreshIndicator(
       onRefresh: () => context.read<StudentCertificatesListCubit>().refresh(),
       child: ListView(
-        padding: const EdgeInsets.all(AppDesignTokens.spacingMd),
+        padding: AppDesignTokens.screenContentPadding(),
         children: [
           DropdownButtonFormField<CertificateRequestStatus?>(
             initialValue: state.selectedStatus,
+            icon: const Icon(
+              Icons.keyboard_arrow_down_rounded,
+              color: AppColors.ink,
+            ),
             decoration: InputDecoration(
               labelText: l10n.studentCertificatesFilterStatus,
+              filled: true,
+              fillColor: AppColors.white,
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: AppDesignTokens.spacingMd,
+                vertical: AppDesignTokens.spacing,
+              ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(
+                  AppDesignTokens.radiusControl,
+                ),
+                borderSide: const BorderSide(color: AppColors.line),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(
+                  AppDesignTokens.radiusControl,
+                ),
+                borderSide: const BorderSide(color: AppColors.line),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(
+                  AppDesignTokens.radiusControl,
+                ),
+                borderSide: const BorderSide(
+                  color: AppColors.brandPrimary,
+                  width: 1.5,
+                ),
+              ),
             ),
             items: [
               DropdownMenuItem<CertificateRequestStatus?>(

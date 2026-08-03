@@ -7,6 +7,7 @@ import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_button.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
+import 'package:qeyadah_mobile_app/src/core/ui/app_full_screen_image_viewer.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_status_badge.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/responsive/app_breakpoints.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/presentation/cubit/auth_session_cubit.dart';
@@ -16,7 +17,6 @@ import 'package:qeyadah_mobile_app/src/features/student_certificates/presentatio
 import 'package:qeyadah_mobile_app/src/features/student_certificates/presentation/formatters/student_certificates_formatters.dart';
 import 'package:qeyadah_mobile_app/src/features/student_certificates/presentation/navigation/student_certificates_navigation.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/exam_result.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class StudentCertificateDetailScreen extends StatelessWidget {
   const StudentCertificateDetailScreen({
@@ -97,7 +97,7 @@ class _DetailBody extends StatelessWidget {
     return RefreshIndicator(
       onRefresh: () => context.read<StudentCertificateDetailCubit>().refresh(),
       child: ListView(
-        padding: const EdgeInsets.all(AppDesignTokens.spacingMd),
+        padding: AppDesignTokens.screenContentPadding(),
         children: [
           AppCard(
             child: Column(
@@ -299,10 +299,11 @@ class _DocumentButton extends StatelessWidget {
         label: label,
         onPressed: url == null
             ? null
-            : () async {
-                await launchUrl(
-                  Uri.parse(url!),
-                  mode: LaunchMode.externalApplication,
+            : () {
+                AppFullScreenImageViewer.open(
+                  context,
+                  imageUrl: url!,
+                  title: label,
                 );
               },
       ),

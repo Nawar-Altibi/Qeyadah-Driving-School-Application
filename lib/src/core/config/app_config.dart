@@ -27,8 +27,8 @@ class AppConfig {
   NetworkConfigEntity get networkConfigEntity => NetworkConfigEntity(
     baseUrl: EnvironmentVariables.apiBaseUrl,
     connectTimeout: const Duration(seconds: 15),
-    sendTimeout: const Duration(seconds: 15),
-    receiveTimeout: const Duration(seconds: 15),
+    sendTimeout: const Duration(seconds: 45),
+    receiveTimeout: const Duration(seconds: 45),
     staticHeaders: const {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
