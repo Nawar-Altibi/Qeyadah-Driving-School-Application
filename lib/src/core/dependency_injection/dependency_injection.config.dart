@@ -169,6 +169,16 @@ import 'package:qeyadah_mobile_app/src/features/student_payments/domain/use_case
     as _i660;
 import 'package:qeyadah_mobile_app/src/features/student_payments/presentation/cubit/student_payment_cubit.dart'
     as _i696;
+import 'package:qeyadah_mobile_app/src/features/student_theory/data/data_sources/student_theory_remote_data_source.dart'
+    as _i1052;
+import 'package:qeyadah_mobile_app/src/features/student_theory/data/repositories/student_theory_repository_impl.dart'
+    as _i197;
+import 'package:qeyadah_mobile_app/src/features/student_theory/domain/repositories/student_theory_repository.dart'
+    as _i1053;
+import 'package:qeyadah_mobile_app/src/features/student_theory/domain/use_cases/load_theory_self_test_use_case.dart'
+    as _i936;
+import 'package:qeyadah_mobile_app/src/features/student_theory/presentation/cubit/student_theory_quiz_cubit.dart'
+    as _i160;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -223,6 +233,11 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i698.ApiHandlerInterface>(),
       ),
     );
+    gh.lazySingleton<_i1052.StudentTheoryRemoteDataSource>(
+      () => _i1052.StudentTheoryRemoteDataSourceImpl(
+        gh<_i698.ApiHandlerInterface>(),
+      ),
+    );
     gh.lazySingleton<_i1067.OfflineQueueLocalDataSource>(
       () => _i1067.OfflineQueueLocalDataSourceImpl(
         gh<_i698.LocalDatabaseInterface>(instanceName: 'offline_queue'),
@@ -231,6 +246,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i348.InstructorRemoteDataSource>(
       () =>
           _i348.InstructorRemoteDataSourceImpl(gh<_i698.ApiHandlerInterface>()),
+    );
+    gh.lazySingleton<_i1053.StudentTheoryRepository>(
+      () => _i197.StudentTheoryRepositoryImpl(
+        gh<_i1052.StudentTheoryRemoteDataSource>(),
+      ),
     );
     gh.lazySingleton<_i272.SampleItemsRemoteDataSource>(
       () => _i272.SampleItemsRemoteDataSourceImpl(
@@ -256,6 +276,10 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i76.AuthLocalDataSource>(),
       ),
     );
+    gh.factory<_i936.LoadTheorySelfTestUseCase>(
+      () =>
+          _i936.LoadTheorySelfTestUseCase(gh<_i1053.StudentTheoryRepository>()),
+    );
     gh.lazySingleton<_i1034.NotificationsRepository>(
       () => _i37.NotificationsRepositoryImpl(
         gh<_i809.NotificationsRemoteDataSource>(),
@@ -276,6 +300,9 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i509.StudentBookingLocalDataSourceImpl(
         gh<_i698.LocalDatabaseInterface>(instanceName: 'auth'),
       ),
+    );
+    gh.factory<_i160.StudentTheoryQuizCubit>(
+      () => _i160.StudentTheoryQuizCubit(gh<_i936.LoadTheorySelfTestUseCase>()),
     );
     gh.lazySingleton<_i916.SampleItemsRepository>(
       () => _i272.SampleItemsRepositoryImpl(
