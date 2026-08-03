@@ -166,7 +166,7 @@
   "studentHomeNewBooking": "حجز جلسة جديدة",
   "studentHomeMyBookings": "حجوزاتي",
   "studentHomeCertificateRequest": "طلب الشهادة",
-  "studentHomeTheorySimulation": "محاكاة النظري",
+  "studentHomeTheorySimulation": "محاكاة الفحص النظري",
   "studentHomeNavBookings": "حجوزاتي",
   "studentHomeNavCertificate": "الشهادة",
   "studentHomeNavProfile": "حسابي",
@@ -593,8 +593,8 @@
     }
   },
   "studentCertificatesBlockedWriteHint": "لا يمكن تقديم طلب شهادة جديد بينما حسابك مقيّد.",
-  "studentCertificatesReexamTitle": "طلب إعادة امتحان",
-  "studentCertificatesReexamTitleTyped": "طلب إعادة الامتحان {examType}",
+  "studentCertificatesReexamTitle": "طلب إعادة فحص",
+  "studentCertificatesReexamTitleTyped": "طلب إعادة الفحص {examType}",
   "@studentCertificatesReexamTitleTyped": {
     "placeholders": {
       "examType": {
@@ -644,8 +644,8 @@
   "studentCertificatesTransmissionAutomatic": "أوتوماتيك",
   "studentCertificatesStatusWaitingForTrainingSchedule": "بانتظار تحديد جدول التدريب",
   "studentCertificatesStatusInGovernmentTraining": "في التدريب الحكومي",
-  "studentCertificatesStatusWaitingForTheoreticalExam": "بانتظار الامتحان النظري",
-  "studentCertificatesStatusWaitingForPracticalExam": "بانتظار الامتحان العملي",
+  "studentCertificatesStatusWaitingForTheoreticalExam": "بانتظار الفحص النظري",
+  "studentCertificatesStatusWaitingForPracticalExam": "بانتظار الفحص العملي",
   "studentCertificatesStatusCompleted": "مكتملة",
   "studentCertificatesStatusFailed": "راسبة",
   "studentCertificatesStatusCancelled": "ملغاة",
@@ -692,7 +692,7 @@
       "number": { "type": "int" }
     }
   },
-  "studentCertificatesExamsTitle": "الامتحانات",
+  "studentCertificatesExamsTitle": "الفحوصات",
   "studentCertificatesNotScheduled": "لم يحدد الموعد",
   "studentCertificatesExamResultPass": "ناجح",
   "studentCertificatesExamResultFail": "راسب",
@@ -716,8 +716,8 @@
   "studentCertificatesInvalidImage": "اختر صورة بصيغة JPEG أو PNG أو WebP.",
   "studentCertificatesImageTooLarge": "يجب ألا يتجاوز حجم كل صورة 5 ميغابايت.",
   "studentCertificatesReexamPayCta": "الدفع والتسجيل للإعادة",
-  "studentCertificatesReexamSuccess": "تم تسجيل طلب إعادة الامتحان بنجاح.",
-  "studentCertificatesRegistrationExpired": "انتهت مهلة التسجيل لإعادة الامتحان.",
+  "studentCertificatesReexamSuccess": "تم تسجيل طلب إعادة الفحص بنجاح.",
+  "studentCertificatesRegistrationExpired": "انتهت مهلة التسجيل لإعادة الفحص.",
   "studentTheoryTitle": "محاكاة الفحص النظري",
   "studentTheoryBeforeYouStartTitle": "قبل أن تبدأ",
   "studentTheoryIntroBody": "راجع أسئلة السلامة والميكانيك بنفس أسلوب الفحص النظري. أجب عن كل سؤال، ثم اطّلع على الشرح قبل الانتقال للسؤال التالي.",

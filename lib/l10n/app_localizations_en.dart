@@ -416,7 +416,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get studentHomeCertificateRequest => 'Certificate request';
 
   @override
-  String get studentHomeTheorySimulation => 'Theory simulation';
+  String get studentHomeTheorySimulation => 'Theory test practice';
 
   @override
   String get studentHomeNavBookings => 'My bookings';
@@ -1280,11 +1280,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get studentCertificatesStatusWaitingForTheoreticalExam =>
-      'Waiting for theoretical exam';
+      'Waiting for theoretical test';
 
   @override
   String get studentCertificatesStatusWaitingForPracticalExam =>
-      'Waiting for practical exam';
+      'Waiting for practical test';
 
   @override
   String get studentCertificatesStatusCompleted => 'Completed';
@@ -1361,7 +1361,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get studentCertificatesExamsTitle => 'Exams';
+  String get studentCertificatesExamsTitle => 'Tests';
 
   @override
   String get studentCertificatesNotScheduled => 'Not scheduled';
@@ -1433,14 +1433,14 @@ class AppLocalizationsEn extends AppLocalizations {
       'The re-exam registration deadline has passed.';
 
   @override
-  String get studentTheoryTitle => 'Theory exam practice';
+  String get studentTheoryTitle => 'Theory test practice';
 
   @override
   String get studentTheoryBeforeYouStartTitle => 'Before you start';
 
   @override
   String get studentTheoryIntroBody =>
-      'Practice safety and mechanics questions in the style of the theory exam. Answer each question, then review the explanation before moving on.';
+      'Practice safety and mechanics questions in the style of the theory test. Answer each question, then review the explanation before moving on.';
 
   @override
   String studentTheoryQuestionCount(int count) {
@@ -1448,7 +1448,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get studentTheoryStartButton => 'Start the exam now';
+  String get studentTheoryStartButton => 'Start the test now';
 
   @override
   String studentTheoryProgress(int current, int total) {
@@ -1465,7 +1465,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get studentTheoryExplanationTitle => 'Explanation';
 
   @override
-  String get studentTheoryResultsTitle => 'Exam result';
+  String get studentTheoryResultsTitle => 'Test result';
 
   @override
   String get studentTheoryFinalScoreTitle => 'Final score';
