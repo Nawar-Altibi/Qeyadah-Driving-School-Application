@@ -187,7 +187,7 @@
   "studentHomeNewBooking": "Book a new session",
   "studentHomeMyBookings": "My bookings",
   "studentHomeCertificateRequest": "Certificate request",
-  "studentHomeTheorySimulation": "Theory simulation",
+  "studentHomeTheorySimulation": "Theory test practice",
   "studentHomeNavBookings": "My bookings",
   "studentHomeNavCertificate": "Certificate",
   "studentHomeNavProfile": "My account",
@@ -665,8 +665,8 @@
   "studentCertificatesTransmissionAutomatic": "Automatic",
   "studentCertificatesStatusWaitingForTrainingSchedule": "Waiting for training schedule",
   "studentCertificatesStatusInGovernmentTraining": "In government training",
-  "studentCertificatesStatusWaitingForTheoreticalExam": "Waiting for theoretical exam",
-  "studentCertificatesStatusWaitingForPracticalExam": "Waiting for practical exam",
+  "studentCertificatesStatusWaitingForTheoreticalExam": "Waiting for theoretical test",
+  "studentCertificatesStatusWaitingForPracticalExam": "Waiting for practical test",
   "studentCertificatesStatusCompleted": "Completed",
   "studentCertificatesStatusFailed": "Failed",
   "studentCertificatesStatusCancelled": "Cancelled",
@@ -713,7 +713,7 @@
       "number": { "type": "int" }
     }
   },
-  "studentCertificatesExamsTitle": "Exams",
+  "studentCertificatesExamsTitle": "Tests",
   "studentCertificatesNotScheduled": "Not scheduled",
   "studentCertificatesExamResultPass": "Passed",
   "studentCertificatesExamResultFail": "Failed",
@@ -739,16 +739,16 @@
   "studentCertificatesReexamPayCta": "Pay and register for re-exam",
   "studentCertificatesReexamSuccess": "Your re-exam registration was submitted successfully.",
   "studentCertificatesRegistrationExpired": "The re-exam registration deadline has passed.",
-  "studentTheoryTitle": "Theory exam practice",
+  "studentTheoryTitle": "Theory test practice",
   "studentTheoryBeforeYouStartTitle": "Before you start",
-  "studentTheoryIntroBody": "Practice safety and mechanics questions in the style of the theory exam. Answer each question, then review the explanation before moving on.",
+  "studentTheoryIntroBody": "Practice safety and mechanics questions in the style of the theory test. Answer each question, then review the explanation before moving on.",
   "studentTheoryQuestionCount": "{count} questions in this round",
   "@studentTheoryQuestionCount": {
     "placeholders": {
       "count": { "type": "int" }
     }
   },
-  "studentTheoryStartButton": "Start the exam now",
+  "studentTheoryStartButton": "Start the test now",
   "studentTheoryProgress": "Question {current} of {total}",
   "@studentTheoryProgress": {
     "placeholders": {
@@ -759,7 +759,7 @@
   "studentTheoryNextButton": "Next",
   "studentTheoryFinishButton": "Finish",
   "studentTheoryExplanationTitle": "Explanation",
-  "studentTheoryResultsTitle": "Exam result",
+  "studentTheoryResultsTitle": "Test result",
   "studentTheoryFinalScoreTitle": "Final score",
   "studentTheoryScoreSummary": "{score} / {total}",
   "@studentTheoryScoreSummary": {

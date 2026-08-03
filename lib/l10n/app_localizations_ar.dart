@@ -412,7 +412,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get studentHomeCertificateRequest => 'طلب الشهادة';
 
   @override
-  String get studentHomeTheorySimulation => 'محاكاة النظري';
+  String get studentHomeTheorySimulation => 'محاكاة الفحص النظري';
 
   @override
   String get studentHomeNavBookings => 'حجوزاتي';
@@ -1211,11 +1211,11 @@ class AppLocalizationsAr extends AppLocalizations {
       'لا يمكن تقديم طلب شهادة جديد بينما حسابك مقيّد.';
 
   @override
-  String get studentCertificatesReexamTitle => 'طلب إعادة امتحان';
+  String get studentCertificatesReexamTitle => 'طلب إعادة فحص';
 
   @override
   String studentCertificatesReexamTitleTyped(String examType) {
-    return 'طلب إعادة الامتحان $examType';
+    return 'طلب إعادة الفحص $examType';
   }
 
   @override
@@ -1274,11 +1274,11 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get studentCertificatesStatusWaitingForTheoreticalExam =>
-      'بانتظار الامتحان النظري';
+      'بانتظار الفحص النظري';
 
   @override
   String get studentCertificatesStatusWaitingForPracticalExam =>
-      'بانتظار الامتحان العملي';
+      'بانتظار الفحص العملي';
 
   @override
   String get studentCertificatesStatusCompleted => 'مكتملة';
@@ -1354,7 +1354,7 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String get studentCertificatesExamsTitle => 'الامتحانات';
+  String get studentCertificatesExamsTitle => 'الفحوصات';
 
   @override
   String get studentCertificatesNotScheduled => 'لم يحدد الموعد';
@@ -1419,11 +1419,11 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get studentCertificatesReexamSuccess =>
-      'تم تسجيل طلب إعادة الامتحان بنجاح.';
+      'تم تسجيل طلب إعادة الفحص بنجاح.';
 
   @override
   String get studentCertificatesRegistrationExpired =>
-      'انتهت مهلة التسجيل لإعادة الامتحان.';
+      'انتهت مهلة التسجيل لإعادة الفحص.';
 
   @override
   String get studentTheoryTitle => 'محاكاة الفحص النظري';

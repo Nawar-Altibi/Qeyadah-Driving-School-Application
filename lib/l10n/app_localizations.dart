@@ -845,7 +845,7 @@ abstract class AppLocalizations {
   /// No description provided for @studentHomeTheorySimulation.
   ///
   /// In en, this message translates to:
-  /// **'Theory simulation'**
+  /// **'Theory test practice'**
   String get studentHomeTheorySimulation;
 
   /// No description provided for @studentHomeNavBookings.
@@ -2349,13 +2349,13 @@ abstract class AppLocalizations {
   /// No description provided for @studentCertificatesStatusWaitingForTheoreticalExam.
   ///
   /// In en, this message translates to:
-  /// **'Waiting for theoretical exam'**
+  /// **'Waiting for theoretical test'**
   String get studentCertificatesStatusWaitingForTheoreticalExam;
 
   /// No description provided for @studentCertificatesStatusWaitingForPracticalExam.
   ///
   /// In en, this message translates to:
-  /// **'Waiting for practical exam'**
+  /// **'Waiting for practical test'**
   String get studentCertificatesStatusWaitingForPracticalExam;
 
   /// No description provided for @studentCertificatesStatusCompleted.
@@ -2487,7 +2487,7 @@ abstract class AppLocalizations {
   /// No description provided for @studentCertificatesExamsTitle.
   ///
   /// In en, this message translates to:
-  /// **'Exams'**
+  /// **'Tests'**
   String get studentCertificatesExamsTitle;
 
   /// No description provided for @studentCertificatesNotScheduled.
@@ -2613,7 +2613,7 @@ abstract class AppLocalizations {
   /// No description provided for @studentTheoryTitle.
   ///
   /// In en, this message translates to:
-  /// **'Theory exam practice'**
+  /// **'Theory test practice'**
   String get studentTheoryTitle;
 
   /// No description provided for @studentTheoryBeforeYouStartTitle.
@@ -2625,7 +2625,7 @@ abstract class AppLocalizations {
   /// No description provided for @studentTheoryIntroBody.
   ///
   /// In en, this message translates to:
-  /// **'Practice safety and mechanics questions in the style of the theory exam. Answer each question, then review the explanation before moving on.'**
+  /// **'Practice safety and mechanics questions in the style of the theory test. Answer each question, then review the explanation before moving on.'**
   String get studentTheoryIntroBody;
 
   /// No description provided for @studentTheoryQuestionCount.
@@ -2637,7 +2637,7 @@ abstract class AppLocalizations {
   /// No description provided for @studentTheoryStartButton.
   ///
   /// In en, this message translates to:
-  /// **'Start the exam now'**
+  /// **'Start the test now'**
   String get studentTheoryStartButton;
 
   /// No description provided for @studentTheoryProgress.
@@ -2667,7 +2667,7 @@ abstract class AppLocalizations {
   /// No description provided for @studentTheoryResultsTitle.
   ///
   /// In en, this message translates to:
-  /// **'Exam result'**
+  /// **'Test result'**
   String get studentTheoryResultsTitle;
 
   /// No description provided for @studentTheoryFinalScoreTitle.
