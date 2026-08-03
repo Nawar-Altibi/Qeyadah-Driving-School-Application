@@ -2609,6 +2609,120 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The re-exam registration deadline has passed.'**
   String get studentCertificatesRegistrationExpired;
+
+  /// No description provided for @studentTheoryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Theory exam practice'**
+  String get studentTheoryTitle;
+
+  /// No description provided for @studentTheoryBeforeYouStartTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Before you start'**
+  String get studentTheoryBeforeYouStartTitle;
+
+  /// No description provided for @studentTheoryIntroBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice safety and mechanics questions in the style of the theory exam. Answer each question, then review the explanation before moving on.'**
+  String get studentTheoryIntroBody;
+
+  /// No description provided for @studentTheoryQuestionCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} questions in this round'**
+  String studentTheoryQuestionCount(int count);
+
+  /// No description provided for @studentTheoryStartButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Start the exam now'**
+  String get studentTheoryStartButton;
+
+  /// No description provided for @studentTheoryProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Question {current} of {total}'**
+  String studentTheoryProgress(int current, int total);
+
+  /// No description provided for @studentTheoryNextButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get studentTheoryNextButton;
+
+  /// No description provided for @studentTheoryFinishButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish'**
+  String get studentTheoryFinishButton;
+
+  /// No description provided for @studentTheoryExplanationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Explanation'**
+  String get studentTheoryExplanationTitle;
+
+  /// No description provided for @studentTheoryResultsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Exam result'**
+  String get studentTheoryResultsTitle;
+
+  /// No description provided for @studentTheoryFinalScoreTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Final score'**
+  String get studentTheoryFinalScoreTitle;
+
+  /// No description provided for @studentTheoryScoreSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'{score} / {total}'**
+  String studentTheoryScoreSummary(int score, int total);
+
+  /// No description provided for @studentTheoryResultsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You can practice again with a new set of questions anytime.'**
+  String get studentTheoryResultsBody;
+
+  /// No description provided for @studentTheoryPracticeAgainButton.
+  ///
+  /// In en, this message translates to:
+  /// **'New questions'**
+  String get studentTheoryPracticeAgainButton;
+
+  /// No description provided for @studentTheoryBackToHomeButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to home'**
+  String get studentTheoryBackToHomeButton;
+
+  /// No description provided for @studentTheoryCategorySigns.
+  ///
+  /// In en, this message translates to:
+  /// **'Traffic signs'**
+  String get studentTheoryCategorySigns;
+
+  /// No description provided for @studentTheoryCategorySafety.
+  ///
+  /// In en, this message translates to:
+  /// **'Safety'**
+  String get studentTheoryCategorySafety;
+
+  /// No description provided for @studentTheoryCategoryMechanics.
+  ///
+  /// In en, this message translates to:
+  /// **'Mechanics'**
+  String get studentTheoryCategoryMechanics;
+
+  /// No description provided for @studentTheoryCategoryUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'General'**
+  String get studentTheoryCategoryUnknown;
 }
 
 class _AppLocalizationsDelegate

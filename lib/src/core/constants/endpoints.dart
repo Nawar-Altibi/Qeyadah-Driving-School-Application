@@ -43,4 +43,6 @@ abstract final class Endpoints {
   static String studentCertificateById(String id) => 'student/certificates/$id';
   static String studentCertificateReexam(String id) =>
       'student/certificates/$id/reexam';
+
+  static const String theorySelfTest = 'theory/self-test';
 }

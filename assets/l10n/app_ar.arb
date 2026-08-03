@@ -717,6 +717,42 @@
   "studentCertificatesImageTooLarge": "يجب ألا يتجاوز حجم كل صورة 5 ميغابايت.",
   "studentCertificatesReexamPayCta": "الدفع والتسجيل للإعادة",
   "studentCertificatesReexamSuccess": "تم تسجيل طلب إعادة الامتحان بنجاح.",
-  "studentCertificatesRegistrationExpired": "انتهت مهلة التسجيل لإعادة الامتحان."
+  "studentCertificatesRegistrationExpired": "انتهت مهلة التسجيل لإعادة الامتحان.",
+  "studentTheoryTitle": "محاكاة الفحص النظري",
+  "studentTheoryBeforeYouStartTitle": "قبل أن تبدأ",
+  "studentTheoryIntroBody": "راجع أسئلة السلامة والميكانيك بنفس أسلوب الفحص النظري. أجب عن كل سؤال، ثم اطّلع على الشرح قبل الانتقال للسؤال التالي.",
+  "studentTheoryQuestionCount": "{count} سؤال في هذه الجولة",
+  "@studentTheoryQuestionCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "studentTheoryStartButton": "بدء الفحص الآن",
+  "studentTheoryProgress": "السؤال {current} من {total}",
+  "@studentTheoryProgress": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "studentTheoryNextButton": "التالي",
+  "studentTheoryFinishButton": "إنهاء",
+  "studentTheoryExplanationTitle": "الشرح",
+  "studentTheoryResultsTitle": "نتيجة الفحص",
+  "studentTheoryFinalScoreTitle": "التقييم النهائي",
+  "studentTheoryScoreSummary": "{score} / {total}",
+  "@studentTheoryScoreSummary": {
+    "placeholders": {
+      "score": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "studentTheoryResultsBody": "يمكنك التدرّب مجدداً بمجموعة أسئلة جديدة في أي وقت.",
+  "studentTheoryPracticeAgainButton": "أسئلة جديدة",
+  "studentTheoryBackToHomeButton": "العودة إلى الرئيسية",
+  "studentTheoryCategorySigns": "إشارات المرور",
+  "studentTheoryCategorySafety": "السلامة",
+  "studentTheoryCategoryMechanics": "الميكانيك",
+  "studentTheoryCategoryUnknown": "عام"
 }
 

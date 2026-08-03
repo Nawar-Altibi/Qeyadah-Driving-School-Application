@@ -8,6 +8,7 @@ import 'package:qeyadah_mobile_app/src/features/student_certificates/presentatio
 import 'package:qeyadah_mobile_app/src/features/student_home/domain/entities/student_home_dashboard_entity.dart';
 import 'package:qeyadah_mobile_app/src/features/student_payments/presentation/navigation/student_payment_hold_args.dart';
 import 'package:qeyadah_mobile_app/src/features/student_payments/presentation/navigation/student_payment_navigation.dart';
+import 'package:qeyadah_mobile_app/src/features/student_theory/presentation/navigation/student_theory_navigation.dart';
 
 abstract final class StudentHomeNavigation {
   static void goProfile({BuildContext? context}) {
@@ -65,7 +66,7 @@ abstract final class StudentHomeNavigation {
       case StudentHomeQuickActionType.certificateRequest:
         StudentCertificatesNavigation.pushHub(context: context);
       case StudentHomeQuickActionType.theorySimulation:
-        showComingSoon(context);
+        StudentTheoryNavigation.pushSelfTest(context: context);
     }
   }
 

@@ -738,6 +738,42 @@
   "studentCertificatesImageTooLarge": "Each image must be 5 MB or smaller.",
   "studentCertificatesReexamPayCta": "Pay and register for re-exam",
   "studentCertificatesReexamSuccess": "Your re-exam registration was submitted successfully.",
-  "studentCertificatesRegistrationExpired": "The re-exam registration deadline has passed."
+  "studentCertificatesRegistrationExpired": "The re-exam registration deadline has passed.",
+  "studentTheoryTitle": "Theory exam practice",
+  "studentTheoryBeforeYouStartTitle": "Before you start",
+  "studentTheoryIntroBody": "Practice safety and mechanics questions in the style of the theory exam. Answer each question, then review the explanation before moving on.",
+  "studentTheoryQuestionCount": "{count} questions in this round",
+  "@studentTheoryQuestionCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "studentTheoryStartButton": "Start the exam now",
+  "studentTheoryProgress": "Question {current} of {total}",
+  "@studentTheoryProgress": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "studentTheoryNextButton": "Next",
+  "studentTheoryFinishButton": "Finish",
+  "studentTheoryExplanationTitle": "Explanation",
+  "studentTheoryResultsTitle": "Exam result",
+  "studentTheoryFinalScoreTitle": "Final score",
+  "studentTheoryScoreSummary": "{score} / {total}",
+  "@studentTheoryScoreSummary": {
+    "placeholders": {
+      "score": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "studentTheoryResultsBody": "You can practice again with a new set of questions anytime.",
+  "studentTheoryPracticeAgainButton": "New questions",
+  "studentTheoryBackToHomeButton": "Back to home",
+  "studentTheoryCategorySigns": "Traffic signs",
+  "studentTheoryCategorySafety": "Safety",
+  "studentTheoryCategoryMechanics": "Mechanics",
+  "studentTheoryCategoryUnknown": "General"
 }
 

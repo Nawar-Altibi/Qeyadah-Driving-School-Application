@@ -62,6 +62,8 @@ import 'package:qeyadah_mobile_app/src/features/student_home/presentation/screen
 import 'package:qeyadah_mobile_app/src/features/student_payments/presentation/cubit/student_payment_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/student_payments/presentation/navigation/student_payment_screen_params.dart';
 import 'package:qeyadah_mobile_app/src/features/student_payments/presentation/screens/student_payment_screen.dart';
+import 'package:qeyadah_mobile_app/src/features/student_theory/presentation/cubit/student_theory_quiz_cubit.dart';
+import 'package:qeyadah_mobile_app/src/features/student_theory/presentation/screens/student_theory_intro_screen.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/user_role.dart';
 
 @lazySingleton
@@ -352,6 +354,19 @@ class AppNavigationConfig {
               ),
             );
           },
+        ),
+        GoRoute(
+          path: StudentTheoryIntroScreen.routePath,
+          name: StudentTheoryIntroScreen.routeName,
+          pageBuilder: (context, state) => FadePage(
+            key: state.pageKey,
+            child: _withSession(
+              BlocProvider(
+                create: (_) => getIt<StudentTheoryQuizCubit>(),
+                child: const StudentTheoryIntroScreen(),
+              ),
+            ),
+          ),
         ),
         GoRoute(
           path: InstructorScheduleScreen.routePath,
