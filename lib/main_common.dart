@@ -24,10 +24,7 @@ Future<void> mainCommon(
 
   // DevicePreview stays available for manual desktop QA, but stays off by
   // default on web so browser automation and real viewport testing work.
-  const previewEnabled = bool.fromEnvironment(
-    'ENABLE_DEVICE_PREVIEW',
-    defaultValue: false,
-  );
+  const previewEnabled = bool.fromEnvironment('ENABLE_DEVICE_PREVIEW');
 
   runApp(
     DevicePreview(
