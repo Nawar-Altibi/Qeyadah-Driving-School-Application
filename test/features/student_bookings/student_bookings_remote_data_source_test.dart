@@ -66,6 +66,54 @@ void main() {
       expect(page.hasMorePages, isTrue);
     });
 
+    test(
+      'unwraps the live { statusCode, data: { data, meta } } envelope',
+      () async {
+        when(
+          () => apiHandler.get(
+            any(),
+            queryParameters: any(named: 'queryParameters'),
+            isAuthorized: any(named: 'isAuthorized'),
+          ),
+        ).thenAnswer(
+          (_) async => right({
+            'statusCode': 200,
+            'data': {
+              'data': [
+                {
+                  'id': '542',
+                  'studentName': 'طالب تجريبي 1',
+                  'instructorName': 'نور حسين',
+                  'trainingType': 'MANUAL',
+                  'vehicleSource': 'SCHOOL_CAR',
+                  'vehiclePlate': 'أ ب ج 103',
+                  'date': '2026-08-30',
+                  'dayName': 'الأحد',
+                  'startTime': '15:00',
+                  'endTime': '15:45',
+                  'bookingStatus': 'BOOKED',
+                  'paymentStatus': 'DEPOSIT_PAID',
+                  'remainingAmount': null,
+                },
+              ],
+              'meta': {'total': 12, 'page': 1, 'limit': 2, 'totalPages': 6},
+            },
+          }),
+        );
+
+        final result = await dataSource.fetchBookings(
+          LoadStudentBookingsParams(),
+        );
+
+        expect(result.isRight(), isTrue);
+        final page = result.fold((_) => null, (value) => value)!;
+        expect(page.items, hasLength(1));
+        expect(page.items.first.id, '542');
+        expect(page.total, 12);
+        expect(page.totalPages, 6);
+      },
+    );
+
     test('clamps the requested limit to the backend maximum of 50', () {
       final params = LoadStudentBookingsParams(limit: 500);
       expect(params.limit, 50);
@@ -203,6 +251,68 @@ void main() {
         expect(detail.charges.first.remaining, closeTo(599.5, 0.001));
       },
     );
+
+    test('unwraps live statusCode envelope for booking detail', () async {
+      when(
+        () => apiHandler.get(any(), isAuthorized: any(named: 'isAuthorized')),
+      ).thenAnswer(
+        (_) async => right({
+          'statusCode': 200,
+          'data': {
+            'booking': {
+              'id': '542',
+              'bookingStatus': 'BOOKED',
+              'paymentStatus': 'DEPOSIT_PAID',
+              'trainingType': 'MANUAL',
+              'vehicleSource': 'SCHOOL_CAR',
+              'date': '2026-08-30',
+              'dayName': 'الأحد',
+              'startTime': '15:00',
+              'endTime': '15:45',
+              'lockedUntil': null,
+              'createdAt': '2026-08-02T09:00:00.000Z',
+            },
+            'student': {
+              'id': '1',
+              'name': 'طالب تجريبي 1',
+              'phone': '0999400001',
+            },
+            'instructor': {'id': '4', 'name': 'نور حسين', 'gender': 'FEMALE'},
+            'vehicle': {
+              'id': '4',
+              'plateNumber': 'أ ب ج 103',
+              'model': 'هيونداي أكسنت 2021',
+              'type': 'MANUAL',
+            },
+            'charges': [
+              {
+                'id': '550',
+                'chargeReason': 'LESSON',
+                'amountDue': '3080.00',
+                'chargeStatus': 'PARTIALLY_PAID',
+                'payments': [
+                  {
+                    'id': '789',
+                    'amountPaid': '1540.00',
+                    'paymentMethod': 'CASH',
+                    'receivedAt': '2026-08-02T09:00:00.000Z',
+                  },
+                ],
+              },
+            ],
+          },
+        }),
+      );
+
+      final result = await dataSource.fetchBookingDetail(542);
+
+      expect(result.isRight(), isTrue);
+      final detail = result.fold((_) => null, (value) => value)!;
+      expect(detail.booking.id, 542);
+      expect(detail.student.phone, '0999400001');
+      expect(detail.vehicle?.plateNumber, 'أ ب ج 103');
+      expect(detail.charges.single.amountDue, '3080.00');
+    });
 
     test('treats a null vehicle as no-vehicle (student car)', () async {
       when(

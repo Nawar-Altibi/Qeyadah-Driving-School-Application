@@ -89,12 +89,15 @@ class StudentBookingsRemoteDataSourceImpl
   }
 
   StudentBookingsPageEntity _pageFromJson(Map<String, dynamic> json) {
-    final data = json['data'];
+    // Live API: { statusCode, data: { data: [...], meta } }
+    // Some tests/stubs pass the inner { data, meta } directly.
+    final payload = _unwrapData(json);
+    final data = payload['data'];
     if (data is! Iterable) {
       throw const FormatException('Invalid bookings list response');
     }
-    final meta = json['meta'] is Map
-        ? Map<String, dynamic>.from(json['meta'] as Map)
+    final meta = payload['meta'] is Map
+        ? Map<String, dynamic>.from(payload['meta'] as Map)
         : const <String, dynamic>{};
     return StudentBookingsPageEntity(
       items: data
@@ -139,11 +142,12 @@ class StudentBookingsRemoteDataSourceImpl
   }
 
   StudentBookingDetailEntity _detailFromJson(Map<String, dynamic> json) {
-    final bookingJson = json['booking'];
-    final studentJson = json['student'];
-    final instructorJson = json['instructor'];
-    final vehicleJson = json['vehicle'];
-    final chargesJson = json['charges'];
+    final payload = _unwrapData(json);
+    final bookingJson = payload['booking'];
+    final studentJson = payload['student'];
+    final instructorJson = payload['instructor'];
+    final vehicleJson = payload['vehicle'];
+    final chargesJson = payload['charges'];
     if (bookingJson is! Map || studentJson is! Map || instructorJson is! Map) {
       throw const FormatException('Invalid booking detail response');
     }
@@ -256,5 +260,12 @@ class StudentBookingsRemoteDataSourceImpl
     if (raw == null) return null;
     if (raw is num) return raw.toInt();
     return int.tryParse(raw.toString());
+  }
+
+  /// Peels `{ statusCode, data: {...} }` when present; otherwise returns [json].
+  Map<String, dynamic> _unwrapData(Map<String, dynamic> json) {
+    final data = json['data'];
+    if (data is Map) return Map<String, dynamic>.from(data);
+    return json;
   }
 }
