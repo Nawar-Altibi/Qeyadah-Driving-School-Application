@@ -460,6 +460,8 @@
   "studentBookingsTitle": "حجوزاتي",
   "studentBookingsFilterAll": "الكل",
   "studentBookingsSearchHint": "ابحث باسم المدرب",
+  "studentBookingsSortNewestFirst": "الأحدث أولاً",
+  "studentBookingsSortOldestFirst": "الأقدم أولاً",
   "studentBookingsEmptyTitle": "لا توجد حجوزات بعد",
   "studentBookingsEmptyMessage": "ستظهر حجوزاتك هنا بعد حجز حصة تدريبية.",
   "studentBookingsRemainingAtSchool": "المتبقي {amount} في المدرسة",

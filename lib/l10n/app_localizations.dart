@@ -1820,6 +1820,18 @@ abstract class AppLocalizations {
   /// **'Search by instructor name'**
   String get studentBookingsSearchHint;
 
+  /// No description provided for @studentBookingsSortNewestFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Newest first'**
+  String get studentBookingsSortNewestFirst;
+
+  /// No description provided for @studentBookingsSortOldestFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Oldest first'**
+  String get studentBookingsSortOldestFirst;
+
   /// No description provided for @studentBookingsEmptyTitle.
   ///
   /// In en, this message translates to:

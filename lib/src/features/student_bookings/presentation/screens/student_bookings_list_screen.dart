@@ -34,36 +34,48 @@ class StudentBookingsListScreen extends StatelessWidget {
           child:
               BlocBuilder<StudentBookingsListCubit, StudentBookingsListState>(
                 builder: (context, state) {
-                  return state.apiState.when(
-                    initial: () => const StudentBookingsListSkeletonBody(),
-                    loading: () => const StudentBookingsListSkeletonBody(),
-                    succeeded: (page) =>
-                        StudentBookingsListBody(state: state, page: page),
-                    failed: (failure, retry) {
-                      final l10n = AppLocalizations.of(context);
-                      return Center(
-                        child: Padding(
-                          padding: PaddingManager.paddingAll16,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                CoreFailureMessageMapper.messageFor(
-                                  failure,
-                                  l10n,
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      StudentBookingsListFiltersHeader(state: state),
+                      Expanded(
+                        child: state.apiState.when(
+                          initial: () =>
+                              const StudentBookingsListSkeletonBody(),
+                          loading: () =>
+                              const StudentBookingsListSkeletonBody(),
+                          succeeded: (page) =>
+                              StudentBookingsListBody(state: state, page: page),
+                          failed: (failure, retry) {
+                            final l10n = AppLocalizations.of(context);
+                            return Center(
+                              child: Padding(
+                                padding: PaddingManager.paddingAll16,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      CoreFailureMessageMapper.messageFor(
+                                        failure,
+                                        l10n,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    const SizedBox(
+                                      height: AppDesignTokens.spacingMd,
+                                    ),
+                                    AppButton.primary(
+                                      label: l10n.retry,
+                                      onPressed: retry,
+                                    ),
+                                  ],
                                 ),
-                                textAlign: TextAlign.center,
                               ),
-                              const SizedBox(height: AppDesignTokens.spacingMd),
-                              AppButton.primary(
-                                label: l10n.retry,
-                                onPressed: retry,
-                              ),
-                            ],
-                          ),
+                            );
+                          },
                         ),
-                      );
-                    },
+                      ),
+                    ],
                   );
                 },
               ),

@@ -481,6 +481,8 @@
   "studentBookingsTitle": "My bookings",
   "studentBookingsFilterAll": "All",
   "studentBookingsSearchHint": "Search by instructor name",
+  "studentBookingsSortNewestFirst": "Newest first",
+  "studentBookingsSortOldestFirst": "Oldest first",
   "studentBookingsEmptyTitle": "No bookings yet",
   "studentBookingsEmptyMessage": "Your bookings will show up here once you book a lesson.",
   "studentBookingsRemainingAtSchool": "Remainder {amount} at school",

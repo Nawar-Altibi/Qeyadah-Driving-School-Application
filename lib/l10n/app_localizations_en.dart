@@ -962,6 +962,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get studentBookingsSearchHint => 'Search by instructor name';
 
   @override
+  String get studentBookingsSortNewestFirst => 'Newest first';
+
+  @override
+  String get studentBookingsSortOldestFirst => 'Oldest first';
+
+  @override
   String get studentBookingsEmptyTitle => 'No bookings yet';
 
   @override
