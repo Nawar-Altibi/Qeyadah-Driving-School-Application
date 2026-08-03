@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:coore/lib.dart';
 import 'package:injectable/injectable.dart';
 import 'package:qeyadah_mobile_app/src/core/presentation/app_core_cubit.dart';
+import 'package:qeyadah_mobile_app/src/core/state_management/draft_resettable.dart';
 import 'package:qeyadah_mobile_app/src/features/student_certificates/data/data_sources/student_certificates_local_data_source.dart';
 import 'package:qeyadah_mobile_app/src/features/student_certificates/domain/entities/certificate_eligibility_entity.dart';
 import 'package:qeyadah_mobile_app/src/features/student_certificates/domain/failures/student_certificate_failures.dart';
@@ -78,7 +79,8 @@ class StudentCertificateWriteState {
 
 @injectable
 class StudentCertificateWriteCubit
-    extends AppCoreCubit<StudentCertificateWriteState> {
+    extends AppCoreCubit<StudentCertificateWriteState>
+    with DraftResettable {
   StudentCertificateWriteCubit(
     this._loadEligibility,
     this._submitCertificate,
@@ -300,6 +302,16 @@ class StudentCertificateWriteCubit
   }
 
   void clearEffect() => emit(state.copyWith(clearEffect: true));
+
+  @override
+  void resetDraft() {
+    _countdownTimer?.cancel();
+    _countdownTimer = null;
+    _reexamCertificateId = null;
+    unawaited(_localDataSource.clearNewTransactionId());
+    unawaited(_localDataSource.clearReexamTransactionId());
+    emit(const StudentCertificateWriteState());
+  }
 
   @override
   Future<void> close() {

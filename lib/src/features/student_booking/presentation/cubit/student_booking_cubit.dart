@@ -2,6 +2,7 @@ import 'package:coore/lib.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:qeyadah_mobile_app/src/core/presentation/app_core_cubit.dart';
+import 'package:qeyadah_mobile_app/src/core/state_management/draft_resettable.dart';
 import 'package:qeyadah_mobile_app/src/core/utils/future_either_timeout.dart';
 import 'package:qeyadah_mobile_app/src/features/student_booking/domain/entities/student_booking_entities.dart';
 import 'package:qeyadah_mobile_app/src/features/student_booking/domain/failures/student_booking_failures.dart';
@@ -18,7 +19,8 @@ part 'student_booking_effect.dart';
 @injectable
 class StudentBookingCubit
     extends
-        AppCoreCoreCubit<StudentBookingState, StudentAvailableSlotsPageEntity> {
+        AppCoreCoreCubit<StudentBookingState, StudentAvailableSlotsPageEntity>
+    with DraftResettable {
   StudentBookingCubit(this._loadSlotsUseCase, this._createBookingUseCase)
     : super(const StudentBookingState());
 
@@ -172,6 +174,12 @@ class StudentBookingCubit
 
   void clearSelection() {
     emit(state.copyWith(selection: null));
+  }
+
+  @override
+  void resetDraft() {
+    _loadGeneration++;
+    emit(const StudentBookingState());
   }
 
   @override
