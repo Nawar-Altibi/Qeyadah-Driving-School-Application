@@ -35,8 +35,8 @@ class AppQuickActionTile extends StatelessWidget {
               boxShadow: const [
                 BoxShadow(
                   color: AppColors.shadow,
-                  blurRadius: 14,
-                  offset: Offset(0, 5),
+                  blurRadius: 22,
+                  offset: Offset(0, 7),
                 ),
               ],
             ),
