@@ -59,6 +59,8 @@ dev_dependencies:
     sdk: flutter
   json_serializable: ^6.10.0
   mocktail: ^1.0.4
+  flutter_launcher_icons: ^0.14.4
+  flutter_native_splash: ^2.4.6
 
 flutter:
   generate: true
@@ -91,3 +93,20 @@ flutter_gen:
       - .env.development
       - .env.staging
       - .env.production
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: assets/images/qeyadah_logo.jpg
+  adaptive_icon_background: "#0F5132"
+  adaptive_icon_foreground: assets/images/qeyadah_logo.jpg
+  remove_alpha_ios: true
+
+flutter_native_splash:
+  color: "#0F5132"
+  image: assets/images/qeyadah_logo.jpg
+  android: true
+  ios: true
+  android_12:
+    color: "#0F5132"
+    image: assets/images/qeyadah_logo.jpg
