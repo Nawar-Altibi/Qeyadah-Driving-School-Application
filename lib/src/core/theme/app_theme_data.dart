@@ -70,62 +70,130 @@ abstract interface class AppThemeData {
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: AppColors.white,
+      floatingLabelBehavior: FloatingLabelBehavior.auto,
+      floatingLabelAlignment: FloatingLabelAlignment.start,
+      labelStyle: AppTextStylesExtension.defaults.medium12.copyWith(
+        color: AppColors.muted,
+      ),
+      floatingLabelStyle: AppTextStylesExtension.defaults.medium12.copyWith(
+        color: AppColors.brandPrimary,
+      ),
+      hintStyle: AppTextStylesExtension.defaults.medium14.copyWith(
+        color: AppColors.muted,
+      ),
+      prefixIconColor: AppColors.muted,
+      suffixIconColor: AppColors.muted,
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(AppDesignTokens.radiusControl),
+        borderSide: const BorderSide(color: AppColors.line),
       ),
       enabledBorder: OutlineInputBorder(
         borderSide: const BorderSide(color: AppColors.line),
         borderRadius: BorderRadius.circular(AppDesignTokens.radiusControl),
       ),
       focusedBorder: OutlineInputBorder(
-        borderSide: const BorderSide(color: AppColors.brandPrimaryLight),
+        borderSide: const BorderSide(
+          color: AppColors.brandPrimaryLight,
+          width: 1.4,
+        ),
+        borderRadius: BorderRadius.circular(AppDesignTokens.radiusControl),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderSide: const BorderSide(color: AppColors.danger),
+        borderRadius: BorderRadius.circular(AppDesignTokens.radiusControl),
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderSide: const BorderSide(color: AppColors.danger, width: 1.4),
         borderRadius: BorderRadius.circular(AppDesignTokens.radiusControl),
       ),
       contentPadding: PaddingManager.paddingHorizontal16Vertical12,
     ),
   );
 
-  static final darkThemeData = _baseTheme.copyWith(
-    colorScheme: AppColors.darkColorScheme,
-    scaffoldBackgroundColor: AppColors.darkColorScheme.surface,
-    appBarTheme: const AppBarTheme(
-      centerTitle: true,
-      elevation: 0,
-      scrolledUnderElevation: 0,
-    ),
-    cardTheme: CardThemeData(
-      color: AppColors.darkColorScheme.surfaceContainer,
-      elevation: 0,
-      margin: EdgeInsets.zero,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppDesignTokens.radiusLg),
-        side: BorderSide(color: AppColors.darkColorScheme.outline),
-      ),
-    ),
-    filledButtonTheme: FilledButtonThemeData(
-      style: FilledButton.styleFrom(
-        minimumSize: const Size.fromHeight(AppDesignTokens.buttonHeight),
-        textStyle: AppTextStylesExtension.defaults.bold16,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppDesignTokens.radiusControl),
+  static final darkThemeData =
+      ThemeData(
+        useMaterial3: true,
+        brightness: Brightness.dark,
+        colorScheme: AppColors.darkColorScheme,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+        extensions: const [AppTextStylesExtension.defaults],
+      ).copyWith(
+        scaffoldBackgroundColor: AppColors.darkColorScheme.surface,
+        appBarTheme: const AppBarTheme(
+          centerTitle: true,
+          elevation: 0,
+          scrolledUnderElevation: 0,
         ),
-      ),
-    ),
-    outlinedButtonTheme: OutlinedButtonThemeData(
-      style: OutlinedButton.styleFrom(
-        minimumSize: const Size.fromHeight(AppDesignTokens.buttonHeight),
-        textStyle: AppTextStylesExtension.defaults.bold16,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppDesignTokens.radiusControl),
+        cardTheme: CardThemeData(
+          color: AppColors.darkColorScheme.surfaceContainer,
+          elevation: 0,
+          margin: EdgeInsets.zero,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppDesignTokens.radiusLg),
+            side: BorderSide(color: AppColors.darkColorScheme.outline),
+          ),
         ),
-      ),
-    ),
-    inputDecorationTheme: InputDecorationTheme(
-      filled: true,
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(AppDesignTokens.radiusControl),
-      ),
-      contentPadding: PaddingManager.paddingHorizontal16Vertical12,
-    ),
-  );
+        filledButtonTheme: FilledButtonThemeData(
+          style: FilledButton.styleFrom(
+            minimumSize: const Size.fromHeight(AppDesignTokens.buttonHeight),
+            textStyle: AppTextStylesExtension.defaults.bold16,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(AppDesignTokens.radiusControl),
+            ),
+          ),
+        ),
+        outlinedButtonTheme: OutlinedButtonThemeData(
+          style: OutlinedButton.styleFrom(
+            minimumSize: const Size.fromHeight(AppDesignTokens.buttonHeight),
+            textStyle: AppTextStylesExtension.defaults.bold16,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(AppDesignTokens.radiusControl),
+            ),
+          ),
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          filled: true,
+          fillColor: AppColors.darkColorScheme.surfaceContainerHighest,
+          floatingLabelBehavior: FloatingLabelBehavior.auto,
+          floatingLabelAlignment: FloatingLabelAlignment.start,
+          labelStyle: AppTextStylesExtension.defaults.medium12.copyWith(
+            color: AppColors.darkColorScheme.onSurfaceVariant,
+          ),
+          floatingLabelStyle: AppTextStylesExtension.defaults.medium12.copyWith(
+            color: AppColors.darkColorScheme.primary,
+          ),
+          hintStyle: AppTextStylesExtension.defaults.medium14.copyWith(
+            color: AppColors.darkColorScheme.onSurfaceVariant,
+          ),
+          prefixIconColor: AppColors.darkColorScheme.onSurfaceVariant,
+          suffixIconColor: AppColors.darkColorScheme.onSurfaceVariant,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(AppDesignTokens.radiusControl),
+            borderSide: BorderSide(color: AppColors.darkColorScheme.outline),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: AppColors.darkColorScheme.outline),
+            borderRadius: BorderRadius.circular(AppDesignTokens.radiusControl),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: AppColors.darkColorScheme.primary,
+              width: 1.4,
+            ),
+            borderRadius: BorderRadius.circular(AppDesignTokens.radiusControl),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: AppColors.darkColorScheme.error),
+            borderRadius: BorderRadius.circular(AppDesignTokens.radiusControl),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: AppColors.darkColorScheme.error,
+              width: 1.4,
+            ),
+            borderRadius: BorderRadius.circular(AppDesignTokens.radiusControl),
+          ),
+          contentPadding: PaddingManager.paddingHorizontal16Vertical12,
+        ),
+      );
 }

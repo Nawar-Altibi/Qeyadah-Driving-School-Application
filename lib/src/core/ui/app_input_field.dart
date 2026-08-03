@@ -38,6 +38,9 @@ class AppInputField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final onSurface = theme.colorScheme.onSurface;
+
     return CoreTextField(
       name: name,
       labelText: label,
@@ -51,6 +54,10 @@ class AppInputField extends StatelessWidget {
       maxLines: maxLines,
       minLines: minLines,
       maxLength: maxLength,
+      style: theme.textTheme.bodyLarge?.copyWith(color: onSurface),
+      decoration: const InputDecoration().applyDefaults(
+        theme.inputDecorationTheme,
+      ),
     );
   }
 }
