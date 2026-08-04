@@ -130,11 +130,12 @@ class NotificationsInboxBody extends StatelessWidget {
             ),
           if (notifications.isNotEmpty && page.hasMorePages)
             SliverPadding(
-              padding: const EdgeInsets.fromLTRB(
+              padding: EdgeInsets.fromLTRB(
                 AppDesignTokens.screenHorizontalPadding,
                 AppDesignTokens.spacingSm,
                 AppDesignTokens.screenHorizontalPadding,
-                AppDesignTokens.screenHorizontalPadding,
+                AppDesignTokens.screenBottomPadding +
+                    MediaQuery.paddingOf(context).bottom,
               ),
               sliver: SliverToBoxAdapter(
                 child: AppButton.secondary(
@@ -147,9 +148,11 @@ class NotificationsInboxBody extends StatelessWidget {
               ),
             )
           else
-            const SliverPadding(
+            SliverPadding(
               padding: EdgeInsets.only(
-                bottom: AppDesignTokens.screenHorizontalPadding,
+                bottom:
+                    AppDesignTokens.screenBottomPadding +
+                    MediaQuery.paddingOf(context).bottom,
               ),
             ),
         ],

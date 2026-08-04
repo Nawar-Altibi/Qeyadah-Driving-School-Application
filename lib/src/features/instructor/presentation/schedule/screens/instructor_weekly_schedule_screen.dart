@@ -79,7 +79,10 @@ class _WeeklyScheduleBody extends StatelessWidget {
     final byDay = {for (final item in schedule) item.dayOfWeek: item};
     return ListView(
       physics: const AlwaysScrollableScrollPhysics(),
-      padding: const EdgeInsets.all(AppDesignTokens.screenHorizontalPadding),
+      padding: AppDesignTokens.screenContentPadding(
+        top: AppDesignTokens.screenHorizontalPadding,
+        safeBottom: MediaQuery.paddingOf(context).bottom,
+      ),
       children: [
         AppSectionHeading(
           title: l10n.instructorWeeklyScheduleTitle,

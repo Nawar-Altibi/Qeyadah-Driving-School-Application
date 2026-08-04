@@ -87,11 +87,14 @@ class InstructorProfileBody extends StatelessWidget {
         SliverToBoxAdapter(
           child: ResponsiveShell(
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(
+              padding: EdgeInsets.fromLTRB(
                 AppDesignTokens.screenHorizontalPadding,
                 AppDesignTokens.spacingMd,
                 AppDesignTokens.screenHorizontalPadding,
-                AppDesignTokens.bottomNavHeight + AppDesignTokens.spacing2xl,
+                AppDesignTokens.listEndPadding(
+                  safeBottom: MediaQuery.paddingOf(context).bottom,
+                  extraBottom: AppDesignTokens.bottomNavHeight,
+                ),
               ),
               child: Column(
                 children: [

@@ -117,11 +117,13 @@ class InstructorEarningsBody extends StatelessWidget {
         ),
         if (sessions.isNotEmpty)
           SliverPadding(
-            padding: const EdgeInsets.fromLTRB(
+            padding: EdgeInsets.fromLTRB(
               AppDesignTokens.screenHorizontalPadding,
               0,
               AppDesignTokens.screenHorizontalPadding,
-              AppDesignTokens.screenHorizontalPadding,
+              AppDesignTokens.listEndPadding(
+                safeBottom: MediaQuery.paddingOf(context).bottom,
+              ),
             ),
             sliver: SliverList(
               delegate: SliverChildBuilderDelegate((context, index) {
@@ -137,9 +139,11 @@ class InstructorEarningsBody extends StatelessWidget {
             ),
           )
         else
-          const SliverPadding(
+          SliverPadding(
             padding: EdgeInsets.only(
-              bottom: AppDesignTokens.screenHorizontalPadding,
+              bottom: AppDesignTokens.listEndPadding(
+                safeBottom: MediaQuery.paddingOf(context).bottom,
+              ),
             ),
           ),
       ],
