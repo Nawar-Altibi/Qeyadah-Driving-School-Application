@@ -3,6 +3,7 @@ import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
+import 'package:qeyadah_mobile_app/src/core/ui/app_network_image.dart';
 import 'package:qeyadah_mobile_app/src/features/student_theory/domain/entities/theory_question_entity.dart';
 import 'package:qeyadah_mobile_app/src/features/student_theory/presentation/widgets/student_theory_option_tile.dart';
 
@@ -71,10 +72,10 @@ class StudentTheoryQuestionCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(
                     AppDesignTokens.radiusControl,
                   ),
-                  child: Image.network(
-                    question.imageUrl!,
+                  child: AppNetworkImage(
+                    imageUrl: question.imageUrl,
                     fit: BoxFit.contain,
-                    errorBuilder: (_, _, _) => const SizedBox.shrink(),
+                    fallback: const SizedBox.shrink(),
                   ),
                 ),
               ],

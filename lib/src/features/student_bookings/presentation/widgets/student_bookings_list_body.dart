@@ -48,39 +48,34 @@ class _StudentBookingsListBodyState extends State<StudentBookingsListBody> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    final items = widget.state.sortOrder == StudentBookingsSortOrder.oldestFirst
-        ? widget.page.items.reversed.toList()
-        : widget.page.items;
+    final items = widget.page.items;
+    final oldestFirst =
+        widget.state.sortOrder == StudentBookingsSortOrder.oldestFirst;
+    final showLoadingMore = widget.state.isLoadingMore && items.isNotEmpty;
+    final itemCount = items.isEmpty
+        ? 1
+        : items.length + (showLoadingMore ? 1 : 0);
 
-    final list = ListView(
+    final list = ListView.builder(
       controller: widget.interactive ? _scrollController : null,
       physics: const AlwaysScrollableScrollPhysics(),
       padding: AppDesignTokens.screenContentPadding(
         extraBottom: AppDesignTokens.bottomNavHeight,
       ),
-      children: [
-        if (items.isEmpty)
-          AppEmptyState.card(
+      itemCount: itemCount,
+      itemBuilder: (context, index) {
+        if (items.isEmpty) {
+          return AppEmptyState.card(
             icon: PhosphorIconsBold.calendarX,
             title: l10n.studentBookingsEmptyTitle,
             message: l10n.studentBookingsEmptyMessage,
-          )
-        else ...[
-          for (final item in items) ...[
-            StudentBookingsListItemCard(
-              item: item,
-              onTap: widget.interactive
-                  ? () => StudentBookingsNavigation.pushDetail(
-                      context: context,
-                      bookingId: int.tryParse(item.id) ?? 0,
-                    )
-                  : null,
-            ),
-            const SizedBox(height: AppDesignTokens.spacingSm),
-          ],
-          if (widget.state.isLoadingMore) ...[
-            const SizedBox(height: AppDesignTokens.spacingSm),
-            const Center(
+          );
+        }
+
+        if (showLoadingMore && index == items.length) {
+          return const Padding(
+            padding: EdgeInsets.only(top: AppDesignTokens.spacingSm),
+            child: Center(
               child: Padding(
                 padding: EdgeInsets.all(AppDesignTokens.spacingMd),
                 child: SizedBox(
@@ -90,9 +85,30 @@ class _StudentBookingsListBodyState extends State<StudentBookingsListBody> {
                 ),
               ),
             ),
-          ],
-        ],
-      ],
+          );
+        }
+
+        final item = oldestFirst
+            ? items[items.length - 1 - index]
+            : items[index];
+
+        return Padding(
+          padding: EdgeInsets.only(
+            bottom: index < items.length - 1 || showLoadingMore
+                ? AppDesignTokens.spacingSm
+                : 0,
+          ),
+          child: StudentBookingsListItemCard(
+            item: item,
+            onTap: widget.interactive
+                ? () => StudentBookingsNavigation.pushDetail(
+                    context: context,
+                    bookingId: int.tryParse(item.id) ?? 0,
+                  )
+                : null,
+          ),
+        );
+      },
     );
 
     if (!widget.interactive) return list;

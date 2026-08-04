@@ -32,12 +32,10 @@ class StudentCertificateNewRequestScreen extends StatefulWidget {
 class _StudentCertificateNewRequestScreenState
     extends State<StudentCertificateNewRequestScreen> {
   final _transactionController = TextEditingController();
-  final _picker = ImagePicker();
-  TrainingType? _transmissionType;
-  bool _transportRequested = false;
-  File? _personalPhoto;
-  File? _idFront;
-  File? _idBack;
+  final _transmissionNotifier = ValueNotifier<_TransmissionChoice?>(null);
+  final _photosNotifier = ValueNotifier<_CertificatePhotos>(
+    const _CertificatePhotos(),
+  );
 
   @override
   void initState() {
@@ -50,29 +48,9 @@ class _StudentCertificateNewRequestScreenState
   @override
   void dispose() {
     _transactionController.dispose();
+    _transmissionNotifier.dispose();
+    _photosNotifier.dispose();
     super.dispose();
-  }
-
-  Future<void> _pickImage(void Function(File) assign) async {
-    final picked = await _picker.pickImage(source: ImageSource.gallery);
-    if (picked == null || !mounted) return;
-    final file = File(picked.path);
-    final validation = StudentCertificateWriteValidationRules.validateImage(
-      file,
-    );
-    validation.fold(
-      (failure) => ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            StudentCertificateWriteFailureMapper.messageFor(
-              failure,
-              AppLocalizations.of(context),
-            ),
-          ),
-        ),
-      ),
-      (validFile) => setState(() => assign(validFile)),
-    );
   }
 
   @override
@@ -146,10 +124,6 @@ class _StudentCertificateNewRequestScreenState
                 ),
               );
             }
-            _transmissionType ??= available.first;
-            if (!available.contains(_transmissionType)) {
-              _transmissionType = available.first;
-            }
             return ListView(
               padding: AppDesignTokens.screenContentPadding(),
               children: [
@@ -158,81 +132,12 @@ class _StudentCertificateNewRequestScreenState
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 const SizedBox(height: AppDesignTokens.spacingMd),
-                AppCard(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        l10n.studentCertificatesTransmissionChoice,
-                        style: Theme.of(context).textTheme.titleMedium
-                            ?.copyWith(fontWeight: FontWeight.w800),
-                      ),
-                      const SizedBox(height: AppDesignTokens.spacingSm),
-                      SegmentedButton<TrainingType>(
-                        segments: available
-                            .map(
-                              (type) => ButtonSegment(
-                                value: type,
-                                label: Text(
-                                  StudentCertificatesFormatters.transmissionTypeLabel(
-                                    l10n,
-                                    type,
-                                  ),
-                                ),
-                              ),
-                            )
-                            .toList(growable: false),
-                        selected: {_transmissionType!},
-                        onSelectionChanged: (selection) =>
-                            setState(() => _transmissionType = selection.first),
-                      ),
-                      SwitchListTile(
-                        contentPadding: EdgeInsets.zero,
-                        title: Text(l10n.studentCertificatesTransportRequested),
-                        value: _transportRequested,
-                        onChanged: (value) =>
-                            setState(() => _transportRequested = value),
-                      ),
-                    ],
-                  ),
+                _TransmissionOptionsCard(
+                  available: available,
+                  notifier: _transmissionNotifier,
                 ),
                 const SizedBox(height: AppDesignTokens.spacingMd),
-                AppCard(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        l10n.studentCertificatesImagesTitle,
-                        style: Theme.of(context).textTheme.titleMedium
-                            ?.copyWith(fontWeight: FontWeight.w800),
-                      ),
-                      const SizedBox(height: AppDesignTokens.spacingXs),
-                      Text(
-                        l10n.studentCertificatesImagesHint,
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: AppColors.muted,
-                        ),
-                      ),
-                      const SizedBox(height: AppDesignTokens.spacingSm),
-                      _ImagePickerTile(
-                        label: l10n.studentCertificatesPersonalPhoto,
-                        file: _personalPhoto,
-                        onTap: () =>
-                            _pickImage((file) => _personalPhoto = file),
-                      ),
-                      _ImagePickerTile(
-                        label: l10n.studentCertificatesIdFront,
-                        file: _idFront,
-                        onTap: () => _pickImage((file) => _idFront = file),
-                      ),
-                      _ImagePickerTile(
-                        label: l10n.studentCertificatesIdBack,
-                        file: _idBack,
-                        onTap: () => _pickImage((file) => _idBack = file),
-                      ),
-                    ],
-                  ),
-                ),
+                _CertificateImagesCard(notifier: _photosNotifier),
                 const SizedBox(height: AppDesignTokens.spacingMd),
                 AppCard(
                   child: Column(
@@ -256,30 +161,252 @@ class _StudentCertificateNewRequestScreenState
                   ),
                 ),
                 const SizedBox(height: AppDesignTokens.spacingLg),
-                AppButton.primary(
-                  label: l10n.studentCertificatesSubmitNew,
-                  isLoading: state.isSubmitting,
-                  onPressed:
-                      state.isSubmitting ||
-                          _personalPhoto == null ||
-                          _idFront == null ||
-                          _idBack == null
-                      ? null
-                      : () => context
-                            .read<StudentCertificateWriteCubit>()
-                            .submitNewRequest(
-                              transmissionType: _transmissionType!,
-                              transportRequested: _transportRequested,
-                              rawTransactionId: _transactionController.text,
-                              personalPhoto: _personalPhoto!,
-                              idFront: _idFront!,
-                              idBack: _idBack!,
-                            ),
+                ListenableBuilder(
+                  listenable: Listenable.merge([
+                    _transmissionNotifier,
+                    _photosNotifier,
+                  ]),
+                  builder: (context, _) {
+                    final choice = _transmissionNotifier.value;
+                    final photos = _photosNotifier.value;
+                    final canSubmit =
+                        !state.isSubmitting &&
+                        choice != null &&
+                        photos.personalPhoto != null &&
+                        photos.idFront != null &&
+                        photos.idBack != null;
+                    return AppButton.primary(
+                      label: l10n.studentCertificatesSubmitNew,
+                      isLoading: state.isSubmitting,
+                      onPressed: !canSubmit
+                          ? null
+                          : () => context
+                                .read<StudentCertificateWriteCubit>()
+                                .submitNewRequest(
+                                  transmissionType: choice.transmissionType,
+                                  transportRequested: choice.transportRequested,
+                                  rawTransactionId: _transactionController.text,
+                                  personalPhoto: photos.personalPhoto!,
+                                  idFront: photos.idFront!,
+                                  idBack: photos.idBack!,
+                                ),
+                    );
+                  },
                 ),
               ],
             );
           },
         ),
+      ),
+    );
+  }
+}
+
+class _TransmissionChoice {
+  const _TransmissionChoice({
+    required this.transmissionType,
+    required this.transportRequested,
+  });
+
+  final TrainingType transmissionType;
+  final bool transportRequested;
+}
+
+class _CertificatePhotos {
+  const _CertificatePhotos({this.personalPhoto, this.idFront, this.idBack});
+
+  final File? personalPhoto;
+  final File? idFront;
+  final File? idBack;
+
+  _CertificatePhotos copyWith({
+    File? personalPhoto,
+    File? idFront,
+    File? idBack,
+  }) => _CertificatePhotos(
+    personalPhoto: personalPhoto ?? this.personalPhoto,
+    idFront: idFront ?? this.idFront,
+    idBack: idBack ?? this.idBack,
+  );
+}
+
+class _TransmissionOptionsCard extends StatefulWidget {
+  const _TransmissionOptionsCard({
+    required this.available,
+    required this.notifier,
+  });
+
+  final List<TrainingType> available;
+  final ValueNotifier<_TransmissionChoice?> notifier;
+
+  @override
+  State<_TransmissionOptionsCard> createState() =>
+      _TransmissionOptionsCardState();
+}
+
+class _TransmissionOptionsCardState extends State<_TransmissionOptionsCard> {
+  late TrainingType _transmissionType;
+  bool _transportRequested = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _transmissionType = widget.available.first;
+    _syncNotifier();
+  }
+
+  @override
+  void didUpdateWidget(covariant _TransmissionOptionsCard oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (!widget.available.contains(_transmissionType)) {
+      _transmissionType = widget.available.first;
+      _syncNotifier();
+    }
+  }
+
+  void _syncNotifier() {
+    widget.notifier.value = _TransmissionChoice(
+      transmissionType: _transmissionType,
+      transportRequested: _transportRequested,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return AppCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            l10n.studentCertificatesTransmissionChoice,
+            style: Theme.of(
+              context,
+            ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w800),
+          ),
+          const SizedBox(height: AppDesignTokens.spacingSm),
+          SegmentedButton<TrainingType>(
+            segments: widget.available
+                .map(
+                  (type) => ButtonSegment(
+                    value: type,
+                    label: Text(
+                      StudentCertificatesFormatters.transmissionTypeLabel(
+                        l10n,
+                        type,
+                      ),
+                    ),
+                  ),
+                )
+                .toList(growable: false),
+            selected: {_transmissionType},
+            onSelectionChanged: (selection) {
+              setState(() => _transmissionType = selection.first);
+              _syncNotifier();
+            },
+          ),
+          SwitchListTile(
+            contentPadding: EdgeInsets.zero,
+            title: Text(l10n.studentCertificatesTransportRequested),
+            value: _transportRequested,
+            onChanged: (value) {
+              setState(() => _transportRequested = value);
+              _syncNotifier();
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _CertificateImagesCard extends StatefulWidget {
+  const _CertificateImagesCard({required this.notifier});
+
+  final ValueNotifier<_CertificatePhotos> notifier;
+
+  @override
+  State<_CertificateImagesCard> createState() => _CertificateImagesCardState();
+}
+
+class _CertificateImagesCardState extends State<_CertificateImagesCard> {
+  final _picker = ImagePicker();
+
+  Future<void> _pickImage(void Function(File) assign) async {
+    final picked = await _picker.pickImage(source: ImageSource.gallery);
+    if (picked == null || !mounted) return;
+    final file = File(picked.path);
+    final validation = StudentCertificateWriteValidationRules.validateImage(
+      file,
+    );
+    validation.fold(
+      (failure) => ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            StudentCertificateWriteFailureMapper.messageFor(
+              failure,
+              AppLocalizations.of(context),
+            ),
+          ),
+        ),
+      ),
+      (validFile) {
+        assign(validFile);
+        setState(() {});
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final photos = widget.notifier.value;
+    return AppCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            l10n.studentCertificatesImagesTitle,
+            style: Theme.of(
+              context,
+            ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w800),
+          ),
+          const SizedBox(height: AppDesignTokens.spacingXs),
+          Text(
+            l10n.studentCertificatesImagesHint,
+            style: Theme.of(
+              context,
+            ).textTheme.bodyMedium?.copyWith(color: AppColors.muted),
+          ),
+          const SizedBox(height: AppDesignTokens.spacingSm),
+          _ImagePickerTile(
+            label: l10n.studentCertificatesPersonalPhoto,
+            file: photos.personalPhoto,
+            onTap: () => _pickImage((file) {
+              widget.notifier.value = widget.notifier.value.copyWith(
+                personalPhoto: file,
+              );
+            }),
+          ),
+          _ImagePickerTile(
+            label: l10n.studentCertificatesIdFront,
+            file: photos.idFront,
+            onTap: () => _pickImage((file) {
+              widget.notifier.value = widget.notifier.value.copyWith(
+                idFront: file,
+              );
+            }),
+          ),
+          _ImagePickerTile(
+            label: l10n.studentCertificatesIdBack,
+            file: photos.idBack,
+            onTap: () => _pickImage((file) {
+              widget.notifier.value = widget.notifier.value.copyWith(
+                idBack: file,
+              );
+            }),
+          ),
+        ],
       ),
     );
   }

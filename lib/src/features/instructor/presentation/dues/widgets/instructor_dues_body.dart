@@ -25,89 +25,132 @@ class InstructorDuesBody extends StatelessWidget {
     final sortOrder = context.select(
       (InstructorDuesCubit cubit) => cubit.state.sortOrder,
     );
-    final sortedDues = [...dues.dues]
-      ..sort((a, b) {
-        final compare = a.expenseDate.compareTo(b.expenseDate);
-        return sortOrder == InstructorDuesSortOrder.oldestFirst
-            ? compare
-            : -compare;
-      });
+    final fromCubit = context.select(
+      (InstructorDuesCubit cubit) => cubit.state.visibleDues,
+    );
+    // Skeleton uses placeholder dues before the cubit has sorted visibleDues.
+    final visibleDues = fromCubit.isNotEmpty || dues.dues.isEmpty
+        ? fromCubit
+        : InstructorDuesState.sortDues(dues.dues, sortOrder);
 
-    return ListView(
-      padding: const EdgeInsets.all(AppDesignTokens.screenHorizontalPadding),
-      children: [
-        AppMetricTile(
-          value: InstructorFormatters.currencyAmount(l10n, dues.grandTotal),
-          label: l10n.instructorDuesGrandTotal,
-          icon: PhosphorIconsBold.wallet,
-          iconColor: AppColors.warning,
-        ),
-        const SizedBox(height: AppDesignTokens.spacingLg),
-        AppSectionHeading(
-          title: l10n.instructorDuesDailyDetails,
-          trailing: IconButton(
-            tooltip: sortOrder == InstructorDuesSortOrder.newestFirst
-                ? l10n.studentBookingsSortOldestFirst
-                : l10n.studentBookingsSortNewestFirst,
-            onPressed: () =>
-                context.read<InstructorDuesCubit>().toggleSortOrder(),
-            style: IconButton.styleFrom(
-              backgroundColor: AppColors.white,
-              side: const BorderSide(color: AppColors.line),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(
-                  AppDesignTokens.radiusControl,
+    return CustomScrollView(
+      slivers: [
+        SliverPadding(
+          padding: const EdgeInsets.fromLTRB(
+            AppDesignTokens.screenHorizontalPadding,
+            AppDesignTokens.screenHorizontalPadding,
+            AppDesignTokens.screenHorizontalPadding,
+            0,
+          ),
+          sliver: SliverToBoxAdapter(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                AppMetricTile(
+                  value: InstructorFormatters.currencyAmount(
+                    l10n,
+                    dues.grandTotal,
+                  ),
+                  label: l10n.instructorDuesGrandTotal,
+                  icon: PhosphorIconsBold.wallet,
+                  iconColor: AppColors.warning,
                 ),
-              ),
-            ),
-            icon: Icon(
-              sortOrder == InstructorDuesSortOrder.newestFirst
-                  ? PhosphorIconsBold.sortDescending
-                  : PhosphorIconsBold.sortAscending,
-              color: AppColors.ink,
-              size: 20,
+                const SizedBox(height: AppDesignTokens.spacingLg),
+                AppSectionHeading(
+                  title: l10n.instructorDuesDailyDetails,
+                  trailing: IconButton(
+                    tooltip: sortOrder == InstructorDuesSortOrder.newestFirst
+                        ? l10n.studentBookingsSortOldestFirst
+                        : l10n.studentBookingsSortNewestFirst,
+                    onPressed: () =>
+                        context.read<InstructorDuesCubit>().toggleSortOrder(),
+                    style: IconButton.styleFrom(
+                      backgroundColor: AppColors.white,
+                      side: const BorderSide(color: AppColors.line),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                          AppDesignTokens.radiusControl,
+                        ),
+                      ),
+                    ),
+                    icon: Icon(
+                      sortOrder == InstructorDuesSortOrder.newestFirst
+                          ? PhosphorIconsBold.sortDescending
+                          : PhosphorIconsBold.sortAscending,
+                      color: AppColors.ink,
+                      size: 20,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: AppDesignTokens.spacing),
+                if (visibleDues.isEmpty)
+                  AppCard(child: Text(l10n.instructorDuesEmpty)),
+              ],
             ),
           ),
         ),
-        const SizedBox(height: AppDesignTokens.spacing),
-        if (sortedDues.isEmpty)
-          AppCard(child: Text(l10n.instructorDuesEmpty))
-        else
-          for (final due in sortedDues) ...[
-            AppCard(
-              child: Row(
-                children: [
-                  const AppNonMirroredIcon(
-                    PhosphorIconsBold.calendar,
-                    color: AppColors.brandPrimary,
+        if (visibleDues.isNotEmpty)
+          SliverPadding(
+            padding: const EdgeInsets.fromLTRB(
+              AppDesignTokens.screenHorizontalPadding,
+              0,
+              AppDesignTokens.screenHorizontalPadding,
+              AppDesignTokens.screenHorizontalPadding,
+            ),
+            sliver: SliverList(
+              delegate: SliverChildBuilderDelegate((context, index) {
+                final due = visibleDues[index];
+                return Padding(
+                  padding: EdgeInsets.only(
+                    bottom: index < visibleDues.length - 1
+                        ? AppDesignTokens.spacingSm
+                        : 0,
                   ),
-                  const SizedBox(width: AppDesignTokens.spacing),
-                  Expanded(
-                    child: Text(
-                      DateFormat(
-                        'EEEE، d MMMM',
-                        localeName,
-                      ).format(due.expenseDate),
+                  child: AppCard(
+                    child: Row(
+                      children: [
+                        const AppNonMirroredIcon(
+                          PhosphorIconsBold.calendar,
+                          color: AppColors.brandPrimary,
+                        ),
+                        const SizedBox(width: AppDesignTokens.spacing),
+                        Expanded(
+                          child: Text(
+                            DateFormat(
+                              'EEEE، d MMMM',
+                              localeName,
+                            ).format(due.expenseDate),
+                          ),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text(
+                              InstructorFormatters.currencyAmount(
+                                l10n,
+                                due.dayTotal,
+                              ),
+                              style: Theme.of(context).textTheme.titleSmall,
+                            ),
+                            Text(
+                              l10n.instructorDuesLessonCount(due.lessonCount),
+                              style: const TextStyle(color: AppColors.muted),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(
-                        InstructorFormatters.currencyAmount(l10n, due.dayTotal),
-                        style: Theme.of(context).textTheme.titleSmall,
-                      ),
-                      Text(
-                        l10n.instructorDuesLessonCount(due.lessonCount),
-                        style: const TextStyle(color: AppColors.muted),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                );
+              }, childCount: visibleDues.length),
             ),
-            const SizedBox(height: AppDesignTokens.spacingSm),
-          ],
+          )
+        else
+          const SliverPadding(
+            padding: EdgeInsets.only(
+              bottom: AppDesignTokens.screenHorizontalPadding,
+            ),
+          ),
       ],
     );
   }

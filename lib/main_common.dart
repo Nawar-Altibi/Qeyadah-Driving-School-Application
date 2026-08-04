@@ -17,10 +17,6 @@ Future<void> mainCommon(
   Locale? forcedLocale,
 }) async {
   WidgetsFlutterBinding.ensureInitialized();
-  await FirebaseBootstrap.ensureInitialized();
-  if (FirebaseBootstrap.isReady) {
-    FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
-  }
 
   // DevicePreview stays available for manual desktop QA, but stays off by
   // default on web so browser automation and real viewport testing work.
@@ -33,6 +29,11 @@ Future<void> mainCommon(
       builder: (context) => const _StartupLoadingApp(),
     ),
   );
+
+  await FirebaseBootstrap.ensureInitialized();
+  if (FirebaseBootstrap.isReady) {
+    FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+  }
 
   try {
     await _initializeApp(environment);

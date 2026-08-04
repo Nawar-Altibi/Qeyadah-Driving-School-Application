@@ -34,91 +34,135 @@ class InstructorInvoicesBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final isDay = state.viewMode == InstructorInvoicesViewMode.day;
-    return ListView(
-      padding: const EdgeInsets.all(AppDesignTokens.screenHorizontalPadding),
-      children: [
-        AppSegmentedControl<InstructorInvoicesViewMode>(
-          value: state.viewMode,
-          items: [
-            AppSegmentedItem(
-              value: InstructorInvoicesViewMode.day,
-              label: l10n.instructorPeriodDay,
-            ),
-            AppSegmentedItem(
-              value: InstructorInvoicesViewMode.month,
-              label: l10n.instructorPeriodMonth,
-            ),
-          ],
-          onChanged: interactive
-              ? context.read<InstructorInvoicesCubit>().setViewMode
-              : (_) {},
-        ),
-        const SizedBox(height: AppDesignTokens.spacingSm),
-        Text(
-          isDay ? l10n.instructorPeriodHintDay : l10n.instructorPeriodHintMonth,
-          style: Theme.of(
-            context,
-          ).textTheme.bodySmall?.copyWith(color: AppColors.muted),
-        ),
-        const SizedBox(height: AppDesignTokens.spacing),
-        InstructorPeriodStepper(
-          isDay: isDay,
-          selectedDate: state.selectedDate,
-          interactive: interactive,
-          onPrevious: () => _stepPeriod(context, isDay, -1),
-          onNext: () => _stepPeriod(context, isDay, 1),
-          onPick: () => _pickPeriod(context, isDay),
-          onJumpCurrent: () => _jumpToCurrent(context, isDay),
-        ),
-        const SizedBox(height: AppDesignTokens.spacingMd),
-        Row(
-          children: [
-            Expanded(
-              child: AppMetricTile(
-                value: InstructorFormatters.currencyAmount(
-                  l10n,
-                  page.totalReceived,
+    final invoices = page.invoices;
+
+    return CustomScrollView(
+      slivers: [
+        SliverPadding(
+          padding: const EdgeInsets.fromLTRB(
+            AppDesignTokens.screenHorizontalPadding,
+            AppDesignTokens.screenHorizontalPadding,
+            AppDesignTokens.screenHorizontalPadding,
+            0,
+          ),
+          sliver: SliverToBoxAdapter(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                AppSegmentedControl<InstructorInvoicesViewMode>(
+                  value: state.viewMode,
+                  items: [
+                    AppSegmentedItem(
+                      value: InstructorInvoicesViewMode.day,
+                      label: l10n.instructorPeriodDay,
+                    ),
+                    AppSegmentedItem(
+                      value: InstructorInvoicesViewMode.month,
+                      label: l10n.instructorPeriodMonth,
+                    ),
+                  ],
+                  onChanged: interactive
+                      ? context.read<InstructorInvoicesCubit>().setViewMode
+                      : (_) {},
                 ),
-                label: l10n.instructorInvoicesTotalReceived,
-                icon: PhosphorIconsBold.money,
-              ),
+                const SizedBox(height: AppDesignTokens.spacingSm),
+                Text(
+                  isDay
+                      ? l10n.instructorPeriodHintDay
+                      : l10n.instructorPeriodHintMonth,
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodySmall?.copyWith(color: AppColors.muted),
+                ),
+                const SizedBox(height: AppDesignTokens.spacing),
+                InstructorPeriodStepper(
+                  isDay: isDay,
+                  selectedDate: state.selectedDate,
+                  interactive: interactive,
+                  onPrevious: () => _stepPeriod(context, isDay, -1),
+                  onNext: () => _stepPeriod(context, isDay, 1),
+                  onPick: () => _pickPeriod(context, isDay),
+                  onJumpCurrent: () => _jumpToCurrent(context, isDay),
+                ),
+                const SizedBox(height: AppDesignTokens.spacingMd),
+                Row(
+                  children: [
+                    Expanded(
+                      child: AppMetricTile(
+                        value: InstructorFormatters.currencyAmount(
+                          l10n,
+                          page.totalReceived,
+                        ),
+                        label: l10n.instructorInvoicesTotalReceived,
+                        icon: PhosphorIconsBold.money,
+                      ),
+                    ),
+                    const SizedBox(width: AppDesignTokens.spacing),
+                    Expanded(
+                      child: AppMetricTile(
+                        value: '${page.invoiceCount}',
+                        label: l10n.instructorInvoicesCount,
+                        icon: PhosphorIconsBold.receipt,
+                      ),
+                    ),
+                    const SizedBox(width: AppDesignTokens.spacing),
+                    Expanded(
+                      child: AppMetricTile(
+                        value: '${page.sessionCount}',
+                        label: l10n.instructorInvoicesSessions,
+                        icon: PhosphorIconsBold.calendarCheck,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: AppDesignTokens.spacingLg),
+                AppSectionHeading(title: l10n.instructorInvoicesListTitle),
+                const SizedBox(height: AppDesignTokens.spacing),
+                if (invoices.isEmpty)
+                  AppCard(child: Text(l10n.instructorInvoicesEmpty)),
+              ],
             ),
-            const SizedBox(width: AppDesignTokens.spacing),
-            Expanded(
-              child: AppMetricTile(
-                value: '${page.invoiceCount}',
-                label: l10n.instructorInvoicesCount,
-                icon: PhosphorIconsBold.receipt,
-              ),
-            ),
-            const SizedBox(width: AppDesignTokens.spacing),
-            Expanded(
-              child: AppMetricTile(
-                value: '${page.sessionCount}',
-                label: l10n.instructorInvoicesSessions,
-                icon: PhosphorIconsBold.calendarCheck,
-              ),
-            ),
-          ],
+          ),
         ),
-        const SizedBox(height: AppDesignTokens.spacingLg),
-        AppSectionHeading(title: l10n.instructorInvoicesListTitle),
-        const SizedBox(height: AppDesignTokens.spacing),
-        if (page.invoices.isEmpty)
-          AppCard(child: Text(l10n.instructorInvoicesEmpty))
-        else ...[
-          for (final invoice in page.invoices) ...[
-            _InvoiceCard(invoice: invoice),
-            const SizedBox(height: AppDesignTokens.spacingSm),
-          ],
-          if (page.hasMorePages)
-            InstructorLoadMoreButton(
-              isLoading: state.isLoadingMore,
-              onPressed: interactive
-                  ? () => context.read<InstructorInvoicesCubit>().loadMore()
-                  : null,
+        if (invoices.isNotEmpty)
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppDesignTokens.screenHorizontalPadding,
             ),
-        ],
+            sliver: SliverList(
+              delegate: SliverChildBuilderDelegate((context, index) {
+                return Padding(
+                  padding: const EdgeInsets.only(
+                    bottom: AppDesignTokens.spacingSm,
+                  ),
+                  child: _InvoiceCard(invoice: invoices[index]),
+                );
+              }, childCount: invoices.length),
+            ),
+          ),
+        if (invoices.isNotEmpty && page.hasMorePages)
+          SliverPadding(
+            padding: const EdgeInsets.fromLTRB(
+              AppDesignTokens.screenHorizontalPadding,
+              0,
+              AppDesignTokens.screenHorizontalPadding,
+              AppDesignTokens.screenHorizontalPadding,
+            ),
+            sliver: SliverToBoxAdapter(
+              child: InstructorLoadMoreButton(
+                isLoading: state.isLoadingMore,
+                onPressed: interactive
+                    ? () => context.read<InstructorInvoicesCubit>().loadMore()
+                    : null,
+              ),
+            ),
+          )
+        else
+          const SliverPadding(
+            padding: EdgeInsets.only(
+              bottom: AppDesignTokens.screenHorizontalPadding,
+            ),
+          ),
       ],
     );
   }

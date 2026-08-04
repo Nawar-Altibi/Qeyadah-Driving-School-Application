@@ -28,83 +28,115 @@ class NotificationsInboxBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    final unreadCount = page.notifications.where((n) => !n.isRead).length;
+    final notifications = page.notifications;
+    final unreadCount = notifications.where((n) => !n.isRead).length;
 
     return RefreshIndicator(
       onRefresh: interactive
           ? () => context.read<NotificationsInboxCubit>().load()
           : () async {},
-      child: ListView(
+      child: CustomScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
-        padding: const EdgeInsets.all(AppDesignTokens.screenHorizontalPadding),
-        children: [
-          Column(
-            children: [
-              Container(
-                width: 48,
-                height: 48,
-                decoration: BoxDecoration(
-                  color: AppColors.brandMintSoft,
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: const Icon(
-                  PhosphorIconsBold.bell,
-                  color: AppColors.brandPrimary,
-                ),
+        slivers: [
+          SliverPadding(
+            padding: const EdgeInsets.fromLTRB(
+              AppDesignTokens.screenHorizontalPadding,
+              AppDesignTokens.screenHorizontalPadding,
+              AppDesignTokens.screenHorizontalPadding,
+              0,
+            ),
+            sliver: SliverToBoxAdapter(
+              child: Column(
+                children: [
+                  Column(
+                    children: [
+                      Container(
+                        width: 48,
+                        height: 48,
+                        decoration: BoxDecoration(
+                          color: AppColors.brandMintSoft,
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: const Icon(
+                          PhosphorIconsBold.bell,
+                          color: AppColors.brandPrimary,
+                        ),
+                      ),
+                      const SizedBox(height: AppDesignTokens.spacingSm),
+                      Text(
+                        l10n.notificationsInboxIntroTitle,
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        l10n.notificationsInboxIntroBody,
+                        textAlign: TextAlign.center,
+                        style: Theme.of(
+                          context,
+                        ).textTheme.bodySmall?.copyWith(color: AppColors.muted),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: AppDesignTokens.spacingMd),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: AppSectionHeading(
+                          title: l10n.notificationsInboxListTitle,
+                          subtitle: unreadCount > 0
+                              ? l10n.notificationsInboxUnreadCount(unreadCount)
+                              : null,
+                        ),
+                      ),
+                      if (interactive && unreadCount > 0)
+                        TextButton(
+                          onPressed: state.isMarkingAll
+                              ? null
+                              : () => context
+                                    .read<NotificationsInboxCubit>()
+                                    .markAllRead(),
+                          child: Text(l10n.notificationsMarkAllRead),
+                        ),
+                    ],
+                  ),
+                  const SizedBox(height: AppDesignTokens.spacing),
+                  if (notifications.isEmpty)
+                    AppCard(child: Text(l10n.notificationsInboxEmpty)),
+                ],
               ),
-              const SizedBox(height: AppDesignTokens.spacingSm),
-              Text(
-                l10n.notificationsInboxIntroTitle,
-                style: Theme.of(
-                  context,
-                ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                l10n.notificationsInboxIntroBody,
-                textAlign: TextAlign.center,
-                style: Theme.of(
-                  context,
-                ).textTheme.bodySmall?.copyWith(color: AppColors.muted),
-              ),
-            ],
+            ),
           ),
-          const SizedBox(height: AppDesignTokens.spacingMd),
-          Row(
-            children: [
-              Expanded(
-                child: AppSectionHeading(
-                  title: l10n.notificationsInboxListTitle,
-                  subtitle: unreadCount > 0
-                      ? l10n.notificationsInboxUnreadCount(unreadCount)
-                      : null,
-                ),
+          if (notifications.isNotEmpty)
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppDesignTokens.screenHorizontalPadding,
               ),
-              if (interactive && unreadCount > 0)
-                TextButton(
-                  onPressed: state.isMarkingAll
-                      ? null
-                      : () => context
-                            .read<NotificationsInboxCubit>()
-                            .markAllRead(),
-                  child: Text(l10n.notificationsMarkAllRead),
-                ),
-            ],
-          ),
-          const SizedBox(height: AppDesignTokens.spacing),
-          if (page.notifications.isEmpty)
-            AppCard(child: Text(l10n.notificationsInboxEmpty))
-          else ...[
-            for (final notification in page.notifications) ...[
-              _NotificationCard(
-                notification: notification,
-                interactive: interactive,
+              sliver: SliverList(
+                delegate: SliverChildBuilderDelegate((context, index) {
+                  final notification = notifications[index];
+                  return Padding(
+                    padding: const EdgeInsets.only(
+                      bottom: AppDesignTokens.spacingSm,
+                    ),
+                    child: _NotificationCard(
+                      notification: notification,
+                      interactive: interactive,
+                    ),
+                  );
+                }, childCount: notifications.length),
               ),
-              const SizedBox(height: AppDesignTokens.spacingSm),
-            ],
-            if (page.hasMorePages)
-              Padding(
-                padding: const EdgeInsets.only(top: AppDesignTokens.spacingSm),
+            ),
+          if (notifications.isNotEmpty && page.hasMorePages)
+            SliverPadding(
+              padding: const EdgeInsets.fromLTRB(
+                AppDesignTokens.screenHorizontalPadding,
+                AppDesignTokens.spacingSm,
+                AppDesignTokens.screenHorizontalPadding,
+                AppDesignTokens.screenHorizontalPadding,
+              ),
+              sliver: SliverToBoxAdapter(
                 child: AppButton.secondary(
                   label: l10n.notificationsInboxLoadMore,
                   isLoading: state.isLoadingMore,
@@ -113,7 +145,13 @@ class NotificationsInboxBody extends StatelessWidget {
                       : null,
                 ),
               ),
-          ],
+            )
+          else
+            const SliverPadding(
+              padding: EdgeInsets.only(
+                bottom: AppDesignTokens.screenHorizontalPadding,
+              ),
+            ),
         ],
       ),
     );

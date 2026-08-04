@@ -104,7 +104,9 @@ class _StudentHomeContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final localeName = Localizations.localeOf(context).toLanguageTag();
-    final sessionUser = context.watch<AuthSessionCubit>().currentSession?.user;
+    final sessionUser = context.select(
+      (AuthSessionCubit cubit) => cubit.currentSession?.user,
+    );
     final studentName = sessionUser?.displayName ?? '';
     final isBlocked = sessionUser?.isBlocked ?? false;
 
@@ -136,7 +138,9 @@ class _StudentHomeContent extends StatelessWidget {
               referenceDate: dashboard.referenceDate,
             ),
             hasUnreadNotifications:
-                context.watch<NotificationsUnreadCubit>().state > 0 ||
+                context.select(
+                  (NotificationsUnreadCubit cubit) => cubit.state > 0,
+                ) ||
                 dashboard.hasUnreadNotifications,
             onNotificationsTap: () =>
                 StudentHomeNavigation.openNotifications(context: context),

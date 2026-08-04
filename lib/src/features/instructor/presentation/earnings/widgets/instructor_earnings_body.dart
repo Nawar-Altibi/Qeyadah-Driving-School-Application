@@ -34,74 +34,114 @@ class InstructorEarningsBody extends StatelessWidget {
     final count = isDay
         ? earnings.daySessionsCount ?? earnings.sessions.length
         : earnings.monthSessionsCount;
-    return ListView(
-      padding: const EdgeInsets.all(AppDesignTokens.screenHorizontalPadding),
-      children: [
-        AppSegmentedControl<InstructorEarningsViewMode>(
-          value: state.viewMode,
-          items: [
-            AppSegmentedItem(
-              value: InstructorEarningsViewMode.day,
-              label: l10n.instructorPeriodDay,
+    final sessions = earnings.sessions;
+
+    return CustomScrollView(
+      slivers: [
+        SliverPadding(
+          padding: const EdgeInsets.fromLTRB(
+            AppDesignTokens.screenHorizontalPadding,
+            AppDesignTokens.screenHorizontalPadding,
+            AppDesignTokens.screenHorizontalPadding,
+            0,
+          ),
+          sliver: SliverToBoxAdapter(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                AppSegmentedControl<InstructorEarningsViewMode>(
+                  value: state.viewMode,
+                  items: [
+                    AppSegmentedItem(
+                      value: InstructorEarningsViewMode.day,
+                      label: l10n.instructorPeriodDay,
+                    ),
+                    AppSegmentedItem(
+                      value: InstructorEarningsViewMode.month,
+                      label: l10n.instructorPeriodMonth,
+                    ),
+                  ],
+                  onChanged: interactive
+                      ? context.read<InstructorEarningsCubit>().setViewMode
+                      : (_) {},
+                ),
+                const SizedBox(height: AppDesignTokens.spacingSm),
+                Text(
+                  isDay
+                      ? l10n.instructorPeriodHintDay
+                      : l10n.instructorPeriodHintMonth,
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodySmall?.copyWith(color: AppColors.muted),
+                ),
+                const SizedBox(height: AppDesignTokens.spacing),
+                InstructorPeriodStepper(
+                  isDay: isDay,
+                  selectedDate: state.selectedDate,
+                  interactive: interactive,
+                  onPrevious: () => _stepPeriod(context, isDay, -1),
+                  onNext: () => _stepPeriod(context, isDay, 1),
+                  onPick: () => _pickPeriod(context, isDay),
+                  onJumpCurrent: () => _jumpToCurrent(context, isDay),
+                ),
+                const SizedBox(height: AppDesignTokens.spacingMd),
+                Row(
+                  children: [
+                    Expanded(
+                      child: AppMetricTile(
+                        value: InstructorFormatters.currencyAmount(l10n, total),
+                        label: isDay
+                            ? l10n.instructorEarningsDayTotal
+                            : l10n.instructorEarningsMonthTotal,
+                        icon: PhosphorIconsBold.money,
+                      ),
+                    ),
+                    const SizedBox(width: AppDesignTokens.spacing),
+                    Expanded(
+                      child: AppMetricTile(
+                        value: '$count',
+                        label: l10n.instructorEarningsSessions,
+                        icon: PhosphorIconsBold.calendarCheck,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: AppDesignTokens.spacingLg),
+                AppSectionHeading(title: l10n.instructorEarningsSessions),
+                const SizedBox(height: AppDesignTokens.spacing),
+                if (sessions.isEmpty)
+                  AppCard(child: Text(l10n.instructorEarningsEmpty)),
+              ],
             ),
-            AppSegmentedItem(
-              value: InstructorEarningsViewMode.month,
-              label: l10n.instructorPeriodMonth,
+          ),
+        ),
+        if (sessions.isNotEmpty)
+          SliverPadding(
+            padding: const EdgeInsets.fromLTRB(
+              AppDesignTokens.screenHorizontalPadding,
+              0,
+              AppDesignTokens.screenHorizontalPadding,
+              AppDesignTokens.screenHorizontalPadding,
             ),
-          ],
-          onChanged: interactive
-              ? context.read<InstructorEarningsCubit>().setViewMode
-              : (_) {},
-        ),
-        const SizedBox(height: AppDesignTokens.spacingSm),
-        Text(
-          isDay ? l10n.instructorPeriodHintDay : l10n.instructorPeriodHintMonth,
-          style: Theme.of(
-            context,
-          ).textTheme.bodySmall?.copyWith(color: AppColors.muted),
-        ),
-        const SizedBox(height: AppDesignTokens.spacing),
-        InstructorPeriodStepper(
-          isDay: isDay,
-          selectedDate: state.selectedDate,
-          interactive: interactive,
-          onPrevious: () => _stepPeriod(context, isDay, -1),
-          onNext: () => _stepPeriod(context, isDay, 1),
-          onPick: () => _pickPeriod(context, isDay),
-          onJumpCurrent: () => _jumpToCurrent(context, isDay),
-        ),
-        const SizedBox(height: AppDesignTokens.spacingMd),
-        Row(
-          children: [
-            Expanded(
-              child: AppMetricTile(
-                value: InstructorFormatters.currencyAmount(l10n, total),
-                label: isDay
-                    ? l10n.instructorEarningsDayTotal
-                    : l10n.instructorEarningsMonthTotal,
-                icon: PhosphorIconsBold.money,
-              ),
+            sliver: SliverList(
+              delegate: SliverChildBuilderDelegate((context, index) {
+                return Padding(
+                  padding: EdgeInsets.only(
+                    bottom: index < sessions.length - 1
+                        ? AppDesignTokens.spacingSm
+                        : 0,
+                  ),
+                  child: _SessionCard(session: sessions[index]),
+                );
+              }, childCount: sessions.length),
             ),
-            const SizedBox(width: AppDesignTokens.spacing),
-            Expanded(
-              child: AppMetricTile(
-                value: '$count',
-                label: l10n.instructorEarningsSessions,
-                icon: PhosphorIconsBold.calendarCheck,
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: AppDesignTokens.spacingLg),
-        AppSectionHeading(title: l10n.instructorEarningsSessions),
-        const SizedBox(height: AppDesignTokens.spacing),
-        if (earnings.sessions.isEmpty)
-          AppCard(child: Text(l10n.instructorEarningsEmpty))
+          )
         else
-          for (final session in earnings.sessions) ...[
-            _SessionCard(session: session),
-            const SizedBox(height: AppDesignTokens.spacingSm),
-          ],
+          const SliverPadding(
+            padding: EdgeInsets.only(
+              bottom: AppDesignTokens.screenHorizontalPadding,
+            ),
+          ),
       ],
     );
   }

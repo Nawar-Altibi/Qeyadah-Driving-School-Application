@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
+import 'package:qeyadah_mobile_app/src/core/ui/app_network_image.dart';
 
 /// Full-screen pinch-zoom viewer for a single network image, pushed as a
 /// route. Reusable anywhere a document/photo thumbnail needs an in-app
@@ -44,25 +45,17 @@ class AppFullScreenImageViewer extends StatelessWidget {
           child: InteractiveViewer(
             minScale: 1,
             maxScale: 4,
-            child: Image.network(
-              imageUrl,
+            child: AppNetworkImage(
+              imageUrl: imageUrl,
               fit: BoxFit.contain,
-              loadingBuilder: (context, child, progress) {
-                if (progress == null) return child;
-                return const Center(
-                  child: CircularProgressIndicator(color: AppColors.white),
-                );
-              },
-              errorBuilder: (context, error, stackTrace) {
-                return const Padding(
-                  padding: EdgeInsets.all(24),
-                  child: Icon(
-                    Icons.broken_image_outlined,
-                    color: AppColors.muted,
-                    size: 48,
-                  ),
-                );
-              },
+              fallback: const Padding(
+                padding: EdgeInsets.all(24),
+                child: Icon(
+                  Icons.broken_image_outlined,
+                  color: AppColors.muted,
+                  size: 48,
+                ),
+              ),
             ),
           ),
         ),

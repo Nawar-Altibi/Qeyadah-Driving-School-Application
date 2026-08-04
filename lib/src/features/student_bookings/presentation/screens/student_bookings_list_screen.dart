@@ -40,6 +40,13 @@ class StudentBookingsListScreen extends StatelessWidget {
                         StudentBookingsListCubit,
                         StudentBookingsListState
                       >(
+                        buildWhen: (previous, next) =>
+                            previous.apiState != next.apiState ||
+                            previous.selectedStatus != next.selectedStatus ||
+                            previous.sortOrder != next.sortOrder ||
+                            previous.isLoadingMore != next.isLoadingMore ||
+                            previous.isRefreshing != next.isRefreshing ||
+                            previous.searchQuery != next.searchQuery,
                         builder: (context, state) {
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
