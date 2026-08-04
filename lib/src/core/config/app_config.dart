@@ -37,6 +37,10 @@ class AppConfig {
     },
     authInterceptorType: AuthInterceptorType.tokenBased,
     interceptors: [HeadersInterceptor()],
+    enableCache: true,
+    // Global HTTP maxStale. Use forceRefresh / AppTtlCache for short-lived
+    // endpoints that need pull-to-refresh bypass.
+    cacheDuration: const Duration(minutes: 30),
   );
 
   LocalizationConfigEntity get localizationConfigEntity =>

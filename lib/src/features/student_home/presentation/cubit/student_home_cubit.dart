@@ -32,7 +32,9 @@ class StudentHomeCubit
     final generation = ++_loadGeneration;
     emit(state.copyWith(isSilentRefresh: silent));
 
-    final result = await _loadStudentHomeUseCase(const LoadStudentHomeParams());
+    final result = await _loadStudentHomeUseCase(
+      LoadStudentHomeParams(forceRefresh: silent),
+    );
 
     if (!isActiveGeneration(
       capturedGeneration: generation,

@@ -21,6 +21,7 @@ class StudentTheoryRemoteDataSourceImpl
     final response = await _apiHandler.get(
       Endpoints.theorySelfTest,
       isAuthorized: true,
+      shouldCache: true,
     );
     return response.fold(
       left,

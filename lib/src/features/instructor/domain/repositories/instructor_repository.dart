@@ -7,10 +7,14 @@ abstract interface class InstructorRepository {
     bool forceRefresh = false,
   });
   FutureEither<void> invalidateWeeklyScheduleCache();
-  FutureEither<List<InstructorBookingEntity>> getDayBookings(DateTime date);
+  FutureEither<List<InstructorBookingEntity>> getDayBookings(
+    DateTime date, {
+    bool forceRefresh = false,
+  });
   FutureEither<List<InstructorBookingEntity>> getWeekBookings(
-    DateTime weekStart,
-  );
+    DateTime weekStart, {
+    bool forceRefresh = false,
+  });
   FutureEither<List<InstructorLeaveEntity>> getLeaves();
   FutureEither<InstructorDuesEntity> getDues();
   FutureEither<InstructorEarningsEntity> getEarningsForDate(DateTime date);
@@ -23,8 +27,9 @@ abstract interface class InstructorRepository {
   });
   FutureEither<InstructorScheduleDashboardEntity> loadScheduleDashboard(
     DateTime selectedDate,
-    InstructorBookingsViewMode viewMode,
-  );
+    InstructorBookingsViewMode viewMode, {
+    bool forceRefresh = false,
+  });
   FutureEither<InstructorProfileDashboardEntity> loadProfileDashboard({
     bool forceRefresh = false,
   });

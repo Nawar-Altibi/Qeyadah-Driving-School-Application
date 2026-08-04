@@ -23,7 +23,9 @@ class LoadUnreadNotificationsCountUseCase {
 
   final NotificationsRepository _repository;
 
-  FutureEither<int> call() => _repository.getUnreadCount();
+  FutureEither<int> call({bool forceRefresh = false}) {
+    return _repository.getUnreadCount(forceRefresh: forceRefresh);
+  }
 }
 
 @injectable

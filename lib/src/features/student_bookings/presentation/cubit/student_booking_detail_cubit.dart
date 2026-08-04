@@ -8,6 +8,7 @@ import 'package:qeyadah_mobile_app/src/features/student_bookings/domain/entities
 import 'package:qeyadah_mobile_app/src/features/student_bookings/domain/failures/student_bookings_failures.dart';
 import 'package:qeyadah_mobile_app/src/features/student_bookings/domain/params/student_bookings_params.dart';
 import 'package:qeyadah_mobile_app/src/features/student_bookings/domain/use_cases/student_bookings_use_cases.dart';
+import 'package:qeyadah_mobile_app/src/features/student_home/domain/repositories/student_home_repository.dart';
 import 'package:qeyadah_mobile_app/src/features/student_payments/presentation/navigation/student_payment_hold_args.dart';
 
 part 'student_booking_detail_cubit.freezed.dart';
@@ -25,6 +26,7 @@ class StudentBookingDetailCubit
     this._loadDetailUseCase,
     this._cancelBookingUseCase,
     this._studentBookingRepository,
+    this._studentHomeRepository,
   ) : super(const StudentBookingDetailState());
 
   final LoadStudentBookingDetailUseCase _loadDetailUseCase;
@@ -33,6 +35,7 @@ class StudentBookingDetailCubit
   /// Reused from the booking-creation feature purely to read/clear the
   /// locally cached ShamCash hold when resuming payment or cancelling.
   final StudentBookingRepository _studentBookingRepository;
+  final StudentHomeRepository _studentHomeRepository;
 
   int _loadGeneration = 0;
 
@@ -56,7 +59,7 @@ class StudentBookingDetailCubit
       ),
     );
 
-    final result = await _loadDetailUseCase(bookingId);
+    final result = await _loadDetailUseCase(bookingId, forceRefresh: silent);
     if (!isActiveGeneration(
       capturedGeneration: generation,
       currentGeneration: _loadGeneration,
@@ -161,8 +164,12 @@ class StudentBookingDetailCubit
     }
 
     await _clearHoldIfMatches(bookingId);
+    _studentHomeRepository.invalidateCache();
 
-    final detailResult = await _loadDetailUseCase(bookingId);
+    final detailResult = await _loadDetailUseCase(
+      bookingId,
+      forceRefresh: true,
+    );
     detailResult.fold(
       (failure) => emit(
         state.copyWith(

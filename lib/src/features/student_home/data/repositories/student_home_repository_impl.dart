@@ -1,6 +1,7 @@
 import 'package:coore/lib.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:injectable/injectable.dart';
+import 'package:qeyadah_mobile_app/src/core/cache/app_ttl_cache.dart';
 import 'package:qeyadah_mobile_app/src/core/typedefs/app_typedefs.dart';
 import 'package:qeyadah_mobile_app/src/features/notifications/domain/use_cases/notifications_use_cases.dart';
 import 'package:qeyadah_mobile_app/src/features/student_booking/domain/entities/student_booking_entities.dart';
@@ -29,6 +30,11 @@ class StudentHomeRepositoryImpl implements StudentHomeRepository {
   final GetPendingStudentBookingHoldUseCase _getPendingHold;
   final LoadUnreadNotificationsCountUseCase _loadUnreadCount;
 
+  static const _dashboardKey = 'dashboard';
+  final _dashboardCache = AppTtlCache<StudentHomeDashboardEntity>(
+    ttl: const Duration(seconds: 60),
+  );
+
   static const _quickActions = [
     StudentHomeQuickActionType.newBooking,
     StudentHomeQuickActionType.myBookings,
@@ -40,6 +46,12 @@ class StudentHomeRepositoryImpl implements StudentHomeRepository {
   FutureEither<StudentHomeDashboardEntity> loadDashboard(
     LoadStudentHomeParams params,
   ) async {
+    final forceRefresh = params.forceRefresh;
+    if (!forceRefresh) {
+      final cached = _dashboardCache.getFresh(_dashboardKey);
+      if (cached != null) return right(cached);
+    }
+
     final now = DateTime.now();
 
     final bookedResult = await _loadStudentBookings(
@@ -47,6 +59,7 @@ class StudentHomeRepositoryImpl implements StudentHomeRepository {
         bookingStatus: StudentBookingStatus.booked,
         limit: 50,
       ),
+      forceRefresh: forceRefresh,
     );
     final bookedPage = bookedResult.fold<StudentBookingsPageEntity?>(
       (_) => null,
@@ -58,28 +71,41 @@ class StudentHomeRepositoryImpl implements StudentHomeRepository {
       );
     }
 
-    final nextLesson = await _resolveNextLesson(bookedPage.items, now);
+    final nextLesson = await _resolveNextLesson(
+      bookedPage.items,
+      now,
+      forceRefresh: forceRefresh,
+    );
 
-    final pendingPayment = await _resolvePendingPayment(now);
+    final pendingPayment = await _resolvePendingPayment(
+      now,
+      forceRefresh: forceRefresh,
+    );
 
-    final unreadResult = await _loadUnreadCount();
+    final unreadResult = await _loadUnreadCount(forceRefresh: forceRefresh);
     final hasUnread = unreadResult.fold((_) => false, (count) => count > 0);
 
-    return right(
-      StudentHomeDashboardEntity(
-        referenceDate: now,
-        hasUnreadNotifications: hasUnread,
-        nextLesson: nextLesson,
-        pendingPayment: pendingPayment,
-        quickActions: _quickActions,
-      ),
+    final dashboard = StudentHomeDashboardEntity(
+      referenceDate: now,
+      hasUnreadNotifications: hasUnread,
+      nextLesson: nextLesson,
+      pendingPayment: pendingPayment,
+      quickActions: _quickActions,
     );
+    _dashboardCache.set(_dashboardKey, dashboard);
+    return right(dashboard);
+  }
+
+  @override
+  void invalidateCache() {
+    _dashboardCache.invalidate(_dashboardKey);
   }
 
   Future<StudentHomeNextLessonEntity?> _resolveNextLesson(
     List<StudentBookingListItemEntity> items,
-    DateTime now,
-  ) async {
+    DateTime now, {
+    bool forceRefresh = false,
+  }) async {
     StudentBookingListItemEntity? earliest;
     DateTime? earliestStart;
 
@@ -102,7 +128,10 @@ class StudentHomeRepositoryImpl implements StudentHomeRepository {
       return _nextLessonFromListItem(earliest, earliestStart);
     }
 
-    final detailResult = await _loadStudentBookingDetail(bookingId);
+    final detailResult = await _loadStudentBookingDetail(
+      bookingId,
+      forceRefresh: forceRefresh,
+    );
     return detailResult.fold(
       (_) => _nextLessonFromListItem(earliest!, earliestStart!),
       (detail) => _nextLessonFromDetail(detail, earliest!, earliestStart!),
@@ -154,8 +183,9 @@ class StudentHomeRepositoryImpl implements StudentHomeRepository {
   }
 
   Future<StudentHomePendingPaymentEntity?> _resolvePendingPayment(
-    DateTime now,
-  ) async {
+    DateTime now, {
+    bool forceRefresh = false,
+  }) async {
     final holdResult = await _getPendingHold();
     final hold = holdResult.fold<StudentBookingHoldEntity?>(
       (_) => null,
@@ -182,6 +212,7 @@ class StudentHomeRepositoryImpl implements StudentHomeRepository {
         bookingStatus: StudentBookingStatus.pendingPayment,
         limit: 1,
       ),
+      forceRefresh: forceRefresh,
     );
 
     return pendingResult.fold((_) => null, (page) {

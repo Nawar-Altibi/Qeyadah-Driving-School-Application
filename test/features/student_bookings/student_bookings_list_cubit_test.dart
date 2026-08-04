@@ -52,7 +52,10 @@ void main() {
       'silent search reload keeps succeeded page and sets isRefreshing',
       build: () {
         when(
-          () => repository.getBookings(any()),
+          () => repository.getBookings(
+            any(),
+            forceRefresh: any(named: 'forceRefresh'),
+          ),
         ).thenAnswer((_) async => right(_page(items: [_item('1')])));
         return cubit;
       },
@@ -71,7 +74,12 @@ void main() {
     blocTest<StudentBookingsListCubit, StudentBookingsListState>(
       'toggleSortOrder flips between newest and oldest without refetch',
       build: () {
-        when(() => repository.getBookings(any())).thenAnswer(
+        when(
+          () => repository.getBookings(
+            any(),
+            forceRefresh: any(named: 'forceRefresh'),
+          ),
+        ).thenAnswer(
           (_) async => right(_page(items: [_item('1'), _item('2')])),
         );
         return cubit;
@@ -83,16 +91,24 @@ void main() {
       },
       verify: (c) {
         expect(c.state.sortOrder, StudentBookingsSortOrder.oldestFirst);
-        verifyNever(() => repository.getBookings(any()));
+        verifyNever(
+          () => repository.getBookings(
+            any(),
+            forceRefresh: any(named: 'forceRefresh'),
+          ),
+        );
       },
     );
 
     blocTest<StudentBookingsListCubit, StudentBookingsListState>(
       'loadMore appends next page once while hasMorePages',
       build: () {
-        when(() => repository.getBookings(any())).thenAnswer((
-          invocation,
-        ) async {
+        when(
+          () => repository.getBookings(
+            any(),
+            forceRefresh: any(named: 'forceRefresh'),
+          ),
+        ).thenAnswer((invocation) async {
           final params =
               invocation.positionalArguments.first as LoadStudentBookingsParams;
           if (params.page == 1) {
@@ -114,7 +130,12 @@ void main() {
         );
         expect(page?.items.map((e) => e.id), ['1', '2']);
         expect(page?.hasMorePages, isFalse);
-        verify(() => repository.getBookings(any())).called(2);
+        verify(
+          () => repository.getBookings(
+            any(),
+            forceRefresh: any(named: 'forceRefresh'),
+          ),
+        ).called(2);
       },
     );
   });

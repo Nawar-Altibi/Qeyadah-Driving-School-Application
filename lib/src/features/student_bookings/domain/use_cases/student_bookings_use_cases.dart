@@ -11,9 +11,10 @@ class LoadStudentBookingsUseCase {
   final StudentBookingsRepository _repository;
 
   FutureEither<StudentBookingsPageEntity> call(
-    LoadStudentBookingsParams params,
-  ) {
-    return _repository.getBookings(params);
+    LoadStudentBookingsParams params, {
+    bool forceRefresh = false,
+  }) {
+    return _repository.getBookings(params, forceRefresh: forceRefresh);
   }
 }
 
@@ -23,8 +24,11 @@ class LoadStudentBookingDetailUseCase {
 
   final StudentBookingsRepository _repository;
 
-  FutureEither<StudentBookingDetailEntity> call(int bookingId) {
-    return _repository.getBookingDetail(bookingId);
+  FutureEither<StudentBookingDetailEntity> call(
+    int bookingId, {
+    bool forceRefresh = false,
+  }) {
+    return _repository.getBookingDetail(bookingId, forceRefresh: forceRefresh);
   }
 }
 

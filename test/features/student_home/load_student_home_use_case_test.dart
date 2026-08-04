@@ -51,12 +51,19 @@ void main() {
     );
 
     when(
-      () => notificationsRepository.getUnreadCount(),
+      () => notificationsRepository.getUnreadCount(
+        forceRefresh: any(named: 'forceRefresh'),
+      ),
     ).thenAnswer((_) async => right(0));
     when(
       () => bookingRepository.getPendingHold(),
     ).thenAnswer((_) async => right(null));
-    when(() => bookingsRepository.getBookings(any())).thenAnswer(
+    when(
+      () => bookingsRepository.getBookings(
+        any(),
+        forceRefresh: any(named: 'forceRefresh'),
+      ),
+    ).thenAnswer(
       (_) async => right(
         const StudentBookingsPageEntity(
           items: [],
@@ -101,9 +108,12 @@ void main() {
       final day = DateTime(tomorrow.year, tomorrow.month, tomorrow.day);
       final laterDay = DateTime(later.year, later.month, later.day);
 
-      when(() => bookingsRepository.getBookings(any())).thenAnswer((
-        invocation,
-      ) async {
+      when(
+        () => bookingsRepository.getBookings(
+          any(),
+          forceRefresh: any(named: 'forceRefresh'),
+        ),
+      ).thenAnswer((invocation) async {
         final params =
             invocation.positionalArguments.first as LoadStudentBookingsParams;
         if (params.bookingStatus == StudentBookingStatus.booked) {
@@ -144,7 +154,12 @@ void main() {
         );
       });
 
-      when(() => bookingsRepository.getBookingDetail(10)).thenAnswer(
+      when(
+        () => bookingsRepository.getBookingDetail(
+          10,
+          forceRefresh: any(named: 'forceRefresh'),
+        ),
+      ).thenAnswer(
         (_) async => right(
           StudentBookingDetailEntity(
             booking: StudentBookingDetailBookingEntity(
@@ -266,9 +281,12 @@ void main() {
   test(
     'falls back to a non-resumable pending banner from server bookings',
     () async {
-      when(() => bookingsRepository.getBookings(any())).thenAnswer((
-        invocation,
-      ) async {
+      when(
+        () => bookingsRepository.getBookings(
+          any(),
+          forceRefresh: any(named: 'forceRefresh'),
+        ),
+      ).thenAnswer((invocation) async {
         final params =
             invocation.positionalArguments.first as LoadStudentBookingsParams;
         if (params.bookingStatus == StudentBookingStatus.pendingPayment) {
@@ -314,7 +332,9 @@ void main() {
 
   test('sets hasUnreadNotifications from unread count', () async {
     when(
-      () => notificationsRepository.getUnreadCount(),
+      () => notificationsRepository.getUnreadCount(
+        forceRefresh: any(named: 'forceRefresh'),
+      ),
     ).thenAnswer((_) async => right(3));
 
     final result = await repository.loadDashboard(
@@ -328,7 +348,9 @@ void main() {
 
   test('soft-fails unread count errors to false', () async {
     when(
-      () => notificationsRepository.getUnreadCount(),
+      () => notificationsRepository.getUnreadCount(
+        forceRefresh: any(named: 'forceRefresh'),
+      ),
     ).thenAnswer((_) async => left(const UnknownFailure()));
 
     final result = await repository.loadDashboard(

@@ -372,6 +372,13 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i648.LoadInstructorScheduleUseCase>(),
       ),
     );
+    gh.lazySingleton<_i151.StudentBookingRepository>(
+      () => _i253.StudentBookingRepositoryImpl(
+        gh<_i795.StudentBookingRemoteDataSource>(),
+        gh<_i509.StudentBookingLocalDataSource>(),
+        gh<_i770.StudentBookingsRepository>(),
+      ),
+    );
     gh.lazySingleton<_i442.OfflineQueueCubit>(
       () => _i442.OfflineQueueCubit(
         gh<_i208.OfflineQueueService>(),
@@ -447,15 +454,16 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i648.LoadInstructorProfileUseCase>(),
       ),
     );
+    gh.lazySingleton<_i955.StudentPaymentRepository>(
+      () => _i293.StudentPaymentRepositoryImpl(
+        gh<_i371.StudentPaymentRemoteDataSource>(),
+        gh<_i151.StudentBookingRepository>(),
+        gh<_i770.StudentBookingsRepository>(),
+      ),
+    );
     gh.lazySingleton<_i188.NotificationsUnreadCubit>(
       () => _i188.NotificationsUnreadCubit(
         gh<_i612.LoadUnreadNotificationsCountUseCase>(),
-      ),
-    );
-    gh.lazySingleton<_i151.StudentBookingRepository>(
-      () => _i253.StudentBookingRepositoryImpl(
-        gh<_i795.StudentBookingRemoteDataSource>(),
-        gh<_i509.StudentBookingLocalDataSource>(),
       ),
     );
     gh.factory<_i905.InstructorEarningsCubit>(
@@ -498,18 +506,16 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i151.StudentBookingRepository>(),
       ),
     );
+    gh.factory<_i660.ConfirmStudentPaymentUseCase>(
+      () => _i660.ConfirmStudentPaymentUseCase(
+        gh<_i955.StudentPaymentRepository>(),
+      ),
+    );
     gh.factory<_i958.RegistrationCubit>(
       () => _i958.RegistrationCubit(
         gh<_i852.RequestRegistrationOtpUseCase>(),
         gh<_i823.RegisterStudentUseCase>(),
         gh<_i941.PushMessagingService>(),
-      ),
-    );
-    gh.factory<_i207.StudentBookingDetailCubit>(
-      () => _i207.StudentBookingDetailCubit(
-        gh<_i981.LoadStudentBookingDetailUseCase>(),
-        gh<_i981.CancelStudentBookingUseCase>(),
-        gh<_i151.StudentBookingRepository>(),
       ),
     );
     gh.factory<_i390.LoadCertificateEligibilityUseCase>(
@@ -585,6 +591,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i390.LoadCertificateEligibilityUseCase>(),
       ),
     );
+    gh.factory<_i696.StudentPaymentCubit>(
+      () => _i696.StudentPaymentCubit(gh<_i660.ConfirmStudentPaymentUseCase>()),
+    );
     gh.factory<_i1016.StudentBookingCubit>(
       () => _i1016.StudentBookingCubit(
         gh<_i843.LoadStudentAvailableSlotsUseCase>(),
@@ -603,12 +612,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i60.SampleItemDetailsCubit>(
       () => _i60.SampleItemDetailsCubit(gh<_i38.GetSampleItemUseCase>()),
-    );
-    gh.lazySingleton<_i955.StudentPaymentRepository>(
-      () => _i293.StudentPaymentRepositoryImpl(
-        gh<_i371.StudentPaymentRemoteDataSource>(),
-        gh<_i151.StudentBookingRepository>(),
-      ),
     );
     gh.factory<_i404.NotificationsInboxCubit>(
       () => _i404.NotificationsInboxCubit(
@@ -637,22 +640,22 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i390.LoadStudentCertificatesUseCase>(),
       ),
     );
-    gh.factory<_i660.ConfirmStudentPaymentUseCase>(
-      () => _i660.ConfirmStudentPaymentUseCase(
-        gh<_i955.StudentPaymentRepository>(),
-      ),
-    );
     gh.factory<_i60.SampleItemsCubit>(
       () => _i60.SampleItemsCubit(gh<_i38.LoadSampleItemsUseCase>()),
+    );
+    gh.factory<_i207.StudentBookingDetailCubit>(
+      () => _i207.StudentBookingDetailCubit(
+        gh<_i981.LoadStudentBookingDetailUseCase>(),
+        gh<_i981.CancelStudentBookingUseCase>(),
+        gh<_i151.StudentBookingRepository>(),
+        gh<_i80.StudentHomeRepository>(),
+      ),
     );
     gh.lazySingleton<_i820.AppNavigationConfig>(
       () => _i820.AppNavigationConfig(
         gh<_i706.AuthSessionCubit>(),
         gh<_i127.SplashScreenCubit>(),
       ),
-    );
-    gh.factory<_i696.StudentPaymentCubit>(
-      () => _i696.StudentPaymentCubit(gh<_i660.ConfirmStudentPaymentUseCase>()),
     );
     return this;
   }
