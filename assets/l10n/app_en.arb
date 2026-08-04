@@ -22,14 +22,6 @@
   "errorNotFound": "The requested resource was not found.",
   "errorServer": "Server error. Please try again later.",
   "errorFormat": "Unable to process the response.",
-  "errorBusiness": "{message}",
-  "@errorBusiness": {
-    "placeholders": {
-      "message": {
-        "type": "String"
-      }
-    }
-  },
   "loginSubtitle": "Sign in with your phone and password to follow your bookings and certificates.",
   "loginButton": "Sign in",
   "loginEyebrow": "Student portal",
@@ -45,15 +37,11 @@
   "nameTooLongError": "Name is too long.",
   "emailValidationError": "Enter a valid email address.",
   "newPassword": "New password",
-  "newPasswordTitle": "Set a new password",
-  "newPasswordSubtitle": "Choose a strong password for your account.",
   "newPasswordScreenTitle": "New password",
   "confirmPassword": "Confirm password",
   "confirmNewPassword": "Confirm new password",
   "resetPassword": "Update password",
   "passwordResetSuccess": "Password updated successfully. You can sign in now.",
-  "forgotPasswordOtpTitle": "Verify your phone number",
-  "forgotPasswordOtpSubtitle": "Enter the verification code sent to your phone",
   "forgotPasswordResend": "Didn't receive the code?",
   "forgotPasswordResendAction": "Resend in {time}",
   "@forgotPasswordResendAction": {
@@ -66,9 +54,7 @@
   "resendOtpNow": "Resend code",
   "otpResentSuccess": "A new verification code was sent.",
   "verifyOtp": "Verify",
-  "forgotPasswordComingSoon": "Password recovery will be available soon.",
   "appBrandTagline": "Driving school",
-  "loginDemoHint": "Demo: 0999400001 / Test@12345",
   "registerScreenTitle": "Create student account",
   "registerEyebrow": "New account",
   "registerWelcomeTitle": "Start your journey with us",
@@ -108,13 +94,10 @@
   "forcePasswordChangeSubtitle": "Your account was created by the administration. Enter the OTP sent to your email and choose a new password before using the app.",
   "savePasswordAndLogin": "Save password and sign in",
   "profileTitle": "My account",
-  "profileName": "Name",
-  "profilePhone": "Phone number",
   "refreshProfile": "Refresh profile",
   "mustChangePasswordNotice": "You will be asked to change your password on next sign-in.",
   "logoutCurrentDevice": "Log out from this device",
   "logoutAllDevices": "Log out from all devices",
-  "backToHome": "Back to home",
   "splashLoading": "Loading...",
   "offlineQueuePending": "{count} requests pending sync",
   "@offlineQueuePending": {
@@ -125,8 +108,6 @@
     }
   },
   "offlineQueueSyncing": "Syncing offline requests...",
-  "languageEnglish": "English",
-  "languageArabic": "Arabic",
   "emptySampleItems": "No items found",
   "itemIdLabel": "Item #{id}",
   "@itemIdLabel": {
@@ -183,7 +164,6 @@
   "studentHomeBlockedTitle": "Account restricted",
   "studentHomeBlockedMessage": "You can still view your existing bookings and certificates, but you cannot request new services until administration lifts the block. Please contact the school.",
   "studentHomeQuickActions": "Quick actions",
-  "studentHomeViewAll": "View all",
   "studentHomeNewBooking": "Book a new session",
   "studentHomeMyBookings": "My bookings",
   "studentHomeCertificateRequest": "Certificate request",
@@ -236,7 +216,6 @@
   "instructorViewWeek": "Week",
   "instructorWeeklyBookings": "Weekly bookings",
   "instructorNoSessionsThisWeek": "No sessions this week",
-  "instructorLiveSchedule": "Live schedule",
   "instructorNoSessionsToday": "No sessions on this day.",
   "instructorBookingConfirmed": "Confirmed",
   "instructorBookingCompleted": "Completed",
@@ -285,11 +264,6 @@
   "instructorFeatureComingSoon": "This feature will be available soon.",
   "instructorProfileTitle": "Profile",
   "instructorRoleLabel": "Driving instructor",
-  "instructorProfileBio": "I help students build confidence and safe driving habits, one session at a time.",
-  "instructorMetricMonthSessions": "Month sessions",
-  "instructorMetricMonthEarnings": "Month earnings",
-  "instructorMetricVehicle": "Vehicle",
-  "instructorAccountPreferences": "Account & preferences",
   "instructorProfileData": "Profile data",
   "instructorProfileGender": "Gender",
   "instructorProfileGenderMale": "Male",
@@ -304,10 +278,7 @@
   "instructorProfileFullDayLeave": "Full-day leave",
   "instructorProfilePartialLeave": "Partial leave",
   "instructorProfileSettings": "Instructor settings",
-  "instructorSchedulePreferences": "Schedule preferences",
-  "instructorLanguage": "Language",
   "instructorNotifications": "Notifications",
-  "instructorAppVersion": "Qeyadah Instructor · v2.4.0",
   "instructorLeaveTitle": "Leaves list",
   "instructorLeaveIntroTitle": "Your registered leaves",
   "instructorLeaveIntroBody": "Review the leave periods recorded for your schedule.",
@@ -336,7 +307,6 @@
       }
     }
   },
-  "instructorAvailableSlot": "Available slot",
   "instructorLeaveReasonLabel": "Reason",
   "instructorWeeklyScheduleTitle": "Weekly schedule",
   "instructorWeeklyScheduleSubtitle": "Your registered working hours for each day.",
@@ -410,19 +380,6 @@
   "instructorInvoiceTypeBonus": "Bonus",
   "instructorPaymentMethodCash": "Cash",
   "instructorPaymentMethodShamCash": "Sham Cash",
-  "instructorNotificationsTitle": "Notifications",
-  "instructorNotificationsIntroTitle": "Your notifications",
-  "instructorNotificationsIntroBody": "Stay up to date with bookings, payments, and schedule updates.",
-  "instructorNotificationsListTitle": "Recent",
-  "instructorNotificationsEmpty": "No notifications yet.",
-  "instructorNotificationsUnreadCount": "{count} unread",
-  "@instructorNotificationsUnreadCount": {
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
   "notificationsMarkAllRead": "Mark all read",
   "notificationsInboxTitle": "Notifications",
   "notificationsInboxIntroTitle": "Your notifications",
@@ -453,20 +410,8 @@
   "studentBookingInstructorGenderFemale": "Female",
   "studentBookingContinueButton": "Continue",
   "studentBookingSlotsTitle": "Available slots",
-  "studentBookingSlotsIntroBody": "Pick a day and time that works for you.",
   "studentBookingSlotsEmptyTitle": "No slots available",
   "studentBookingSlotsEmptyMessage": "Try different preferences or check back later.",
-  "studentBookingSlotsSelectedLabel": "Selected: {instructor} · {time}",
-  "@studentBookingSlotsSelectedLabel": {
-    "placeholders": {
-      "instructor": {
-        "type": "String"
-      },
-      "time": {
-        "type": "String"
-      }
-    }
-  },
   "studentBookingSlotsSelectedHeading": "Selected appointment",
   "studentBookingSlotsContinueButton": "Continue to review",
   "studentBookingReviewTitle": "Review booking",
@@ -659,7 +604,6 @@
   "studentCertificatesReexamCta": "Request re-exam",
   "studentCertificatesStatusTitle": "Certificate status",
   "studentCertificatesStatusFallback": "No certificate actions are available right now.",
-  "studentCertificatesWriteComingSoon": "Submitting certificate requests will be available in the next update.",
   "studentCertificatesExamTypeTheory": "theory",
   "studentCertificatesExamTypePractical": "practical",
   "studentCertificatesTransmissionManual": "Manual",
@@ -682,25 +626,25 @@
   "studentCertificatesCategory": "Category: {category}",
   "@studentCertificatesCategory": {
     "placeholders": {
-      "category": { "type": "String" }
+      "category": {
+        "type": "String"
+      }
     }
   },
   "studentCertificatesRequestedAt": "Requested: {date}",
   "@studentCertificatesRequestedAt": {
     "placeholders": {
-      "date": { "type": "String" }
-    }
-  },
-  "studentCertificatesStudentName": "Student: {name}",
-  "@studentCertificatesStudentName": {
-    "placeholders": {
-      "name": { "type": "String" }
+      "date": {
+        "type": "String"
+      }
     }
   },
   "studentCertificatesTransmission": "Transmission: {type}",
   "@studentCertificatesTransmission": {
     "placeholders": {
-      "type": { "type": "String" }
+      "type": {
+        "type": "String"
+      }
     }
   },
   "studentCertificatesDocumentsTitle": "Documents",
@@ -711,7 +655,9 @@
   "studentCertificatesSessionNumber": "Session {number}",
   "@studentCertificatesSessionNumber": {
     "placeholders": {
-      "number": { "type": "int" }
+      "number": {
+        "type": "int"
+      }
     }
   },
   "studentCertificatesExamsTitle": "Tests",
@@ -723,7 +669,9 @@
   "studentCertificatesAmountDue": "Amount due: {amount} SYP",
   "@studentCertificatesAmountDue": {
     "placeholders": {
-      "amount": { "type": "String" }
+      "amount": {
+        "type": "String"
+      }
     }
   },
   "studentCertificatesChargeReasonCertificateFee": "Certificate fee",
@@ -755,15 +703,21 @@
   "studentTheoryQuestionCount": "{count} questions in this round",
   "@studentTheoryQuestionCount": {
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "studentTheoryStartButton": "Start the test now",
   "studentTheoryProgress": "Question {current} of {total}",
   "@studentTheoryProgress": {
     "placeholders": {
-      "current": { "type": "int" },
-      "total": { "type": "int" }
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
     }
   },
   "studentTheoryNextButton": "Next",
@@ -774,8 +728,12 @@
   "studentTheoryScoreSummary": "{score} / {total}",
   "@studentTheoryScoreSummary": {
     "placeholders": {
-      "score": { "type": "int" },
-      "total": { "type": "int" }
+      "score": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
     }
   },
   "studentTheoryResultsBody": "You can practice again with a new set of questions anytime.",
@@ -786,4 +744,3 @@
   "studentTheoryCategoryMechanics": "Mechanics",
   "studentTheoryCategoryUnknown": "General"
 }
-

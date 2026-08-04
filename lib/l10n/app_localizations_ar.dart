@@ -77,11 +77,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get errorFormat => 'تعذر معالجة الاستجابة.';
 
   @override
-  String errorBusiness(String message) {
-    return '$message';
-  }
-
-  @override
   String get loginSubtitle =>
       'سجّل الدخول برقم الهاتف وكلمة المرور لمتابعة حجوزاتك وشهاداتك.';
 
@@ -128,12 +123,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get newPassword => 'كلمة المرور الجديدة';
 
   @override
-  String get newPasswordTitle => 'تعيين كلمة مرور جديدة';
-
-  @override
-  String get newPasswordSubtitle => 'اختر كلمة مرور قوية لحسابك.';
-
-  @override
   String get newPasswordScreenTitle => 'كلمة مرور جديدة';
 
   @override
@@ -148,12 +137,6 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get passwordResetSuccess =>
       'تم تحديث كلمة المرور بنجاح. يمكنك تسجيل الدخول الآن.';
-
-  @override
-  String get forgotPasswordOtpTitle => 'تحقق من رقم هاتفك';
-
-  @override
-  String get forgotPasswordOtpSubtitle => 'أدخل رمز التحقق المرسل إلى هاتفك';
 
   @override
   String get forgotPasswordResend => 'لم يصلك الرمز؟';
@@ -173,14 +156,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get verifyOtp => 'تحقق';
 
   @override
-  String get forgotPasswordComingSoon =>
-      'سيتم تفعيل استعادة كلمة المرور قريباً.';
-
-  @override
   String get appBrandTagline => 'مدرسة تعليم القيادة';
-
-  @override
-  String get loginDemoHint => 'تجريبي: 0999400001 / Test@12345';
 
   @override
   String get registerScreenTitle => 'إنشاء حساب طالب';
@@ -287,12 +263,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get profileTitle => 'حسابي';
 
   @override
-  String get profileName => 'الاسم';
-
-  @override
-  String get profilePhone => 'رقم الهاتف';
-
-  @override
   String get refreshProfile => 'تحديث الملف';
 
   @override
@@ -306,9 +276,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get logoutAllDevices => 'تسجيل الخروج من كل الأجهزة';
 
   @override
-  String get backToHome => 'العودة للرئيسية';
-
-  @override
   String get splashLoading => 'جاري التحميل...';
 
   @override
@@ -318,12 +285,6 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get offlineQueueSyncing => 'جاري مزامنة الطلبات غير المتصلة...';
-
-  @override
-  String get languageEnglish => 'الإنجليزية';
-
-  @override
-  String get languageArabic => 'العربية';
 
   @override
   String get emptySampleItems => 'لا توجد عناصر';
@@ -398,9 +359,6 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get studentHomeQuickActions => 'إجراءات سريعة';
-
-  @override
-  String get studentHomeViewAll => 'عرض الكل';
 
   @override
   String get studentHomeNewBooking => 'حجز جلسة جديدة';
@@ -485,9 +443,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get instructorNoSessionsThisWeek => 'لا توجد حصص هذا الأسبوع';
 
   @override
-  String get instructorLiveSchedule => 'جدول مباشر';
-
-  @override
   String get instructorNoSessionsToday => 'لا توجد جلسات في هذا اليوم.';
 
   @override
@@ -547,22 +502,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get instructorRoleLabel => 'مدرب قيادة';
 
   @override
-  String get instructorProfileBio =>
-      'أساعد الطلاب على بناء الثقة واكتساب عادات قيادة آمنة، جلسة بعد جلسة.';
-
-  @override
-  String get instructorMetricMonthSessions => 'حصص الشهر';
-
-  @override
-  String get instructorMetricMonthEarnings => 'أرباح الشهر';
-
-  @override
-  String get instructorMetricVehicle => 'المركبة';
-
-  @override
-  String get instructorAccountPreferences => 'الحساب والتفضيلات';
-
-  @override
   String get instructorProfileData => 'بيانات الملف الشخصي';
 
   @override
@@ -605,16 +544,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get instructorProfileSettings => 'إعدادات المدرب';
 
   @override
-  String get instructorSchedulePreferences => 'تفضيلات الجدول';
-
-  @override
-  String get instructorLanguage => 'اللغة';
-
-  @override
   String get instructorNotifications => 'الإشعارات';
-
-  @override
-  String get instructorAppVersion => 'قيادة للتدريب · الإصدار 2.4.0';
 
   @override
   String get instructorLeaveTitle => 'قائمة الإجازات';
@@ -645,9 +575,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String instructorLeaveHourly(String date, String start, String end) {
     return '$date · من $start إلى $end';
   }
-
-  @override
-  String get instructorAvailableSlot => 'موعد متاح';
 
   @override
   String get instructorLeaveReasonLabel => 'السبب';
@@ -806,27 +733,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get instructorPaymentMethodShamCash => 'شام كاش';
 
   @override
-  String get instructorNotificationsTitle => 'الإشعارات';
-
-  @override
-  String get instructorNotificationsIntroTitle => 'إشعاراتك';
-
-  @override
-  String get instructorNotificationsIntroBody =>
-      'تابع مستجدات الحجوزات والمدفوعات وتحديثات الجدول.';
-
-  @override
-  String get instructorNotificationsListTitle => 'الأحدث';
-
-  @override
-  String get instructorNotificationsEmpty => 'لا توجد إشعارات بعد.';
-
-  @override
-  String instructorNotificationsUnreadCount(int count) {
-    return '$count غير مقروءة';
-  }
-
-  @override
   String get notificationsMarkAllRead => 'قراءة الكل';
 
   @override
@@ -900,19 +806,11 @@ class AppLocalizationsAr extends AppLocalizations {
   String get studentBookingSlotsTitle => 'المواعيد المتاحة';
 
   @override
-  String get studentBookingSlotsIntroBody => 'اختر اليوم والوقت المناسبين لك.';
-
-  @override
   String get studentBookingSlotsEmptyTitle => 'لا توجد مواعيد متاحة';
 
   @override
   String get studentBookingSlotsEmptyMessage =>
       'جرّب تفضيلات مختلفة أو حاول لاحقاً.';
-
-  @override
-  String studentBookingSlotsSelectedLabel(String instructor, String time) {
-    return 'المحدد: $instructor · $time';
-  }
 
   @override
   String get studentBookingSlotsSelectedHeading => 'الموعد المحدد';
@@ -1252,10 +1150,6 @@ class AppLocalizationsAr extends AppLocalizations {
       'لا تتوفر إجراءات شهادة حالياً.';
 
   @override
-  String get studentCertificatesWriteComingSoon =>
-      'تقديم طلبات الشهادة سيكون متاحاً في التحديث القادم.';
-
-  @override
   String get studentCertificatesExamTypeTheory => 'النظري';
 
   @override
@@ -1324,11 +1218,6 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String studentCertificatesRequestedAt(String date) {
     return 'تاريخ الطلب: $date';
-  }
-
-  @override
-  String studentCertificatesStudentName(String name) {
-    return 'الطالب: $name';
   }
 
   @override

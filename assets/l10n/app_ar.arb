@@ -22,7 +22,6 @@
   "errorNotFound": "المورد المطلوب غير موجود.",
   "errorServer": "خطأ في الخادم. يرجى المحاولة لاحقاً.",
   "errorFormat": "تعذر معالجة الاستجابة.",
-  "errorBusiness": "{message}",
   "loginSubtitle": "سجّل الدخول برقم الهاتف وكلمة المرور لمتابعة حجوزاتك وشهاداتك.",
   "loginButton": "تسجيل الدخول",
   "loginEyebrow": "بوابة الطالب",
@@ -38,15 +37,11 @@
   "nameTooLongError": "الاسم طويل جداً.",
   "emailValidationError": "أدخل بريداً إلكترونياً صالحاً.",
   "newPassword": "كلمة المرور الجديدة",
-  "newPasswordTitle": "تعيين كلمة مرور جديدة",
-  "newPasswordSubtitle": "اختر كلمة مرور قوية لحسابك.",
   "newPasswordScreenTitle": "كلمة مرور جديدة",
   "confirmPassword": "تأكيد كلمة المرور",
   "confirmNewPassword": "تأكيد كلمة المرور الجديدة",
   "resetPassword": "تحديث كلمة المرور",
   "passwordResetSuccess": "تم تحديث كلمة المرور بنجاح. يمكنك تسجيل الدخول الآن.",
-  "forgotPasswordOtpTitle": "تحقق من رقم هاتفك",
-  "forgotPasswordOtpSubtitle": "أدخل رمز التحقق المرسل إلى هاتفك",
   "forgotPasswordResend": "لم يصلك الرمز؟",
   "forgotPasswordResendAction": "إعادة الإرسال خلال {time}",
   "@forgotPasswordResendAction": {
@@ -59,9 +54,7 @@
   "resendOtpNow": "إعادة إرسال الرمز",
   "otpResentSuccess": "تم إرسال رمز تحقق جديد.",
   "verifyOtp": "تحقق",
-  "forgotPasswordComingSoon": "سيتم تفعيل استعادة كلمة المرور قريباً.",
   "appBrandTagline": "مدرسة تعليم القيادة",
-  "loginDemoHint": "تجريبي: 0999400001 / Test@12345",
   "registerScreenTitle": "إنشاء حساب طالب",
   "registerEyebrow": "حساب جديد",
   "registerWelcomeTitle": "ابدأ رحلتك معنا",
@@ -101,18 +94,13 @@
   "forcePasswordChangeSubtitle": "تم إنشاء حسابك من قبل الإدارة. أدخل رمز OTP المرسل إلى بريدك الإلكتروني واختر كلمة مرور جديدة قبل استخدام التطبيق.",
   "savePasswordAndLogin": "حفظ كلمة المرور وتسجيل الدخول",
   "profileTitle": "حسابي",
-  "profileName": "الاسم",
-  "profilePhone": "رقم الهاتف",
   "refreshProfile": "تحديث الملف",
   "mustChangePasswordNotice": "يُطلب منك تغيير كلمة المرور عند تسجيل الدخول التالي.",
   "logoutCurrentDevice": "تسجيل الخروج من هذا الجهاز",
   "logoutAllDevices": "تسجيل الخروج من كل الأجهزة",
-  "backToHome": "العودة للرئيسية",
   "splashLoading": "جاري التحميل...",
   "offlineQueuePending": "{count} طلبات بانتظار المزامنة",
   "offlineQueueSyncing": "جاري مزامنة الطلبات غير المتصلة...",
-  "languageEnglish": "الإنجليزية",
-  "languageArabic": "العربية",
   "emptySampleItems": "لا توجد عناصر",
   "itemIdLabel": "عنصر #{id}",
   "studentHomeGuestName": "الطالب",
@@ -162,7 +150,6 @@
   "studentHomeBlockedTitle": "الحساب مقيد",
   "studentHomeBlockedMessage": "يمكنك عرض حجوزاتك وشهاداتك الحالية، لكن لا يمكنك طلب خدمات جديدة حتى ترفع الإدارة الحظر. يرجى التواصل مع المدرسة.",
   "studentHomeQuickActions": "إجراءات سريعة",
-  "studentHomeViewAll": "عرض الكل",
   "studentHomeNewBooking": "حجز جلسة جديدة",
   "studentHomeMyBookings": "حجوزاتي",
   "studentHomeCertificateRequest": "طلب الشهادة",
@@ -215,7 +202,6 @@
   "instructorViewWeek": "أسبوع",
   "instructorWeeklyBookings": "الحجوزات الأسبوعية",
   "instructorNoSessionsThisWeek": "لا توجد حصص هذا الأسبوع",
-  "instructorLiveSchedule": "جدول مباشر",
   "instructorNoSessionsToday": "لا توجد جلسات في هذا اليوم.",
   "instructorBookingConfirmed": "مؤكد",
   "instructorBookingCompleted": "مكتمل",
@@ -264,11 +250,6 @@
   "instructorFeatureComingSoon": "هذه الميزة ستكون متاحة قريباً.",
   "instructorProfileTitle": "الملف الشخصي",
   "instructorRoleLabel": "مدرب قيادة",
-  "instructorProfileBio": "أساعد الطلاب على بناء الثقة واكتساب عادات قيادة آمنة، جلسة بعد جلسة.",
-  "instructorMetricMonthSessions": "حصص الشهر",
-  "instructorMetricMonthEarnings": "أرباح الشهر",
-  "instructorMetricVehicle": "المركبة",
-  "instructorAccountPreferences": "الحساب والتفضيلات",
   "instructorProfileData": "بيانات الملف الشخصي",
   "instructorProfileGender": "الجنس",
   "instructorProfileGenderMale": "ذكر",
@@ -283,10 +264,7 @@
   "instructorProfileFullDayLeave": "إجازة ليوم كامل",
   "instructorProfilePartialLeave": "إجازة جزئية",
   "instructorProfileSettings": "إعدادات المدرب",
-  "instructorSchedulePreferences": "تفضيلات الجدول",
-  "instructorLanguage": "اللغة",
   "instructorNotifications": "الإشعارات",
-  "instructorAppVersion": "قيادة للتدريب · الإصدار 2.4.0",
   "instructorLeaveTitle": "قائمة الإجازات",
   "instructorLeaveIntroTitle": "إجازاتك المسجلة",
   "instructorLeaveIntroBody": "راجع فترات الإجازة المسجّلة في جدولك.",
@@ -315,7 +293,6 @@
       }
     }
   },
-  "instructorAvailableSlot": "موعد متاح",
   "instructorLeaveReasonLabel": "السبب",
   "instructorWeeklyScheduleTitle": "جدول الدوام الأسبوعي",
   "instructorWeeklyScheduleSubtitle": "ساعات الدوام المسجلة لكل يوم.",
@@ -389,19 +366,6 @@
   "instructorInvoiceTypeBonus": "مكافأة",
   "instructorPaymentMethodCash": "نقداً",
   "instructorPaymentMethodShamCash": "شام كاش",
-  "instructorNotificationsTitle": "الإشعارات",
-  "instructorNotificationsIntroTitle": "إشعاراتك",
-  "instructorNotificationsIntroBody": "تابع مستجدات الحجوزات والمدفوعات وتحديثات الجدول.",
-  "instructorNotificationsListTitle": "الأحدث",
-  "instructorNotificationsEmpty": "لا توجد إشعارات بعد.",
-  "instructorNotificationsUnreadCount": "{count} غير مقروءة",
-  "@instructorNotificationsUnreadCount": {
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
   "notificationsMarkAllRead": "قراءة الكل",
   "notificationsInboxTitle": "الإشعارات",
   "notificationsInboxIntroTitle": "إشعاراتك",
@@ -432,20 +396,8 @@
   "studentBookingInstructorGenderFemale": "أنثى",
   "studentBookingContinueButton": "متابعة",
   "studentBookingSlotsTitle": "المواعيد المتاحة",
-  "studentBookingSlotsIntroBody": "اختر اليوم والوقت المناسبين لك.",
   "studentBookingSlotsEmptyTitle": "لا توجد مواعيد متاحة",
   "studentBookingSlotsEmptyMessage": "جرّب تفضيلات مختلفة أو حاول لاحقاً.",
-  "studentBookingSlotsSelectedLabel": "المحدد: {instructor} · {time}",
-  "@studentBookingSlotsSelectedLabel": {
-    "placeholders": {
-      "instructor": {
-        "type": "String"
-      },
-      "time": {
-        "type": "String"
-      }
-    }
-  },
   "studentBookingSlotsSelectedHeading": "الموعد المحدد",
   "studentBookingSlotsContinueButton": "متابعة إلى المراجعة",
   "studentBookingReviewTitle": "مراجعة الحجز",
@@ -638,7 +590,6 @@
   "studentCertificatesReexamCta": "طلب إعادة",
   "studentCertificatesStatusTitle": "حالة الشهادة",
   "studentCertificatesStatusFallback": "لا تتوفر إجراءات شهادة حالياً.",
-  "studentCertificatesWriteComingSoon": "تقديم طلبات الشهادة سيكون متاحاً في التحديث القادم.",
   "studentCertificatesExamTypeTheory": "النظري",
   "studentCertificatesExamTypePractical": "العملي",
   "studentCertificatesTransmissionManual": "عادي",
@@ -661,25 +612,25 @@
   "studentCertificatesCategory": "الفئة: {category}",
   "@studentCertificatesCategory": {
     "placeholders": {
-      "category": { "type": "String" }
+      "category": {
+        "type": "String"
+      }
     }
   },
   "studentCertificatesRequestedAt": "تاريخ الطلب: {date}",
   "@studentCertificatesRequestedAt": {
     "placeholders": {
-      "date": { "type": "String" }
-    }
-  },
-  "studentCertificatesStudentName": "الطالب: {name}",
-  "@studentCertificatesStudentName": {
-    "placeholders": {
-      "name": { "type": "String" }
+      "date": {
+        "type": "String"
+      }
     }
   },
   "studentCertificatesTransmission": "ناقل الحركة: {type}",
   "@studentCertificatesTransmission": {
     "placeholders": {
-      "type": { "type": "String" }
+      "type": {
+        "type": "String"
+      }
     }
   },
   "studentCertificatesDocumentsTitle": "المستندات",
@@ -690,7 +641,9 @@
   "studentCertificatesSessionNumber": "الجلسة {number}",
   "@studentCertificatesSessionNumber": {
     "placeholders": {
-      "number": { "type": "int" }
+      "number": {
+        "type": "int"
+      }
     }
   },
   "studentCertificatesExamsTitle": "الفحوصات",
@@ -702,7 +655,9 @@
   "studentCertificatesAmountDue": "المبلغ المستحق: {amount} ل.س",
   "@studentCertificatesAmountDue": {
     "placeholders": {
-      "amount": { "type": "String" }
+      "amount": {
+        "type": "String"
+      }
     }
   },
   "studentCertificatesChargeReasonCertificateFee": "رسوم الشهادة",
@@ -734,15 +689,21 @@
   "studentTheoryQuestionCount": "{count} سؤال في هذه الجولة",
   "@studentTheoryQuestionCount": {
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "studentTheoryStartButton": "بدء الفحص الآن",
   "studentTheoryProgress": "السؤال {current} من {total}",
   "@studentTheoryProgress": {
     "placeholders": {
-      "current": { "type": "int" },
-      "total": { "type": "int" }
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
     }
   },
   "studentTheoryNextButton": "التالي",
@@ -753,8 +714,12 @@
   "studentTheoryScoreSummary": "{score} / {total}",
   "@studentTheoryScoreSummary": {
     "placeholders": {
-      "score": { "type": "int" },
-      "total": { "type": "int" }
+      "score": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
     }
   },
   "studentTheoryResultsBody": "يمكنك التدرّب مجدداً بمجموعة أسئلة جديدة في أي وقت.",
@@ -765,4 +730,3 @@
   "studentTheoryCategoryMechanics": "الميكانيك",
   "studentTheoryCategoryUnknown": "عام"
 }
-

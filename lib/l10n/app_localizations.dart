@@ -230,12 +230,6 @@ abstract class AppLocalizations {
   /// **'Unable to process the response.'**
   String get errorFormat;
 
-  /// No description provided for @errorBusiness.
-  ///
-  /// In en, this message translates to:
-  /// **'{message}'**
-  String errorBusiness(String message);
-
   /// No description provided for @loginSubtitle.
   ///
   /// In en, this message translates to:
@@ -326,18 +320,6 @@ abstract class AppLocalizations {
   /// **'New password'**
   String get newPassword;
 
-  /// No description provided for @newPasswordTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Set a new password'**
-  String get newPasswordTitle;
-
-  /// No description provided for @newPasswordSubtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Choose a strong password for your account.'**
-  String get newPasswordSubtitle;
-
   /// No description provided for @newPasswordScreenTitle.
   ///
   /// In en, this message translates to:
@@ -367,18 +349,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Password updated successfully. You can sign in now.'**
   String get passwordResetSuccess;
-
-  /// No description provided for @forgotPasswordOtpTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Verify your phone number'**
-  String get forgotPasswordOtpTitle;
-
-  /// No description provided for @forgotPasswordOtpSubtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Enter the verification code sent to your phone'**
-  String get forgotPasswordOtpSubtitle;
 
   /// No description provided for @forgotPasswordResend.
   ///
@@ -410,23 +380,11 @@ abstract class AppLocalizations {
   /// **'Verify'**
   String get verifyOtp;
 
-  /// No description provided for @forgotPasswordComingSoon.
-  ///
-  /// In en, this message translates to:
-  /// **'Password recovery will be available soon.'**
-  String get forgotPasswordComingSoon;
-
   /// No description provided for @appBrandTagline.
   ///
   /// In en, this message translates to:
   /// **'Driving school'**
   String get appBrandTagline;
-
-  /// No description provided for @loginDemoHint.
-  ///
-  /// In en, this message translates to:
-  /// **'Demo: 0999400001 / Test@12345'**
-  String get loginDemoHint;
 
   /// No description provided for @registerScreenTitle.
   ///
@@ -620,18 +578,6 @@ abstract class AppLocalizations {
   /// **'My account'**
   String get profileTitle;
 
-  /// No description provided for @profileName.
-  ///
-  /// In en, this message translates to:
-  /// **'Name'**
-  String get profileName;
-
-  /// No description provided for @profilePhone.
-  ///
-  /// In en, this message translates to:
-  /// **'Phone number'**
-  String get profilePhone;
-
   /// No description provided for @refreshProfile.
   ///
   /// In en, this message translates to:
@@ -656,12 +602,6 @@ abstract class AppLocalizations {
   /// **'Log out from all devices'**
   String get logoutAllDevices;
 
-  /// No description provided for @backToHome.
-  ///
-  /// In en, this message translates to:
-  /// **'Back to home'**
-  String get backToHome;
-
   /// No description provided for @splashLoading.
   ///
   /// In en, this message translates to:
@@ -679,18 +619,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Syncing offline requests...'**
   String get offlineQueueSyncing;
-
-  /// No description provided for @languageEnglish.
-  ///
-  /// In en, this message translates to:
-  /// **'English'**
-  String get languageEnglish;
-
-  /// No description provided for @languageArabic.
-  ///
-  /// In en, this message translates to:
-  /// **'Arabic'**
-  String get languageArabic;
 
   /// No description provided for @emptySampleItems.
   ///
@@ -817,12 +745,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Quick actions'**
   String get studentHomeQuickActions;
-
-  /// No description provided for @studentHomeViewAll.
-  ///
-  /// In en, this message translates to:
-  /// **'View all'**
-  String get studentHomeViewAll;
 
   /// No description provided for @studentHomeNewBooking.
   ///
@@ -968,12 +890,6 @@ abstract class AppLocalizations {
   /// **'No sessions this week'**
   String get instructorNoSessionsThisWeek;
 
-  /// No description provided for @instructorLiveSchedule.
-  ///
-  /// In en, this message translates to:
-  /// **'Live schedule'**
-  String get instructorLiveSchedule;
-
   /// No description provided for @instructorNoSessionsToday.
   ///
   /// In en, this message translates to:
@@ -1076,36 +992,6 @@ abstract class AppLocalizations {
   /// **'Driving instructor'**
   String get instructorRoleLabel;
 
-  /// No description provided for @instructorProfileBio.
-  ///
-  /// In en, this message translates to:
-  /// **'I help students build confidence and safe driving habits, one session at a time.'**
-  String get instructorProfileBio;
-
-  /// No description provided for @instructorMetricMonthSessions.
-  ///
-  /// In en, this message translates to:
-  /// **'Month sessions'**
-  String get instructorMetricMonthSessions;
-
-  /// No description provided for @instructorMetricMonthEarnings.
-  ///
-  /// In en, this message translates to:
-  /// **'Month earnings'**
-  String get instructorMetricMonthEarnings;
-
-  /// No description provided for @instructorMetricVehicle.
-  ///
-  /// In en, this message translates to:
-  /// **'Vehicle'**
-  String get instructorMetricVehicle;
-
-  /// No description provided for @instructorAccountPreferences.
-  ///
-  /// In en, this message translates to:
-  /// **'Account & preferences'**
-  String get instructorAccountPreferences;
-
   /// No description provided for @instructorProfileData.
   ///
   /// In en, this message translates to:
@@ -1190,29 +1076,11 @@ abstract class AppLocalizations {
   /// **'Instructor settings'**
   String get instructorProfileSettings;
 
-  /// No description provided for @instructorSchedulePreferences.
-  ///
-  /// In en, this message translates to:
-  /// **'Schedule preferences'**
-  String get instructorSchedulePreferences;
-
-  /// No description provided for @instructorLanguage.
-  ///
-  /// In en, this message translates to:
-  /// **'Language'**
-  String get instructorLanguage;
-
   /// No description provided for @instructorNotifications.
   ///
   /// In en, this message translates to:
   /// **'Notifications'**
   String get instructorNotifications;
-
-  /// No description provided for @instructorAppVersion.
-  ///
-  /// In en, this message translates to:
-  /// **'Qeyadah Instructor · v2.4.0'**
-  String get instructorAppVersion;
 
   /// No description provided for @instructorLeaveTitle.
   ///
@@ -1261,12 +1129,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{date} · {start} to {end}'**
   String instructorLeaveHourly(String date, String start, String end);
-
-  /// No description provided for @instructorAvailableSlot.
-  ///
-  /// In en, this message translates to:
-  /// **'Available slot'**
-  String get instructorAvailableSlot;
 
   /// No description provided for @instructorLeaveReasonLabel.
   ///
@@ -1538,42 +1400,6 @@ abstract class AppLocalizations {
   /// **'Sham Cash'**
   String get instructorPaymentMethodShamCash;
 
-  /// No description provided for @instructorNotificationsTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Notifications'**
-  String get instructorNotificationsTitle;
-
-  /// No description provided for @instructorNotificationsIntroTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Your notifications'**
-  String get instructorNotificationsIntroTitle;
-
-  /// No description provided for @instructorNotificationsIntroBody.
-  ///
-  /// In en, this message translates to:
-  /// **'Stay up to date with bookings, payments, and schedule updates.'**
-  String get instructorNotificationsIntroBody;
-
-  /// No description provided for @instructorNotificationsListTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Recent'**
-  String get instructorNotificationsListTitle;
-
-  /// No description provided for @instructorNotificationsEmpty.
-  ///
-  /// In en, this message translates to:
-  /// **'No notifications yet.'**
-  String get instructorNotificationsEmpty;
-
-  /// No description provided for @instructorNotificationsUnreadCount.
-  ///
-  /// In en, this message translates to:
-  /// **'{count} unread'**
-  String instructorNotificationsUnreadCount(int count);
-
   /// No description provided for @notificationsMarkAllRead.
   ///
   /// In en, this message translates to:
@@ -1712,12 +1538,6 @@ abstract class AppLocalizations {
   /// **'Available slots'**
   String get studentBookingSlotsTitle;
 
-  /// No description provided for @studentBookingSlotsIntroBody.
-  ///
-  /// In en, this message translates to:
-  /// **'Pick a day and time that works for you.'**
-  String get studentBookingSlotsIntroBody;
-
   /// No description provided for @studentBookingSlotsEmptyTitle.
   ///
   /// In en, this message translates to:
@@ -1729,12 +1549,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Try different preferences or check back later.'**
   String get studentBookingSlotsEmptyMessage;
-
-  /// No description provided for @studentBookingSlotsSelectedLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Selected: {instructor} · {time}'**
-  String studentBookingSlotsSelectedLabel(String instructor, String time);
 
   /// No description provided for @studentBookingSlotsSelectedHeading.
   ///
@@ -2310,12 +2124,6 @@ abstract class AppLocalizations {
   /// **'No certificate actions are available right now.'**
   String get studentCertificatesStatusFallback;
 
-  /// No description provided for @studentCertificatesWriteComingSoon.
-  ///
-  /// In en, this message translates to:
-  /// **'Submitting certificate requests will be available in the next update.'**
-  String get studentCertificatesWriteComingSoon;
-
   /// No description provided for @studentCertificatesExamTypeTheory.
   ///
   /// In en, this message translates to:
@@ -2441,12 +2249,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Requested: {date}'**
   String studentCertificatesRequestedAt(String date);
-
-  /// No description provided for @studentCertificatesStudentName.
-  ///
-  /// In en, this message translates to:
-  /// **'Student: {name}'**
-  String studentCertificatesStudentName(String name);
 
   /// No description provided for @studentCertificatesTransmission.
   ///
