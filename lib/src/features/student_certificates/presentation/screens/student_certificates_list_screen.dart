@@ -1,6 +1,7 @@
 import 'package:coore/lib.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
 import 'package:qeyadah_mobile_app/src/core/mappers/core_failure_message_mapper.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
@@ -75,9 +76,14 @@ class _CertificatesListBody extends StatelessWidget {
         children: [
           DropdownButtonFormField<CertificateRequestStatus?>(
             initialValue: state.selectedStatus,
+            dropdownColor: AppColors.white,
             icon: const Icon(
               Icons.keyboard_arrow_down_rounded,
               color: AppColors.ink,
+            ),
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              color: AppColors.ink,
+              fontSize: 15,
             ),
             decoration: InputDecoration(
               labelText: l10n.studentCertificatesFilterStatus,
@@ -133,9 +139,31 @@ class _CertificatesListBody extends StatelessWidget {
               padding: const EdgeInsets.symmetric(
                 vertical: AppDesignTokens.spacingXl,
               ),
-              child: Text(
-                l10n.studentCertificatesHistoryEmpty,
-                textAlign: TextAlign.center,
+              child: Column(
+                children: [
+                  Container(
+                    width: 56,
+                    height: 56,
+                    decoration: const BoxDecoration(
+                      color: AppColors.brandMintSoft,
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                      PhosphorIconsBold.certificate,
+                      color: AppColors.brandPrimary,
+                      size: 26,
+                    ),
+                  ),
+                  const SizedBox(height: AppDesignTokens.spacingMd),
+                  Text(
+                    l10n.studentCertificatesHistoryEmpty,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: AppColors.muted,
+                      height: 1.45,
+                    ),
+                  ),
+                ],
               ),
             )
           else
@@ -163,47 +191,146 @@ class _CertificateCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    return InkWell(
-      borderRadius: BorderRadius.circular(AppDesignTokens.radiusMd),
-      onTap: () => StudentCertificatesNavigation.pushDetail(
-        context: context,
-        certificateId: item.id,
-      ),
-      child: AppCard(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    l10n.studentCertificatesRequestId(item.id),
-                    style: Theme.of(context).textTheme.titleMedium,
+    final textTheme = Theme.of(context).textTheme;
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(AppDesignTokens.radiusLg),
+        onTap: () => StudentCertificatesNavigation.pushDetail(
+          context: context,
+          certificateId: item.id,
+        ),
+        child: AppCard(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: 42,
+                    height: 42,
+                    decoration: const BoxDecoration(
+                      color: AppColors.brandMintSoft,
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                      PhosphorIconsBold.certificate,
+                      size: 20,
+                      color: AppColors.brandPrimary,
+                    ),
                   ),
-                ),
-                AppStatusBadge(
-                  label: StudentCertificatesFormatters.requestStatusLabel(
-                    l10n,
-                    item.requestStatus,
+                  const SizedBox(width: AppDesignTokens.spacing),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          l10n.studentCertificatesRequestId(item.id),
+                          style: textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.w800,
+                            fontSize: 16,
+                            height: 1.3,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          l10n.studentCertificatesCategory(
+                            item.category?.apiValue ?? '-',
+                          ),
+                          style: textTheme.bodyMedium?.copyWith(
+                            color: AppColors.muted,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: AppDesignTokens.spacingSm),
+                  AppStatusBadge(
+                    label: StudentCertificatesFormatters.requestStatusLabel(
+                      l10n,
+                      item.requestStatus,
+                    ),
+                  ),
+                ],
+              ),
+              if (item.courseNumber != null || item.requestedAt != null) ...[
+                const SizedBox(height: AppDesignTokens.spacingMd),
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(AppDesignTokens.spacing),
+                  decoration: BoxDecoration(
+                    color: AppColors.neutralBg,
+                    borderRadius: BorderRadius.circular(
+                      AppDesignTokens.radiusMd,
+                    ),
+                  ),
+                  child: Column(
+                    children: [
+                      if (item.courseNumber != null)
+                        _HistoryMetaRow(
+                          icon: PhosphorIconsBold.numberCircleOne,
+                          text: l10n.studentCertificatesCourseNumber(
+                            item.courseNumber!,
+                          ),
+                        ),
+                      if (item.courseNumber != null && item.requestedAt != null)
+                        const SizedBox(height: AppDesignTokens.spacingSm),
+                      if (item.requestedAt != null)
+                        _HistoryMetaRow(
+                          icon: PhosphorIconsBold.calendarBlank,
+                          text: l10n.studentCertificatesRequestedAt(
+                            StudentCertificatesFormatters.date(
+                              item.requestedAt!,
+                            ),
+                          ),
+                        ),
+                    ],
                   ),
                 ),
               ],
-            ),
-            const SizedBox(height: AppDesignTokens.spacingSm),
-            Text(
-              l10n.studentCertificatesCategory(item.category?.apiValue ?? '-'),
-            ),
-            if (item.courseNumber != null)
-              Text(l10n.studentCertificatesCourseNumber(item.courseNumber!)),
-            if (item.requestedAt != null)
-              Text(
-                l10n.studentCertificatesRequestedAt(
-                  StudentCertificatesFormatters.date(item.requestedAt!),
+              const SizedBox(height: AppDesignTokens.spacingSm),
+              Align(
+                alignment: AlignmentDirectional.centerEnd,
+                child: Icon(
+                  PhosphorIconsBold.caretLeft,
+                  size: 16,
+                  color: AppColors.muted.withValues(alpha: 0.7),
+                  textDirection: TextDirection.ltr,
                 ),
               ),
-          ],
+            ],
+          ),
         ),
       ),
+    );
+  }
+}
+
+class _HistoryMetaRow extends StatelessWidget {
+  const _HistoryMetaRow({required this.icon, required this.text});
+
+  final IconData icon;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Icon(icon, size: 16, color: AppColors.muted),
+        const SizedBox(width: AppDesignTokens.spacingSm),
+        Expanded(
+          child: Text(
+            text,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              color: AppColors.ink,
+              fontSize: 13,
+              height: 1.35,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

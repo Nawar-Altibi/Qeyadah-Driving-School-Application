@@ -467,6 +467,7 @@
       }
     }
   },
+  "studentBookingSlotsSelectedHeading": "Selected appointment",
   "studentBookingSlotsContinueButton": "Continue to review",
   "studentBookingReviewTitle": "Review booking",
   "studentBookingReviewSummaryTitle": "Booking summary",
@@ -725,7 +726,16 @@
       "amount": { "type": "String" }
     }
   },
+  "studentCertificatesChargeReasonCertificateFee": "Certificate fee",
+  "studentCertificatesChargeReasonReexamTheory": "Theory re-exam fee",
+  "studentCertificatesChargeReasonReexamPractical": "Practical re-exam fee",
+  "studentCertificatesStudentLabel": "Student",
+  "studentCertificatesCategoryLabel": "Category",
+  "studentCertificatesTransmissionLabel": "Transmission",
+  "studentCertificatesCourseLabel": "Course number",
   "studentCertificatesSectionEmpty": "No items available.",
+  "studentCertificatesSectionEmptyHint": "Details will appear here when available.",
+  "studentCertificatesDocumentUnavailable": "Not available to view",
   "studentCertificatesNewTitle": "New certificate request",
   "studentCertificatesTransmissionChoice": "Transmission type",
   "studentCertificatesTransportRequested": "I need school transport",

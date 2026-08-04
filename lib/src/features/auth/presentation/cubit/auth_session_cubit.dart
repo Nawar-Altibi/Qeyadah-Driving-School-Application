@@ -40,6 +40,7 @@ class AuthSessionCubit
   bool _initialRestoreComplete = false;
   int _loginGeneration = 0;
   int _profileGeneration = 0;
+  int _authEpoch = 0;
 
   bool get hasCompletedInitialRestore => _initialRestoreComplete;
 
@@ -142,6 +143,7 @@ class AuthSessionCubit
             ),
           ),
           (session) {
+            _authEpoch++;
             emit(
               state.copyWith(
                 isLoggingIn: false,
@@ -157,6 +159,7 @@ class AuthSessionCubit
   }
 
   void applySession(AuthSessionEntity session) {
+    _authEpoch++;
     emit(
       state.copyWith(apiState: ApiState<AuthSessionEntity>.succeeded(session)),
     );
@@ -195,15 +198,48 @@ class AuthSessionCubit
   }
 
   Future<void> logout() async {
-    await _pushCoordinator.stopAndUnregister();
-    await _logoutUseCase(const NoParams());
+    // Leave the authenticated UI immediately; network cleanup must not block
+    // redirect to login (seen hanging on DELETE /devices/token + logout HTTP).
+    final epoch = ++_authEpoch;
     emit(const AuthSessionState());
+    unawaited(_cleanupAfterLogout(allDevices: false, epoch: epoch));
   }
 
   Future<void> logoutAll() async {
-    await _pushCoordinator.stopAndUnregister();
-    await _logoutAllUseCase(const NoParams());
+    final epoch = ++_authEpoch;
     emit(const AuthSessionState());
+    unawaited(_cleanupAfterLogout(allDevices: true, epoch: epoch));
+  }
+
+  Future<void> _cleanupAfterLogout({
+    required bool allDevices,
+    required int epoch,
+  }) async {
+    // Clear local session first (fast) so a force-kill cannot restore it.
+    // Remote token revoke + FCM unregister stay best-effort afterwards.
+    try {
+      if (allDevices) {
+        await FutureEitherTimeout.guard(
+          _logoutAllUseCase(const NoParams()),
+          timeout: const Duration(seconds: 8),
+        );
+      } else {
+        await FutureEitherTimeout.guard(
+          _logoutUseCase(const NoParams()),
+          timeout: const Duration(seconds: 8),
+        );
+      }
+    } on Object {
+      // Local clear is handled inside the repository before remote calls.
+    }
+    if (epoch != _authEpoch || isAuthenticated) return;
+    try {
+      await _pushCoordinator.stopAndUnregister().timeout(
+        const Duration(seconds: 5),
+      );
+    } on Object {
+      // Unregister without auth is best-effort after local logout.
+    }
   }
 
   void clearProfileEffect() {

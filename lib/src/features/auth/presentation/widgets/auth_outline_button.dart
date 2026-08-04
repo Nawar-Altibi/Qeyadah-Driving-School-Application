@@ -47,7 +47,7 @@ class AuthOutlineButton extends StatelessWidget {
                       style: Theme.of(context).textTheme.labelLarge?.copyWith(
                         color: AppColors.brandPrimary,
                         fontWeight: FontWeight.w700,
-                        fontSize: 14,
+                        fontSize: 15,
                       ),
                     ),
             ),

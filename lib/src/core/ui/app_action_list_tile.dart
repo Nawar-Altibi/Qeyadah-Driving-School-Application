@@ -64,6 +64,7 @@ class AppActionListTile extends StatelessWidget {
                   PhosphorIconsBold.caretLeft,
                   size: 16,
                   color: AppColors.muted.withValues(alpha: 0.7),
+                  textDirection: TextDirection.ltr,
                 ),
             ],
           ),

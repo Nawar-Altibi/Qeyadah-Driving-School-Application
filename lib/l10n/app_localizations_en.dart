@@ -918,6 +918,9 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get studentBookingSlotsSelectedHeading => 'Selected appointment';
+
+  @override
   String get studentBookingSlotsContinueButton => 'Continue to review';
 
   @override
@@ -1384,7 +1387,37 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get studentCertificatesChargeReasonCertificateFee => 'Certificate fee';
+
+  @override
+  String get studentCertificatesChargeReasonReexamTheory =>
+      'Theory re-exam fee';
+
+  @override
+  String get studentCertificatesChargeReasonReexamPractical =>
+      'Practical re-exam fee';
+
+  @override
+  String get studentCertificatesStudentLabel => 'Student';
+
+  @override
+  String get studentCertificatesCategoryLabel => 'Category';
+
+  @override
+  String get studentCertificatesTransmissionLabel => 'Transmission';
+
+  @override
+  String get studentCertificatesCourseLabel => 'Course number';
+
+  @override
   String get studentCertificatesSectionEmpty => 'No items available.';
+
+  @override
+  String get studentCertificatesSectionEmptyHint =>
+      'Details will appear here when available.';
+
+  @override
+  String get studentCertificatesDocumentUnavailable => 'Not available to view';
 
   @override
   String get studentCertificatesNewTitle => 'New certificate request';

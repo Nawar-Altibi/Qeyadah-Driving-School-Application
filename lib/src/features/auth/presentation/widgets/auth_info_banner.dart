@@ -41,7 +41,7 @@ class AuthInfoBanner extends StatelessWidget {
                     style: textTheme.labelMedium?.copyWith(
                       color: AppColors.brandPrimary,
                       fontWeight: FontWeight.w800,
-                      fontSize: 12,
+                      fontSize: 13,
                     ),
                   ),
                   const SizedBox(height: 4),
@@ -49,7 +49,7 @@ class AuthInfoBanner extends StatelessWidget {
                     body,
                     style: textTheme.bodySmall?.copyWith(
                       color: AppColors.muted,
-                      fontSize: 11,
+                      fontSize: 13,
                       height: 1.45,
                     ),
                   ),

@@ -58,8 +58,8 @@ class _RegisterOtpScreenState extends State<RegisterOtpScreen> {
               style: textTheme.labelSmall?.copyWith(
                 color: AppColors.brandPrimary,
                 fontWeight: FontWeight.w800,
-                fontSize: 9,
-                letterSpacing: 1.2,
+                fontSize: 12,
+                letterSpacing: 1.1,
               ),
             ),
             const SizedBox(height: 6),
@@ -68,6 +68,7 @@ class _RegisterOtpScreenState extends State<RegisterOtpScreen> {
               textAlign: TextAlign.center,
               style: textTheme.headlineSmall?.copyWith(
                 fontWeight: FontWeight.w800,
+                fontSize: 24,
                 color: AppColors.ink,
               ),
             ),
@@ -75,8 +76,9 @@ class _RegisterOtpScreenState extends State<RegisterOtpScreen> {
             Text(
               l10n.otpEnterSubtitle(phone),
               textAlign: TextAlign.center,
-              style: textTheme.bodySmall?.copyWith(
+              style: textTheme.bodyMedium?.copyWith(
                 color: AppColors.muted,
+                fontSize: 15,
                 height: 1.45,
               ),
             ),

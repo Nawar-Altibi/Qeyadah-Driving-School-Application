@@ -915,6 +915,9 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String get studentBookingSlotsSelectedHeading => 'الموعد المحدد';
+
+  @override
   String get studentBookingSlotsContinueButton => 'متابعة إلى المراجعة';
 
   @override
@@ -1377,7 +1380,37 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String get studentCertificatesChargeReasonCertificateFee => 'رسوم الشهادة';
+
+  @override
+  String get studentCertificatesChargeReasonReexamTheory =>
+      'رسوم إعادة الفحص النظري';
+
+  @override
+  String get studentCertificatesChargeReasonReexamPractical =>
+      'رسوم إعادة الفحص العملي';
+
+  @override
+  String get studentCertificatesStudentLabel => 'الطالب';
+
+  @override
+  String get studentCertificatesCategoryLabel => 'الفئة';
+
+  @override
+  String get studentCertificatesTransmissionLabel => 'ناقل الحركة';
+
+  @override
+  String get studentCertificatesCourseLabel => 'رقم الدورة';
+
+  @override
   String get studentCertificatesSectionEmpty => 'لا توجد عناصر.';
+
+  @override
+  String get studentCertificatesSectionEmptyHint =>
+      'ستظهر التفاصيل هنا عند توفرها.';
+
+  @override
+  String get studentCertificatesDocumentUnavailable => 'غير متاحة للعرض';
 
   @override
   String get studentCertificatesNewTitle => 'طلب شهادة جديد';

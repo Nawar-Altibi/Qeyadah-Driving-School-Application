@@ -55,7 +55,9 @@ class _StudentBookingsListBodyState extends State<StudentBookingsListBody> {
     final list = ListView(
       controller: widget.interactive ? _scrollController : null,
       physics: const AlwaysScrollableScrollPhysics(),
-      padding: AppDesignTokens.screenContentPadding(),
+      padding: AppDesignTokens.screenContentPadding(
+        extraBottom: AppDesignTokens.bottomNavHeight,
+      ),
       children: [
         if (items.isEmpty)
           _EmptyState(l10n: l10n)

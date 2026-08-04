@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_button.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_input_field.dart';
@@ -22,8 +24,11 @@ Future<void> showStudentBookingCancelSheet({
     context: context,
     isScrollControlled: true,
     useSafeArea: true,
+    backgroundColor: AppColors.white,
     shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      borderRadius: BorderRadius.vertical(
+        top: Radius.circular(AppDesignTokens.radiusSheet),
+      ),
     ),
     builder: (sheetContext) {
       return BlocProvider.value(
@@ -40,6 +45,9 @@ class _StudentBookingCancelSheetContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    final textTheme = Theme.of(context).textTheme;
+    final bottomInset = MediaQuery.of(context).viewInsets.bottom;
+    final safeBottom = MediaQuery.of(context).padding.bottom;
 
     return BlocListener<StudentBookingDetailCubit, StudentBookingDetailState>(
       listenWhen: (previous, current) =>
@@ -47,13 +55,11 @@ class _StudentBookingCancelSheetContent extends StatelessWidget {
           previous.effect != current.effect,
       listener: (context, state) => Navigator.of(context).maybePop(),
       child: Padding(
-        padding: EdgeInsets.only(
-          left: AppDesignTokens.screenHorizontalPadding,
-          right: AppDesignTokens.screenHorizontalPadding,
-          top: AppDesignTokens.spacingLg,
-          bottom:
-              MediaQuery.of(context).viewInsets.bottom +
-              AppDesignTokens.spacingLg,
+        padding: EdgeInsets.fromLTRB(
+          AppDesignTokens.screenHorizontalPadding,
+          AppDesignTokens.spacing,
+          AppDesignTokens.screenHorizontalPadding,
+          bottomInset + safeBottom + AppDesignTokens.spacing2xl,
         ),
         child: TypedFormProvider(
           fields: [
@@ -78,18 +84,62 @@ class _StudentBookingCancelSheetContent extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text(
-                  l10n.studentBookingDetailCancelSheetTitle,
-                  style: Theme.of(formContext).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w700,
+                Center(
+                  child: Container(
+                    width: 40,
+                    height: 4,
+                    decoration: BoxDecoration(
+                      color: AppColors.line,
+                      borderRadius: BorderRadius.circular(999),
+                    ),
                   ),
                 ),
-                const SizedBox(height: 4),
-                Text(
-                  l10n.studentBookingDetailCancelSheetMessage,
-                  style: Theme.of(formContext).textTheme.bodySmall,
+                const SizedBox(height: AppDesignTokens.spacingLg),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 44,
+                      height: 44,
+                      decoration: const BoxDecoration(
+                        color: AppColors.dangerBg,
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(
+                        PhosphorIconsBold.calendarX,
+                        color: AppColors.danger,
+                        size: 22,
+                      ),
+                    ),
+                    const SizedBox(width: AppDesignTokens.spacing),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            l10n.studentBookingDetailCancelSheetTitle,
+                            style: textTheme.titleMedium?.copyWith(
+                              fontWeight: FontWeight.w800,
+                              fontSize: 17,
+                              height: 1.3,
+                              color: AppColors.ink,
+                            ),
+                          ),
+                          const SizedBox(height: 6),
+                          Text(
+                            l10n.studentBookingDetailCancelSheetMessage,
+                            style: textTheme.bodyMedium?.copyWith(
+                              color: AppColors.muted,
+                              fontSize: 14,
+                              height: 1.45,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: AppDesignTokens.spacingMd),
+                const SizedBox(height: AppDesignTokens.spacingLg),
                 AppInputField(
                   name: _reasonFieldName,
                   label: l10n.studentBookingDetailCancelReasonLabel,
@@ -99,7 +149,7 @@ class _StudentBookingCancelSheetContent extends StatelessWidget {
                   maxLength: StudentBookingsCancelReasonRules.maxLength,
                   textInputAction: TextInputAction.done,
                 ),
-                const SizedBox(height: AppDesignTokens.spacing),
+                const SizedBox(height: AppDesignTokens.spacingMd),
                 BlocBuilder<
                   StudentBookingDetailCubit,
                   StudentBookingDetailState

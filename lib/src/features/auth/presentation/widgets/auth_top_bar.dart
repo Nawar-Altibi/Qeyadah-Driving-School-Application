@@ -27,6 +27,7 @@ class AuthTopBar extends StatelessWidget {
                 PhosphorIconsBold.arrowRight,
                 color: AppColors.ink,
                 size: 20,
+                textDirection: TextDirection.ltr,
               ),
             )
           else

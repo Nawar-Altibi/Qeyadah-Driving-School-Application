@@ -51,7 +51,34 @@ class _AppState extends State<App> {
       headingFontFamily: headingFontFamily,
     );
     return theme.copyWith(
-      textTheme: theme.textTheme.apply(fontFamily: bodyFontFamily),
+      textTheme: theme.textTheme
+          .apply(fontFamily: bodyFontFamily)
+          .copyWith(
+            bodySmall: theme.textTheme.bodySmall?.copyWith(
+              fontFamily: bodyFontFamily,
+              fontSize: 13,
+              height: 1.4,
+            ),
+            bodyMedium: theme.textTheme.bodyMedium?.copyWith(
+              fontFamily: bodyFontFamily,
+              fontSize: 15,
+              height: 1.45,
+            ),
+            titleSmall: theme.textTheme.titleSmall?.copyWith(
+              fontFamily: headingFontFamily,
+              fontSize: 15,
+              fontWeight: FontWeight.w700,
+            ),
+            titleMedium: theme.textTheme.titleMedium?.copyWith(
+              fontFamily: headingFontFamily,
+              fontSize: 17,
+              fontWeight: FontWeight.w700,
+            ),
+            labelSmall: theme.textTheme.labelSmall?.copyWith(
+              fontFamily: bodyFontFamily,
+              fontSize: 12,
+            ),
+          ),
       primaryTextTheme: theme.primaryTextTheme.apply(
         fontFamily: headingFontFamily,
       ),

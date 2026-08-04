@@ -59,22 +59,40 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   FutureEither<void> logout() async {
+    String? refreshToken;
     final sessionResult = await _localDataSource.readSession();
-    await sessionResult.fold((_) async {}, (session) async {
-      final refreshToken = session?.refreshToken;
-      if (refreshToken != null && refreshToken.isNotEmpty) {
-        await _remoteDataSource.logout(refreshToken);
-      }
+    sessionResult.fold((_) {}, (session) {
+      refreshToken = session?.refreshToken;
     });
+
+    // Clear local credentials first so logout cannot leave a restorable session
+    // if the process is killed while remote logout is in flight.
     await AuthTokenCoordinator.clear();
-    return _localDataSource.clearSession();
+    final clearResult = await _localDataSource.clearSession();
+
+    final token = refreshToken;
+    if (token != null && token.isNotEmpty) {
+      try {
+        await _remoteDataSource
+            .logout(token)
+            .timeout(const Duration(seconds: 6));
+      } on Object {
+        // Remote logout is best-effort after local clear.
+      }
+    }
+    return clearResult;
   }
 
   @override
   FutureEither<void> logoutAll() async {
-    await _remoteDataSource.logoutAll();
     await AuthTokenCoordinator.clear();
-    return _localDataSource.clearSession();
+    final clearResult = await _localDataSource.clearSession();
+    try {
+      await _remoteDataSource.logoutAll().timeout(const Duration(seconds: 6));
+    } on Object {
+      // Remote logout-all is best-effort after local clear.
+    }
+    return clearResult;
   }
 
   @override

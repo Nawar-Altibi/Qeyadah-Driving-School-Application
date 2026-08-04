@@ -23,7 +23,7 @@ class StudentBookingSlotsBody extends StatelessWidget {
   final bool interactive;
 
   /// Extra bottom clearance so the last cards clear the sticky continue bar.
-  static const double _stickyBarClearance = 120;
+  static const double _stickyBarClearance = 148;
 
   @override
   Widget build(BuildContext context) {
@@ -102,25 +102,30 @@ class _InstructorSlotsCard extends StatelessWidget {
           Row(
             children: [
               Container(
-                width: 40,
-                height: 40,
+                width: 44,
+                height: 44,
                 decoration: const BoxDecoration(
-                  color: AppColors.brandMintSoft,
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [AppColors.brandMintSoft, AppColors.brandMint],
+                  ),
                   shape: BoxShape.circle,
                 ),
                 child: const Icon(
                   PhosphorIconsBold.user,
                   color: AppColors.brandPrimary,
-                  size: 20,
+                  size: 22,
                 ),
               ),
-              const SizedBox(width: AppDesignTokens.spacingSm),
+              const SizedBox(width: AppDesignTokens.spacing),
               Expanded(
                 child: Text(
                   instructor.name,
-                  style: Theme.of(
-                    context,
-                  ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 16,
+                  ),
                 ),
               ),
               AppStatusBadge(
@@ -134,21 +139,16 @@ class _InstructorSlotsCard extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: AppDesignTokens.spacingMd),
+          const SizedBox(height: AppDesignTokens.spacingLg),
           for (var i = 0; i < dateEntries.length; i++) ...[
-            if (i > 0) ...[
-              Divider(
-                height: AppDesignTokens.spacingLg,
-                color: AppColors.line.withValues(alpha: 0.55),
-              ),
-            ],
+            if (i > 0) const SizedBox(height: AppDesignTokens.spacingMd),
             _DateGroupHeader(
               label: StudentBookingFormatters.dayLabel(
                 dateEntries[i].key,
                 localeName,
               ),
             ),
-            const SizedBox(height: AppDesignTokens.spacingSm),
+            const SizedBox(height: AppDesignTokens.spacing),
             Wrap(
               spacing: AppDesignTokens.spacingSm,
               runSpacing: AppDesignTokens.spacingSm,
@@ -175,22 +175,32 @@ class _DateGroupHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppDesignTokens.spacingSm,
-        vertical: AppDesignTokens.spacingXs,
-      ),
-      decoration: BoxDecoration(
-        color: AppColors.neutralBg,
-        borderRadius: BorderRadius.circular(AppDesignTokens.radiusSm),
-      ),
-      child: Text(
-        label,
-        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-          color: AppColors.muted,
-          fontWeight: FontWeight.w600,
+    return Row(
+      children: [
+        Container(
+          width: 28,
+          height: 28,
+          decoration: BoxDecoration(
+            color: AppColors.brandMintSoft,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: const Icon(
+            PhosphorIconsBold.calendarBlank,
+            size: 14,
+            color: AppColors.brandPrimary,
+            textDirection: TextDirection.ltr,
+          ),
         ),
-      ),
+        const SizedBox(width: AppDesignTokens.spacingSm),
+        Text(
+          label,
+          style: Theme.of(context).textTheme.titleSmall?.copyWith(
+            color: AppColors.ink,
+            fontWeight: FontWeight.w700,
+            fontSize: 14,
+          ),
+        ),
+      ],
     );
   }
 }
@@ -217,49 +227,79 @@ class _SlotChip extends StatelessWidget {
         selection.slot.date == slot.date &&
         selection.slot.startTime == slot.startTime;
 
-    return Material(
-      color: selected ? AppColors.brandPrimary : AppColors.neutralBg,
-      shape: RoundedRectangleBorder(
+    return AnimatedContainer(
+      duration: AppDesignTokens.animationNormal,
+      curve: Curves.easeOutCubic,
+      decoration: BoxDecoration(
+        color: selected ? AppColors.brandPrimary : AppColors.white,
         borderRadius: BorderRadius.circular(AppDesignTokens.radiusControl),
-        side: BorderSide(
-          color: selected ? AppColors.brandPrimary : AppColors.line,
+        border: Border.all(
+          color: selected
+              ? AppColors.brandPrimary
+              : AppColors.line.withValues(alpha: 0.9),
+          width: selected ? 1.5 : 1,
         ),
-      ),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(AppDesignTokens.radiusControl),
-        onTap: interactive
-            ? () => context.read<StudentBookingCubit>().selectSlot(
-                instructor,
-                slot,
-              )
-            : null,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: AppDesignTokens.spacing,
-            vertical: AppDesignTokens.spacingSm,
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              if (selected) ...[
-                const Icon(
-                  PhosphorIconsBold.check,
-                  size: 13,
-                  color: AppColors.white,
+        boxShadow: selected
+            ? const [
+                BoxShadow(
+                  color: Color(0x33153023),
+                  blurRadius: 10,
+                  offset: Offset(0, 4),
                 ),
-                const SizedBox(width: 4),
+              ]
+            : const [
+                BoxShadow(
+                  color: Color(0x0A153023),
+                  blurRadius: 6,
+                  offset: Offset(0, 2),
+                ),
               ],
-              Text(
-                StudentBookingFormatters.timeRangeLabel(
-                  slot.startTime,
-                  slot.endTime,
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(AppDesignTokens.radiusControl),
+          onTap: interactive
+              ? () => context.read<StudentBookingCubit>().selectSlot(
+                  instructor,
+                  slot,
+                )
+              : null,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppDesignTokens.spacingMd,
+              vertical: 11,
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                AnimatedSwitcher(
+                  duration: AppDesignTokens.animationFast,
+                  child: selected
+                      ? const Padding(
+                          key: ValueKey('check'),
+                          padding: EdgeInsetsDirectional.only(end: 6),
+                          child: Icon(
+                            PhosphorIconsBold.checkCircle,
+                            size: 15,
+                            color: AppColors.white,
+                          ),
+                        )
+                      : const SizedBox.shrink(key: ValueKey('empty')),
                 ),
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: selected ? AppColors.white : AppColors.ink,
-                  fontWeight: FontWeight.w600,
+                Text(
+                  StudentBookingFormatters.timeRangeLabel(
+                    slot.startTime,
+                    slot.endTime,
+                  ),
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: selected ? AppColors.white : AppColors.ink,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 13.5,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -283,33 +323,45 @@ class _StickyContinueBar extends StatelessWidget {
         color: AppColors.white,
         boxShadow: [
           BoxShadow(
-            color: AppColors.shadow,
-            blurRadius: 16,
-            offset: Offset(0, -4),
+            color: Color(0x14153023),
+            blurRadius: 20,
+            offset: Offset(0, -6),
           ),
         ],
       ),
       child: SafeArea(
         top: false,
         child: Padding(
-          padding: const EdgeInsets.all(
+          padding: const EdgeInsets.fromLTRB(
             AppDesignTokens.screenHorizontalPadding,
+            AppDesignTokens.spacingMd,
+            AppDesignTokens.screenHorizontalPadding,
+            AppDesignTokens.spacingMd,
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              if (selection != null) ...[
-                _SelectedSummaryText(
-                  l10n: l10n,
-                  instructorName: selection.instructor.name,
-                  timeLabel: StudentBookingFormatters.timeRangeLabel(
-                    selection.slot.startTime,
-                    selection.slot.endTime,
-                  ),
-                ),
-                const SizedBox(height: AppDesignTokens.spacingSm),
-              ],
+              AnimatedSize(
+                duration: AppDesignTokens.animationNormal,
+                curve: Curves.easeOutCubic,
+                alignment: Alignment.topCenter,
+                child: selection == null
+                    ? const SizedBox.shrink()
+                    : Padding(
+                        padding: const EdgeInsets.only(
+                          bottom: AppDesignTokens.spacingMd,
+                        ),
+                        child: _SelectedSummaryCard(
+                          l10n: l10n,
+                          instructorName: selection.instructor.name,
+                          timeLabel: StudentBookingFormatters.timeRangeLabel(
+                            selection.slot.startTime,
+                            selection.slot.endTime,
+                          ),
+                        ),
+                      ),
+              ),
               AppButton.primary(
                 label: l10n.studentBookingSlotsContinueButton,
                 onPressed: selection == null
@@ -324,8 +376,8 @@ class _StickyContinueBar extends StatelessWidget {
   }
 }
 
-class _SelectedSummaryText extends StatelessWidget {
-  const _SelectedSummaryText({
+class _SelectedSummaryCard extends StatelessWidget {
+  const _SelectedSummaryCard({
     required this.l10n,
     required this.instructorName,
     required this.timeLabel,
@@ -337,34 +389,76 @@ class _SelectedSummaryText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final mutedStyle = Theme.of(
-      context,
-    ).textTheme.bodySmall?.copyWith(color: AppColors.muted);
-    final full = l10n.studentBookingSlotsSelectedLabel(
-      instructorName,
-      timeLabel,
-    );
-    final timeIndex = full.lastIndexOf(timeLabel);
-
-    if (timeIndex < 0) {
-      return Text(full, style: mutedStyle);
-    }
-
-    return Text.rich(
-      TextSpan(
-        style: mutedStyle,
-        children: [
-          TextSpan(text: full.substring(0, timeIndex)),
-          TextSpan(
-            text: timeLabel,
-            style: mutedStyle?.copyWith(
-              color: AppColors.ink,
-              fontWeight: FontWeight.w700,
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: AppColors.brandMintSoft,
+        borderRadius: BorderRadius.circular(AppDesignTokens.radiusControl),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppDesignTokens.spacingMd,
+          vertical: AppDesignTokens.spacing,
+        ),
+        child: Row(
+          children: [
+            Container(
+              width: 36,
+              height: 36,
+              decoration: const BoxDecoration(
+                color: AppColors.white,
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(
+                PhosphorIconsBold.checkCircle,
+                color: AppColors.brandPrimary,
+                size: 20,
+              ),
             ),
-          ),
-          if (timeIndex + timeLabel.length < full.length)
-            TextSpan(text: full.substring(timeIndex + timeLabel.length)),
-        ],
+            const SizedBox(width: AppDesignTokens.spacing),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    l10n.studentBookingSlotsSelectedHeading,
+                    style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                      color: AppColors.brandPrimary,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 12,
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    instructorName,
+                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                      fontWeight: FontWeight.w800,
+                      fontSize: 15,
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  Row(
+                    children: [
+                      const Icon(
+                        PhosphorIconsBold.clock,
+                        size: 14,
+                        color: AppColors.muted,
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        timeLabel,
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: AppColors.ink,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -409,7 +503,7 @@ class _EmptySlotsView extends StatelessWidget {
           textAlign: TextAlign.center,
           style: Theme.of(
             context,
-          ).textTheme.bodySmall?.copyWith(color: AppColors.muted),
+          ).textTheme.bodyMedium?.copyWith(color: AppColors.muted),
         ),
       ],
     );

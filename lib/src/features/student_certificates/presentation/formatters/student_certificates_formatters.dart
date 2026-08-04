@@ -1,13 +1,25 @@
 import 'package:intl/intl.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
 import 'package:qeyadah_mobile_app/src/features/student_booking/presentation/formatters/student_booking_formatters.dart';
+import 'package:qeyadah_mobile_app/src/features/student_bookings/presentation/formatters/student_bookings_formatters.dart';
+import 'package:qeyadah_mobile_app/src/shared/enums/certificate_charge_reason.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/certificate_request_status.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/exam_type.dart';
+import 'package:qeyadah_mobile_app/src/shared/enums/student_charge_status.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/training_type.dart';
 
 abstract final class StudentCertificatesFormatters {
   static String fee(int amount) {
     return NumberFormat('#,###').format(amount);
+  }
+
+  static String moneyAmount(String raw) {
+    final parsed = num.tryParse(raw.replaceAll(',', ''));
+    if (parsed == null) return raw;
+    if (parsed % 1 == 0) {
+      return NumberFormat('#,###').format(parsed);
+    }
+    return NumberFormat('#,##0.00').format(parsed);
   }
 
   static String countdown(Duration remaining) {
@@ -58,5 +70,27 @@ abstract final class StudentCertificatesFormatters {
       CertificateRequestStatus.cancelled =>
         l10n.studentCertificatesStatusCancelled,
     };
+  }
+
+  static String chargeReasonLabel(
+    AppLocalizations l10n,
+    CertificateChargeReason? reason,
+  ) {
+    return switch (reason) {
+      CertificateChargeReason.certificateFee =>
+        l10n.studentCertificatesChargeReasonCertificateFee,
+      CertificateChargeReason.reexamTheory =>
+        l10n.studentCertificatesChargeReasonReexamTheory,
+      CertificateChargeReason.reexamPractical =>
+        l10n.studentCertificatesChargeReasonReexamPractical,
+      null => l10n.studentCertificatesChargesTitle,
+    };
+  }
+
+  static String chargeStatusLabel(
+    AppLocalizations l10n,
+    StudentChargeStatus status,
+  ) {
+    return StudentBookingsFormatters.chargeStatusLabel(l10n, status);
   }
 }

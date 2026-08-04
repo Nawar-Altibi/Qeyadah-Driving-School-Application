@@ -79,7 +79,7 @@ class _AuthResendTimerState extends State<AuthResendTimer> {
       TextSpan(
         style: textTheme.labelSmall?.copyWith(
           color: AppColors.muted,
-          fontSize: 10,
+          fontSize: 13,
         ),
         children: [
           TextSpan(text: '${l10n.forgotPasswordResend} '),

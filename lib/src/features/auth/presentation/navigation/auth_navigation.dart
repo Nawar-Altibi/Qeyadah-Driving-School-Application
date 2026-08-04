@@ -66,6 +66,10 @@ abstract final class AuthNavigation {
     CoreNavigator.pushPath(ProfileScreen.routePath, context: context);
   }
 
+  static void goProfile({BuildContext? context}) {
+    CoreNavigator.toPath(ProfileScreen.routePath, context: context);
+  }
+
   static void pop({BuildContext? context}) {
     CoreNavigator.pop(context);
   }

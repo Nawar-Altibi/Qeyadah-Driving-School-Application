@@ -66,7 +66,7 @@ class AuthGradientButton extends StatelessWidget {
                               ?.copyWith(
                                 color: AppColors.white,
                                 fontWeight: FontWeight.w700,
-                                fontSize: 14,
+                                fontSize: 15,
                               ),
                         ),
                       ],

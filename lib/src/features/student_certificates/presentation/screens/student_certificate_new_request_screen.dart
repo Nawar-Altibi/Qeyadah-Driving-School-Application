@@ -164,7 +164,8 @@ class _StudentCertificateNewRequestScreenState
                     children: [
                       Text(
                         l10n.studentCertificatesTransmissionChoice,
-                        style: Theme.of(context).textTheme.titleMedium,
+                        style: Theme.of(context).textTheme.titleMedium
+                            ?.copyWith(fontWeight: FontWeight.w800),
                       ),
                       const SizedBox(height: AppDesignTokens.spacingSm),
                       SegmentedButton<TrainingType>(
@@ -202,9 +203,17 @@ class _StudentCertificateNewRequestScreenState
                     children: [
                       Text(
                         l10n.studentCertificatesImagesTitle,
-                        style: Theme.of(context).textTheme.titleMedium,
+                        style: Theme.of(context).textTheme.titleMedium
+                            ?.copyWith(fontWeight: FontWeight.w800),
                       ),
-                      Text(l10n.studentCertificatesImagesHint),
+                      const SizedBox(height: AppDesignTokens.spacingXs),
+                      Text(
+                        l10n.studentCertificatesImagesHint,
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: AppColors.muted,
+                        ),
+                      ),
+                      const SizedBox(height: AppDesignTokens.spacingSm),
                       _ImagePickerTile(
                         label: l10n.studentCertificatesPersonalPhoto,
                         file: _personalPhoto,
@@ -231,7 +240,8 @@ class _StudentCertificateNewRequestScreenState
                     children: [
                       Text(
                         l10n.studentCertificatesFeeGuidance,
-                        style: Theme.of(context).textTheme.titleMedium,
+                        style: Theme.of(context).textTheme.titleMedium
+                            ?.copyWith(fontWeight: FontWeight.w800),
                       ),
                       const SizedBox(height: AppDesignTokens.spacingMd),
                       Text(l10n.studentPaymentTransactionIdLabel),
