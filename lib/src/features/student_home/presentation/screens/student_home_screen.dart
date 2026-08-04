@@ -9,7 +9,6 @@ import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart'
 import 'package:qeyadah_mobile_app/src/core/ui/app_alert_banner.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_button.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
-import 'package:qeyadah_mobile_app/src/core/ui/app_mobile_bottom_nav.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/responsive/app_breakpoints.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/presentation/cubit/auth_session_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/notifications/presentation/cubit/notifications_unread_cubit.dart';
@@ -21,6 +20,7 @@ import 'package:qeyadah_mobile_app/src/features/student_home/presentation/naviga
 import 'package:qeyadah_mobile_app/src/features/student_home/presentation/widgets/student_home_greeting_header.dart';
 import 'package:qeyadah_mobile_app/src/features/student_home/presentation/widgets/student_home_next_lesson_card.dart';
 import 'package:qeyadah_mobile_app/src/features/student_home/presentation/widgets/student_home_quick_actions_section.dart';
+import 'package:qeyadah_mobile_app/src/features/student_home/presentation/widgets/student_shell_bottom_nav.dart';
 
 class StudentHomeScreen extends StatelessWidget {
   const StudentHomeScreen({super.key});
@@ -86,48 +86,12 @@ class StudentHomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
-                left: AppDesignTokens.screenHorizontalPadding,
-                right: AppDesignTokens.screenHorizontalPadding,
-                bottom: AppDesignTokens.spacing,
-                child: AppMobileBottomNav(
-                  activeId: 'home',
-                  items: _bottomNavItems(context),
-                  onItemSelected: (tabId) =>
-                      StudentHomeNavigation.handleBottomNav(context, tabId),
-                ),
-              ),
+              const StudentShellBottomNav(activeId: 'home'),
             ],
           ),
         ),
       ),
     );
-  }
-
-  static List<AppMobileBottomNavItem> _bottomNavItems(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
-    return [
-      AppMobileBottomNavItem(
-        id: 'home',
-        label: l10n.home,
-        icon: PhosphorIconsBold.house,
-      ),
-      AppMobileBottomNavItem(
-        id: 'bookings',
-        label: l10n.studentHomeNavBookings,
-        icon: PhosphorIconsBold.calendar,
-      ),
-      AppMobileBottomNavItem(
-        id: 'certificate',
-        label: l10n.studentHomeNavCertificate,
-        icon: PhosphorIconsBold.certificate,
-      ),
-      AppMobileBottomNavItem(
-        id: 'profile',
-        label: l10n.studentHomeNavProfile,
-        icon: PhosphorIconsBold.user,
-      ),
-    ];
   }
 }
 

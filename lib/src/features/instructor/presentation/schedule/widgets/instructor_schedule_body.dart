@@ -32,139 +32,144 @@ class InstructorScheduleBody extends StatelessWidget {
     final calendarDays = InstructorFormatters.weekAround(
       dashboard.selectedDate,
     );
-    return ListView(
-      padding: const EdgeInsets.fromLTRB(
-        AppDesignTokens.screenHorizontalPadding,
-        AppDesignTokens.spacingMd,
-        AppDesignTokens.screenHorizontalPadding,
-        AppDesignTokens.bottomNavHeight + 96,
-      ),
-      children: [
-        InstructorScheduleGreetingHeader(
-          name: dashboard.profile.name,
-          unreadCount: context.watch<NotificationsUnreadCubit>().state,
-          onNotificationsTap: interactive
-              ? () => InstructorNavigation.openNotifications(context)
-              : null,
+    return RefreshIndicator(
+      onRefresh: () =>
+          context.read<InstructorScheduleCubit>().load(silent: true),
+      child: ListView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        padding: const EdgeInsets.fromLTRB(
+          AppDesignTokens.screenHorizontalPadding,
+          AppDesignTokens.spacingMd,
+          AppDesignTokens.screenHorizontalPadding,
+          AppDesignTokens.bottomNavHeight + 96,
         ),
-        const SizedBox(height: AppDesignTokens.spacingLg),
-        InstructorScheduleSummaryCard(
-          dashboard: dashboard,
-          localeName: localeName,
-        ),
-        const SizedBox(height: AppDesignTokens.spacingLg),
-        Row(
-          children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    InstructorFormatters.monthYearLabel(
-                      dashboard.selectedDate,
-                      localeName,
-                    ),
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  Text(
-                    InstructorFormatters.fullDateLabel(
-                      dashboard.selectedDate,
-                      localeName,
-                    ),
-                    style: Theme.of(
-                      context,
-                    ).textTheme.bodySmall?.copyWith(color: AppColors.muted),
-                  ),
-                ],
-              ),
-            ),
-            Material(
-              color: AppColors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-                side: const BorderSide(color: AppColors.line),
-              ),
-              child: InkWell(
-                onTap: interactive ? () => _pickDate(context) : null,
-                borderRadius: BorderRadius.circular(12),
-                child: const SizedBox(
-                  width: 36,
-                  height: 36,
-                  child: Icon(
-                    PhosphorIconsBold.calendar,
-                    size: 18,
-                    color: AppColors.brandPrimary,
-                    textDirection: TextDirection.ltr,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: AppDesignTokens.spacing),
-        if (dashboard.viewMode == InstructorBookingsViewMode.day)
-          AppCalendarStrip(
-            days: calendarDays,
-            selectedDate: dashboard.selectedDate,
-            weekdayLabelBuilder: (date) =>
-                InstructorFormatters.shortWeekday(date, localeName),
-            dayNumberBuilder: InstructorFormatters.dayNumber,
-            onDaySelected: interactive
-                ? (date) =>
-                      context.read<InstructorScheduleCubit>().selectDate(date)
-                : (_) {},
-            hasEventsForDay: (date) =>
-                _isSameDay(date, dashboard.selectedDate) &&
-                dashboard.bookings.isNotEmpty,
+        children: [
+          InstructorScheduleGreetingHeader(
+            name: dashboard.profile.name,
+            unreadCount: context.watch<NotificationsUnreadCubit>().state,
+            onNotificationsTap: interactive
+                ? () => InstructorNavigation.openNotifications(context)
+                : null,
           ),
-        const SizedBox(height: AppDesignTokens.spacingLg),
-        Row(
-          children: [
-            Expanded(
-              child: Text(
-                dashboard.viewMode == InstructorBookingsViewMode.day
-                    ? l10n.instructorDailyTimeline
-                    : l10n.instructorWeeklyBookings,
-                style: Theme.of(
-                  context,
-                ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),
-              ),
-            ),
-            SizedBox(
-              width: 148,
-              child: AppSegmentedControl<InstructorBookingsViewMode>(
-                value: dashboard.viewMode,
-                items: [
-                  AppSegmentedItem(
-                    value: InstructorBookingsViewMode.day,
-                    label: l10n.instructorViewDay,
-                  ),
-                  AppSegmentedItem(
-                    value: InstructorBookingsViewMode.week,
-                    label: l10n.instructorViewWeek,
-                  ),
-                ],
-                onChanged: interactive
-                    ? context.read<InstructorScheduleCubit>().setViewMode
-                    : (_) {},
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: AppDesignTokens.spacing),
-        if (dashboard.viewMode == InstructorBookingsViewMode.day)
-          InstructorScheduleTimeline(
-            bookings: dashboard.bookings,
-            localeName: localeName,
-          )
-        else
-          _InstructorWeeklyBookings(
+          const SizedBox(height: AppDesignTokens.spacingLg),
+          InstructorScheduleSummaryCard(
             dashboard: dashboard,
             localeName: localeName,
           ),
-      ],
+          const SizedBox(height: AppDesignTokens.spacingLg),
+          Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      InstructorFormatters.monthYearLabel(
+                        dashboard.selectedDate,
+                        localeName,
+                      ),
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    Text(
+                      InstructorFormatters.fullDateLabel(
+                        dashboard.selectedDate,
+                        localeName,
+                      ),
+                      style: Theme.of(
+                        context,
+                      ).textTheme.bodySmall?.copyWith(color: AppColors.muted),
+                    ),
+                  ],
+                ),
+              ),
+              Material(
+                color: AppColors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  side: const BorderSide(color: AppColors.line),
+                ),
+                child: InkWell(
+                  onTap: interactive ? () => _pickDate(context) : null,
+                  borderRadius: BorderRadius.circular(12),
+                  child: const SizedBox(
+                    width: 36,
+                    height: 36,
+                    child: Icon(
+                      PhosphorIconsBold.calendar,
+                      size: 18,
+                      color: AppColors.brandPrimary,
+                      textDirection: TextDirection.ltr,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: AppDesignTokens.spacing),
+          if (dashboard.viewMode == InstructorBookingsViewMode.day)
+            AppCalendarStrip(
+              days: calendarDays,
+              selectedDate: dashboard.selectedDate,
+              weekdayLabelBuilder: (date) =>
+                  InstructorFormatters.shortWeekday(date, localeName),
+              dayNumberBuilder: InstructorFormatters.dayNumber,
+              onDaySelected: interactive
+                  ? (date) =>
+                        context.read<InstructorScheduleCubit>().selectDate(date)
+                  : (_) {},
+              hasEventsForDay: (date) =>
+                  _isSameDay(date, dashboard.selectedDate) &&
+                  dashboard.bookings.isNotEmpty,
+            ),
+          const SizedBox(height: AppDesignTokens.spacingLg),
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  dashboard.viewMode == InstructorBookingsViewMode.day
+                      ? l10n.instructorDailyTimeline
+                      : l10n.instructorWeeklyBookings,
+                  style: Theme.of(
+                    context,
+                  ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),
+                ),
+              ),
+              SizedBox(
+                width: 148,
+                child: AppSegmentedControl<InstructorBookingsViewMode>(
+                  value: dashboard.viewMode,
+                  items: [
+                    AppSegmentedItem(
+                      value: InstructorBookingsViewMode.day,
+                      label: l10n.instructorViewDay,
+                    ),
+                    AppSegmentedItem(
+                      value: InstructorBookingsViewMode.week,
+                      label: l10n.instructorViewWeek,
+                    ),
+                  ],
+                  onChanged: interactive
+                      ? context.read<InstructorScheduleCubit>().setViewMode
+                      : (_) {},
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: AppDesignTokens.spacing),
+          if (dashboard.viewMode == InstructorBookingsViewMode.day)
+            InstructorScheduleTimeline(
+              bookings: dashboard.bookings,
+              localeName: localeName,
+            )
+          else
+            _InstructorWeeklyBookings(
+              dashboard: dashboard,
+              localeName: localeName,
+            ),
+        ],
+      ),
     );
   }
 

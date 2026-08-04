@@ -18,6 +18,8 @@ class AppSegmentedControl<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).extension<AppTextStylesExtension>();
+    final selectedIndex = items.indexWhere((item) => item.value == value);
+    final index = selectedIndex < 0 ? 0 : selectedIndex;
 
     return DecoratedBox(
       decoration: BoxDecoration(
@@ -26,18 +28,53 @@ class AppSegmentedControl<T> extends StatelessWidget {
       ),
       child: Padding(
         padding: const EdgeInsets.all(4),
-        child: Row(
-          children: [
-            for (final item in items)
-              Expanded(
-                child: _SegmentButton<T>(
-                  item: item,
-                  selected: item.value == value,
-                  textStyle: textTheme?.semibold14,
-                  onPressed: () => onChanged(item.value),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final segmentWidth = constraints.maxWidth / items.length;
+            return Stack(
+              children: [
+                AnimatedPositioned(
+                  duration: AppDesignTokens.animationNormal,
+                  curve: Curves.easeOutCubic,
+                  left: Directionality.of(context) == TextDirection.rtl
+                      ? null
+                      : segmentWidth * index,
+                  right: Directionality.of(context) == TextDirection.rtl
+                      ? segmentWidth * index
+                      : null,
+                  top: 0,
+                  bottom: 0,
+                  width: segmentWidth,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: AppColors.white,
+                      borderRadius: BorderRadius.circular(11),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Color(0x14153023),
+                          blurRadius: 10,
+                          offset: Offset(0, 3),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-              ),
-          ],
+                Row(
+                  children: [
+                    for (final item in items)
+                      Expanded(
+                        child: _SegmentButton<T>(
+                          item: item,
+                          selected: item.value == value,
+                          textStyle: textTheme?.semibold14,
+                          onPressed: () => onChanged(item.value),
+                        ),
+                      ),
+                  ],
+                ),
+              ],
+            );
+          },
         ),
       ),
     );
@@ -66,30 +103,23 @@ class _SegmentButton<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
-      duration: AppDesignTokens.animationFast,
-      decoration: BoxDecoration(
-        color: selected ? AppColors.white : Colors.transparent,
-        borderRadius: BorderRadius.circular(11),
-        boxShadow: selected
-            ? const [
-                BoxShadow(
-                  color: AppColors.shadow,
-                  blurRadius: 10,
-                  offset: Offset(0, 3),
-                ),
-              ]
-            : null,
+    return TextButton(
+      onPressed: onPressed,
+      style: TextButton.styleFrom(
+        foregroundColor: selected ? AppColors.brandPrimary : AppColors.muted,
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        minimumSize: const Size(0, 40),
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(11)),
       ),
-      child: TextButton(
-        onPressed: onPressed,
-        style: TextButton.styleFrom(
-          foregroundColor: selected ? AppColors.brandPrimary : AppColors.muted,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(11),
-          ),
+      child: AnimatedDefaultTextStyle(
+        duration: AppDesignTokens.animationNormal,
+        curve: Curves.easeOutCubic,
+        style: (textStyle ?? const TextStyle()).copyWith(
+          color: selected ? AppColors.brandPrimary : AppColors.muted,
+          fontWeight: selected ? FontWeight.w700 : FontWeight.w600,
         ),
-        child: Text(item.label, style: textStyle),
+        child: Text(item.label, textAlign: TextAlign.center),
       ),
     );
   }

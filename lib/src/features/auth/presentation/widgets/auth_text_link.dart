@@ -18,7 +18,7 @@ class AuthTextLink extends StatelessWidget {
           padding: EdgeInsets.zero,
           minimumSize: Size.zero,
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          textStyle: const TextStyle(fontSize: 11, fontWeight: FontWeight.w700),
+          textStyle: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700),
         ),
         onPressed: onPressed,
         child: Text(label),
@@ -49,7 +49,7 @@ class AuthSecureNote extends StatelessWidget {
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.labelSmall?.copyWith(
               color: AppColors.muted,
-              fontSize: 10,
+              fontSize: 12,
             ),
           ),
         ),

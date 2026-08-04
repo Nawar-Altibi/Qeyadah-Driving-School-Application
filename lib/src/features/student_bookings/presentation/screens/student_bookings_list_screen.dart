@@ -11,6 +11,7 @@ import 'package:qeyadah_mobile_app/src/features/student_bookings/presentation/co
 import 'package:qeyadah_mobile_app/src/features/student_bookings/presentation/cubit/student_bookings_list_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/student_bookings/presentation/widgets/student_bookings_list_body.dart';
 import 'package:qeyadah_mobile_app/src/features/student_bookings/presentation/widgets/student_bookings_list_skeleton_body.dart';
+import 'package:qeyadah_mobile_app/src/features/student_home/presentation/widgets/student_shell_bottom_nav.dart';
 
 class StudentBookingsListScreen extends StatelessWidget {
   const StudentBookingsListScreen({super.key});
@@ -29,56 +30,73 @@ class StudentBookingsListScreen extends StatelessWidget {
           elevation: 0,
           title: Text(AppLocalizations.of(context).studentBookingsTitle),
           centerTitle: true,
+          automaticallyImplyLeading: Navigator.of(context).canPop(),
         ),
-        body: ResponsiveShell(
-          child:
-              BlocBuilder<StudentBookingsListCubit, StudentBookingsListState>(
-                builder: (context, state) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      StudentBookingsListFiltersHeader(state: state),
-                      Expanded(
-                        child: state.apiState.when(
-                          initial: () =>
-                              const StudentBookingsListSkeletonBody(),
-                          loading: () =>
-                              const StudentBookingsListSkeletonBody(),
-                          succeeded: (page) =>
-                              StudentBookingsListBody(state: state, page: page),
-                          failed: (failure, retry) {
-                            final l10n = AppLocalizations.of(context);
-                            return Center(
-                              child: Padding(
-                                padding: PaddingManager.paddingAll16,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      CoreFailureMessageMapper.messageFor(
-                                        failure,
-                                        l10n,
+        body: SafeArea(
+          top: false,
+          child: Stack(
+            children: [
+              Positioned.fill(
+                child: ResponsiveShell(
+                  child:
+                      BlocBuilder<
+                        StudentBookingsListCubit,
+                        StudentBookingsListState
+                      >(
+                        builder: (context, state) {
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              StudentBookingsListFiltersHeader(state: state),
+                              Expanded(
+                                child: state.apiState.when(
+                                  initial: () =>
+                                      const StudentBookingsListSkeletonBody(),
+                                  loading: () =>
+                                      const StudentBookingsListSkeletonBody(),
+                                  succeeded: (page) => StudentBookingsListBody(
+                                    state: state,
+                                    page: page,
+                                  ),
+                                  failed: (failure, retry) {
+                                    final l10n = AppLocalizations.of(context);
+                                    return Center(
+                                      child: Padding(
+                                        padding: PaddingManager.paddingAll16,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              CoreFailureMessageMapper.messageFor(
+                                                failure,
+                                                l10n,
+                                              ),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                            const SizedBox(
+                                              height: AppDesignTokens.spacingMd,
+                                            ),
+                                            AppButton.primary(
+                                              label: l10n.retry,
+                                              onPressed: retry,
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    const SizedBox(
-                                      height: AppDesignTokens.spacingMd,
-                                    ),
-                                    AppButton.primary(
-                                      label: l10n.retry,
-                                      onPressed: retry,
-                                    ),
-                                  ],
+                                    );
+                                  },
                                 ),
                               ),
-                            );
-                          },
-                        ),
+                            ],
+                          );
+                        },
                       ),
-                    ],
-                  );
-                },
+                ),
               ),
+              const StudentShellBottomNav(activeId: 'bookings'),
+            ],
+          ),
         ),
       ),
     );

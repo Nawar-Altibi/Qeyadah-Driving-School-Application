@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
@@ -9,6 +10,7 @@ import 'package:qeyadah_mobile_app/src/core/ui/app_metric_tile.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_section_heading.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_skeleton_shell.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/domain/entities/instructor_entities.dart';
+import 'package:qeyadah_mobile_app/src/features/instructor/presentation/dues/cubit/instructor_dues_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/shared/formatters/instructor_formatters.dart';
 
 class InstructorDuesBody extends StatelessWidget {
@@ -20,6 +22,17 @@ class InstructorDuesBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final localeName = Localizations.localeOf(context).toLanguageTag();
+    final sortOrder = context.select(
+      (InstructorDuesCubit cubit) => cubit.state.sortOrder,
+    );
+    final sortedDues = [...dues.dues]
+      ..sort((a, b) {
+        final compare = a.expenseDate.compareTo(b.expenseDate);
+        return sortOrder == InstructorDuesSortOrder.oldestFirst
+            ? compare
+            : -compare;
+      });
+
     return ListView(
       padding: const EdgeInsets.all(AppDesignTokens.screenHorizontalPadding),
       children: [
@@ -30,12 +43,37 @@ class InstructorDuesBody extends StatelessWidget {
           iconColor: AppColors.warning,
         ),
         const SizedBox(height: AppDesignTokens.spacingLg),
-        AppSectionHeading(title: l10n.instructorDuesDailyDetails),
+        AppSectionHeading(
+          title: l10n.instructorDuesDailyDetails,
+          trailing: IconButton(
+            tooltip: sortOrder == InstructorDuesSortOrder.newestFirst
+                ? l10n.studentBookingsSortOldestFirst
+                : l10n.studentBookingsSortNewestFirst,
+            onPressed: () =>
+                context.read<InstructorDuesCubit>().toggleSortOrder(),
+            style: IconButton.styleFrom(
+              backgroundColor: AppColors.white,
+              side: const BorderSide(color: AppColors.line),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(
+                  AppDesignTokens.radiusControl,
+                ),
+              ),
+            ),
+            icon: Icon(
+              sortOrder == InstructorDuesSortOrder.newestFirst
+                  ? PhosphorIconsBold.sortDescending
+                  : PhosphorIconsBold.sortAscending,
+              color: AppColors.ink,
+              size: 20,
+            ),
+          ),
+        ),
         const SizedBox(height: AppDesignTokens.spacing),
-        if (dues.dues.isEmpty)
+        if (sortedDues.isEmpty)
           AppCard(child: Text(l10n.instructorDuesEmpty))
         else
-          for (final due in dues.dues) ...[
+          for (final due in sortedDues) ...[
             AppCard(
               child: Row(
                 children: [

@@ -14,12 +14,28 @@ abstract interface class AppThemeData {
   static final lightThemeData = _baseTheme.copyWith(
     colorScheme: AppColors.lightColorScheme,
     scaffoldBackgroundColor: AppColors.lightColorScheme.surface,
+    actionIconTheme: ActionIconThemeData(
+      backButtonIconBuilder: (context) => const Icon(
+        Icons.arrow_forward_rounded,
+        color: AppColors.ink,
+        size: 22,
+        // Always point right in this RTL-first app (previous page).
+        textDirection: TextDirection.ltr,
+      ),
+    ),
     appBarTheme: const AppBarTheme(
       centerTitle: true,
       elevation: 0,
       scrolledUnderElevation: 0,
       backgroundColor: AppColors.appCanvas,
       foregroundColor: AppColors.ink,
+      titleTextStyle: TextStyle(
+        color: AppColors.ink,
+        fontSize: 18,
+        fontWeight: FontWeight.w700,
+        height: 1.25,
+      ),
+      iconTheme: IconThemeData(color: AppColors.ink, size: 22),
     ),
     cardTheme: const CardThemeData(
       color: AppColors.white,
@@ -119,6 +135,14 @@ abstract interface class AppThemeData {
         extensions: const [AppTextStylesExtension.defaults],
       ).copyWith(
         scaffoldBackgroundColor: AppColors.darkColorScheme.surface,
+        actionIconTheme: ActionIconThemeData(
+          backButtonIconBuilder: (context) => Icon(
+            Icons.arrow_forward_rounded,
+            color: AppColors.darkColorScheme.onSurface,
+            size: 22,
+            textDirection: TextDirection.ltr,
+          ),
+        ),
         appBarTheme: const AppBarTheme(
           centerTitle: true,
           elevation: 0,

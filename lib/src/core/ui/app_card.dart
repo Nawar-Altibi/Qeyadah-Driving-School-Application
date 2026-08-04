@@ -1,5 +1,4 @@
 ﻿import 'package:flutter/material.dart';
-import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 
 class AppCard extends StatelessWidget {
@@ -35,9 +34,14 @@ class AppCard extends StatelessWidget {
         border: Border.all(color: borderColor ?? colors.outline),
         boxShadow: const [
           BoxShadow(
-            color: AppColors.shadow,
-            blurRadius: 22,
-            offset: Offset(0, 7),
+            color: Color(0x0F153023),
+            blurRadius: 16,
+            offset: Offset(0, 5),
+          ),
+          BoxShadow(
+            color: Color(0x08153023),
+            blurRadius: 4,
+            offset: Offset(0, 1),
           ),
         ],
       ),

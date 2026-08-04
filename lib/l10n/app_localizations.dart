@@ -1736,6 +1736,12 @@ abstract class AppLocalizations {
   /// **'Selected: {instructor} · {time}'**
   String studentBookingSlotsSelectedLabel(String instructor, String time);
 
+  /// No description provided for @studentBookingSlotsSelectedHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected appointment'**
+  String get studentBookingSlotsSelectedHeading;
+
   /// No description provided for @studentBookingSlotsContinueButton.
   ///
   /// In en, this message translates to:
@@ -2526,11 +2532,65 @@ abstract class AppLocalizations {
   /// **'Amount due: {amount} SYP'**
   String studentCertificatesAmountDue(String amount);
 
+  /// No description provided for @studentCertificatesChargeReasonCertificateFee.
+  ///
+  /// In en, this message translates to:
+  /// **'Certificate fee'**
+  String get studentCertificatesChargeReasonCertificateFee;
+
+  /// No description provided for @studentCertificatesChargeReasonReexamTheory.
+  ///
+  /// In en, this message translates to:
+  /// **'Theory re-exam fee'**
+  String get studentCertificatesChargeReasonReexamTheory;
+
+  /// No description provided for @studentCertificatesChargeReasonReexamPractical.
+  ///
+  /// In en, this message translates to:
+  /// **'Practical re-exam fee'**
+  String get studentCertificatesChargeReasonReexamPractical;
+
+  /// No description provided for @studentCertificatesStudentLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Student'**
+  String get studentCertificatesStudentLabel;
+
+  /// No description provided for @studentCertificatesCategoryLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get studentCertificatesCategoryLabel;
+
+  /// No description provided for @studentCertificatesTransmissionLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Transmission'**
+  String get studentCertificatesTransmissionLabel;
+
+  /// No description provided for @studentCertificatesCourseLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Course number'**
+  String get studentCertificatesCourseLabel;
+
   /// No description provided for @studentCertificatesSectionEmpty.
   ///
   /// In en, this message translates to:
   /// **'No items available.'**
   String get studentCertificatesSectionEmpty;
+
+  /// No description provided for @studentCertificatesSectionEmptyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Details will appear here when available.'**
+  String get studentCertificatesSectionEmptyHint;
+
+  /// No description provided for @studentCertificatesDocumentUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Not available to view'**
+  String get studentCertificatesDocumentUnavailable;
 
   /// No description provided for @studentCertificatesNewTitle.
   ///

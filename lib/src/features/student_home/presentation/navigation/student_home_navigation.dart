@@ -1,18 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/presentation/navigation/auth_navigation.dart';
 import 'package:qeyadah_mobile_app/src/features/notifications/presentation/navigation/notifications_navigation.dart';
+import 'package:qeyadah_mobile_app/src/features/profile/presentation/screens/profile_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/student_booking/presentation/navigation/student_booking_navigation.dart';
 import 'package:qeyadah_mobile_app/src/features/student_bookings/presentation/navigation/student_bookings_navigation.dart';
+import 'package:qeyadah_mobile_app/src/features/student_bookings/presentation/screens/student_bookings_list_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/student_certificates/presentation/navigation/student_certificates_navigation.dart';
+import 'package:qeyadah_mobile_app/src/features/student_certificates/presentation/screens/student_certificates_hub_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/student_home/domain/entities/student_home_dashboard_entity.dart';
+import 'package:qeyadah_mobile_app/src/features/student_home/presentation/screens/student_home_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/student_payments/presentation/navigation/student_payment_hold_args.dart';
 import 'package:qeyadah_mobile_app/src/features/student_payments/presentation/navigation/student_payment_navigation.dart';
 import 'package:qeyadah_mobile_app/src/features/student_theory/presentation/navigation/student_theory_navigation.dart';
 
 abstract final class StudentHomeNavigation {
+  static void goHome({BuildContext? context}) {
+    AuthNavigation.goHome(context: context);
+  }
+
   static void goProfile({BuildContext? context}) {
-    AuthNavigation.pushProfile(context: context);
+    AuthNavigation.goProfile(context: context);
   }
 
   /// Resumes the ShamCash payment screen for an existing pending booking,
@@ -73,13 +82,27 @@ abstract final class StudentHomeNavigation {
   static void handleBottomNav(BuildContext context, String tabId) {
     switch (tabId) {
       case 'home':
-        return;
+        if (GoRouterState.of(context).uri.path == StudentHomeScreen.routePath) {
+          return;
+        }
+        goHome(context: context);
       case 'profile':
+        if (GoRouterState.of(context).uri.path == ProfileScreen.routePath) {
+          return;
+        }
         goProfile(context: context);
       case 'bookings':
-        StudentBookingsNavigation.pushList(context: context);
+        if (GoRouterState.of(context).uri.path ==
+            StudentBookingsListScreen.routePath) {
+          return;
+        }
+        StudentBookingsNavigation.goList(context: context);
       case 'certificate':
-        StudentCertificatesNavigation.pushHub(context: context);
+        if (GoRouterState.of(context).uri.path ==
+            StudentCertificatesHubScreen.routePath) {
+          return;
+        }
+        StudentCertificatesNavigation.goHub(context: context);
     }
   }
 }

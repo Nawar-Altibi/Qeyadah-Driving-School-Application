@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 
@@ -324,8 +325,12 @@ class InstructorSettingsRow extends StatelessWidget {
             ),
             if (showChevron)
               Icon(
-                Icons.chevron_left_rounded,
-                color: danger ? AppColors.danger : AppColors.muted,
+                PhosphorIconsBold.caretLeft,
+                size: 16,
+                color: danger
+                    ? AppColors.danger
+                    : AppColors.muted.withValues(alpha: 0.7),
+                textDirection: TextDirection.ltr,
               ),
           ],
         ),

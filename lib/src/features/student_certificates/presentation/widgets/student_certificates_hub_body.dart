@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_button.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
@@ -72,15 +74,87 @@ class StudentCertificatesHubBody extends StatelessWidget {
 
     children.add(const SizedBox(height: AppDesignTokens.spacingMd));
     children.add(
-      AppButton.secondary(
+      _HistoryCtaCard(
         label: l10n.studentCertificatesHistoryCta,
-        onPressed: onHistoryTap,
+        onTap: onHistoryTap,
       ),
     );
 
     return ListView(
-      padding: const EdgeInsets.all(AppDesignTokens.spacingMd),
+      padding: AppDesignTokens.screenContentPadding(
+        extraBottom: AppDesignTokens.bottomNavHeight,
+      ),
       children: children,
+    );
+  }
+}
+
+class _CardHeader extends StatelessWidget {
+  const _CardHeader({required this.icon, required this.title, this.badge});
+
+  final IconData icon;
+  final String title;
+  final Widget? badge;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          width: 42,
+          height: 42,
+          decoration: const BoxDecoration(
+            color: AppColors.brandMintSoft,
+            shape: BoxShape.circle,
+          ),
+          child: Icon(icon, size: 20, color: AppColors.brandPrimary),
+        ),
+        const SizedBox(width: AppDesignTokens.spacing),
+        Expanded(
+          child: Text(
+            title,
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+              fontWeight: FontWeight.w800,
+              fontSize: 17,
+              height: 1.3,
+              color: AppColors.ink,
+            ),
+          ),
+        ),
+        if (badge != null) ...[
+          const SizedBox(width: AppDesignTokens.spacingSm),
+          badge!,
+        ],
+      ],
+    );
+  }
+}
+
+class _MetaLine extends StatelessWidget {
+  const _MetaLine({required this.icon, required this.text});
+
+  final IconData icon;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Icon(icon, size: 16, color: AppColors.muted),
+        const SizedBox(width: AppDesignTokens.spacingSm),
+        Expanded(
+          child: Text(
+            text,
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              color: AppColors.ink,
+              fontSize: 14,
+              height: 1.4,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
@@ -100,34 +174,38 @@ class _ActiveRequestSummaryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final status = eligibility.requestStatus;
     return AppCard(
+      padding: const EdgeInsets.all(AppDesignTokens.spacingLg),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            l10n.studentCertificatesActiveRequestTitle,
-            style: Theme.of(context).textTheme.titleMedium,
+          _CardHeader(
+            icon: PhosphorIconsBold.certificate,
+            title: l10n.studentCertificatesActiveRequestTitle,
+            badge: status == null
+                ? null
+                : AppStatusBadge(
+                    label: StudentCertificatesFormatters.requestStatusLabel(
+                      l10n,
+                      status,
+                    ),
+                  ),
           ),
-          const SizedBox(height: AppDesignTokens.spacingSm),
-          if (status != null) ...[
-            AppStatusBadge(
-              label: StudentCertificatesFormatters.requestStatusLabel(
-                l10n,
-                status,
+          const SizedBox(height: AppDesignTokens.spacingMd),
+          if (eligibility.courseNumber != null) ...[
+            _MetaLine(
+              icon: PhosphorIconsBold.numberCircleOne,
+              text: l10n.studentCertificatesCourseNumber(
+                eligibility.courseNumber!,
               ),
             ),
             const SizedBox(height: AppDesignTokens.spacingSm),
           ],
-          if (eligibility.courseNumber != null)
-            Text(
-              l10n.studentCertificatesCourseNumber(eligibility.courseNumber!),
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
           if (eligibility.activeCertificateId != null)
-            Text(
-              l10n.studentCertificatesRequestId(
+            _MetaLine(
+              icon: PhosphorIconsBold.hash,
+              text: l10n.studentCertificatesRequestId(
                 eligibility.activeCertificateId!,
               ),
-              style: Theme.of(context).textTheme.bodySmall,
             ),
           const SizedBox(height: AppDesignTokens.spacingMd),
           AppButton.secondary(
@@ -167,26 +245,35 @@ class _NewRequestCard extends StatelessWidget {
         .join(' · ');
 
     return AppCard(
+      padding: const EdgeInsets.all(AppDesignTokens.spacingLg),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label, style: Theme.of(context).textTheme.titleMedium),
+          _CardHeader(icon: PhosphorIconsBold.plusCircle, title: label),
           if (newRequest.message != null && newRequest.message!.isNotEmpty) ...[
-            const SizedBox(height: AppDesignTokens.spacingSm),
-            Text(newRequest.message!),
+            const SizedBox(height: AppDesignTokens.spacingMd),
+            Text(
+              newRequest.message!,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: AppColors.muted,
+                height: 1.45,
+              ),
+            ),
           ],
           if (types.isNotEmpty) ...[
-            const SizedBox(height: AppDesignTokens.spacingSm),
-            Text(
-              l10n.studentCertificatesAvailableTypes(types),
-              style: Theme.of(context).textTheme.bodyMedium,
+            const SizedBox(height: AppDesignTokens.spacingMd),
+            _MetaLine(
+              icon: PhosphorIconsBold.car,
+              text: l10n.studentCertificatesAvailableTypes(types),
             ),
           ],
           const SizedBox(height: AppDesignTokens.spacingMd),
           if (isBlocked)
             Text(
               l10n.studentCertificatesBlockedWriteHint,
-              style: Theme.of(context).textTheme.bodySmall,
+              style: Theme.of(
+                context,
+              ).textTheme.bodySmall?.copyWith(color: AppColors.muted),
             )
           else
             AppButton.primary(label: label, onPressed: onTap),
@@ -222,28 +309,34 @@ class _ReexamCard extends StatelessWidget {
           );
 
     return AppCard(
+      padding: const EdgeInsets.all(AppDesignTokens.spacingLg),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: Theme.of(context).textTheme.titleMedium),
+          _CardHeader(icon: PhosphorIconsBold.exam, title: title),
           if (reexam.fee != null) ...[
-            const SizedBox(height: AppDesignTokens.spacingSm),
-            Text(
-              l10n.studentCertificatesReexamFee(
+            const SizedBox(height: AppDesignTokens.spacingMd),
+            _MetaLine(
+              icon: PhosphorIconsBold.wallet,
+              text: l10n.studentCertificatesReexamFee(
                 StudentCertificatesFormatters.fee(reexam.fee!),
               ),
             ),
           ],
           if (reexam.examScheduledLabel != null) ...[
             const SizedBox(height: AppDesignTokens.spacingSm),
-            Text(
-              l10n.studentCertificatesExamScheduled(reexam.examScheduledLabel!),
+            _MetaLine(
+              icon: PhosphorIconsBold.calendarBlank,
+              text: l10n.studentCertificatesExamScheduled(
+                reexam.examScheduledLabel!,
+              ),
             ),
           ],
           if (reexam.registrationClosesLabel != null) ...[
             const SizedBox(height: AppDesignTokens.spacingSm),
-            Text(
-              l10n.studentCertificatesRegistrationCloses(
+            _MetaLine(
+              icon: PhosphorIconsBold.clock,
+              text: l10n.studentCertificatesRegistrationCloses(
                 reexam.registrationClosesLabel!,
               ),
             ),
@@ -254,14 +347,19 @@ class _ReexamCard extends StatelessWidget {
               l10n.studentCertificatesRegistrationCountdown(
                 StudentCertificatesFormatters.countdown(remaining),
               ),
-              style: Theme.of(context).textTheme.titleSmall,
+              style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                color: AppColors.brandPrimary,
+                fontWeight: FontWeight.w700,
+              ),
             ),
           ],
           const SizedBox(height: AppDesignTokens.spacingMd),
           if (isBlocked)
             Text(
               l10n.studentCertificatesBlockedWriteHint,
-              style: Theme.of(context).textTheme.bodySmall,
+              style: Theme.of(
+                context,
+              ).textTheme.bodySmall?.copyWith(color: AppColors.muted),
             )
           else
             AppButton.primary(
@@ -304,16 +402,80 @@ class _StatusOnlyCard extends StatelessWidget {
         : l10n.studentCertificatesStatusFallback;
 
     return AppCard(
+      padding: const EdgeInsets.all(AppDesignTokens.spacingLg),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            l10n.studentCertificatesStatusTitle,
-            style: Theme.of(context).textTheme.titleMedium,
+          _CardHeader(
+            icon: PhosphorIconsBold.info,
+            title: l10n.studentCertificatesStatusTitle,
           ),
-          const SizedBox(height: AppDesignTokens.spacingSm),
-          Text(message),
+          const SizedBox(height: AppDesignTokens.spacingMd),
+          Text(
+            message,
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              color: AppColors.muted,
+              height: 1.45,
+            ),
+          ),
         ],
+      ),
+    );
+  }
+}
+
+class _HistoryCtaCard extends StatelessWidget {
+  const _HistoryCtaCard({required this.label, this.onTap});
+
+  final String label;
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(AppDesignTokens.radiusLg),
+        child: AppCard(
+          padding: const EdgeInsets.symmetric(
+            horizontal: AppDesignTokens.spacingMd,
+            vertical: AppDesignTokens.spacing,
+          ),
+          child: Row(
+            children: [
+              Container(
+                width: 42,
+                height: 42,
+                decoration: const BoxDecoration(
+                  color: AppColors.brandMintSoft,
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(
+                  PhosphorIconsBold.clockCounterClockwise,
+                  size: 20,
+                  color: AppColors.brandPrimary,
+                ),
+              ),
+              const SizedBox(width: AppDesignTokens.spacing),
+              Expanded(
+                child: Text(
+                  label,
+                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                    fontWeight: FontWeight.w700,
+                    color: AppColors.ink,
+                  ),
+                ),
+              ),
+              const Icon(
+                PhosphorIconsBold.caretLeft,
+                size: 16,
+                color: AppColors.muted,
+                textDirection: TextDirection.ltr,
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

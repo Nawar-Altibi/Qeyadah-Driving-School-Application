@@ -75,7 +75,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
               style: textTheme.labelSmall?.copyWith(
                 color: AppColors.brandPrimary,
                 fontWeight: FontWeight.w800,
-                fontSize: 9,
+                fontSize: 12,
               ),
             ),
             const SizedBox(height: 6),
@@ -86,6 +86,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
               textAlign: TextAlign.center,
               style: textTheme.headlineSmall?.copyWith(
                 fontWeight: FontWeight.w800,
+                fontSize: 24,
                 color: AppColors.ink,
               ),
             ),
@@ -95,8 +96,9 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                   ? l10n.forcePasswordChangeSubtitle
                   : l10n.resetPasswordSubtitle,
               textAlign: TextAlign.center,
-              style: textTheme.bodySmall?.copyWith(
+              style: textTheme.bodyMedium?.copyWith(
                 color: AppColors.muted,
+                fontSize: 15,
                 height: 1.45,
               ),
             ),

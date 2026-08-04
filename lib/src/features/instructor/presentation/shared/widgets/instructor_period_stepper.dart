@@ -59,6 +59,8 @@ class InstructorPeriodStepper extends StatelessWidget {
                 icon: const Icon(
                   PhosphorIconsBold.caretRight,
                   color: AppColors.brandPrimary,
+                  // Lock direction so RTL mirroring cannot flip the glyph.
+                  textDirection: TextDirection.ltr,
                 ),
               ),
               Expanded(
@@ -105,6 +107,8 @@ class InstructorPeriodStepper extends StatelessWidget {
                 icon: const Icon(
                   PhosphorIconsBold.caretLeft,
                   color: AppColors.brandPrimary,
+                  // Lock direction so RTL mirroring cannot flip the glyph.
+                  textDirection: TextDirection.ltr,
                 ),
               ),
             ],

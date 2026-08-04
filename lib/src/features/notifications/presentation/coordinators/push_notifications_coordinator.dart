@@ -56,15 +56,22 @@ class PushNotificationsCoordinator {
   }
 
   Future<void> stopAndUnregister() async {
-    if (_started) {
-      final token = await _pushMessaging.getToken();
-      if (token != null && token.isNotEmpty) {
-        await _unregisterDeviceToken(token);
+    try {
+      if (_started) {
+        final token = await _pushMessaging.getToken();
+        if (token != null && token.isNotEmpty) {
+          await _unregisterDeviceToken(
+            token,
+          ).timeout(const Duration(seconds: 4));
+        }
       }
+    } on Object {
+      // Unregister is best-effort during logout; never block session clear.
+    } finally {
+      await _pushMessaging.stop();
+      _unreadCubit.reset();
+      _started = false;
     }
-    await _pushMessaging.stop();
-    _unreadCubit.reset();
-    _started = false;
   }
 
   Future<void> _registerCurrentToken([String? refreshed]) async {

@@ -446,6 +446,7 @@
       }
     }
   },
+  "studentBookingSlotsSelectedHeading": "الموعد المحدد",
   "studentBookingSlotsContinueButton": "متابعة إلى المراجعة",
   "studentBookingReviewTitle": "مراجعة الحجز",
   "studentBookingReviewSummaryTitle": "ملخص الحجز",
@@ -704,7 +705,16 @@
       "amount": { "type": "String" }
     }
   },
+  "studentCertificatesChargeReasonCertificateFee": "رسوم الشهادة",
+  "studentCertificatesChargeReasonReexamTheory": "رسوم إعادة الفحص النظري",
+  "studentCertificatesChargeReasonReexamPractical": "رسوم إعادة الفحص العملي",
+  "studentCertificatesStudentLabel": "الطالب",
+  "studentCertificatesCategoryLabel": "الفئة",
+  "studentCertificatesTransmissionLabel": "ناقل الحركة",
+  "studentCertificatesCourseLabel": "رقم الدورة",
   "studentCertificatesSectionEmpty": "لا توجد عناصر.",
+  "studentCertificatesSectionEmptyHint": "ستظهر التفاصيل هنا عند توفرها.",
+  "studentCertificatesDocumentUnavailable": "غير متاحة للعرض",
   "studentCertificatesNewTitle": "طلب شهادة جديد",
   "studentCertificatesTransmissionChoice": "نوع ناقل الحركة",
   "studentCertificatesTransportRequested": "أحتاج إلى النقل من المدرسة",

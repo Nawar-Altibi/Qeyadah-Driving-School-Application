@@ -65,7 +65,7 @@ class StudentHomeQuickActionsSection extends StatelessWidget {
   IconData _iconForAction(StudentHomeQuickActionType action) {
     return switch (action) {
       StudentHomeQuickActionType.newBooking => PhosphorIconsBold.plusCircle,
-      StudentHomeQuickActionType.myBookings => PhosphorIconsBold.calendar,
+      StudentHomeQuickActionType.myBookings => PhosphorIconsBold.calendarDots,
       StudentHomeQuickActionType.certificateRequest =>
         PhosphorIconsBold.certificate,
       StudentHomeQuickActionType.theorySimulation => PhosphorIconsBold.exam,
