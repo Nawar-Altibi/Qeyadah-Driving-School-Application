@@ -4,6 +4,7 @@ import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
+import 'package:qeyadah_mobile_app/src/core/ui/app_meta_row.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_status_badge.dart';
 import 'package:qeyadah_mobile_app/src/features/student_bookings/domain/entities/student_bookings_entities.dart';
 import 'package:qeyadah_mobile_app/src/features/student_bookings/presentation/formatters/student_bookings_formatters.dart';
@@ -57,18 +58,29 @@ class StudentBookingsListItemCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: AppDesignTokens.spacingSm),
-          _MetaRow(
+          AppMetaRow(
             icon: PhosphorIconsBold.clock,
             label: StudentBookingsFormatters.timeRangeLabel(
               item.startTime,
               item.endTime,
             ),
+            iconSize: 14,
+            gap: 6,
+            labelColor: AppColors.muted,
+            labelStyle: textTheme.bodySmall?.copyWith(color: AppColors.muted),
           ),
           const SizedBox(height: 6),
-          _MetaRow(icon: PhosphorIconsBold.user, label: item.instructorName),
+          AppMetaRow(
+            icon: PhosphorIconsBold.user,
+            label: item.instructorName,
+            iconSize: 14,
+            gap: 6,
+            labelColor: AppColors.muted,
+            labelStyle: textTheme.bodySmall?.copyWith(color: AppColors.muted),
+          ),
           if (item.trainingType != null || item.vehicleSource != null) ...[
             const SizedBox(height: 6),
-            _MetaRow(
+            AppMetaRow(
               icon: PhosphorIconsBold.car,
               label: [
                 if (item.trainingType != null)
@@ -84,6 +96,10 @@ class StudentBookingsListItemCard extends StatelessWidget {
                 if (item.vehiclePlate != null && item.vehiclePlate!.isNotEmpty)
                   item.vehiclePlate!,
               ].join(' · '),
+              iconSize: 14,
+              gap: 6,
+              labelColor: AppColors.muted,
+              labelStyle: textTheme.bodySmall?.copyWith(color: AppColors.muted),
             ),
           ],
           const SizedBox(height: AppDesignTokens.spacing),
@@ -116,31 +132,6 @@ class StudentBookingsListItemCard extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class _MetaRow extends StatelessWidget {
-  const _MetaRow({required this.icon, required this.label});
-
-  final IconData icon;
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Icon(icon, size: 14, color: AppColors.muted),
-        const SizedBox(width: 6),
-        Expanded(
-          child: Text(
-            label,
-            style: Theme.of(
-              context,
-            ).textTheme.bodySmall?.copyWith(color: AppColors.muted),
-          ),
-        ),
-      ],
     );
   }
 }

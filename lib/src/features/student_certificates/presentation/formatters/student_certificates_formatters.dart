@@ -1,6 +1,7 @@
 import 'package:intl/intl.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
-import 'package:qeyadah_mobile_app/src/features/student_booking/presentation/formatters/student_booking_formatters.dart';
+import 'package:qeyadah_mobile_app/src/core/formatters/app_date_formatters.dart';
+import 'package:qeyadah_mobile_app/src/core/formatters/app_money_formatters.dart';
 import 'package:qeyadah_mobile_app/src/features/student_bookings/presentation/formatters/student_bookings_formatters.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/certificate_charge_reason.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/certificate_request_status.dart';
@@ -10,20 +11,15 @@ import 'package:qeyadah_mobile_app/src/shared/enums/training_type.dart';
 
 abstract final class StudentCertificatesFormatters {
   static String fee(int amount) {
-    return NumberFormat('#,###').format(amount);
+    return AppMoneyFormatters.formatGroupedInt(amount);
   }
 
   static String moneyAmount(String raw) {
-    final parsed = num.tryParse(raw.replaceAll(',', ''));
-    if (parsed == null) return raw;
-    if (parsed % 1 == 0) {
-      return NumberFormat('#,###').format(parsed);
-    }
-    return NumberFormat('#,##0.00').format(parsed);
+    return AppMoneyFormatters.formatGrouped(raw);
   }
 
   static String countdown(Duration remaining) {
-    return StudentBookingFormatters.countdown(remaining);
+    return AppDateFormatters.countdown(remaining);
   }
 
   static String date(DateTime value) {

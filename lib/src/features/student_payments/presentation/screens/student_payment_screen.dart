@@ -7,6 +7,7 @@ import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart'
 import 'package:qeyadah_mobile_app/src/core/ui/app_alert_banner.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_button.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
+import 'package:qeyadah_mobile_app/src/core/ui/app_info_row.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/responsive/app_breakpoints.dart';
 import 'package:qeyadah_mobile_app/src/features/student_booking/presentation/formatters/student_booking_formatters.dart';
 import 'package:qeyadah_mobile_app/src/features/student_payments/presentation/coordinators/student_payment_screen_coordinator.dart';
@@ -97,12 +98,12 @@ class _StudentPaymentScreenState extends State<StudentPaymentScreen> {
                             ],
                           ),
                           const SizedBox(height: AppDesignTokens.spacingMd),
-                          _InfoRow(
+                          AppInfoRow.simple(
                             label: l10n.studentPaymentDepositAmount,
                             value: widget.args.depositAmount,
                           ),
                           const SizedBox(height: AppDesignTokens.spacingSm),
-                          _InfoRow(
+                          AppInfoRow.simple(
                             label: l10n.studentPaymentReceiverName,
                             value: widget.args.receiverName,
                           ),
@@ -172,34 +173,6 @@ class _StudentPaymentScreenState extends State<StudentPaymentScreen> {
           ),
         ),
       ),
-    );
-  }
-}
-
-class _InfoRow extends StatelessWidget {
-  const _InfoRow({required this.label, required this.value});
-
-  final String label;
-  final String value;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          label,
-          style: Theme.of(
-            context,
-          ).textTheme.bodyMedium?.copyWith(color: AppColors.muted),
-        ),
-        Text(
-          value,
-          style: Theme.of(
-            context,
-          ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),
-        ),
-      ],
     );
   }
 }

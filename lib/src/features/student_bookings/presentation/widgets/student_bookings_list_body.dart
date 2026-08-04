@@ -4,7 +4,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
-import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
+import 'package:qeyadah_mobile_app/src/core/ui/app_empty_state.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/paginated_scroll_controller.dart';
 import 'package:qeyadah_mobile_app/src/features/student_bookings/domain/entities/student_bookings_entities.dart';
 import 'package:qeyadah_mobile_app/src/features/student_bookings/presentation/cubit/student_bookings_list_cubit.dart';
@@ -60,7 +60,11 @@ class _StudentBookingsListBodyState extends State<StudentBookingsListBody> {
       ),
       children: [
         if (items.isEmpty)
-          _EmptyState(l10n: l10n)
+          AppEmptyState.card(
+            icon: PhosphorIconsBold.calendarX,
+            title: l10n.studentBookingsEmptyTitle,
+            message: l10n.studentBookingsEmptyMessage,
+          )
         else ...[
           for (final item in items) ...[
             StudentBookingsListItemCard(
@@ -181,43 +185,6 @@ class StudentBookingsListFiltersHeader extends StatelessWidget {
         else
           const SizedBox(height: AppDesignTokens.spacingSm),
       ],
-    );
-  }
-}
-
-class _EmptyState extends StatelessWidget {
-  const _EmptyState({required this.l10n});
-
-  final AppLocalizations l10n;
-
-  @override
-  Widget build(BuildContext context) {
-    return AppCard(
-      child: Column(
-        children: [
-          const Icon(
-            PhosphorIconsBold.calendarX,
-            size: 32,
-            color: AppColors.muted,
-          ),
-          const SizedBox(height: AppDesignTokens.spacingSm),
-          Text(
-            l10n.studentBookingsEmptyTitle,
-            textAlign: TextAlign.center,
-            style: Theme.of(
-              context,
-            ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            l10n.studentBookingsEmptyMessage,
-            textAlign: TextAlign.center,
-            style: Theme.of(
-              context,
-            ).textTheme.bodySmall?.copyWith(color: AppColors.muted),
-          ),
-        ],
-      ),
     );
   }
 }

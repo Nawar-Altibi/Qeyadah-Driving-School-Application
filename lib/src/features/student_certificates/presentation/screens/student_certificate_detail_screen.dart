@@ -9,7 +9,11 @@ import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart'
 import 'package:qeyadah_mobile_app/src/core/ui/app_alert_banner.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_button.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
+import 'package:qeyadah_mobile_app/src/core/ui/app_charge_tile.dart';
+import 'package:qeyadah_mobile_app/src/core/ui/app_empty_state.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_full_screen_image_viewer.dart';
+import 'package:qeyadah_mobile_app/src/core/ui/app_info_row.dart';
+import 'package:qeyadah_mobile_app/src/core/ui/app_meta_row.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_status_badge.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/responsive/app_breakpoints.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/presentation/cubit/auth_session_cubit.dart';
@@ -132,19 +136,19 @@ class _DetailBody extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: AppDesignTokens.spacingMd),
-                _InfoRow(
+                AppInfoRow.stacked(
                   icon: PhosphorIconsBold.user,
                   label: l10n.studentCertificatesStudentLabel,
                   value: detail.student.name,
                 ),
                 const SizedBox(height: AppDesignTokens.spacingSm),
-                _InfoRow(
+                AppInfoRow.stacked(
                   icon: PhosphorIconsBold.identificationBadge,
                   label: l10n.studentCertificatesCategoryLabel,
                   value: certificate.category?.apiValue ?? '—',
                 ),
                 const SizedBox(height: AppDesignTokens.spacingSm),
-                _InfoRow(
+                AppInfoRow.stacked(
                   icon: PhosphorIconsBold.car,
                   label: l10n.studentCertificatesTransmissionLabel,
                   value: certificate.transmissionType == null
@@ -156,7 +160,7 @@ class _DetailBody extends StatelessWidget {
                 ),
                 if (certificate.courseNumber != null) ...[
                   const SizedBox(height: AppDesignTokens.spacingSm),
-                  _InfoRow(
+                  AppInfoRow.stacked(
                     icon: PhosphorIconsBold.numberCircleOne,
                     label: l10n.studentCertificatesCourseLabel,
                     value: '${certificate.courseNumber}',
@@ -201,7 +205,7 @@ class _DetailBody extends StatelessWidget {
             empty: detail.sessions.isEmpty,
             children: detail.sessions
                 .map(
-                  (session) => _ListMetaTile(
+                  (session) => AppMetaTile(
                     title: l10n.studentCertificatesSessionNumber(
                       session.sessionNumber,
                     ),
@@ -217,7 +221,7 @@ class _DetailBody extends StatelessWidget {
             empty: detail.exams.isEmpty,
             children: detail.exams
                 .map(
-                  (exam) => _ListMetaTile(
+                  (exam) => AppMetaTile(
                     title: StudentCertificatesFormatters.examTypeLabel(
                       l10n,
                       exam.examType,
@@ -247,7 +251,23 @@ class _DetailBody extends StatelessWidget {
                     padding: const EdgeInsets.only(
                       bottom: AppDesignTokens.spacingSm,
                     ),
-                    child: _ChargeTile(charge: charge),
+                    child: AppChargeTile(
+                      title: StudentCertificatesFormatters.chargeReasonLabel(
+                        l10n,
+                        charge.chargeReason,
+                      ),
+                      statusLabel:
+                          StudentCertificatesFormatters.chargeStatusLabel(
+                            l10n,
+                            charge.chargeStatus,
+                          ),
+                      statusTone: AppBadgeTone.neutral,
+                      amountLabel: l10n.studentCertificatesAmountDue(
+                        StudentCertificatesFormatters.moneyAmount(
+                          charge.amountDue,
+                        ),
+                      ),
+                    ),
                   ),
                 )
                 .toList(),
@@ -273,63 +293,6 @@ class _DetailBody extends StatelessWidget {
       ExamResult.fail => l10n.studentCertificatesExamResultFail,
       ExamResult.absent => l10n.studentCertificatesExamResultAbsent,
     };
-  }
-}
-
-class _InfoRow extends StatelessWidget {
-  const _InfoRow({
-    required this.icon,
-    required this.label,
-    required this.value,
-  });
-
-  final IconData icon;
-  final String label;
-  final String value;
-
-  @override
-  Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          width: 36,
-          height: 36,
-          decoration: BoxDecoration(
-            color: AppColors.brandMintSoft,
-            borderRadius: BorderRadius.circular(AppDesignTokens.radiusControl),
-          ),
-          alignment: Alignment.center,
-          child: Icon(icon, size: 18, color: AppColors.brandPrimary),
-        ),
-        const SizedBox(width: AppDesignTokens.spacingSm),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                label,
-                style: textTheme.bodySmall?.copyWith(
-                  color: AppColors.muted,
-                  fontSize: 12.5,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              const SizedBox(height: 2),
-              Text(
-                value,
-                style: textTheme.bodyMedium?.copyWith(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 15,
-                  height: 1.35,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
   }
 }
 
@@ -374,66 +337,12 @@ class _Section extends StatelessWidget {
             ),
             const SizedBox(height: AppDesignTokens.spacingMd),
             if (empty)
-              _EmptyState(
+              AppEmptyState.inline(
                 title: l10n.studentCertificatesSectionEmpty,
-                hint: l10n.studentCertificatesSectionEmptyHint,
+                message: l10n.studentCertificatesSectionEmptyHint,
               )
             else
               ...children,
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _EmptyState extends StatelessWidget {
-  const _EmptyState({required this.title, required this.hint});
-
-  final String title;
-  final String hint;
-
-  @override
-  Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        color: AppColors.brandMintSoft.withValues(alpha: 0.55),
-        borderRadius: BorderRadius.circular(AppDesignTokens.radiusControl),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 16),
-        child: Row(
-          children: [
-            const Icon(
-              PhosphorIconsBold.info,
-              size: 20,
-              color: AppColors.muted,
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: textTheme.bodyMedium?.copyWith(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 14,
-                    ),
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    hint,
-                    style: textTheme.bodySmall?.copyWith(
-                      color: AppColors.muted,
-                      fontSize: 12.5,
-                      height: 1.4,
-                    ),
-                  ),
-                ],
-              ),
-            ),
           ],
         ),
       ),
@@ -533,118 +442,6 @@ class _DocumentTile extends StatelessWidget {
               ),
             ),
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class _ListMetaTile extends StatelessWidget {
-  const _ListMetaTile({
-    required this.title,
-    required this.subtitle,
-    required this.icon,
-    this.trailing,
-  });
-
-  final String title;
-  final String subtitle;
-  final IconData icon;
-  final Widget? trailing;
-
-  @override
-  Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    return Padding(
-      padding: const EdgeInsets.only(bottom: AppDesignTokens.spacingSm),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(icon, size: 18, color: AppColors.muted),
-          const SizedBox(width: 10),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: textTheme.bodyMedium?.copyWith(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 14.5,
-                  ),
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  subtitle,
-                  style: textTheme.bodySmall?.copyWith(
-                    color: AppColors.muted,
-                    fontSize: 13,
-                    height: 1.4,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          if (trailing != null) ...[const SizedBox(width: 8), trailing!],
-        ],
-      ),
-    );
-  }
-}
-
-class _ChargeTile extends StatelessWidget {
-  const _ChargeTile({required this.charge});
-
-  final StudentCertificateChargeEntity charge;
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
-    final textTheme = Theme.of(context).textTheme;
-    final amount = StudentCertificatesFormatters.moneyAmount(charge.amountDue);
-
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        color: AppColors.brandMintSoft.withValues(alpha: 0.45),
-        borderRadius: BorderRadius.circular(AppDesignTokens.radiusControl),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    StudentCertificatesFormatters.chargeReasonLabel(
-                      l10n,
-                      charge.chargeReason,
-                    ),
-                    style: textTheme.titleSmall?.copyWith(
-                      fontWeight: FontWeight.w800,
-                      fontSize: 14.5,
-                    ),
-                  ),
-                ),
-                AppStatusBadge(
-                  label: StudentCertificatesFormatters.chargeStatusLabel(
-                    l10n,
-                    charge.chargeStatus,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 6),
-            Text(
-              l10n.studentCertificatesAmountDue(amount),
-              style: textTheme.bodyMedium?.copyWith(
-                fontWeight: FontWeight.w700,
-                fontSize: 14.5,
-                color: AppColors.ink,
-              ),
-            ),
-          ],
         ),
       ),
     );

@@ -6,6 +6,7 @@ import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_calendar_strip.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
+import 'package:qeyadah_mobile_app/src/core/ui/app_info_row.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_status_badge.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/responsive/app_breakpoints.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/presentation/cubit/auth_session_cubit.dart';
@@ -114,7 +115,11 @@ class InstructorProfileBody extends StatelessWidget {
                           index < details.length;
                           index++
                         ) ...[
-                          _InstructorProfileInfoRow(detail: details[index]),
+                          AppInfoRow.inline(
+                            icon: details[index].icon,
+                            label: details[index].label,
+                            value: details[index].value,
+                          ),
                           if (index != details.length - 1)
                             const Divider(height: 1, color: AppColors.line),
                         ],
@@ -356,55 +361,6 @@ class _HeaderGlow extends StatelessWidget {
           shape: BoxShape.circle,
           color: AppColors.white.withValues(alpha: opacity),
         ),
-      ),
-    );
-  }
-}
-
-class _InstructorProfileInfoRow extends StatelessWidget {
-  const _InstructorProfileInfoRow({required this.detail});
-
-  final _ProfileDetail detail;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppDesignTokens.spacingMd,
-        vertical: 14,
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: 36,
-            height: 36,
-            decoration: const BoxDecoration(
-              color: AppColors.brandMintSoft,
-              shape: BoxShape.circle,
-            ),
-            child: Icon(detail.icon, size: 18, color: AppColors.brandPrimary),
-          ),
-          const SizedBox(width: AppDesignTokens.spacing),
-          Expanded(
-            child: Text(
-              detail.label,
-              style: Theme.of(
-                context,
-              ).textTheme.bodyMedium?.copyWith(color: AppColors.muted),
-            ),
-          ),
-          const SizedBox(width: AppDesignTokens.spacingSm),
-          Flexible(
-            child: Text(
-              detail.value,
-              textAlign: TextAlign.end,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: AppColors.ink,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }

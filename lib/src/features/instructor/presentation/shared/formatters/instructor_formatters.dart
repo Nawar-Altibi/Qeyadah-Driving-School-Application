@@ -1,5 +1,7 @@
 import 'package:intl/intl.dart' hide TextDirection;
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
+import 'package:qeyadah_mobile_app/src/core/formatters/app_date_formatters.dart';
+import 'package:qeyadah_mobile_app/src/core/formatters/app_payment_method_formatters.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_status_badge.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/domain/entities/instructor_entities.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/instructor_booking_status.dart';
@@ -34,7 +36,7 @@ abstract final class InstructorFormatters {
   }
 
   static String fullDateLabel(DateTime date, String localeName) {
-    return DateFormat('EEEE، d MMMM', localeName).format(date);
+    return AppDateFormatters.fullDayLabel(date, localeName);
   }
 
   static String shortWeekday(DateTime date, String localeName) {
@@ -171,9 +173,6 @@ abstract final class InstructorFormatters {
     AppLocalizations l10n,
     InstructorPaymentMethod method,
   ) {
-    return switch (method) {
-      InstructorPaymentMethod.cash => l10n.instructorPaymentMethodCash,
-      InstructorPaymentMethod.shamCash => l10n.instructorPaymentMethodShamCash,
-    };
+    return AppPaymentMethodFormatters.label(l10n, method);
   }
 }
