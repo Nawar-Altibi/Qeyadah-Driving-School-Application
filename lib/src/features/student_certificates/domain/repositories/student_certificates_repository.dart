@@ -4,7 +4,9 @@ import 'package:qeyadah_mobile_app/src/features/student_certificates/domain/enti
 import 'package:qeyadah_mobile_app/src/features/student_certificates/domain/params/student_certificates_params.dart';
 
 abstract interface class StudentCertificatesRepository {
-  FutureEither<CertificateEligibilityEntity> getEligibility();
+  FutureEither<CertificateEligibilityEntity> getEligibility({
+    bool forceRefresh = false,
+  });
 
   FutureEither<StudentCertificatesPageEntity> getCertificates(
     LoadStudentCertificatesParams params,

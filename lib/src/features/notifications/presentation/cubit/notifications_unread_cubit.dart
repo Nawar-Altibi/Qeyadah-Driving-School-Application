@@ -9,7 +9,7 @@ class NotificationsUnreadCubit extends Cubit<int> {
   final LoadUnreadNotificationsCountUseCase _loadUnreadCount;
 
   Future<void> refresh() async {
-    final result = await _loadUnreadCount();
+    final result = await _loadUnreadCount(forceRefresh: true);
     result.fold((_) {}, (count) => emit(count < 0 ? 0 : count));
   }
 

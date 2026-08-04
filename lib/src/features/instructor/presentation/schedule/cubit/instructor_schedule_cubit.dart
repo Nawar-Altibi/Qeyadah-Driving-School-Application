@@ -54,7 +54,11 @@ class InstructorScheduleCubit
       );
     }
 
-    final result = await _loadScheduleUseCase(selectedDate, selectedViewMode);
+    final result = await _loadScheduleUseCase(
+      selectedDate,
+      selectedViewMode,
+      forceRefresh: silent,
+    );
 
     if (!isActiveGeneration(
       capturedGeneration: generation,

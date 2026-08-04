@@ -71,7 +71,7 @@ class StudentCertificatesHubCubit
     final generation = ++_loadGeneration;
     emit(state.copyWith(isRefreshing: true));
 
-    final result = await _loadEligibilityUseCase();
+    final result = await _loadEligibilityUseCase(forceRefresh: true);
     if (!isActiveGeneration(
       capturedGeneration: generation,
       currentGeneration: _loadGeneration,

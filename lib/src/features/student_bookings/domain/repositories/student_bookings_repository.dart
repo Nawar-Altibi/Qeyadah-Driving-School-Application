@@ -4,10 +4,16 @@ import 'package:qeyadah_mobile_app/src/features/student_bookings/domain/params/s
 
 abstract interface class StudentBookingsRepository {
   FutureEither<StudentBookingsPageEntity> getBookings(
-    LoadStudentBookingsParams params,
-  );
+    LoadStudentBookingsParams params, {
+    bool forceRefresh = false,
+  });
 
-  FutureEither<StudentBookingDetailEntity> getBookingDetail(int bookingId);
+  FutureEither<StudentBookingDetailEntity> getBookingDetail(
+    int bookingId, {
+    bool forceRefresh = false,
+  });
 
   FutureEither<void> cancelBooking(CancelStudentBookingParams params);
+
+  void invalidateCache();
 }

@@ -81,7 +81,7 @@ class StudentBookingsListCubit
     final generation = ++_loadGeneration;
     emit(state.copyWith(isRefreshing: true));
 
-    final result = await _fetchPage(page: 1);
+    final result = await _fetchPage(page: 1, forceRefresh: true);
     if (!isActiveGeneration(
       capturedGeneration: generation,
       currentGeneration: _loadGeneration,
@@ -151,7 +151,10 @@ class StudentBookingsListCubit
     emit(state.copyWith(sortOrder: next));
   }
 
-  FutureEither<StudentBookingsPageEntity> _fetchPage({required int page}) {
+  FutureEither<StudentBookingsPageEntity> _fetchPage({
+    required int page,
+    bool forceRefresh = false,
+  }) {
     final query = state.searchQuery.trim();
     return _loadBookingsUseCase(
       LoadStudentBookingsParams(
@@ -159,6 +162,7 @@ class StudentBookingsListCubit
         search: query.isEmpty ? null : query,
         page: page,
       ),
+      forceRefresh: forceRefresh,
     );
   }
 

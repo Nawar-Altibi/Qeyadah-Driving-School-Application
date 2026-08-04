@@ -11,8 +11,8 @@ class LoadCertificateEligibilityUseCase {
 
   final StudentCertificatesRepository _repository;
 
-  FutureEither<CertificateEligibilityEntity> call() {
-    return _repository.getEligibility();
+  FutureEither<CertificateEligibilityEntity> call({bool forceRefresh = false}) {
+    return _repository.getEligibility(forceRefresh: forceRefresh);
   }
 }
 

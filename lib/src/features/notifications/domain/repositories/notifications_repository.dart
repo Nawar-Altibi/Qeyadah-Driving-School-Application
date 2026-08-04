@@ -7,7 +7,7 @@ abstract interface class NotificationsRepository {
     int limit = 20,
   });
 
-  FutureEither<int> getUnreadCount();
+  FutureEither<int> getUnreadCount({bool forceRefresh = false});
 
   FutureEither<void> markRead(int id);
 

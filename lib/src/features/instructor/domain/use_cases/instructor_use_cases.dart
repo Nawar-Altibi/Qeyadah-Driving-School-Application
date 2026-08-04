@@ -11,9 +11,14 @@ class LoadInstructorScheduleUseCase {
 
   FutureEither<InstructorScheduleDashboardEntity> call(
     DateTime date,
-    InstructorBookingsViewMode viewMode,
-  ) {
-    return _repository.loadScheduleDashboard(date, viewMode);
+    InstructorBookingsViewMode viewMode, {
+    bool forceRefresh = false,
+  }) {
+    return _repository.loadScheduleDashboard(
+      date,
+      viewMode,
+      forceRefresh: forceRefresh,
+    );
   }
 }
 
@@ -97,8 +102,11 @@ class LoadInstructorDayBookingsUseCase {
 
   final InstructorRepository _repository;
 
-  FutureEither<List<InstructorBookingEntity>> call(DateTime date) {
-    return _repository.getDayBookings(date);
+  FutureEither<List<InstructorBookingEntity>> call(
+    DateTime date, {
+    bool forceRefresh = false,
+  }) {
+    return _repository.getDayBookings(date, forceRefresh: forceRefresh);
   }
 }
 

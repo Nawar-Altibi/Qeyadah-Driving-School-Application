@@ -1,5 +1,6 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:injectable/injectable.dart';
+import 'package:qeyadah_mobile_app/src/core/cache/app_ttl_cache.dart';
 import 'package:qeyadah_mobile_app/src/core/error_handling/network_failure_mapper.dart';
 import 'package:qeyadah_mobile_app/src/core/typedefs/app_typedefs.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/data/data_sources/instructor_local_data_source.dart';
@@ -13,6 +14,13 @@ class InstructorRepositoryImpl implements InstructorRepository {
 
   final InstructorRemoteDataSource _remoteDataSource;
   final InstructorLocalDataSource _localDataSource;
+
+  final _dayBookingsCache = AppTtlCache<List<InstructorBookingEntity>>(
+    ttl: const Duration(seconds: 60),
+  );
+  final _weekBookingsCache = AppTtlCache<List<InstructorBookingEntity>>(
+    ttl: const Duration(seconds: 60),
+  );
 
   @override
   FutureEither<InstructorProfileEntity> getProfile({
@@ -85,23 +93,43 @@ class InstructorRepositoryImpl implements InstructorRepository {
 
   @override
   FutureEither<List<InstructorBookingEntity>> getDayBookings(
-    DateTime date,
-  ) async {
+    DateTime date, {
+    bool forceRefresh = false,
+  }) async {
+    final key = _dateKey('day', date);
+    if (!forceRefresh) {
+      final cached = _dayBookingsCache.getFresh(key);
+      if (cached != null) return right(cached);
+    }
+
     final response = await _remoteDataSource.fetchDayBookings(date);
     return response.fold(
       (failure) => left(NetworkFailureMapper.toDomainFailure(failure)),
-      right,
+      (bookings) {
+        _dayBookingsCache.set(key, bookings);
+        return right(bookings);
+      },
     );
   }
 
   @override
   FutureEither<List<InstructorBookingEntity>> getWeekBookings(
-    DateTime weekStart,
-  ) async {
+    DateTime weekStart, {
+    bool forceRefresh = false,
+  }) async {
+    final key = _dateKey('week', weekStart);
+    if (!forceRefresh) {
+      final cached = _weekBookingsCache.getFresh(key);
+      if (cached != null) return right(cached);
+    }
+
     final response = await _remoteDataSource.fetchWeekBookings(weekStart);
     return response.fold(
       (failure) => left(NetworkFailureMapper.toDomainFailure(failure)),
-      right,
+      (bookings) {
+        _weekBookingsCache.set(key, bookings);
+        return right(bookings);
+      },
     );
   }
 
@@ -167,15 +195,22 @@ class InstructorRepositoryImpl implements InstructorRepository {
   @override
   FutureEither<InstructorScheduleDashboardEntity> loadScheduleDashboard(
     DateTime selectedDate,
-    InstructorBookingsViewMode viewMode,
-  ) async {
+    InstructorBookingsViewMode viewMode, {
+    bool forceRefresh = false,
+  }) async {
     final profileResult = await getProfile();
     return profileResult.fold(left, (profile) async {
       final scheduleResult = await getWeeklySchedule();
       return scheduleResult.fold(left, (weeklySchedule) async {
         final bookingsResult = await switch (viewMode) {
-          InstructorBookingsViewMode.day => getDayBookings(selectedDate),
-          InstructorBookingsViewMode.week => getWeekBookings(selectedDate),
+          InstructorBookingsViewMode.day => getDayBookings(
+            selectedDate,
+            forceRefresh: forceRefresh,
+          ),
+          InstructorBookingsViewMode.week => getWeekBookings(
+            selectedDate,
+            forceRefresh: forceRefresh,
+          ),
         };
         return bookingsResult.fold(
           left,
@@ -201,5 +236,10 @@ class InstructorRepositoryImpl implements InstructorRepository {
     return profileResult.map(
       (profile) => InstructorProfileDashboardEntity(profile: profile),
     );
+  }
+
+  String _dateKey(String prefix, DateTime date) {
+    final normalized = DateTime(date.year, date.month, date.day);
+    return '$prefix:${normalized.toIso8601String()}';
   }
 }

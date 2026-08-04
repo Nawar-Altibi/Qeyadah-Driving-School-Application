@@ -9,13 +9,19 @@ import 'package:qeyadah_mobile_app/src/features/student_booking/domain/entities/
 import 'package:qeyadah_mobile_app/src/features/student_booking/domain/failures/student_booking_failures.dart';
 import 'package:qeyadah_mobile_app/src/features/student_booking/domain/params/student_booking_params.dart';
 import 'package:qeyadah_mobile_app/src/features/student_booking/domain/repositories/student_booking_repository.dart';
+import 'package:qeyadah_mobile_app/src/features/student_bookings/domain/repositories/student_bookings_repository.dart';
 
 @LazySingleton(as: StudentBookingRepository)
 class StudentBookingRepositoryImpl implements StudentBookingRepository {
-  StudentBookingRepositoryImpl(this._remoteDataSource, this._localDataSource);
+  StudentBookingRepositoryImpl(
+    this._remoteDataSource,
+    this._localDataSource,
+    this._bookingsRepository,
+  );
 
   final StudentBookingRemoteDataSource _remoteDataSource;
   final StudentBookingLocalDataSource _localDataSource;
+  final StudentBookingsRepository _bookingsRepository;
 
   @override
   FutureEither<StudentAvailableSlotsPageEntity> getAvailableSlots(
@@ -37,6 +43,7 @@ class StudentBookingRepositoryImpl implements StudentBookingRepository {
       (failure) async => left(_mapCreateBookingFailure(failure)),
       (hold) async {
         await _localDataSource.saveHold(hold);
+        _bookingsRepository.invalidateCache();
         return right(hold);
       },
     );
