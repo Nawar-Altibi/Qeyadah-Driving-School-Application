@@ -78,11 +78,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorFormat => 'Unable to process the response.';
 
   @override
-  String errorBusiness(String message) {
-    return '$message';
-  }
-
-  @override
   String get loginSubtitle =>
       'Sign in with your phone and password to follow your bookings and certificates.';
 
@@ -130,13 +125,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get newPassword => 'New password';
 
   @override
-  String get newPasswordTitle => 'Set a new password';
-
-  @override
-  String get newPasswordSubtitle =>
-      'Choose a strong password for your account.';
-
-  @override
   String get newPasswordScreenTitle => 'New password';
 
   @override
@@ -151,13 +139,6 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get passwordResetSuccess =>
       'Password updated successfully. You can sign in now.';
-
-  @override
-  String get forgotPasswordOtpTitle => 'Verify your phone number';
-
-  @override
-  String get forgotPasswordOtpSubtitle =>
-      'Enter the verification code sent to your phone';
 
   @override
   String get forgotPasswordResend => 'Didn\'t receive the code?';
@@ -177,14 +158,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get verifyOtp => 'Verify';
 
   @override
-  String get forgotPasswordComingSoon =>
-      'Password recovery will be available soon.';
-
-  @override
   String get appBrandTagline => 'Driving school';
-
-  @override
-  String get loginDemoHint => 'Demo: 0999400001 / Test@12345';
 
   @override
   String get registerScreenTitle => 'Create student account';
@@ -291,12 +265,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profileTitle => 'My account';
 
   @override
-  String get profileName => 'Name';
-
-  @override
-  String get profilePhone => 'Phone number';
-
-  @override
   String get refreshProfile => 'Refresh profile';
 
   @override
@@ -310,9 +278,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get logoutAllDevices => 'Log out from all devices';
 
   @override
-  String get backToHome => 'Back to home';
-
-  @override
   String get splashLoading => 'Loading...';
 
   @override
@@ -322,12 +287,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get offlineQueueSyncing => 'Syncing offline requests...';
-
-  @override
-  String get languageEnglish => 'English';
-
-  @override
-  String get languageArabic => 'Arabic';
 
   @override
   String get emptySampleItems => 'No items found';
@@ -402,9 +361,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get studentHomeQuickActions => 'Quick actions';
-
-  @override
-  String get studentHomeViewAll => 'View all';
 
   @override
   String get studentHomeNewBooking => 'Book a new session';
@@ -490,9 +446,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get instructorNoSessionsThisWeek => 'No sessions this week';
 
   @override
-  String get instructorLiveSchedule => 'Live schedule';
-
-  @override
   String get instructorNoSessionsToday => 'No sessions on this day.';
 
   @override
@@ -553,22 +506,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get instructorRoleLabel => 'Driving instructor';
 
   @override
-  String get instructorProfileBio =>
-      'I help students build confidence and safe driving habits, one session at a time.';
-
-  @override
-  String get instructorMetricMonthSessions => 'Month sessions';
-
-  @override
-  String get instructorMetricMonthEarnings => 'Month earnings';
-
-  @override
-  String get instructorMetricVehicle => 'Vehicle';
-
-  @override
-  String get instructorAccountPreferences => 'Account & preferences';
-
-  @override
   String get instructorProfileData => 'Profile data';
 
   @override
@@ -611,16 +548,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get instructorProfileSettings => 'Instructor settings';
 
   @override
-  String get instructorSchedulePreferences => 'Schedule preferences';
-
-  @override
-  String get instructorLanguage => 'Language';
-
-  @override
   String get instructorNotifications => 'Notifications';
-
-  @override
-  String get instructorAppVersion => 'Qeyadah Instructor · v2.4.0';
 
   @override
   String get instructorLeaveTitle => 'Leaves list';
@@ -651,9 +579,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String instructorLeaveHourly(String date, String start, String end) {
     return '$date · $start to $end';
   }
-
-  @override
-  String get instructorAvailableSlot => 'Available slot';
 
   @override
   String get instructorLeaveReasonLabel => 'Reason';
@@ -808,27 +733,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get instructorPaymentMethodShamCash => 'Sham Cash';
 
   @override
-  String get instructorNotificationsTitle => 'Notifications';
-
-  @override
-  String get instructorNotificationsIntroTitle => 'Your notifications';
-
-  @override
-  String get instructorNotificationsIntroBody =>
-      'Stay up to date with bookings, payments, and schedule updates.';
-
-  @override
-  String get instructorNotificationsListTitle => 'Recent';
-
-  @override
-  String get instructorNotificationsEmpty => 'No notifications yet.';
-
-  @override
-  String instructorNotificationsUnreadCount(int count) {
-    return '$count unread';
-  }
-
-  @override
   String get notificationsMarkAllRead => 'Mark all read';
 
   @override
@@ -902,20 +806,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get studentBookingSlotsTitle => 'Available slots';
 
   @override
-  String get studentBookingSlotsIntroBody =>
-      'Pick a day and time that works for you.';
-
-  @override
   String get studentBookingSlotsEmptyTitle => 'No slots available';
 
   @override
   String get studentBookingSlotsEmptyMessage =>
       'Try different preferences or check back later.';
-
-  @override
-  String studentBookingSlotsSelectedLabel(String instructor, String time) {
-    return 'Selected: $instructor · $time';
-  }
 
   @override
   String get studentBookingSlotsSelectedHeading => 'Selected appointment';
@@ -1258,10 +1153,6 @@ class AppLocalizationsEn extends AppLocalizations {
       'No certificate actions are available right now.';
 
   @override
-  String get studentCertificatesWriteComingSoon =>
-      'Submitting certificate requests will be available in the next update.';
-
-  @override
   String get studentCertificatesExamTypeTheory => 'theory';
 
   @override
@@ -1331,11 +1222,6 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String studentCertificatesRequestedAt(String date) {
     return 'Requested: $date';
-  }
-
-  @override
-  String studentCertificatesStudentName(String name) {
-    return 'Student: $name';
   }
 
   @override
