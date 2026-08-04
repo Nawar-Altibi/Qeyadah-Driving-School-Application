@@ -36,7 +36,9 @@ class _RegisterOtpScreenState extends State<RegisterOtpScreen> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final textTheme = Theme.of(context).textTheme;
-    final phone = context.watch<RegistrationCubit>().state.draft?.phone ?? '';
+    final phone = context.select(
+      (RegistrationCubit cubit) => cubit.state.draft?.phone ?? '',
+    );
 
     return RegisterOtpScreenCoordinator(
       child: AuthScreenScaffold(

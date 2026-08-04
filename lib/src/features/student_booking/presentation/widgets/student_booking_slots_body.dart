@@ -72,7 +72,7 @@ class StudentBookingSlotsBody extends StatelessWidget {
   }
 }
 
-class _InstructorSlotsCard extends StatelessWidget {
+class _InstructorSlotsCard extends StatefulWidget {
   const _InstructorSlotsCard({
     required this.instructorSlots,
     required this.localeName,
@@ -84,16 +84,34 @@ class _InstructorSlotsCard extends StatelessWidget {
   final bool interactive;
 
   @override
-  Widget build(BuildContext context) {
-    if (instructorSlots.slots.isEmpty) return const SizedBox.shrink();
+  State<_InstructorSlotsCard> createState() => _InstructorSlotsCardState();
+}
 
-    final l10n = AppLocalizations.of(context);
-    final instructor = instructorSlots.instructor;
+class _InstructorSlotsCardState extends State<_InstructorSlotsCard> {
+  List<StudentBookingSlotEntity>? _cachedSlots;
+  Map<DateTime, List<StudentBookingSlotEntity>> _slotsByDate = const {};
+
+  Map<DateTime, List<StudentBookingSlotEntity>> _groupSlots(
+    List<StudentBookingSlotEntity> slots,
+  ) {
+    if (identical(_cachedSlots, slots)) return _slotsByDate;
+    _cachedSlots = slots;
     final slotsByDate = <DateTime, List<StudentBookingSlotEntity>>{};
-    for (final slot in instructorSlots.slots) {
+    for (final slot in slots) {
       slotsByDate.putIfAbsent(slot.date, () => []).add(slot);
     }
-    final dateEntries = slotsByDate.entries.toList();
+    _slotsByDate = slotsByDate;
+    return _slotsByDate;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final slots = widget.instructorSlots.slots;
+    if (slots.isEmpty) return const SizedBox.shrink();
+
+    final l10n = AppLocalizations.of(context);
+    final instructor = widget.instructorSlots.instructor;
+    final dateEntries = _groupSlots(slots).entries.toList();
 
     return AppCard(
       child: Column(
@@ -145,7 +163,7 @@ class _InstructorSlotsCard extends StatelessWidget {
             _DateGroupHeader(
               label: StudentBookingFormatters.dayLabel(
                 dateEntries[i].key,
-                localeName,
+                widget.localeName,
               ),
             ),
             const SizedBox(height: AppDesignTokens.spacing),
@@ -157,7 +175,7 @@ class _InstructorSlotsCard extends StatelessWidget {
                   _SlotChip(
                     instructor: instructor,
                     slot: slot,
-                    interactive: interactive,
+                    interactive: widget.interactive,
                   ),
               ],
             ),
@@ -218,14 +236,13 @@ class _SlotChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final selection = context.select(
-      (StudentBookingCubit cubit) => cubit.state.selection,
-    );
-    final selected =
-        selection != null &&
-        selection.instructor.id == instructor.id &&
-        selection.slot.date == slot.date &&
-        selection.slot.startTime == slot.startTime;
+    final selected = context.select((StudentBookingCubit cubit) {
+      final selection = cubit.state.selection;
+      return selection != null &&
+          selection.instructor.id == instructor.id &&
+          selection.slot.date == slot.date &&
+          selection.slot.startTime == slot.startTime;
+    });
 
     return AnimatedContainer(
       duration: AppDesignTokens.animationNormal,

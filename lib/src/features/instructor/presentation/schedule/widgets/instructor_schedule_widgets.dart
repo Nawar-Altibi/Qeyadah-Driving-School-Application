@@ -192,7 +192,7 @@ class InstructorScheduleSummaryCard extends StatelessWidget {
   }
 }
 
-class InstructorTimelineSection extends StatelessWidget {
+class InstructorTimelineSection extends StatefulWidget {
   const InstructorTimelineSection({
     super.key,
     required this.bookings,
@@ -203,10 +203,36 @@ class InstructorTimelineSection extends StatelessWidget {
   final String localeName;
 
   @override
+  State<InstructorTimelineSection> createState() =>
+      _InstructorTimelineSectionState();
+}
+
+class _InstructorTimelineSectionState extends State<InstructorTimelineSection> {
+  List<InstructorBookingEntity>? _cachedBookings;
+  List<InstructorBookingEntity> _sorted = const [];
+
+  @override
+  void didUpdateWidget(covariant InstructorTimelineSection oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (!identical(oldWidget.bookings, widget.bookings)) {
+      _cachedBookings = null;
+    }
+  }
+
+  List<InstructorBookingEntity> _sortedFor(
+    List<InstructorBookingEntity> bookings,
+  ) {
+    if (identical(_cachedBookings, bookings)) return _sorted;
+    _cachedBookings = bookings;
+    _sorted = [...bookings]
+      ..sort((a, b) => a.startDateTime.compareTo(b.startDateTime));
+    return _sorted;
+  }
+
+  @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    final sorted = [...bookings]
-      ..sort((a, b) => a.startDateTime.compareTo(b.startDateTime));
+    final sorted = _sortedFor(widget.bookings);
 
     if (sorted.isEmpty) {
       return AppCard(
@@ -224,7 +250,7 @@ class InstructorTimelineSection extends StatelessWidget {
         for (var index = 0; index < sorted.length; index++)
           _TimelineRow(
             booking: sorted[index],
-            localeName: localeName,
+            localeName: widget.localeName,
             showConnector: index < sorted.length - 1,
           ),
       ],

@@ -46,7 +46,9 @@ class InstructorScheduleBody extends StatelessWidget {
         children: [
           InstructorScheduleGreetingHeader(
             name: dashboard.profile.name,
-            unreadCount: context.watch<NotificationsUnreadCubit>().state,
+            unreadCount: context.select(
+              (NotificationsUnreadCubit cubit) => cubit.state,
+            ),
             onNotificationsTap: interactive
                 ? () => InstructorNavigation.openNotifications(context)
                 : null,

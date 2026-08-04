@@ -9,7 +9,7 @@ import 'package:qeyadah_mobile_app/src/features/instructor/domain/entities/instr
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/shared/formatters/instructor_formatters.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/instructor_booking_status.dart';
 
-class InstructorScheduleTimeline extends StatelessWidget {
+class InstructorScheduleTimeline extends StatefulWidget {
   const InstructorScheduleTimeline({
     super.key,
     required this.bookings,
@@ -20,9 +20,35 @@ class InstructorScheduleTimeline extends StatelessWidget {
   final String localeName;
 
   @override
+  State<InstructorScheduleTimeline> createState() =>
+      _InstructorScheduleTimelineState();
+}
+
+class _InstructorScheduleTimelineState
+    extends State<InstructorScheduleTimeline> {
+  List<InstructorBookingEntity>? _cachedBookings;
+  List<_TimelineItem> _items = const [];
+
+  @override
+  void didUpdateWidget(covariant InstructorScheduleTimeline oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (!identical(oldWidget.bookings, widget.bookings)) {
+      _cachedBookings = null;
+    }
+  }
+
+  List<_TimelineItem> _itemsFor(List<InstructorBookingEntity> bookings) {
+    if (identical(_cachedBookings, bookings)) return _items;
+    _cachedBookings = bookings;
+    _items = <_TimelineItem>[...bookings.map(_LessonTimelineItem.new)]
+      ..sort((a, b) => a.startMinute.compareTo(b.startMinute));
+    return _items;
+  }
+
+  @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    final items = _buildItems();
+    final items = _itemsFor(widget.bookings);
 
     if (items.isEmpty) {
       return AppCard(
@@ -56,16 +82,11 @@ class InstructorScheduleTimeline extends StatelessWidget {
         for (var index = 0; index < items.length; index++)
           _TimelineRow(
             item: items[index],
-            localeName: localeName,
+            localeName: widget.localeName,
             showConnector: index < items.length - 1,
           ),
       ],
     );
-  }
-
-  List<_TimelineItem> _buildItems() {
-    return <_TimelineItem>[...bookings.map(_LessonTimelineItem.new)]
-      ..sort((a, b) => a.startMinute.compareTo(b.startMinute));
   }
 }
 

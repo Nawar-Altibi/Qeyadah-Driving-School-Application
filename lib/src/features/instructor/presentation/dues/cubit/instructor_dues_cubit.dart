@@ -10,18 +10,38 @@ class InstructorDuesState {
   const InstructorDuesState({
     this.apiState = const ApiState<InstructorDuesEntity>.initial(),
     this.sortOrder = InstructorDuesSortOrder.newestFirst,
+    this.visibleDues = const [],
   });
 
   final ApiState<InstructorDuesEntity> apiState;
   final InstructorDuesSortOrder sortOrder;
 
+  /// Sorted copy ready for the list UI; updated when dues or [sortOrder] change.
+  final List<InstructorDueDayEntity> visibleDues;
+
   InstructorDuesState copyWith({
     ApiState<InstructorDuesEntity>? apiState,
     InstructorDuesSortOrder? sortOrder,
+    List<InstructorDueDayEntity>? visibleDues,
   }) => InstructorDuesState(
     apiState: apiState ?? this.apiState,
     sortOrder: sortOrder ?? this.sortOrder,
+    visibleDues: visibleDues ?? this.visibleDues,
   );
+
+  static List<InstructorDueDayEntity> sortDues(
+    List<InstructorDueDayEntity> dues,
+    InstructorDuesSortOrder sortOrder,
+  ) {
+    final sorted = [...dues]
+      ..sort((a, b) {
+        final compare = a.expenseDate.compareTo(b.expenseDate);
+        return sortOrder == InstructorDuesSortOrder.oldestFirst
+            ? compare
+            : -compare;
+      });
+    return sorted;
+  }
 }
 
 @injectable
@@ -49,7 +69,12 @@ class InstructorDuesCubit
       (failure) => emit(
         state.copyWith(apiState: ApiState.failed(failure, retryFunction: load)),
       ),
-      (dues) => emit(state.copyWith(apiState: ApiState.succeeded(dues))),
+      (dues) => emit(
+        state.copyWith(
+          apiState: ApiState.succeeded(dues),
+          visibleDues: InstructorDuesState.sortDues(dues.dues, state.sortOrder),
+        ),
+      ),
     );
   }
 
@@ -57,6 +82,15 @@ class InstructorDuesCubit
     final next = state.sortOrder == InstructorDuesSortOrder.newestFirst
         ? InstructorDuesSortOrder.oldestFirst
         : InstructorDuesSortOrder.newestFirst;
-    emit(state.copyWith(sortOrder: next));
+    final dues = state.apiState.maybeWhen(
+      succeeded: (data) => data.dues,
+      orElse: () => const <InstructorDueDayEntity>[],
+    );
+    emit(
+      state.copyWith(
+        sortOrder: next,
+        visibleDues: InstructorDuesState.sortDues(dues, next),
+      ),
+    );
   }
 }

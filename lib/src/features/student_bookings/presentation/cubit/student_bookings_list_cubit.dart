@@ -133,9 +133,15 @@ class StudentBookingsListCubit
   }
 
   void setSearchQuery(String query) {
-    emit(state.copyWith(searchQuery: query));
     _searchDebounce?.cancel();
-    _searchDebounce = Timer(_searchDebounceDuration, () => load(silent: true));
+    _searchDebounce = Timer(_searchDebounceDuration, () {
+      if (state.searchQuery == query) {
+        load(silent: true);
+        return;
+      }
+      emit(state.copyWith(searchQuery: query));
+      load(silent: true);
+    });
   }
 
   void toggleSortOrder() {

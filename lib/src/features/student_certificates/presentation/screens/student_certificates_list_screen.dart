@@ -62,113 +62,161 @@ class _CertificatesListBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    final items = page.items;
+
     return RefreshIndicator(
       onRefresh: () => context.read<StudentCertificatesListCubit>().refresh(),
-      child: ListView(
-        padding: AppDesignTokens.screenContentPadding(),
-        children: [
-          DropdownButtonFormField<CertificateRequestStatus?>(
-            initialValue: state.selectedStatus,
-            dropdownColor: AppColors.white,
-            icon: const Icon(
-              Icons.keyboard_arrow_down_rounded,
-              color: AppColors.ink,
+      child: CustomScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        slivers: [
+          SliverPadding(
+            padding: const EdgeInsets.fromLTRB(
+              AppDesignTokens.screenHorizontalPadding,
+              AppDesignTokens.spacingMd,
+              AppDesignTokens.screenHorizontalPadding,
+              0,
             ),
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: AppColors.ink,
-              fontSize: 15,
-            ),
-            decoration: InputDecoration(
-              labelText: l10n.studentCertificatesFilterStatus,
-              filled: true,
-              fillColor: AppColors.white,
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: AppDesignTokens.spacingMd,
-                vertical: AppDesignTokens.spacing,
-              ),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(
-                  AppDesignTokens.radiusControl,
-                ),
-                borderSide: const BorderSide(color: AppColors.line),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(
-                  AppDesignTokens.radiusControl,
-                ),
-                borderSide: const BorderSide(color: AppColors.line),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(
-                  AppDesignTokens.radiusControl,
-                ),
-                borderSide: const BorderSide(
-                  color: AppColors.brandPrimary,
-                  width: 1.5,
-                ),
-              ),
-            ),
-            items: [
-              DropdownMenuItem<CertificateRequestStatus?>(
-                child: Text(l10n.studentCertificatesFilterAll),
-              ),
-              ...CertificateRequestStatus.values.map(
-                (status) => DropdownMenuItem(
-                  value: status,
-                  child: Text(
-                    StudentCertificatesFormatters.requestStatusLabel(
-                      l10n,
-                      status,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-            onChanged: context.read<StudentCertificatesListCubit>().setStatus,
-          ),
-          const SizedBox(height: AppDesignTokens.spacingMd),
-          if (page.items.isEmpty)
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: AppDesignTokens.spacingXl,
-              ),
+            sliver: SliverToBoxAdapter(
               child: Column(
                 children: [
-                  Container(
-                    width: 56,
-                    height: 56,
-                    decoration: const BoxDecoration(
-                      color: AppColors.brandMintSoft,
-                      shape: BoxShape.circle,
+                  DropdownButtonFormField<CertificateRequestStatus?>(
+                    initialValue: state.selectedStatus,
+                    dropdownColor: AppColors.white,
+                    icon: const Icon(
+                      Icons.keyboard_arrow_down_rounded,
+                      color: AppColors.ink,
                     ),
-                    child: const Icon(
-                      PhosphorIconsBold.certificate,
-                      color: AppColors.brandPrimary,
-                      size: 26,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: AppColors.ink,
+                      fontSize: 15,
                     ),
+                    decoration: InputDecoration(
+                      labelText: l10n.studentCertificatesFilterStatus,
+                      filled: true,
+                      fillColor: AppColors.white,
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: AppDesignTokens.spacingMd,
+                        vertical: AppDesignTokens.spacing,
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(
+                          AppDesignTokens.radiusControl,
+                        ),
+                        borderSide: const BorderSide(color: AppColors.line),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(
+                          AppDesignTokens.radiusControl,
+                        ),
+                        borderSide: const BorderSide(color: AppColors.line),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(
+                          AppDesignTokens.radiusControl,
+                        ),
+                        borderSide: const BorderSide(
+                          color: AppColors.brandPrimary,
+                          width: 1.5,
+                        ),
+                      ),
+                    ),
+                    items: [
+                      DropdownMenuItem<CertificateRequestStatus?>(
+                        child: Text(l10n.studentCertificatesFilterAll),
+                      ),
+                      ...CertificateRequestStatus.values.map(
+                        (status) => DropdownMenuItem(
+                          value: status,
+                          child: Text(
+                            StudentCertificatesFormatters.requestStatusLabel(
+                              l10n,
+                              status,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                    onChanged: context
+                        .read<StudentCertificatesListCubit>()
+                        .setStatus,
                   ),
                   const SizedBox(height: AppDesignTokens.spacingMd),
-                  Text(
-                    l10n.studentCertificatesHistoryEmpty,
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: AppColors.muted,
-                      height: 1.45,
+                  if (items.isEmpty)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: AppDesignTokens.spacingXl,
+                      ),
+                      child: Column(
+                        children: [
+                          Container(
+                            width: 56,
+                            height: 56,
+                            decoration: const BoxDecoration(
+                              color: AppColors.brandMintSoft,
+                              shape: BoxShape.circle,
+                            ),
+                            child: const Icon(
+                              PhosphorIconsBold.certificate,
+                              color: AppColors.brandPrimary,
+                              size: 26,
+                            ),
+                          ),
+                          const SizedBox(height: AppDesignTokens.spacingMd),
+                          Text(
+                            l10n.studentCertificatesHistoryEmpty,
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.bodyMedium
+                                ?.copyWith(
+                                  color: AppColors.muted,
+                                  height: 1.45,
+                                ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
                 ],
+              ),
+            ),
+          ),
+          if (items.isNotEmpty)
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppDesignTokens.screenHorizontalPadding,
+              ),
+              sliver: SliverList(
+                delegate: SliverChildBuilderDelegate((context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(
+                      bottom: AppDesignTokens.spacingSm,
+                    ),
+                    child: _CertificateCard(item: items[index]),
+                  );
+                }, childCount: items.length),
+              ),
+            ),
+          if (page.hasMorePages)
+            SliverPadding(
+              padding: const EdgeInsets.fromLTRB(
+                AppDesignTokens.screenHorizontalPadding,
+                0,
+                AppDesignTokens.screenHorizontalPadding,
+                AppDesignTokens.screenBottomPadding,
+              ),
+              sliver: SliverToBoxAdapter(
+                child: AppButton.secondary(
+                  label: l10n.studentCertificatesLoadMore,
+                  isLoading: state.isLoadingMore,
+                  onPressed: context
+                      .read<StudentCertificatesListCubit>()
+                      .loadMore,
+                ),
               ),
             )
           else
-            for (final item in page.items) ...[
-              _CertificateCard(item: item),
-              const SizedBox(height: AppDesignTokens.spacingSm),
-            ],
-          if (page.hasMorePages)
-            AppButton.secondary(
-              label: l10n.studentCertificatesLoadMore,
-              isLoading: state.isLoadingMore,
-              onPressed: context.read<StudentCertificatesListCubit>().loadMore,
+            const SliverPadding(
+              padding: EdgeInsets.only(
+                bottom: AppDesignTokens.screenBottomPadding,
+              ),
             ),
         ],
       ),
