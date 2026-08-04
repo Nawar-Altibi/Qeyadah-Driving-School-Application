@@ -1,5 +1,6 @@
 import 'package:intl/intl.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
+import 'package:qeyadah_mobile_app/src/core/formatters/app_date_formatters.dart';
 
 abstract final class StudentHomeFormatters {
   static String greetingFor({
@@ -23,7 +24,7 @@ abstract final class StudentHomeFormatters {
   }
 
   static String dateLabel(DateTime date, String localeName) {
-    return DateFormat('EEEE، d MMMM', localeName).format(date);
+    return AppDateFormatters.fullDayLabel(date, localeName);
   }
 
   static String monthLabel(DateTime date, String localeName) {
@@ -44,8 +45,9 @@ abstract final class StudentHomeFormatters {
   }
 
   static String paymentCountdown({required int minutes, required int seconds}) {
-    final paddedMinutes = minutes.toString().padLeft(2, '0');
-    final paddedSeconds = seconds.toString().padLeft(2, '0');
-    return '$paddedMinutes:$paddedSeconds';
+    return AppDateFormatters.paymentCountdown(
+      minutes: minutes,
+      seconds: seconds,
+    );
   }
 }

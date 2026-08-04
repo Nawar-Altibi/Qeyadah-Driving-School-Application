@@ -6,6 +6,8 @@ import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_button.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
+import 'package:qeyadah_mobile_app/src/core/ui/app_charge_tile.dart';
+import 'package:qeyadah_mobile_app/src/core/ui/app_meta_row.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_section_heading.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_status_badge.dart';
 import 'package:qeyadah_mobile_app/src/features/student_booking/presentation/navigation/student_booking_navigation.dart';
@@ -71,7 +73,7 @@ class StudentBookingDetailBody extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: AppDesignTokens.spacingMd),
-              _DetailRow(
+              AppMetaRow(
                 icon: PhosphorIconsBold.calendar,
                 label: booking.date != null
                     ? StudentBookingsFormatters.dayLabel(
@@ -81,7 +83,7 @@ class StudentBookingDetailBody extends StatelessWidget {
                     : (booking.dayName ?? '-'),
               ),
               const SizedBox(height: AppDesignTokens.spacingSm),
-              _DetailRow(
+              AppMetaRow(
                 icon: PhosphorIconsBold.clock,
                 label: StudentBookingsFormatters.timeRangeLabel(
                   booking.startTime ?? '-',
@@ -90,7 +92,7 @@ class StudentBookingDetailBody extends StatelessWidget {
               ),
               if (booking.trainingType != null) ...[
                 const SizedBox(height: AppDesignTokens.spacingSm),
-                _DetailRow(
+                AppMetaRow(
                   icon: PhosphorIconsBold.car,
                   label: StudentBookingsFormatters.trainingTypeLabel(
                     l10n,
@@ -128,13 +130,13 @@ class StudentBookingDetailBody extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _DetailRow(
+              AppMetaRow(
                 icon: PhosphorIconsBold.user,
                 label: detail.instructor.name,
               ),
               if (detail.instructor.phone != null) ...[
                 const SizedBox(height: AppDesignTokens.spacingSm),
-                _DetailRow(
+                AppMetaRow(
                   icon: PhosphorIconsBold.phone,
                   label: detail.instructor.phone!,
                 ),
@@ -151,7 +153,7 @@ class StudentBookingDetailBody extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     if (detail.vehicle!.source != null)
-                      _DetailRow(
+                      AppMetaRow(
                         icon: PhosphorIconsBold.car,
                         label: StudentBookingsFormatters.vehicleSourceLabel(
                           l10n,
@@ -160,14 +162,14 @@ class StudentBookingDetailBody extends StatelessWidget {
                       ),
                     if (detail.vehicle!.plateNumber != null) ...[
                       const SizedBox(height: AppDesignTokens.spacingSm),
-                      _DetailRow(
+                      AppMetaRow(
                         icon: PhosphorIconsBold.identificationCard,
                         label: detail.vehicle!.plateNumber!,
                       ),
                     ],
                   ],
                 )
-              : _DetailRow(
+              : AppMetaRow(
                   icon: PhosphorIconsBold.car,
                   label: l10n.studentBookingDetailOwnVehicleNote,
                 ),
@@ -179,7 +181,31 @@ class StudentBookingDetailBody extends StatelessWidget {
           AppCard(child: Text(l10n.studentBookingDetailChargesEmpty))
         else
           for (final charge in detail.charges) ...[
-            _ChargeCard(charge: charge),
+            AppChargeTile(
+              useCardShell: true,
+              title: charge.chargeReason,
+              statusLabel: StudentBookingsFormatters.chargeStatusLabel(
+                l10n,
+                charge.chargeStatus,
+              ),
+              statusTone: AppBadgeTone.neutral,
+              amountLabel: l10n.studentBookingDetailChargeAmountDue(
+                StudentBookingsFormatters.currency(l10n, charge.amountDue),
+              ),
+              payments: [
+                for (final payment in charge.payments)
+                  AppChargePaymentLine(
+                    method: StudentBookingsFormatters.paymentMethodLabel(
+                      l10n,
+                      payment.paymentMethod,
+                    ),
+                    amount: StudentBookingsFormatters.currency(
+                      l10n,
+                      payment.amountPaid,
+                    ),
+                  ),
+              ],
+            ),
             const SizedBox(height: AppDesignTokens.spacingSm),
           ],
         const SizedBox(height: AppDesignTokens.spacingSm),
@@ -214,103 +240,6 @@ class StudentBookingDetailBody extends StatelessWidget {
             ),
           ),
         ],
-      ],
-    );
-  }
-}
-
-class _ChargeCard extends StatelessWidget {
-  const _ChargeCard({required this.charge});
-
-  final StudentBookingChargeEntity charge;
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
-    return AppCard(
-      padding: const EdgeInsets.all(AppDesignTokens.spacing),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Expanded(
-                child: Text(
-                  charge.chargeReason,
-                  style: Theme.of(
-                    context,
-                  ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),
-                ),
-              ),
-              AppStatusBadge(
-                label: StudentBookingsFormatters.chargeStatusLabel(
-                  l10n,
-                  charge.chargeStatus,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 4),
-          Text(
-            l10n.studentBookingDetailChargeAmountDue(
-              StudentBookingsFormatters.currency(l10n, charge.amountDue),
-            ),
-            style: Theme.of(
-              context,
-            ).textTheme.bodySmall?.copyWith(color: AppColors.muted),
-          ),
-          if (charge.payments.isNotEmpty) ...[
-            const SizedBox(height: AppDesignTokens.spacingSm),
-            const Divider(height: 1, color: AppColors.line),
-            const SizedBox(height: AppDesignTokens.spacingSm),
-            for (final payment in charge.payments)
-              Padding(
-                padding: const EdgeInsets.only(bottom: 4),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      StudentBookingsFormatters.paymentMethodLabel(
-                        l10n,
-                        payment.paymentMethod,
-                      ),
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
-                    Text(
-                      StudentBookingsFormatters.currency(
-                        l10n,
-                        payment.amountPaid,
-                      ),
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontWeight: FontWeight.w700,
-                        color: AppColors.success,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-          ],
-        ],
-      ),
-    );
-  }
-}
-
-class _DetailRow extends StatelessWidget {
-  const _DetailRow({required this.icon, required this.label});
-
-  final IconData icon;
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Icon(icon, size: 16, color: AppColors.muted),
-        const SizedBox(width: AppDesignTokens.spacingSm),
-        Expanded(
-          child: Text(label, style: Theme.of(context).textTheme.bodyMedium),
-        ),
       ],
     );
   }

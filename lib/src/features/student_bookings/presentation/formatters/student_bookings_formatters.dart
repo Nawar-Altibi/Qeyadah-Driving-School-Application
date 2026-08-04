@@ -1,9 +1,9 @@
-import 'package:intl/intl.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
+import 'package:qeyadah_mobile_app/src/core/formatters/app_date_formatters.dart';
+import 'package:qeyadah_mobile_app/src/core/formatters/app_money_formatters.dart';
+import 'package:qeyadah_mobile_app/src/core/formatters/app_payment_method_formatters.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_status_badge.dart';
-import 'package:qeyadah_mobile_app/src/features/instructor/presentation/shared/formatters/instructor_formatters.dart';
 import 'package:qeyadah_mobile_app/src/features/student_booking/presentation/formatters/student_booking_formatters.dart';
-import 'package:qeyadah_mobile_app/src/shared/enums/instructor_payment_method.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/student_booking_status.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/student_charge_status.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/student_payment_status.dart';
@@ -88,37 +88,28 @@ abstract final class StudentBookingsFormatters {
     VehicleSource source,
   ) => StudentBookingFormatters.vehicleSourceLabel(l10n, source);
 
-  /// Backend payment methods (e.g. `SHAM_CASH`) reuse the instructor
+  /// Backend payment methods (e.g. `SHAM_CASH`) reuse the shared
   /// payment-method vocabulary; falls back to the raw value if unmapped.
   static String paymentMethodLabel(AppLocalizations l10n, String raw) {
-    final method = InstructorPaymentMethod.fromApi(raw);
-    if (method == null) return raw;
-    return InstructorFormatters.paymentMethodLabel(l10n, method);
+    return AppPaymentMethodFormatters.labelFromApi(l10n, raw);
   }
 
   static String dayLabel(DateTime date, String localeName) {
-    return DateFormat('EEEE، d MMMM', localeName).format(date);
+    return AppDateFormatters.fullDayLabel(date, localeName);
   }
 
   static String timeRangeLabel(String startTime, String endTime) {
-    return '$startTime - $endTime';
+    return AppDateFormatters.timeRangeLabel(startTime, endTime);
   }
 
   /// Strips a redundant `.00` while preserving meaningful decimals, since
   /// backend amounts arrive as strings that may or may not carry decimals.
   static String amount(String raw) {
-    final value = double.tryParse(raw) ?? 0;
-    if (value == value.roundToDouble()) {
-      return value.toInt().toString();
-    }
-    return value.toStringAsFixed(2);
+    return AppMoneyFormatters.stripAmount(raw);
   }
 
   static String amountValue(double value) {
-    if (value == value.roundToDouble()) {
-      return value.toInt().toString();
-    }
-    return value.toStringAsFixed(2);
+    return AppMoneyFormatters.stripAmountValue(value);
   }
 
   static String currency(AppLocalizations l10n, String raw) {

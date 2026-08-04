@@ -5,6 +5,8 @@ import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_button.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
+import 'package:qeyadah_mobile_app/src/core/ui/app_card_header.dart';
+import 'package:qeyadah_mobile_app/src/core/ui/app_meta_row.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_status_badge.dart';
 import 'package:qeyadah_mobile_app/src/features/student_certificates/domain/entities/certificate_eligibility_entity.dart';
 import 'package:qeyadah_mobile_app/src/features/student_certificates/presentation/cubit/student_certificates_hub_state.dart';
@@ -89,76 +91,6 @@ class StudentCertificatesHubBody extends StatelessWidget {
   }
 }
 
-class _CardHeader extends StatelessWidget {
-  const _CardHeader({required this.icon, required this.title, this.badge});
-
-  final IconData icon;
-  final String title;
-  final Widget? badge;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          width: 42,
-          height: 42,
-          decoration: const BoxDecoration(
-            color: AppColors.brandMintSoft,
-            shape: BoxShape.circle,
-          ),
-          child: Icon(icon, size: 20, color: AppColors.brandPrimary),
-        ),
-        const SizedBox(width: AppDesignTokens.spacing),
-        Expanded(
-          child: Text(
-            title,
-            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.w800,
-              fontSize: 17,
-              height: 1.3,
-              color: AppColors.ink,
-            ),
-          ),
-        ),
-        if (badge != null) ...[
-          const SizedBox(width: AppDesignTokens.spacingSm),
-          badge!,
-        ],
-      ],
-    );
-  }
-}
-
-class _MetaLine extends StatelessWidget {
-  const _MetaLine({required this.icon, required this.text});
-
-  final IconData icon;
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Icon(icon, size: 16, color: AppColors.muted),
-        const SizedBox(width: AppDesignTokens.spacingSm),
-        Expanded(
-          child: Text(
-            text,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: AppColors.ink,
-              fontSize: 14,
-              height: 1.4,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
 class _ActiveRequestSummaryCard extends StatelessWidget {
   const _ActiveRequestSummaryCard({
     required this.eligibility,
@@ -178,7 +110,7 @@ class _ActiveRequestSummaryCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _CardHeader(
+          AppCardHeader(
             icon: PhosphorIconsBold.certificate,
             title: l10n.studentCertificatesActiveRequestTitle,
             badge: status == null
@@ -192,18 +124,18 @@ class _ActiveRequestSummaryCard extends StatelessWidget {
           ),
           const SizedBox(height: AppDesignTokens.spacingMd),
           if (eligibility.courseNumber != null) ...[
-            _MetaLine(
+            AppMetaRow(
               icon: PhosphorIconsBold.numberCircleOne,
-              text: l10n.studentCertificatesCourseNumber(
+              label: l10n.studentCertificatesCourseNumber(
                 eligibility.courseNumber!,
               ),
             ),
             const SizedBox(height: AppDesignTokens.spacingSm),
           ],
           if (eligibility.activeCertificateId != null)
-            _MetaLine(
+            AppMetaRow(
               icon: PhosphorIconsBold.hash,
-              text: l10n.studentCertificatesRequestId(
+              label: l10n.studentCertificatesRequestId(
                 eligibility.activeCertificateId!,
               ),
             ),
@@ -249,7 +181,7 @@ class _NewRequestCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _CardHeader(icon: PhosphorIconsBold.plusCircle, title: label),
+          AppCardHeader(icon: PhosphorIconsBold.plusCircle, title: label),
           if (newRequest.message != null && newRequest.message!.isNotEmpty) ...[
             const SizedBox(height: AppDesignTokens.spacingMd),
             Text(
@@ -262,9 +194,9 @@ class _NewRequestCard extends StatelessWidget {
           ],
           if (types.isNotEmpty) ...[
             const SizedBox(height: AppDesignTokens.spacingMd),
-            _MetaLine(
+            AppMetaRow(
               icon: PhosphorIconsBold.car,
-              text: l10n.studentCertificatesAvailableTypes(types),
+              label: l10n.studentCertificatesAvailableTypes(types),
             ),
           ],
           const SizedBox(height: AppDesignTokens.spacingMd),
@@ -313,30 +245,30 @@ class _ReexamCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _CardHeader(icon: PhosphorIconsBold.exam, title: title),
+          AppCardHeader(icon: PhosphorIconsBold.exam, title: title),
           if (reexam.fee != null) ...[
             const SizedBox(height: AppDesignTokens.spacingMd),
-            _MetaLine(
+            AppMetaRow(
               icon: PhosphorIconsBold.wallet,
-              text: l10n.studentCertificatesReexamFee(
+              label: l10n.studentCertificatesReexamFee(
                 StudentCertificatesFormatters.fee(reexam.fee!),
               ),
             ),
           ],
           if (reexam.examScheduledLabel != null) ...[
             const SizedBox(height: AppDesignTokens.spacingSm),
-            _MetaLine(
+            AppMetaRow(
               icon: PhosphorIconsBold.calendarBlank,
-              text: l10n.studentCertificatesExamScheduled(
+              label: l10n.studentCertificatesExamScheduled(
                 reexam.examScheduledLabel!,
               ),
             ),
           ],
           if (reexam.registrationClosesLabel != null) ...[
             const SizedBox(height: AppDesignTokens.spacingSm),
-            _MetaLine(
+            AppMetaRow(
               icon: PhosphorIconsBold.clock,
-              text: l10n.studentCertificatesRegistrationCloses(
+              label: l10n.studentCertificatesRegistrationCloses(
                 reexam.registrationClosesLabel!,
               ),
             ),
@@ -406,7 +338,7 @@ class _StatusOnlyCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _CardHeader(
+          AppCardHeader(
             icon: PhosphorIconsBold.info,
             title: l10n.studentCertificatesStatusTitle,
           ),

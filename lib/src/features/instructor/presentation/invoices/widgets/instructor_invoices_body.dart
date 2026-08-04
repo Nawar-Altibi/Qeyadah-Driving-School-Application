@@ -6,6 +6,7 @@ import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
+import 'package:qeyadah_mobile_app/src/core/ui/app_meta_row.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_metric_tile.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_section_heading.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_segmented_control.dart';
@@ -207,66 +208,51 @@ class _InvoiceCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Flexible(
-                child: _InvoiceMeta(
+                child: AppMetaRow(
                   icon: PhosphorIconsBold.listBullets,
                   label: entryLabel,
+                  iconSize: 14,
+                  gap: 6,
+                  labelColor: AppColors.muted,
+                  expandLabel: false,
+                  mainAxisSize: MainAxisSize.min,
+                  labelStyle: textTheme.bodySmall?.copyWith(
+                    color: AppColors.muted,
+                  ),
                 ),
               ),
               const SizedBox(width: AppDesignTokens.spacingSm),
               Flexible(
-                child: _InvoiceMeta(
+                child: AppMetaRow(
                   icon: PhosphorIconsBold.wallet,
                   label: methodLabel,
+                  iconSize: 14,
+                  gap: 6,
+                  labelColor: AppColors.muted,
+                  expandLabel: false,
+                  mainAxisSize: MainAxisSize.min,
                   alignEnd: true,
+                  labelStyle: textTheme.bodySmall?.copyWith(
+                    color: AppColors.muted,
+                  ),
                 ),
               ),
             ],
           ),
           const SizedBox(height: AppDesignTokens.spacingSm),
-          _InvoiceMeta(
+          AppMetaRow(
             icon: PhosphorIconsBold.checkCircle,
             label: paidLabel,
+            iconSize: 14,
+            gap: 6,
+            labelColor: AppColors.muted,
+            expandLabel: false,
+            mainAxisSize: MainAxisSize.min,
             iconColor: AppColors.success,
+            labelStyle: textTheme.bodySmall?.copyWith(color: AppColors.muted),
           ),
         ],
       ),
-    );
-  }
-}
-
-class _InvoiceMeta extends StatelessWidget {
-  const _InvoiceMeta({
-    required this.icon,
-    required this.label,
-    this.iconColor = AppColors.muted,
-    this.alignEnd = false,
-  });
-
-  final IconData icon;
-  final String label;
-  final Color iconColor;
-  final bool alignEnd;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: alignEnd
-          ? MainAxisAlignment.end
-          : MainAxisAlignment.start,
-      children: [
-        Icon(icon, size: 14, color: iconColor),
-        const SizedBox(width: 6),
-        Flexible(
-          child: Text(
-            label,
-            textAlign: alignEnd ? TextAlign.end : TextAlign.start,
-            style: Theme.of(
-              context,
-            ).textTheme.bodySmall?.copyWith(color: AppColors.muted),
-          ),
-        ),
-      ],
     );
   }
 }
