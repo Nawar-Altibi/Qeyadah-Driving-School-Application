@@ -11,6 +11,8 @@ import 'package:qeyadah_mobile_app/src/core/dependency_injection/dependency_inje
 import 'package:qeyadah_mobile_app/src/core/interceptors/headers_interceptor.dart';
 import 'package:qeyadah_mobile_app/src/core/notifications/firebase_bootstrap.dart';
 import 'package:qeyadah_mobile_app/src/core/notifications/push_messaging_service.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
+import 'package:qeyadah_mobile_app/src/core/ui/app_branded_splash.dart';
 
 Future<void> mainCommon(
   CoreEnvironment environment, {
@@ -111,12 +113,8 @@ class _StartupLoadingApp extends StatelessWidget {
       locale: Locale('ar'),
       builder: DevicePreview.appBuilder,
       home: Scaffold(
-        body: Center(
-          child: Padding(
-            padding: EdgeInsets.all(24),
-            child: _BootstrapLoading(),
-          ),
-        ),
+        backgroundColor: AppColors.brandPrimary,
+        body: AppBrandedSplash(),
       ),
     );
   }
@@ -134,58 +132,12 @@ class _StartupErrorApp extends StatelessWidget {
       locale: const Locale('ar'),
       builder: DevicePreview.appBuilder,
       home: Scaffold(
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(24),
-            child: _BootstrapError(error: error),
-          ),
+        backgroundColor: AppColors.brandPrimary,
+        body: AppBrandedSplash(
+          showLoader: false,
+          errorMessage: error.toString(),
         ),
       ),
-    );
-  }
-}
-
-class _BootstrapLoading extends StatelessWidget {
-  const _BootstrapLoading();
-
-  @override
-  Widget build(BuildContext context) {
-    return const Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text(
-          'Qeyadah Mobile',
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
-        ),
-        SizedBox(height: 24),
-        CircularProgressIndicator(),
-      ],
-    );
-  }
-}
-
-class _BootstrapError extends StatelessWidget {
-  const _BootstrapError({required this.error});
-
-  final Object? error;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const Icon(Icons.error_outline, color: Colors.red, size: 40),
-        const SizedBox(height: 16),
-        const Text(
-          'Qeyadah could not start',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
-        ),
-        const SizedBox(height: 12),
-        Text(
-          error?.toString() ?? 'Unknown startup error',
-          textAlign: TextAlign.center,
-        ),
-      ],
     );
   }
 }

@@ -19,7 +19,10 @@ class InstructorLeaveBody extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
     final localeName = Localizations.localeOf(context).toLanguageTag();
     return ListView(
-      padding: const EdgeInsets.all(AppDesignTokens.screenHorizontalPadding),
+      padding: AppDesignTokens.screenContentPadding(
+        top: AppDesignTokens.screenHorizontalPadding,
+        safeBottom: MediaQuery.paddingOf(context).bottom,
+      ),
       children: [
         Column(
           children: [

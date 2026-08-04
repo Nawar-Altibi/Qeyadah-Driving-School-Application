@@ -14,7 +14,8 @@ class SplashScreenCubit extends AppCoreCubit<SplashScreenState> {
 
   Future<void> initialize() async {
     configureBotToast();
-    await Future<void>.delayed(const Duration(seconds: 1));
+    // Bootstrap already spent time on the branded green splash; finish
+    // immediately so navigation can leave as soon as auth restore completes.
     emit(state.copyWith(animationFinished: true));
   }
 }

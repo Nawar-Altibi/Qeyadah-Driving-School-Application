@@ -142,11 +142,13 @@ class InstructorInvoicesBody extends StatelessWidget {
           ),
         if (invoices.isNotEmpty && page.hasMorePages)
           SliverPadding(
-            padding: const EdgeInsets.fromLTRB(
+            padding: EdgeInsets.fromLTRB(
               AppDesignTokens.screenHorizontalPadding,
               0,
               AppDesignTokens.screenHorizontalPadding,
-              AppDesignTokens.screenHorizontalPadding,
+              AppDesignTokens.listEndPadding(
+                safeBottom: MediaQuery.paddingOf(context).bottom,
+              ),
             ),
             sliver: SliverToBoxAdapter(
               child: InstructorLoadMoreButton(
@@ -158,9 +160,11 @@ class InstructorInvoicesBody extends StatelessWidget {
             ),
           )
         else
-          const SliverPadding(
+          SliverPadding(
             padding: EdgeInsets.only(
-              bottom: AppDesignTokens.screenHorizontalPadding,
+              bottom: AppDesignTokens.listEndPadding(
+                safeBottom: MediaQuery.paddingOf(context).bottom,
+              ),
             ),
           ),
       ],

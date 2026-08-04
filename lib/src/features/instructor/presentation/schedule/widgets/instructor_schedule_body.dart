@@ -37,11 +37,14 @@ class InstructorScheduleBody extends StatelessWidget {
           context.read<InstructorScheduleCubit>().load(silent: true),
       child: ListView(
         physics: const AlwaysScrollableScrollPhysics(),
-        padding: const EdgeInsets.fromLTRB(
+        padding: EdgeInsets.fromLTRB(
           AppDesignTokens.screenHorizontalPadding,
           AppDesignTokens.spacingMd,
           AppDesignTokens.screenHorizontalPadding,
-          AppDesignTokens.bottomNavHeight + 96,
+          AppDesignTokens.listEndPadding(
+            safeBottom: MediaQuery.paddingOf(context).bottom,
+            extraBottom: AppDesignTokens.bottomNavHeight,
+          ),
         ),
         children: [
           InstructorScheduleGreetingHeader(

@@ -29,16 +29,24 @@ abstract final class AppDesignTokens {
   /// Comfortable bottom breathing room for scrollable screen bodies.
   static const double screenBottomPadding = spacing2xl + spacingLg;
 
+  /// End-of-list inset: comfortable screen padding + device safe area +
+  /// optional sticky/bottom-nav clearance.
+  static double listEndPadding({
+    double safeBottom = 0,
+    double extraBottom = 0,
+  }) => screenBottomPadding + safeBottom + extraBottom;
+
   /// Shared content padding for student/instructor scroll views.
   /// Use [extraBottom] for sticky bars or bottom navigation clearance.
   static EdgeInsets screenContentPadding({
     double top = spacingMd,
     double extraBottom = 0,
+    double safeBottom = 0,
   }) => EdgeInsets.fromLTRB(
     screenHorizontalPadding,
     top,
     screenHorizontalPadding,
-    screenBottomPadding + extraBottom,
+    listEndPadding(safeBottom: safeBottom, extraBottom: extraBottom),
   );
 
   static const Duration animationFast = Duration(milliseconds: 150);
