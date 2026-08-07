@@ -22,12 +22,28 @@ abstract final class StudentCertificatesFormatters {
     return AppDateFormatters.countdown(remaining);
   }
 
-  static String date(DateTime value) {
-    return DateFormat('yyyy-MM-dd').format(value.toLocal());
+  /// School wall-clock is fixed UTC+3 (no DST). Never use device [DateTime.toLocal].
+  static DateTime schoolWallClock(DateTime value) {
+    final school = value.toUtc().add(const Duration(hours: 3));
+    return DateTime(
+      school.year,
+      school.month,
+      school.day,
+      school.hour,
+      school.minute,
+      school.second,
+    );
   }
 
-  static String dateTime(DateTime value) {
-    return DateFormat('yyyy-MM-dd HH:mm').format(value.toLocal());
+  static String date(DateTime value, {String localeName = 'ar'}) {
+    return DateFormat('d MMMM yyyy', localeName).format(schoolWallClock(value));
+  }
+
+  static String dateTime(DateTime value, {String localeName = 'ar'}) {
+    final wall = schoolWallClock(value);
+    final datePart = DateFormat('d MMMM yyyy', localeName).format(wall);
+    final timePart = DateFormat.Hm(localeName).format(wall);
+    return '$datePart · $timePart';
   }
 
   static String examTypeLabel(AppLocalizations l10n, ExamType type) {

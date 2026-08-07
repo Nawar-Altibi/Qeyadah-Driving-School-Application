@@ -32,7 +32,8 @@ class PushNotificationsCoordinator {
   final StreamController<void> _certificateStatusChangedController =
       StreamController<void>.broadcast();
 
-  /// Emits when a foreground push of type `CERTIFICATE_STATUS_CHANGED` arrives.
+  /// Emits when a `CERTIFICATE_STATUS_CHANGED` push arrives in the foreground
+  /// or when the user opens the app from such a notification.
   Stream<void> get certificateStatusChanged =>
       _certificateStatusChangedController.stream;
 
@@ -100,6 +101,11 @@ class PushNotificationsCoordinator {
     );
     if (type == AppNotificationType.instructorSchedule) {
       await _invalidateWeeklyScheduleCache();
+    }
+    if (type == AppNotificationType.certificateStatusChanged) {
+      // Hub (and other listeners) must refetch /eligibility after deep-link
+      // navigation, not only when the push arrives in the foreground.
+      _certificateStatusChangedController.add(null);
     }
     _deepLinkRouter.openFromPushData(data);
     await _unreadCubit.refresh();
