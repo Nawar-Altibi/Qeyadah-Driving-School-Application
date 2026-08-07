@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
 import 'package:qeyadah_mobile_app/src/core/mappers/core_failure_message_mapper.dart';
-import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_button.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_mobile_bottom_nav.dart';
@@ -25,63 +24,57 @@ class InstructorScheduleScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return InstructorScheduleScreenCoordinator(
       child: Scaffold(
-        backgroundColor: AppColors.white,
         body: SafeArea(
           child: Stack(
             children: [
               Positioned.fill(
-                child: DecoratedBox(
-                  decoration: const BoxDecoration(color: AppColors.white),
-                  child: ResponsiveShell(
-                    child:
-                        BlocBuilder<
-                          InstructorScheduleCubit,
-                          InstructorScheduleState
-                        >(
-                          buildWhen: (previous, current) =>
-                              previous.apiState != current.apiState ||
-                              previous.isSilentRefresh !=
-                                  current.isSilentRefresh,
-                          builder: (context, state) {
-                            return state.apiState.when(
-                              initial: () =>
-                                  const InstructorScheduleSkeletonBody(),
-                              loading: () =>
-                                  const InstructorScheduleSkeletonBody(),
-                              succeeded: (dashboard) =>
-                                  InstructorScheduleBody(dashboard: dashboard),
-                              failed: (failure, retry) {
-                                final l10n = AppLocalizations.of(context);
-                                return Center(
-                                  child: Padding(
-                                    padding: PaddingManager.paddingAll16,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          CoreFailureMessageMapper.messageFor(
-                                            failure,
-                                            l10n,
-                                          ),
-                                          textAlign: TextAlign.center,
+                child: ResponsiveShell(
+                  child:
+                      BlocBuilder<
+                        InstructorScheduleCubit,
+                        InstructorScheduleState
+                      >(
+                        buildWhen: (previous, current) =>
+                            previous.apiState != current.apiState ||
+                            previous.isSilentRefresh != current.isSilentRefresh,
+                        builder: (context, state) {
+                          return state.apiState.when(
+                            initial: () =>
+                                const InstructorScheduleSkeletonBody(),
+                            loading: () =>
+                                const InstructorScheduleSkeletonBody(),
+                            succeeded: (dashboard) =>
+                                InstructorScheduleBody(dashboard: dashboard),
+                            failed: (failure, retry) {
+                              final l10n = AppLocalizations.of(context);
+                              return Center(
+                                child: Padding(
+                                  padding: PaddingManager.paddingAll16,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        CoreFailureMessageMapper.messageFor(
+                                          failure,
+                                          l10n,
                                         ),
-                                        const SizedBox(
-                                          height: AppDesignTokens.spacingMd,
-                                        ),
-                                        AppButton.primary(
-                                          label: l10n.retry,
-                                          onPressed: retry,
-                                        ),
-                                      ],
-                                    ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      const SizedBox(
+                                        height: AppDesignTokens.spacingMd,
+                                      ),
+                                      AppButton.primary(
+                                        label: l10n.retry,
+                                        onPressed: retry,
+                                      ),
+                                    ],
                                   ),
-                                );
-                              },
-                            );
-                          },
-                        ),
-                  ),
+                                ),
+                              );
+                            },
+                          );
+                        },
+                      ),
                 ),
               ),
               Positioned(

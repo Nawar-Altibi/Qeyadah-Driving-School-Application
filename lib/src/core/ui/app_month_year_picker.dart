@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' hide TextDirection;
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 
 /// Shows a lightweight month/year grid dialog and returns the selected month
@@ -188,16 +189,17 @@ class _MonthChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppSemanticColors.of(context);
     final background = !enabled
-        ? AppColors.neutralBg
+        ? colors.neutralBg
         : selected
         ? AppColors.brandPrimary
-        : AppColors.brandMintSoft;
+        : colors.brandSoft;
     final foreground = !enabled
-        ? AppColors.muted
+        ? colors.muted
         : selected
         ? AppColors.white
-        : AppColors.brandPrimary;
+        : colors.primary;
 
     return Material(
       color: background,

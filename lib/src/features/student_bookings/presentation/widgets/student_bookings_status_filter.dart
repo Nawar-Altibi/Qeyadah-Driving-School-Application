@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_text_theme_extension.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/features/student_bookings/presentation/formatters/student_bookings_formatters.dart';
@@ -63,9 +64,10 @@ class _FilterChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppSemanticColors.of(context);
     final textTheme = Theme.of(context).extension<AppTextStylesExtension>();
     return Material(
-      color: isSelected ? AppColors.brandPrimary : AppColors.white,
+      color: isSelected ? AppColors.brandPrimary : colors.card,
       borderRadius: BorderRadius.circular(18),
       child: InkWell(
         borderRadius: BorderRadius.circular(18),
@@ -78,14 +80,14 @@ class _FilterChip extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(18),
             border: Border.all(
-              color: isSelected ? AppColors.brandPrimary : AppColors.line,
+              color: isSelected ? AppColors.brandPrimary : colors.line,
             ),
           ),
           child: Text(
             label,
             style: (textTheme?.medium12 ?? const TextStyle(fontSize: 12))
                 .copyWith(
-                  color: isSelected ? AppColors.white : AppColors.ink,
+                  color: isSelected ? AppColors.white : colors.ink,
                   fontWeight: FontWeight.w600,
                 ),
           ),

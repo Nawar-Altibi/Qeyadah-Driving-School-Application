@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_status_badge.dart';
@@ -32,6 +32,7 @@ class AppChargeTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppSemanticColors.of(context);
     final textTheme = Theme.of(context).textTheme;
     final content = Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -44,6 +45,7 @@ class AppChargeTile extends StatelessWidget {
                 style: textTheme.bodyMedium?.copyWith(
                   fontWeight: FontWeight.w800,
                   fontSize: 14.5,
+                  color: colors.ink,
                 ),
               ),
             ),
@@ -54,14 +56,14 @@ class AppChargeTile extends StatelessWidget {
         Text(
           amountLabel,
           style: textTheme.bodySmall?.copyWith(
-            color: AppColors.muted,
+            color: colors.muted,
             fontSize: 13,
             height: 1.35,
           ),
         ),
         if (payments != null && payments!.isNotEmpty) ...[
           const SizedBox(height: AppDesignTokens.spacingSm),
-          const Divider(height: 1),
+          Divider(height: 1, color: colors.line),
           const SizedBox(height: AppDesignTokens.spacingSm),
           for (final payment in payments!) ...[
             Row(
@@ -69,16 +71,14 @@ class AppChargeTile extends StatelessWidget {
                 Expanded(
                   child: Text(
                     payment.method,
-                    style: textTheme.bodySmall?.copyWith(
-                      color: AppColors.muted,
-                    ),
+                    style: textTheme.bodySmall?.copyWith(color: colors.muted),
                   ),
                 ),
                 Text(
                   payment.amount,
                   style: textTheme.bodySmall?.copyWith(
                     fontWeight: FontWeight.w700,
-                    color: AppColors.ink,
+                    color: colors.ink,
                   ),
                 ),
               ],
@@ -95,7 +95,7 @@ class AppChargeTile extends StatelessWidget {
 
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: AppColors.brandMintSoft.withValues(alpha: 0.55),
+        color: colors.brandSoft.withValues(alpha: 0.55),
         borderRadius: BorderRadius.circular(AppDesignTokens.radiusControl),
       ),
       child: Padding(padding: const EdgeInsets.all(12), child: content),

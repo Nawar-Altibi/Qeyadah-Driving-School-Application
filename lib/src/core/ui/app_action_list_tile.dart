@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 
 /// One row in a settings-style list: icon, label, optional trailing
@@ -24,9 +24,10 @@ class AppActionListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tint = isDestructive ? AppColors.danger : AppColors.brandPrimary;
-    final softBg = isDestructive ? AppColors.dangerBg : AppColors.brandMintSoft;
-    final textColor = isDestructive ? AppColors.danger : AppColors.ink;
+    final colors = AppSemanticColors.of(context);
+    final tint = isDestructive ? colors.danger : colors.primary;
+    final softBg = isDestructive ? colors.dangerBg : colors.brandSoft;
+    final textColor = isDestructive ? colors.danger : colors.ink;
 
     return Material(
       color: Colors.transparent,
@@ -63,7 +64,7 @@ class AppActionListTile extends StatelessWidget {
                 Icon(
                   PhosphorIconsBold.caretLeft,
                   size: 16,
-                  color: AppColors.muted.withValues(alpha: 0.7),
+                  color: colors.muted.withValues(alpha: 0.7),
                   textDirection: TextDirection.ltr,
                 ),
             ],

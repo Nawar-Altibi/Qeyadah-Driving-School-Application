@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' hide TextDirection;
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
-import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_month_year_picker.dart';
@@ -32,6 +32,7 @@ class InstructorPeriodStepper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppSemanticColors.of(context);
     final l10n = AppLocalizations.of(context);
     final localeName = Localizations.localeOf(context).toLanguageTag();
     final label = isDay
@@ -56,16 +57,16 @@ class InstructorPeriodStepper extends StatelessWidget {
               IconButton(
                 tooltip: l10n.instructorPeriodPrevious,
                 onPressed: interactive ? onPrevious : null,
-                icon: const Icon(
+                icon: Icon(
                   PhosphorIconsBold.caretRight,
-                  color: AppColors.brandPrimary,
+                  color: colors.primary,
                   // Lock direction so RTL mirroring cannot flip the glyph.
                   textDirection: TextDirection.ltr,
                 ),
               ),
               Expanded(
                 child: Material(
-                  color: AppColors.brandMintSoft,
+                  color: colors.brandSoft,
                   borderRadius: BorderRadius.circular(AppDesignTokens.radiusMd),
                   child: InkWell(
                     onTap: interactive ? onPick : null,
@@ -80,10 +81,10 @@ class InstructorPeriodStepper extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Icon(
+                          Icon(
                             PhosphorIconsBold.calendar,
                             size: 18,
-                            color: AppColors.brandPrimary,
+                            color: colors.primary,
                             textDirection: TextDirection.ltr,
                           ),
                           const SizedBox(width: AppDesignTokens.spacingSm),
@@ -92,7 +93,10 @@ class InstructorPeriodStepper extends StatelessWidget {
                               label,
                               textAlign: TextAlign.center,
                               style: Theme.of(context).textTheme.titleSmall
-                                  ?.copyWith(fontWeight: FontWeight.w700),
+                                  ?.copyWith(
+                                    fontWeight: FontWeight.w700,
+                                    color: colors.ink,
+                                  ),
                             ),
                           ),
                         ],
@@ -104,9 +108,9 @@ class InstructorPeriodStepper extends StatelessWidget {
               IconButton(
                 tooltip: l10n.instructorPeriodNext,
                 onPressed: interactive ? onNext : null,
-                icon: const Icon(
+                icon: Icon(
                   PhosphorIconsBold.caretLeft,
-                  color: AppColors.brandPrimary,
+                  color: colors.primary,
                   // Lock direction so RTL mirroring cannot flip the glyph.
                   textDirection: TextDirection.ltr,
                 ),

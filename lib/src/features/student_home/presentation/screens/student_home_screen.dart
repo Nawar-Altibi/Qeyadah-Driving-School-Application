@@ -5,6 +5,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
 import 'package:qeyadah_mobile_app/src/core/mappers/core_failure_message_mapper.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_alert_banner.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_button.dart';
@@ -32,14 +33,13 @@ class StudentHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return StudentHomeScreenCoordinator(
       child: Scaffold(
-        backgroundColor: AppColors.appCanvas,
         body: SafeArea(
           child: Stack(
             children: [
               Positioned.fill(
                 child: DecoratedBox(
-                  decoration: const BoxDecoration(
-                    gradient: AppGradients.softMintBackground,
+                  decoration: BoxDecoration(
+                    gradient: AppGradients.softBackgroundOf(context),
                   ),
                   child: ResponsiveShell(
                     child: BlocBuilder<StudentHomeCubit, StudentHomeState>(
@@ -165,9 +165,9 @@ class _StudentHomeContent extends StatelessWidget {
                   const SizedBox(height: AppDesignTokens.spacingSm),
                   Text(
                     l10n.studentHomeNoNextLessonBody,
-                    style: Theme.of(
-                      context,
-                    ).textTheme.bodyMedium?.copyWith(color: AppColors.muted),
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: AppSemanticColors.of(context).muted,
+                    ),
                   ),
                 ],
               ),

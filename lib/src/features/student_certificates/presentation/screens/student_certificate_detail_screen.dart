@@ -5,6 +5,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
 import 'package:qeyadah_mobile_app/src/core/mappers/core_failure_message_mapper.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_alert_banner.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_button.dart';
@@ -42,9 +43,7 @@ class StudentCertificateDetailScreen extends StatelessWidget {
     return StudentCertificateDetailScreenCoordinator(
       certificateId: certificateId,
       child: Scaffold(
-        backgroundColor: AppColors.appCanvas,
         appBar: AppBar(
-          backgroundColor: AppColors.appCanvas,
           surfaceTintColor: Colors.transparent,
           title: Text(l10n.studentCertificatesDetailTitle),
           centerTitle: true,
@@ -368,6 +367,7 @@ class _DocumentTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final textTheme = Theme.of(context).textTheme;
+    final colors = AppSemanticColors.of(context);
     final enabled = url != null && url!.isNotEmpty;
 
     return Padding(
@@ -387,11 +387,11 @@ class _DocumentTile extends StatelessWidget {
           borderRadius: BorderRadius.circular(AppDesignTokens.radiusControl),
           child: Ink(
             decoration: BoxDecoration(
-              color: AppColors.white,
+              color: colors.card,
               borderRadius: BorderRadius.circular(
                 AppDesignTokens.radiusControl,
               ),
-              border: Border.all(color: AppColors.line.withValues(alpha: 0.9)),
+              border: Border.all(color: colors.line.withValues(alpha: 0.9)),
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
@@ -401,7 +401,7 @@ class _DocumentTile extends StatelessWidget {
                     width: 40,
                     height: 40,
                     decoration: BoxDecoration(
-                      color: AppColors.brandMintSoft,
+                      color: colors.brandSoft,
                       borderRadius: BorderRadius.circular(
                         AppDesignTokens.radiusControl,
                       ),
@@ -426,7 +426,7 @@ class _DocumentTile extends StatelessWidget {
                           Text(
                             l10n.studentCertificatesDocumentUnavailable,
                             style: textTheme.bodySmall?.copyWith(
-                              color: AppColors.muted,
+                              color: colors.muted,
                               fontSize: 12.5,
                             ),
                           ),
@@ -435,10 +435,10 @@ class _DocumentTile extends StatelessWidget {
                     ),
                   ),
                   if (enabled)
-                    const Icon(
+                    Icon(
                       PhosphorIconsBold.caretLeft,
                       size: 16,
-                      color: AppColors.muted,
+                      color: colors.muted,
                       textDirection: TextDirection.ltr,
                     ),
                 ],

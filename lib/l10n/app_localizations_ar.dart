@@ -21,6 +21,22 @@ class AppLocalizationsAr extends AppLocalizations {
   String get logout => 'تسجيل الخروج';
 
   @override
+  String get appearanceTitle => 'المظهر';
+
+  @override
+  String get appearanceSubtitle =>
+      'اختر الفاتح أو الداكن أو اتبع إعداد الجهاز.';
+
+  @override
+  String get appearanceSystem => 'تلقائي';
+
+  @override
+  String get appearanceLight => 'فاتح';
+
+  @override
+  String get appearanceDark => 'داكن';
+
+  @override
   String get email => 'البريد الإلكتروني';
 
   @override

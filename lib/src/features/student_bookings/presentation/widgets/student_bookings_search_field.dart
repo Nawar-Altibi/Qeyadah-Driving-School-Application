@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
-import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 
 /// A plain search text field (no form validation needed) that reports
@@ -49,6 +49,7 @@ class _StudentBookingsSearchFieldState
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    final colors = AppSemanticColors.of(context);
     return TextField(
       controller: _controller,
       enabled: widget.interactive,
@@ -56,10 +57,10 @@ class _StudentBookingsSearchFieldState
       textInputAction: TextInputAction.search,
       decoration: InputDecoration(
         hintText: l10n.studentBookingsSearchHint,
-        prefixIcon: const Icon(
+        prefixIcon: Icon(
           PhosphorIconsBold.magnifyingGlass,
           size: 18,
-          color: AppColors.muted,
+          color: colors.muted,
         ),
         suffixIcon: _controller.text.isEmpty
             ? null
@@ -72,17 +73,17 @@ class _StudentBookingsSearchFieldState
                 },
               ),
         filled: true,
-        fillColor: AppColors.white,
+        fillColor: colors.card,
         contentPadding: const EdgeInsets.symmetric(
           vertical: AppDesignTokens.spacing,
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppDesignTokens.radiusControl),
-          borderSide: const BorderSide(color: AppColors.line),
+          borderSide: BorderSide(color: colors.line),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppDesignTokens.radiusControl),
-          borderSide: const BorderSide(color: AppColors.line),
+          borderSide: BorderSide(color: colors.line),
         ),
       ),
       onTapOutside: (_) => FocusScope.of(context).unfocus(),

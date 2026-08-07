@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 
 class AppCalendarStrip extends StatelessWidget {
@@ -63,16 +64,21 @@ class _CalendarDayButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppSemanticColors.of(context);
+    final selectedBg = colors.isDark ? colors.primary : AppColors.brandPrimary;
+    final selectedFg = colors.isDark ? colors.onPrimary : AppColors.white;
+    final selectedMuted = colors.isDark
+        ? colors.onPrimary.withValues(alpha: 0.75)
+        : AppColors.brandMint;
+
     return Material(
-      color: isSelected ? AppColors.brandPrimary : AppColors.white,
+      color: isSelected ? selectedBg : colors.card,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(14),
-        side: BorderSide(
-          color: isSelected ? AppColors.brandPrimary : AppColors.line,
-        ),
+        side: BorderSide(color: isSelected ? selectedBg : colors.line),
       ),
       elevation: isSelected ? 4 : 0,
-      shadowColor: AppColors.brandPrimary.withValues(alpha: 0.18),
+      shadowColor: selectedBg.withValues(alpha: 0.18),
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(14),
@@ -87,7 +93,7 @@ class _CalendarDayButton extends StatelessWidget {
                   Text(
                     weekday,
                     style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                      color: isSelected ? AppColors.brandMint : AppColors.muted,
+                      color: isSelected ? selectedMuted : colors.muted,
                       fontSize: 10,
                     ),
                   ),
@@ -95,7 +101,7 @@ class _CalendarDayButton extends StatelessWidget {
                   Text(
                     dayNumber,
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      color: isSelected ? AppColors.white : AppColors.ink,
+                      color: isSelected ? selectedFg : colors.ink,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -107,8 +113,8 @@ class _CalendarDayButton extends StatelessWidget {
                   child: Container(
                     width: 4,
                     height: 4,
-                    decoration: const BoxDecoration(
-                      color: AppColors.brandMint,
+                    decoration: BoxDecoration(
+                      color: colors.primary,
                       shape: BoxShape.circle,
                     ),
                   ),
@@ -187,14 +193,17 @@ class InstructorAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppSemanticColors.of(context);
     final (:background, :foreground) = switch (tone) {
       InstructorAvatarTone.mint => (
-        background: AppColors.brandMint,
-        foreground: AppColors.brandPrimary,
+        background: colors.isDark ? colors.brandSoft : AppColors.brandMint,
+        foreground: colors.isDark ? colors.primary : AppColors.brandPrimary,
       ),
       InstructorAvatarTone.sage => (
-        background: const Color(0xFFD9E8DF),
-        foreground: AppColors.brandPrimary,
+        background: colors.isDark
+            ? colors.elevatedCard
+            : const Color(0xFFD9E8DF),
+        foreground: colors.isDark ? colors.primary : AppColors.brandPrimary,
       ),
       InstructorAvatarTone.light => (
         background: AppColors.white.withValues(alpha: 0.13),
@@ -298,7 +307,8 @@ class InstructorSettingsRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = danger ? AppColors.danger : AppColors.ink;
+    final colors = AppSemanticColors.of(context);
+    final color = danger ? colors.danger : colors.ink;
     return InkWell(
       onTap: onTap,
       child: Padding(
@@ -311,7 +321,7 @@ class InstructorSettingsRow extends StatelessWidget {
             Icon(
               icon,
               size: 19,
-              color: danger ? AppColors.danger : AppColors.brandPrimary,
+              color: danger ? colors.danger : colors.primary,
             ),
             const SizedBox(width: AppDesignTokens.spacing),
             Expanded(
@@ -328,8 +338,8 @@ class InstructorSettingsRow extends StatelessWidget {
                 PhosphorIconsBold.caretLeft,
                 size: 16,
                 color: danger
-                    ? AppColors.danger
-                    : AppColors.muted.withValues(alpha: 0.7),
+                    ? colors.danger
+                    : colors.muted.withValues(alpha: 0.7),
                 textDirection: TextDirection.ltr,
               ),
           ],

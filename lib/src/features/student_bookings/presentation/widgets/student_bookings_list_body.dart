@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
-import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_empty_state.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/paginated_scroll_controller.dart';
@@ -163,8 +163,8 @@ class StudentBookingsListFiltersHeader extends StatelessWidget {
                     : l10n.studentBookingsSortNewestFirst,
                 onPressed: interactive ? cubit.toggleSortOrder : null,
                 style: IconButton.styleFrom(
-                  backgroundColor: AppColors.white,
-                  side: const BorderSide(color: AppColors.line),
+                  backgroundColor: AppSemanticColors.of(context).card,
+                  side: BorderSide(color: AppSemanticColors.of(context).line),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(
                       AppDesignTokens.radiusControl,
@@ -175,7 +175,7 @@ class StudentBookingsListFiltersHeader extends StatelessWidget {
                   state.sortOrder == StudentBookingsSortOrder.newestFirst
                       ? PhosphorIconsBold.sortDescending
                       : PhosphorIconsBold.sortAscending,
-                  color: AppColors.ink,
+                  color: AppSemanticColors.of(context).ink,
                   size: 20,
                 ),
               ),

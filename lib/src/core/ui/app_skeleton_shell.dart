@@ -8,12 +8,24 @@ bool isAppSkeletonLoading(BuildContext context) =>
 
 /// Shared on-brand shimmer colors for instructor/loading skeletons.
 abstract final class AppSkeletonTheme {
-  static const Color baseColor = AppColors.line;
-  static const Color highlightColor = AppColors.brandMintSoft;
+  static const Color lightBaseColor = AppColors.line;
+  static const Color lightHighlightColor = AppColors.brandMintSoft;
+  static const Color darkBaseColor = Color(0xFF2A3A32);
+  static const Color darkHighlightColor = Color(0xFF3A4F44);
 
+  static ShimmerEffect effectOf(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    return ShimmerEffect(
+      baseColor: isDark ? darkBaseColor : lightBaseColor,
+      highlightColor: isDark ? darkHighlightColor : lightHighlightColor,
+      duration: const Duration(milliseconds: 1400),
+    );
+  }
+
+  /// Light-only legacy constant kept for any non-context call sites.
   static const ShimmerEffect effect = ShimmerEffect(
-    baseColor: baseColor,
-    highlightColor: highlightColor,
+    baseColor: lightBaseColor,
+    highlightColor: lightHighlightColor,
     duration: Duration(milliseconds: 1400),
   );
 }
@@ -29,7 +41,7 @@ class AppSkeletonizer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Skeletonizer(
       enabled: enabled,
-      effect: AppSkeletonTheme.effect,
+      effect: AppSkeletonTheme.effectOf(context),
       child: child,
     );
   }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
 
@@ -28,20 +28,21 @@ class AppEmptyState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppSemanticColors.of(context);
     final textTheme = Theme.of(context).textTheme;
 
     if (variant == AppEmptyStateVariant.card) {
       return AppCard(
         child: Column(
           children: [
-            Icon(icon, size: 32, color: AppColors.muted),
+            Icon(icon, size: 32, color: colors.muted),
             const SizedBox(height: AppDesignTokens.spacingSm),
             Text(
               title,
               textAlign: TextAlign.center,
               style: textTheme.titleSmall?.copyWith(
                 fontWeight: FontWeight.w800,
-                color: AppColors.ink,
+                color: colors.ink,
               ),
             ),
             const SizedBox(height: AppDesignTokens.spacingXs),
@@ -49,7 +50,7 @@ class AppEmptyState extends StatelessWidget {
               message,
               textAlign: TextAlign.center,
               style: textTheme.bodyMedium?.copyWith(
-                color: AppColors.muted,
+                color: colors.muted,
                 height: 1.4,
               ),
             ),
@@ -60,7 +61,7 @@ class AppEmptyState extends StatelessWidget {
 
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: AppColors.brandMintSoft.withValues(alpha: 0.55),
+        color: colors.brandSoft.withValues(alpha: 0.55),
         borderRadius: BorderRadius.circular(AppDesignTokens.radiusControl),
       ),
       child: Padding(
@@ -68,7 +69,7 @@ class AppEmptyState extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(icon, size: 20, color: AppColors.muted),
+            Icon(icon, size: 20, color: colors.muted),
             const SizedBox(width: AppDesignTokens.spacingSm),
             Expanded(
               child: Column(
@@ -78,14 +79,14 @@ class AppEmptyState extends StatelessWidget {
                     title,
                     style: textTheme.bodyMedium?.copyWith(
                       fontWeight: FontWeight.w700,
-                      color: AppColors.ink,
+                      color: colors.ink,
                     ),
                   ),
                   const SizedBox(height: 2),
                   Text(
                     message,
                     style: textTheme.bodySmall?.copyWith(
-                      color: AppColors.muted,
+                      color: colors.muted,
                       height: 1.4,
                     ),
                   ),
