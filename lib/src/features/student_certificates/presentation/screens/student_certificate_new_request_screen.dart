@@ -372,9 +372,7 @@ class _CertificateImagesCardState extends State<_CertificateImagesCard> {
           const SizedBox(height: AppDesignTokens.spacingXs),
           Text(
             l10n.studentCertificatesImagesHint,
-            style: Theme.of(
-              context,
-            ).textTheme.bodyMedium?.copyWith(
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
               color: AppSemanticColors.of(context).muted,
             ),
           ),

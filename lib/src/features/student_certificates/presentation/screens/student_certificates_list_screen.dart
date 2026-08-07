@@ -166,10 +166,7 @@ class _CertificatesListBody extends StatelessWidget {
                             l10n.studentCertificatesHistoryEmpty,
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.bodyMedium
-                                ?.copyWith(
-                                  color: colors.muted,
-                                  height: 1.45,
-                                ),
+                                ?.copyWith(color: colors.muted, height: 1.45),
                           ),
                         ],
                       ),
