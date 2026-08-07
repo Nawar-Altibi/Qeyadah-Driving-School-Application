@@ -5,6 +5,7 @@ import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
+import 'package:qeyadah_mobile_app/src/core/ui/app_appearance_section.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_calendar_strip.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_info_row.dart';
@@ -131,6 +132,8 @@ class InstructorProfileBody extends StatelessWidget {
                       ],
                     ),
                   ),
+                  const SizedBox(height: AppDesignTokens.spacingMd),
+                  const AppAppearanceSection(),
                   const SizedBox(height: AppDesignTokens.spacingMd),
                   Align(
                     alignment: AlignmentDirectional.centerStart,

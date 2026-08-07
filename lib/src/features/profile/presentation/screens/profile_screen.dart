@@ -6,6 +6,7 @@ import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_action_list_tile.dart';
+import 'package:qeyadah_mobile_app/src/core/ui/app_appearance_section.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/responsive/app_breakpoints.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/presentation/cubit/auth_session_cubit.dart';
@@ -134,6 +135,8 @@ class ProfileScreen extends StatelessWidget {
                         ],
                       ),
                     ),
+                    const SizedBox(height: AppDesignTokens.spacingLg),
+                    const AppAppearanceSection(),
                     const SizedBox(height: AppDesignTokens.spacingLg),
                     AppCard(
                       padding: const EdgeInsets.symmetric(

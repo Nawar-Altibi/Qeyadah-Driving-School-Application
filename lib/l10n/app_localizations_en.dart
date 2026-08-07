@@ -21,6 +21,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get logout => 'Logout';
 
   @override
+  String get appearanceTitle => 'Appearance';
+
+  @override
+  String get appearanceSubtitle =>
+      'Choose light, dark, or follow your device setting.';
+
+  @override
+  String get appearanceSystem => 'Auto';
+
+  @override
+  String get appearanceLight => 'Light';
+
+  @override
+  String get appearanceDark => 'Dark';
+
+  @override
   String get email => 'Email';
 
   @override
