@@ -1187,6 +1187,24 @@ class AppLocalizationsAr extends AppLocalizations {
   String get studentCertificatesStatusCancelled => 'ملغاة';
 
   @override
+  String get studentCertificatesTimelineSubmitted => 'قُدّم الطلب';
+
+  @override
+  String get studentCertificatesTimelineGovTraining => 'التدريب الحكومي';
+
+  @override
+  String get studentCertificatesTimelineTheoryExam => 'الامتحان النظري';
+
+  @override
+  String get studentCertificatesTimelinePracticalExam => 'الامتحان العملي';
+
+  @override
+  String get studentCertificatesTimelineLicense => 'الحصول على الرخصة';
+
+  @override
+  String get studentCertificatesCompletedCategoriesTitle => 'رخصك الحاصلة';
+
+  @override
   String get studentCertificatesHistoryTitle => 'سجل الشهادات';
 
   @override

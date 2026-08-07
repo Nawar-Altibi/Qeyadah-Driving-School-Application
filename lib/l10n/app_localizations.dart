@@ -2190,6 +2190,42 @@ abstract class AppLocalizations {
   /// **'Cancelled'**
   String get studentCertificatesStatusCancelled;
 
+  /// No description provided for @studentCertificatesTimelineSubmitted.
+  ///
+  /// In en, this message translates to:
+  /// **'Request submitted'**
+  String get studentCertificatesTimelineSubmitted;
+
+  /// No description provided for @studentCertificatesTimelineGovTraining.
+  ///
+  /// In en, this message translates to:
+  /// **'Government training'**
+  String get studentCertificatesTimelineGovTraining;
+
+  /// No description provided for @studentCertificatesTimelineTheoryExam.
+  ///
+  /// In en, this message translates to:
+  /// **'Theoretical exam'**
+  String get studentCertificatesTimelineTheoryExam;
+
+  /// No description provided for @studentCertificatesTimelinePracticalExam.
+  ///
+  /// In en, this message translates to:
+  /// **'Practical exam'**
+  String get studentCertificatesTimelinePracticalExam;
+
+  /// No description provided for @studentCertificatesTimelineLicense.
+  ///
+  /// In en, this message translates to:
+  /// **'License issued'**
+  String get studentCertificatesTimelineLicense;
+
+  /// No description provided for @studentCertificatesCompletedCategoriesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Licenses you hold'**
+  String get studentCertificatesCompletedCategoriesTitle;
+
   /// No description provided for @studentCertificatesHistoryTitle.
   ///
   /// In en, this message translates to:

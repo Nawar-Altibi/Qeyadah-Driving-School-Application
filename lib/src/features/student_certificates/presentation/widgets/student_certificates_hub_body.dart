@@ -11,6 +11,8 @@ import 'package:qeyadah_mobile_app/src/core/ui/app_status_badge.dart';
 import 'package:qeyadah_mobile_app/src/features/student_certificates/domain/entities/certificate_eligibility_entity.dart';
 import 'package:qeyadah_mobile_app/src/features/student_certificates/presentation/cubit/student_certificates_hub_state.dart';
 import 'package:qeyadah_mobile_app/src/features/student_certificates/presentation/formatters/student_certificates_formatters.dart';
+import 'package:qeyadah_mobile_app/src/features/student_certificates/presentation/widgets/student_certificate_status_timeline.dart';
+import 'package:qeyadah_mobile_app/src/shared/enums/certificate_category.dart';
 
 class StudentCertificatesHubBody extends StatelessWidget {
   const StudentCertificatesHubBody({
@@ -72,6 +74,12 @@ class StudentCertificatesHubBody extends StatelessWidget {
       children.add(
         _StatusOnlyCard(eligibility: eligibility, state: state, l10n: l10n),
       );
+    }
+
+    final completed = eligibility.newRequest.completedCategories;
+    if (completed.isNotEmpty) {
+      children.add(const SizedBox(height: AppDesignTokens.spacingMd));
+      children.add(_CompletedCategoriesCard(categories: completed, l10n: l10n));
     }
 
     children.add(const SizedBox(height: AppDesignTokens.spacingMd));
@@ -139,10 +147,52 @@ class _ActiveRequestSummaryCard extends StatelessWidget {
                 eligibility.activeCertificateId!,
               ),
             ),
+          if (status != null) ...[
+            const SizedBox(height: AppDesignTokens.spacingMd),
+            StudentCertificateStatusTimeline(status: status, l10n: l10n),
+          ],
           const SizedBox(height: AppDesignTokens.spacingMd),
           AppButton.secondary(
             label: l10n.studentCertificatesViewDetailsCta,
             onPressed: onViewDetailsTap,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _CompletedCategoriesCard extends StatelessWidget {
+  const _CompletedCategoriesCard({
+    required this.categories,
+    required this.l10n,
+  });
+
+  final List<CertificateCategory> categories;
+  final AppLocalizations l10n;
+
+  @override
+  Widget build(BuildContext context) {
+    return AppCard(
+      padding: const EdgeInsets.all(AppDesignTokens.spacingLg),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          AppCardHeader(
+            icon: PhosphorIconsBold.medal,
+            title: l10n.studentCertificatesCompletedCategoriesTitle,
+          ),
+          const SizedBox(height: AppDesignTokens.spacingMd),
+          Wrap(
+            spacing: AppDesignTokens.spacingSm,
+            runSpacing: AppDesignTokens.spacingSm,
+            children: [
+              for (final category in categories)
+                AppStatusBadge(
+                  label: category.apiValue,
+                  tone: AppBadgeTone.success,
+                ),
+            ],
           ),
         ],
       ),
