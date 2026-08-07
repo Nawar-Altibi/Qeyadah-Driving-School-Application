@@ -115,6 +115,8 @@ class _ActiveRequestSummaryCard extends StatelessWidget {
     final status = eligibility.requestStatus;
     return AppCard(
       padding: const EdgeInsets.all(AppDesignTokens.spacingLg),
+      backgroundColor: AppColors.brandMintSoft,
+      borderColor: AppColors.info.withValues(alpha: 0.45),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -175,6 +177,8 @@ class _CompletedCategoriesCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppCard(
       padding: const EdgeInsets.all(AppDesignTokens.spacingLg),
+      backgroundColor: AppColors.successBg.withValues(alpha: 0.55),
+      borderColor: AppColors.success.withValues(alpha: 0.35),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -228,6 +232,8 @@ class _NewRequestCard extends StatelessWidget {
 
     return AppCard(
       padding: const EdgeInsets.all(AppDesignTokens.spacingLg),
+      backgroundColor: AppColors.infoBg,
+      borderColor: AppColors.info.withValues(alpha: 0.5),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -292,6 +298,8 @@ class _ReexamCard extends StatelessWidget {
 
     return AppCard(
       padding: const EdgeInsets.all(AppDesignTokens.spacingLg),
+      backgroundColor: AppColors.warningBg,
+      borderColor: AppColors.warning.withValues(alpha: 0.45),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -369,10 +377,10 @@ class _StatusOnlyCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final newRequest = eligibility.newRequest;
     final reexam = eligibility.reexam;
-    final message =
-        (newRequest.allowed == false &&
-            newRequest.reason == 'ALL_CATEGORIES_COMPLETED' &&
-            (newRequest.message?.isNotEmpty ?? false))
+    final isAllCompleted =
+        newRequest.allowed == false &&
+        newRequest.reason == 'ALL_CATEGORIES_COMPLETED';
+    final message = isAllCompleted && (newRequest.message?.isNotEmpty ?? false)
         ? newRequest.message!
         : (state.reexamRegistrationExpired &&
               (reexam.message?.isNotEmpty ?? false))
@@ -385,21 +393,52 @@ class _StatusOnlyCard extends StatelessWidget {
 
     return AppCard(
       padding: const EdgeInsets.all(AppDesignTokens.spacingLg),
+      backgroundColor: isAllCompleted
+          ? AppColors.successBg
+          : AppColors.neutralBg,
+      borderColor: isAllCompleted
+          ? AppColors.success.withValues(alpha: 0.45)
+          : AppColors.line,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AppCardHeader(
-            icon: PhosphorIconsBold.info,
+            icon: isAllCompleted
+                ? PhosphorIconsBold.sealCheck
+                : PhosphorIconsBold.hourglass,
             title: l10n.studentCertificatesStatusTitle,
           ),
           const SizedBox(height: AppDesignTokens.spacingMd),
-          Text(
-            message,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: AppColors.muted,
-              height: 1.45,
+          if (!isAllCompleted) ...[
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Icon(
+                  PhosphorIconsBold.clock,
+                  size: 16,
+                  color: AppColors.muted,
+                ),
+                const SizedBox(width: AppDesignTokens.spacingSm),
+                Expanded(
+                  child: Text(
+                    message,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: AppColors.muted,
+                      height: 1.45,
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ),
+          ] else
+            Text(
+              message,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: AppColors.success,
+                height: 1.45,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
         ],
       ),
     );
