@@ -5,6 +5,13 @@ abstract final class AppDateFormatters {
     return DateFormat('EEEE، d MMMM', localeName).format(date);
   }
 
+  /// Locale-aware date + time with an explicit separator (not glued together).
+  static String dateTimeLabel(DateTime value, String localeName) {
+    final date = DateFormat('d MMMM yyyy', localeName).format(value);
+    final time = DateFormat.Hm(localeName).format(value);
+    return '$date · $time';
+  }
+
   static String timeRangeLabel(String startTime, String endTime) {
     return '$startTime - $endTime';
   }

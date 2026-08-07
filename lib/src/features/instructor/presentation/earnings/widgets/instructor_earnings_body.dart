@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart' hide TextDirection;
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
+import 'package:qeyadah_mobile_app/src/core/formatters/app_date_formatters.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
@@ -219,7 +220,7 @@ class _SessionCard extends StatelessWidget {
           const SizedBox(height: 2),
           Text(
             l10n.instructorEarningsPaidAt(
-              DateFormat.yMMMd(localeName).add_Hm().format(session.paidAt),
+              AppDateFormatters.dateTimeLabel(session.paidAt, localeName),
             ),
             style: const TextStyle(color: AppColors.muted),
           ),
