@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 
 class AppQuickActionTile extends StatelessWidget {
@@ -19,6 +19,7 @@ class AppQuickActionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppSemanticColors.of(context);
     return Opacity(
       opacity: enabled ? 1 : 0.5,
       child: Material(
@@ -28,23 +29,12 @@ class AppQuickActionTile extends StatelessWidget {
           borderRadius: BorderRadius.circular(AppDesignTokens.radiusControl),
           child: Ink(
             decoration: BoxDecoration(
-              color: AppColors.white,
+              color: colors.card,
               borderRadius: BorderRadius.circular(
                 AppDesignTokens.radiusControl,
               ),
-              border: Border.all(color: AppColors.line.withValues(alpha: 0.85)),
-              boxShadow: const [
-                BoxShadow(
-                  color: Color(0x0F153023),
-                  blurRadius: 14,
-                  offset: Offset(0, 4),
-                ),
-                BoxShadow(
-                  color: Color(0x08153023),
-                  blurRadius: 4,
-                  offset: Offset(0, 1),
-                ),
-              ],
+              border: Border.all(color: colors.line.withValues(alpha: 0.85)),
+              boxShadow: colors.cardShadows,
             ),
             child: Padding(
               padding: const EdgeInsets.all(12),
@@ -54,14 +44,13 @@ class AppQuickActionTile extends StatelessWidget {
                     width: 34,
                     height: 34,
                     decoration: BoxDecoration(
-                      color: AppColors.brandMintSoft,
+                      color: colors.brandSoft,
                       borderRadius: BorderRadius.circular(11),
                     ),
                     child: Icon(
                       icon,
                       size: 18,
-                      color: AppColors.brandPrimary,
-                      // Keep calendar / badge icons from flipping in RTL.
+                      color: colors.primary,
                       textDirection: TextDirection.ltr,
                     ),
                   ),
@@ -73,14 +62,14 @@ class AppQuickActionTile extends StatelessWidget {
                         fontWeight: FontWeight.w700,
                         height: 1.25,
                         fontSize: 13,
+                        color: colors.ink,
                       ),
                     ),
                   ),
-                  // Always point left (forward in RTL); never mirror.
                   Icon(
                     PhosphorIconsBold.caretLeft,
                     size: 16,
-                    color: AppColors.muted.withValues(alpha: 0.7),
+                    color: colors.muted.withValues(alpha: 0.7),
                     textDirection: TextDirection.ltr,
                   ),
                 ],

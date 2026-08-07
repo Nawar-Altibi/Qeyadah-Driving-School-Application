@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_text_theme_extension.dart';
 
 enum AppBadgeTone { success, warning, neutral, danger, info }
@@ -18,7 +18,10 @@ class AppStatusBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final (:foreground, :background) = _colorsForTone(tone);
+    final (:foreground, :background) = _colorsForTone(
+      AppSemanticColors.of(context),
+      tone,
+    );
     final textTheme = Theme.of(context).extension<AppTextStylesExtension>();
 
     return DecoratedBox(
@@ -46,27 +49,27 @@ class AppStatusBadge extends StatelessWidget {
     );
   }
 
-  ({Color foreground, Color background}) _colorsForTone(AppBadgeTone tone) {
+  ({Color foreground, Color background}) _colorsForTone(
+    AppSemanticColors colors,
+    AppBadgeTone tone,
+  ) {
     return switch (tone) {
       AppBadgeTone.success => (
-        foreground: AppColors.success,
-        background: AppColors.successBg,
+        foreground: colors.success,
+        background: colors.successBg,
       ),
       AppBadgeTone.warning => (
-        foreground: AppColors.warning,
-        background: AppColors.warningBg,
+        foreground: colors.warning,
+        background: colors.warningBg,
       ),
       AppBadgeTone.danger => (
-        foreground: AppColors.danger,
-        background: AppColors.dangerBg,
+        foreground: colors.danger,
+        background: colors.dangerBg,
       ),
-      AppBadgeTone.info => (
-        foreground: AppColors.info,
-        background: AppColors.infoBg,
-      ),
+      AppBadgeTone.info => (foreground: colors.info, background: colors.infoBg),
       AppBadgeTone.neutral => (
-        foreground: AppColors.muted,
-        background: AppColors.neutralBg,
+        foreground: colors.muted,
+        background: colors.neutralBg,
       ),
     };
   }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_text_theme_extension.dart';
 
 class AppSectionHeading extends StatelessWidget {
@@ -16,6 +16,7 @@ class AppSectionHeading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppSemanticColors.of(context);
     final textTheme = Theme.of(context).extension<AppTextStylesExtension>();
 
     return Row(
@@ -28,8 +29,9 @@ class AppSectionHeading extends StatelessWidget {
               Text(
                 title,
                 style:
-                    textTheme?.bold18 ??
-                    Theme.of(context).textTheme.titleMedium,
+                    (textTheme?.bold18 ??
+                            Theme.of(context).textTheme.titleMedium)
+                        ?.copyWith(color: colors.ink),
               ),
               if (subtitle != null)
                 Padding(
@@ -39,7 +41,7 @@ class AppSectionHeading extends StatelessWidget {
                     style:
                         (textTheme?.regular12 ??
                                 Theme.of(context).textTheme.bodySmall)
-                            ?.copyWith(color: AppColors.muted),
+                            ?.copyWith(color: colors.muted),
                   ),
                 ),
             ],

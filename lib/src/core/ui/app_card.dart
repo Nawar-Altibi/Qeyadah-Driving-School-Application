@@ -1,4 +1,5 @@
 ﻿import 'package:flutter/material.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 
 class AppCard extends StatelessWidget {
@@ -23,27 +24,16 @@ class AppCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).colorScheme;
+    final colors = AppSemanticColors.of(context);
     final card = AnimatedContainer(
       duration: AppDesignTokens.animationFast,
       margin: margin,
       padding: padding,
       decoration: BoxDecoration(
-        color: backgroundColor ?? colors.surfaceContainer,
+        color: backgroundColor ?? colors.card,
         borderRadius: BorderRadius.circular(borderRadius),
-        border: Border.all(color: borderColor ?? colors.outline),
-        boxShadow: const [
-          BoxShadow(
-            color: Color(0x0F153023),
-            blurRadius: 16,
-            offset: Offset(0, 5),
-          ),
-          BoxShadow(
-            color: Color(0x08153023),
-            blurRadius: 4,
-            offset: Offset(0, 1),
-          ),
-        ],
+        border: Border.all(color: borderColor ?? colors.line),
+        boxShadow: colors.cardShadows,
       ),
       child: child,
     );

@@ -2,7 +2,7 @@ import 'package:coore/lib.dart';
 import 'package:flutter/material.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
 import 'package:qeyadah_mobile_app/src/core/mappers/core_failure_message_mapper.dart';
-import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_button.dart';
 
@@ -76,7 +76,7 @@ class _AppAsyncFailure extends StatelessWidget {
               message,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: AppColors.muted,
+                color: AppSemanticColors.of(context).muted,
                 height: 1.4,
               ),
             ),
