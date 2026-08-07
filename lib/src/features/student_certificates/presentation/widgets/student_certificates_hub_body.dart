@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_button.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
@@ -112,11 +113,12 @@ class _ActiveRequestSummaryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppSemanticColors.of(context);
     final status = eligibility.requestStatus;
     return AppCard(
       padding: const EdgeInsets.all(AppDesignTokens.spacingLg),
-      backgroundColor: AppColors.brandMintSoft,
-      borderColor: AppColors.info.withValues(alpha: 0.45),
+      backgroundColor: colors.brandSoft,
+      borderColor: colors.info.withValues(alpha: 0.45),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -175,10 +177,11 @@ class _CompletedCategoriesCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppSemanticColors.of(context);
     return AppCard(
       padding: const EdgeInsets.all(AppDesignTokens.spacingLg),
-      backgroundColor: AppColors.successBg.withValues(alpha: 0.55),
-      borderColor: AppColors.success.withValues(alpha: 0.35),
+      backgroundColor: colors.successBg.withValues(alpha: 0.55),
+      borderColor: colors.success.withValues(alpha: 0.35),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -219,6 +222,7 @@ class _NewRequestCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppSemanticColors.of(context);
     final newRequest = eligibility.newRequest;
     final label = newRequest.isFirstRequest
         ? l10n.studentCertificatesNewRequestFirst
@@ -232,8 +236,8 @@ class _NewRequestCard extends StatelessWidget {
 
     return AppCard(
       padding: const EdgeInsets.all(AppDesignTokens.spacingLg),
-      backgroundColor: AppColors.infoBg,
-      borderColor: AppColors.info.withValues(alpha: 0.5),
+      backgroundColor: colors.infoBg,
+      borderColor: colors.info.withValues(alpha: 0.5),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -243,7 +247,7 @@ class _NewRequestCard extends StatelessWidget {
             Text(
               newRequest.message!,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: AppColors.muted,
+                color: colors.muted,
                 height: 1.45,
               ),
             ),
@@ -261,7 +265,7 @@ class _NewRequestCard extends StatelessWidget {
               l10n.studentCertificatesBlockedWriteHint,
               style: Theme.of(
                 context,
-              ).textTheme.bodySmall?.copyWith(color: AppColors.muted),
+              ).textTheme.bodySmall?.copyWith(color: colors.muted),
             )
           else
             AppButton.primary(label: label, onPressed: onTap),
@@ -288,6 +292,7 @@ class _ReexamCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppSemanticColors.of(context);
     final reexam = eligibility.reexam;
     final examType = reexam.examType;
     final title = examType == null
@@ -298,8 +303,8 @@ class _ReexamCard extends StatelessWidget {
 
     return AppCard(
       padding: const EdgeInsets.all(AppDesignTokens.spacingLg),
-      backgroundColor: AppColors.warningBg,
-      borderColor: AppColors.warning.withValues(alpha: 0.45),
+      backgroundColor: colors.warningBg,
+      borderColor: colors.warning.withValues(alpha: 0.45),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -349,7 +354,7 @@ class _ReexamCard extends StatelessWidget {
               l10n.studentCertificatesBlockedWriteHint,
               style: Theme.of(
                 context,
-              ).textTheme.bodySmall?.copyWith(color: AppColors.muted),
+              ).textTheme.bodySmall?.copyWith(color: colors.muted),
             )
           else
             AppButton.primary(
@@ -375,6 +380,7 @@ class _StatusOnlyCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppSemanticColors.of(context);
     final newRequest = eligibility.newRequest;
     final reexam = eligibility.reexam;
     final isAllCompleted =
@@ -393,12 +399,10 @@ class _StatusOnlyCard extends StatelessWidget {
 
     return AppCard(
       padding: const EdgeInsets.all(AppDesignTokens.spacingLg),
-      backgroundColor: isAllCompleted
-          ? AppColors.successBg
-          : AppColors.neutralBg,
+      backgroundColor: isAllCompleted ? colors.successBg : colors.neutralBg,
       borderColor: isAllCompleted
-          ? AppColors.success.withValues(alpha: 0.45)
-          : AppColors.line,
+          ? colors.success.withValues(alpha: 0.45)
+          : colors.line,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -413,17 +417,13 @@ class _StatusOnlyCard extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Icon(
-                  PhosphorIconsBold.clock,
-                  size: 16,
-                  color: AppColors.muted,
-                ),
+                Icon(PhosphorIconsBold.clock, size: 16, color: colors.muted),
                 const SizedBox(width: AppDesignTokens.spacingSm),
                 Expanded(
                   child: Text(
                     message,
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: AppColors.muted,
+                      color: colors.muted,
                       height: 1.45,
                     ),
                   ),
@@ -434,7 +434,7 @@ class _StatusOnlyCard extends StatelessWidget {
             Text(
               message,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: AppColors.success,
+                color: colors.success,
                 height: 1.45,
                 fontWeight: FontWeight.w600,
               ),
@@ -453,6 +453,7 @@ class _HistoryCtaCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppSemanticColors.of(context);
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -468,8 +469,8 @@ class _HistoryCtaCard extends StatelessWidget {
               Container(
                 width: 42,
                 height: 42,
-                decoration: const BoxDecoration(
-                  color: AppColors.brandMintSoft,
+                decoration: BoxDecoration(
+                  color: colors.brandSoft,
                   shape: BoxShape.circle,
                 ),
                 child: const Icon(
@@ -484,14 +485,14 @@ class _HistoryCtaCard extends StatelessWidget {
                   label,
                   style: Theme.of(context).textTheme.titleSmall?.copyWith(
                     fontWeight: FontWeight.w700,
-                    color: AppColors.ink,
+                    color: colors.ink,
                   ),
                 ),
               ),
-              const Icon(
+              Icon(
                 PhosphorIconsBold.caretLeft,
                 size: 16,
-                color: AppColors.muted,
+                color: colors.muted,
                 textDirection: TextDirection.ltr,
               ),
             ],

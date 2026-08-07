@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
-import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_button.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
@@ -95,10 +95,8 @@ class _StudentCertificateNewRequestScreenState
         context.read<StudentCertificateWriteCubit>().clearEffect();
       },
       builder: (context, state) => Scaffold(
-        backgroundColor: AppColors.appCanvas,
         appBar: AppBar(
           title: Text(l10n.studentCertificatesNewTitle),
-          backgroundColor: AppColors.appCanvas,
           surfaceTintColor: Colors.transparent,
           leading: AppFlowBackButton(
             onCancel: context.read<StudentCertificateWriteCubit>().resetDraft,
@@ -374,9 +372,9 @@ class _CertificateImagesCardState extends State<_CertificateImagesCard> {
           const SizedBox(height: AppDesignTokens.spacingXs),
           Text(
             l10n.studentCertificatesImagesHint,
-            style: Theme.of(
-              context,
-            ).textTheme.bodyMedium?.copyWith(color: AppColors.muted),
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              color: AppSemanticColors.of(context).muted,
+            ),
           ),
           const SizedBox(height: AppDesignTokens.spacingSm),
           _ImagePickerTile(

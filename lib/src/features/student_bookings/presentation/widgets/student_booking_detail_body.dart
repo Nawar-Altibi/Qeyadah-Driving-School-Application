@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
-import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_button.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
@@ -210,7 +210,7 @@ class StudentBookingDetailBody extends StatelessWidget {
           ],
         const SizedBox(height: AppDesignTokens.spacingSm),
         AppCard(
-          backgroundColor: AppColors.brandMintSoft,
+          backgroundColor: AppSemanticColors.of(context).brandSoft,
           borderColor: Colors.transparent,
           child: Text(
             l10n.studentBookingDetailRemainingCallout(

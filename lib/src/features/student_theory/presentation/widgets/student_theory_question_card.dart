@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_network_image.dart';
@@ -28,6 +29,7 @@ class StudentTheoryQuestionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    final colors = AppSemanticColors.of(context);
     final explanation = question.explanation;
 
     return Column(
@@ -37,14 +39,14 @@ class StudentTheoryQuestionCard extends StatelessWidget {
           l10n.studentTheoryProgress(questionNumber, totalQuestions),
           style: Theme.of(
             context,
-          ).textTheme.bodySmall?.copyWith(color: AppColors.muted),
+          ).textTheme.bodySmall?.copyWith(color: colors.muted),
         ),
         const SizedBox(height: AppDesignTokens.spacingSm),
         LinearProgressIndicator(
           value: totalQuestions == 0 ? 0 : questionNumber / totalQuestions,
           minHeight: 6,
           borderRadius: BorderRadius.circular(999),
-          backgroundColor: AppColors.neutralBg,
+          backgroundColor: colors.neutralBg,
           color: AppColors.brandPrimary,
         ),
         const SizedBox(height: AppDesignTokens.spacingMd),
@@ -98,7 +100,7 @@ class StudentTheoryQuestionCard extends StatelessWidget {
         if (revealed && explanation != null && explanation.isNotEmpty) ...[
           const SizedBox(height: AppDesignTokens.spacingSm),
           AppCard(
-            backgroundColor: AppColors.brandMintSoft,
+            backgroundColor: colors.brandSoft,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

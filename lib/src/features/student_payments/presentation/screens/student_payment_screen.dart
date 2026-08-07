@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_alert_banner.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_button.dart';
@@ -49,12 +50,11 @@ class _StudentPaymentScreenState extends State<StudentPaymentScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    final colors = AppSemanticColors.of(context);
 
     return StudentPaymentScreenCoordinator(
       child: Scaffold(
-        backgroundColor: AppColors.appCanvas,
         appBar: AppBar(
-          backgroundColor: AppColors.appCanvas,
           surfaceTintColor: Colors.transparent,
           elevation: 0,
           title: Text(l10n.studentPaymentTitle),
@@ -79,7 +79,7 @@ class _StudentPaymentScreenState extends State<StudentPaymentScreen> {
                                 width: 40,
                                 height: 40,
                                 decoration: BoxDecoration(
-                                  color: AppColors.brandMintSoft,
+                                  color: colors.brandSoft,
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                                 child: const Icon(
@@ -139,7 +139,7 @@ class _StudentPaymentScreenState extends State<StudentPaymentScreen> {
                       l10n.studentPaymentTransactionIdHint,
                       style: Theme.of(
                         context,
-                      ).textTheme.bodySmall?.copyWith(color: AppColors.muted),
+                      ).textTheme.bodySmall?.copyWith(color: colors.muted),
                     ),
                     const SizedBox(height: AppDesignTokens.spacingMd),
                     Center(
