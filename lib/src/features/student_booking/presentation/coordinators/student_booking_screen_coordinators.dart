@@ -34,6 +34,7 @@ class StudentBookingPreferencesScreenCoordinator extends StatelessWidget {
           case StudentBookingEffectNavigateToReview():
           case StudentBookingEffectBookingCreated():
           case StudentBookingEffectSlotConflict():
+          case StudentBookingEffectBackendConflict():
           case StudentBookingEffectPendingPaymentConflict():
           case StudentBookingEffectActionFailed():
             break;
@@ -66,6 +67,7 @@ class StudentBookingSlotsScreenCoordinator extends StatelessWidget {
           case StudentBookingEffectNavigateToSlots():
           case StudentBookingEffectBookingCreated():
           case StudentBookingEffectSlotConflict():
+          case StudentBookingEffectBackendConflict():
           case StudentBookingEffectPendingPaymentConflict():
           case StudentBookingEffectActionFailed():
             break;
@@ -114,6 +116,12 @@ class StudentBookingReviewScreenCoordinator extends StatelessWidget {
             showErrorMessage(message: l10n.studentBookingErrorSlotConflict);
             Navigator.of(context).pop();
             context.read<StudentBookingCubit>().loadSlots();
+          case StudentBookingEffectBackendConflict(:final failure):
+            showErrorMessage(
+              message: failure.message.isNotEmpty
+                  ? failure.message
+                  : l10n.errorGeneric,
+            );
           case StudentBookingEffectPendingPaymentConflict():
             showErrorMessage(
               message: l10n.studentBookingErrorPendingPaymentExists,

@@ -59,21 +59,40 @@ class StudentBookingRepositoryImpl implements StudentBookingRepository {
     return _localDataSource.clearHold();
   }
 
-  /// A 409 on booking creation either means the slot was just taken by
-  /// someone else, or the student already has a PENDING_PAYMENT booking.
-  /// The backend does not expose a structured reason, so it is inferred
-  /// from the message text.
+  /// A 409 on booking creation may mean: a pending-payment hold already
+  /// exists, the chosen instructor/vehicle slot was taken, or another
+  /// student-schedule conflict (e.g. overlapping booking with a different
+  /// instructor). The backend does not expose a structured reason, so it is
+  /// inferred from the message text; unknown conflicts keep the backend copy.
   Failure _mapCreateBookingFailure(NetworkFailure failure) {
     if (failure is ConflictFailure) {
-      final normalizedMessage = failure.message.toLowerCase();
-      final isPendingPaymentConflict = normalizedMessage.contains('pending');
       return StudentBookingConflictFailure(
-        reason: isPendingPaymentConflict
-            ? StudentBookingConflictReason.pendingPaymentExists
-            : StudentBookingConflictReason.slotUnavailable,
+        reason: _inferCreateConflictReason(failure.message),
         message: failure.message,
       );
     }
     return NetworkFailureMapper.toDomainFailure(failure);
+  }
+
+  StudentBookingConflictReason _inferCreateConflictReason(String message) {
+    final normalized = message.toLowerCase();
+    if (normalized.contains('pending')) {
+      return StudentBookingConflictReason.pendingPaymentExists;
+    }
+
+    const slotUnavailableHints = <String>[
+      'not available',
+      'conflicts with an existing reservation',
+      'no available vehicle',
+      'غير متاح',
+      'تم حجز',
+      'محجوز',
+    ];
+    for (final hint in slotUnavailableHints) {
+      if (normalized.contains(hint.toLowerCase())) {
+        return StudentBookingConflictReason.slotUnavailable;
+      }
+    }
+    return StudentBookingConflictReason.unspecifiedConflict;
   }
 }

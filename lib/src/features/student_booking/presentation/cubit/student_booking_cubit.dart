@@ -163,6 +163,8 @@ class StudentBookingCubit
           StudentBookingEffectPendingPaymentConflict(failure),
         StudentBookingConflictReason.slotUnavailable =>
           StudentBookingEffectSlotConflict(failure),
+        StudentBookingConflictReason.unspecifiedConflict =>
+          StudentBookingEffectBackendConflict(failure),
       };
     }
     return StudentBookingEffectActionFailed(failure);

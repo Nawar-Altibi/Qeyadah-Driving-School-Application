@@ -26,6 +26,15 @@ final class StudentBookingEffectSlotConflict extends StudentBookingEffect {
   final Failure failure;
 }
 
+/// Backend 409 with a message we should show as-is (e.g. overlapping booking
+/// with another instructor). Do not force a slots refresh unless the user
+/// chooses to go back.
+final class StudentBookingEffectBackendConflict extends StudentBookingEffect {
+  const StudentBookingEffectBackendConflict(this.failure);
+
+  final Failure failure;
+}
+
 /// The student already has a PENDING_PAYMENT booking; they should resume
 /// that payment instead of creating a new one.
 final class StudentBookingEffectPendingPaymentConflict
