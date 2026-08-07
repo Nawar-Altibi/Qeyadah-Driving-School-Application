@@ -336,10 +336,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get studentHomeManual => 'Manual';
 
   @override
-  String get studentHomeSchoolVehicle => 'School';
+  String get studentHomeSchoolVehicle => 'School vehicle';
 
   @override
-  String get studentHomeStudentVehicle => 'Student';
+  String get studentHomeStudentVehicle => 'Student vehicle';
 
   @override
   String get studentHomeShowMeetingPoint => 'Show meeting point';

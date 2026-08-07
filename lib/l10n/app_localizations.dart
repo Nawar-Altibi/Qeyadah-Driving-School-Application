@@ -701,13 +701,13 @@ abstract class AppLocalizations {
   /// No description provided for @studentHomeSchoolVehicle.
   ///
   /// In en, this message translates to:
-  /// **'School'**
+  /// **'School vehicle'**
   String get studentHomeSchoolVehicle;
 
   /// No description provided for @studentHomeStudentVehicle.
   ///
   /// In en, this message translates to:
-  /// **'Student'**
+  /// **'Student vehicle'**
   String get studentHomeStudentVehicle;
 
   /// No description provided for @studentHomeShowMeetingPoint.
