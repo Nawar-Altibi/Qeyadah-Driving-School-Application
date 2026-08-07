@@ -143,10 +143,22 @@ abstract interface class AppThemeData {
             textDirection: TextDirection.ltr,
           ),
         ),
-        appBarTheme: const AppBarTheme(
+        appBarTheme: AppBarTheme(
           centerTitle: true,
           elevation: 0,
           scrolledUnderElevation: 0,
+          backgroundColor: AppColors.darkColorScheme.surface,
+          foregroundColor: AppColors.darkColorScheme.onSurface,
+          titleTextStyle: TextStyle(
+            color: AppColors.darkColorScheme.onSurface,
+            fontSize: 18,
+            fontWeight: FontWeight.w700,
+            height: 1.25,
+          ),
+          iconTheme: IconThemeData(
+            color: AppColors.darkColorScheme.onSurface,
+            size: 22,
+          ),
         ),
         cardTheme: CardThemeData(
           color: AppColors.darkColorScheme.surfaceContainer,
@@ -157,9 +169,25 @@ abstract interface class AppThemeData {
             side: BorderSide(color: AppColors.darkColorScheme.outline),
           ),
         ),
+        chipTheme: ChipThemeData(
+          backgroundColor: AppColors.darkColorScheme.surfaceContainer,
+          selectedColor: AppColors.darkColorScheme.primaryContainer,
+          disabledColor: AppColors.darkColorScheme.surfaceContainerHighest,
+          labelStyle: AppTextStylesExtension.defaults.medium12.copyWith(
+            color: AppColors.darkColorScheme.onSurface,
+          ),
+          secondaryLabelStyle: AppTextStylesExtension.defaults.medium12
+              .copyWith(color: AppColors.darkColorScheme.primary),
+          side: BorderSide(color: AppColors.darkColorScheme.outline),
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadiusManager.radiusAll8,
+          ),
+        ),
         filledButtonTheme: FilledButtonThemeData(
           style: FilledButton.styleFrom(
             minimumSize: const Size.fromHeight(AppDesignTokens.buttonHeight),
+            backgroundColor: AppColors.darkColorScheme.primary,
+            foregroundColor: AppColors.darkColorScheme.onPrimary,
             textStyle: AppTextStylesExtension.defaults.bold16,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(
@@ -171,13 +199,28 @@ abstract interface class AppThemeData {
         outlinedButtonTheme: OutlinedButtonThemeData(
           style: OutlinedButton.styleFrom(
             minimumSize: const Size.fromHeight(AppDesignTokens.buttonHeight),
+            foregroundColor: AppColors.darkColorScheme.primary,
             textStyle: AppTextStylesExtension.defaults.bold16,
+            side: BorderSide(color: AppColors.darkColorScheme.primary),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(
                 AppDesignTokens.radiusControl,
               ),
             ),
           ),
+        ),
+        dividerTheme: DividerThemeData(
+          color: AppColors.darkColorScheme.outline,
+          thickness: 1,
+        ),
+        dialogTheme: DialogThemeData(
+          backgroundColor: AppColors.darkColorScheme.surfaceContainer,
+          surfaceTintColor: Colors.transparent,
+        ),
+        bottomSheetTheme: BottomSheetThemeData(
+          backgroundColor: AppColors.darkColorScheme.surfaceContainer,
+          surfaceTintColor: Colors.transparent,
+          modalBackgroundColor: AppColors.darkColorScheme.surfaceContainer,
         ),
         inputDecorationTheme: InputDecorationTheme(
           filled: true,
