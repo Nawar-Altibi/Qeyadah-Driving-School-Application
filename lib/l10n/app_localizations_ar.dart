@@ -334,10 +334,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get studentHomeManual => 'يدوي';
 
   @override
-  String get studentHomeSchoolVehicle => 'مدرسة';
+  String get studentHomeSchoolVehicle => 'مركبة المدرسة';
 
   @override
-  String get studentHomeStudentVehicle => 'طالب';
+  String get studentHomeStudentVehicle => 'مركبة الطالب';
 
   @override
   String get studentHomeShowMeetingPoint => 'عرض نقطة اللقاء';
