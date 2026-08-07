@@ -24,12 +24,16 @@ class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDataSource _remoteDataSource;
   final AuthLocalDataSource _localDataSource;
 
-  static const _sessionSaveTimeout = Duration(seconds: 2);
+  /// Hive auth-box open alone can take several seconds on cold start; keep this
+  /// under the outer login/register FutureEitherTimeout (25s).
+  static const _sessionSaveTimeout = Duration(seconds: 8);
+  static const _tokenPersistTimeout = Duration(seconds: 3);
   static const _sessionSaveRetryDelays = <Duration>[
     Duration(milliseconds: 500),
     Duration(seconds: 1),
     Duration(seconds: 2),
     Duration(seconds: 4),
+    Duration(seconds: 8),
   ];
 
   @override
@@ -51,15 +55,21 @@ class AuthRepositoryImpl implements AuthRepository {
       );
     }
 
-    // Memory tokens first — login must succeed even if disk I/O hangs
-    // (seen on some Android OEMs with secure storage / Hive).
-    await AuthTokenCoordinator.persist(
-      accessToken: session.accessToken,
-      refreshToken: session.refreshToken,
-    );
+    // Memory tokens first — login/register must succeed even if disk I/O hangs
+    // (seen on some Android OEMs with secure storage / Hive). Cap the whole
+    // persist step so a hung sync cannot burn the outer FutureEitherTimeout and
+    // surface a fake "request timed out" after HTTP 200/201.
+    try {
+      await AuthTokenCoordinator.persist(
+        accessToken: session.accessToken,
+        refreshToken: session.refreshToken,
+      ).timeout(_tokenPersistTimeout);
+    } on Object {
+      // Memory may already be updated inside setTokens; continue to session save.
+    }
 
-    // First write is short-timeout so login is never blocked; failed / timed
-    // out disk saves are retried in the background so cold start can restore.
+    // Prefer completing Hive session_json before returning — cold start only
+    // restores from disk. Failed / timed-out writes still retry in background.
     final saved = await _trySaveSession(session);
     if (!saved) {
       unawaited(_retrySaveSession(session));
@@ -134,22 +144,72 @@ class AuthRepositoryImpl implements AuthRepository {
   FutureEither<AuthSessionEntity?> getPersistedSession() async {
     await AuthTokenCoordinator.ensureInterceptorTokensFromLegacyStorage();
     final session = await _localDataSource.readSession();
-    return session.fold((failure) async => left(failure), (value) async {
-      if (value == null) return right(null);
-      if (!value.canUseMobileApp) {
-        await AuthTokenCoordinator.clear();
-        await _localDataSource.clearSession();
-        return right(null);
-      }
-      // Rehydrate the in-memory (and secure) token manager from the persisted
-      // session. Required on web where secure storage is disabled, and as a
-      // safety net when secure storage is empty but Hive still has the session.
+    return session.fold(
+      (failure) async {
+        // Hive read failed — still try secure-storage tokens + /me.
+        return _restoreSessionFromStoredTokens();
+      },
+      (value) async {
+        if (value != null) {
+          if (!value.canUseMobileApp) {
+            await AuthTokenCoordinator.clear();
+            await _localDataSource.clearSession();
+            return right(null);
+          }
+          // Rehydrate the in-memory (and secure) token manager from the persisted
+          // session. Required on web where secure storage is disabled, and as a
+          // safety net when secure storage is empty but Hive still has the session.
+          await AuthTokenCoordinator.persist(
+            accessToken: value.accessToken,
+            refreshToken: value.refreshToken,
+          );
+          return right(value);
+        }
+        // session_json missing (save raced with process kill) — rebuild from
+        // secure-storage tokens via /auth/me when possible.
+        return _restoreSessionFromStoredTokens();
+      },
+    );
+  }
+
+  FutureEither<AuthSessionEntity?> _restoreSessionFromStoredTokens() async {
+    final manager = getIt<AuthTokenManager>();
+    final access = (await manager.accessToken).trim();
+    final refresh = (await manager.refreshToken).trim();
+    if (access.isEmpty) return right(null);
+
+    try {
       await AuthTokenCoordinator.persist(
-        accessToken: value.accessToken,
-        refreshToken: value.refreshToken,
-      );
-      return right(value);
-    });
+        accessToken: access,
+        refreshToken: refresh.isEmpty ? null : refresh,
+      ).timeout(_tokenPersistTimeout);
+    } on Object {
+      // Interceptor may still see in-memory tokens set by setTokens.
+    }
+
+    final remote = await _remoteDataSource.me();
+    return remote.fold(
+      (_) async {
+        await AuthTokenCoordinator.clear();
+        return right(null);
+      },
+      (profile) async {
+        final merged = AuthSessionEntity(
+          user: profile.user,
+          accessToken: access,
+          refreshToken: refresh.isEmpty ? null : refresh,
+        );
+        if (!merged.canUseMobileApp) {
+          await AuthTokenCoordinator.clear();
+          return right(null);
+        }
+        final saved = await _trySaveSession(merged);
+        if (!saved) {
+          unawaited(_retrySaveSession(merged));
+        }
+        return right(merged);
+      },
+    );
   }
 
   @override

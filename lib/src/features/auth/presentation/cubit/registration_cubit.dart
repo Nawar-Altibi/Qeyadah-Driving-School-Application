@@ -152,6 +152,7 @@ class RegistrationCubit extends Cubit<RegistrationState> {
       platform = null;
     }
 
+    // Match login budget: HTTP + short best-effort disk persist (not FCM).
     final result = await FutureEitherTimeout.guard(
       _registerStudentUseCase(
         RegisterStudentParams(
@@ -165,6 +166,7 @@ class RegistrationCubit extends Cubit<RegistrationState> {
           platform: platform,
         ),
       ),
+      timeout: const Duration(seconds: 25),
     );
     if (!_isActiveGeneration(generation)) return;
 

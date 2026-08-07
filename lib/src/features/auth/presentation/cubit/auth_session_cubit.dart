@@ -68,9 +68,11 @@ class AuthSessionCubit
     if (_initialRestoreComplete) return;
 
     try {
+      // Hive auth-box open can take up to ~10s; keep budget above that so a
+      // cold start does not drop a valid persisted session as "logged out".
       final result = await _getPersistedSessionUseCase(
         const NoParams(),
-      ).timeout(const Duration(seconds: 4));
+      ).timeout(const Duration(seconds: 15));
       _initialRestoreComplete = true;
 
       result.fold((Failure failure) => _finishInitialRestoreWithoutSession(), (
