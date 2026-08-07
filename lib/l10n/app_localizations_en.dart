@@ -1190,6 +1190,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String get studentCertificatesStatusCancelled => 'Cancelled';
 
   @override
+  String get studentCertificatesTimelineSubmitted => 'Request submitted';
+
+  @override
+  String get studentCertificatesTimelineGovTraining => 'Government training';
+
+  @override
+  String get studentCertificatesTimelineTheoryExam => 'Theoretical exam';
+
+  @override
+  String get studentCertificatesTimelinePracticalExam => 'Practical exam';
+
+  @override
+  String get studentCertificatesTimelineLicense => 'License issued';
+
+  @override
+  String get studentCertificatesCompletedCategoriesTitle => 'Licenses you hold';
+
+  @override
   String get studentCertificatesHistoryTitle => 'Certificate history';
 
   @override
