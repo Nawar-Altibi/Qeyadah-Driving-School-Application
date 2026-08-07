@@ -51,12 +51,18 @@ class AuthRepositoryImpl implements AuthRepository {
       );
     }
 
-    // Memory tokens first — login must succeed even if disk I/O hangs
-    // (seen on some Android OEMs with secure storage / Hive).
-    await AuthTokenCoordinator.persist(
-      accessToken: session.accessToken,
-      refreshToken: session.refreshToken,
-    );
+    // Memory tokens first — login/register must succeed even if disk I/O hangs
+    // (seen on some Android OEMs with secure storage / Hive). Cap the whole
+    // persist step so a hung sync cannot burn the outer FutureEitherTimeout and
+    // surface a fake "request timed out" after HTTP 200/201.
+    try {
+      await AuthTokenCoordinator.persist(
+        accessToken: session.accessToken,
+        refreshToken: session.refreshToken,
+      ).timeout(_sessionSaveTimeout);
+    } on Object {
+      // Memory may already be updated inside setTokens; continue to session save.
+    }
 
     // First write is short-timeout so login is never blocked; failed / timed
     // out disk saves are retried in the background so cold start can restore.

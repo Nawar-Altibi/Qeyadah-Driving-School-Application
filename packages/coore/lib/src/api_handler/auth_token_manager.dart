@@ -73,6 +73,11 @@ class AuthTokenManager {
   }
 
   /// Sets the tokens in memory and, if secure storage is enabled, persists them.
+  ///
+  /// Memory is always updated first. Disk writes and [onTokensPersisted] are
+  /// best-effort and must never block callers — hung OEM secure storage / Hive
+  /// sync previously made login/register look like request timeouts after HTTP
+  /// 200/201.
   Future<void> setTokens({String? accessToken, String? refreshToken}) async {
     _accessToken = accessToken;
     _refreshToken = refreshToken;
@@ -92,11 +97,29 @@ class AuthTokenManager {
     final hasAccess = accessToken != null && accessToken.isNotEmpty;
     final hasRefresh = refreshToken != null && refreshToken.isNotEmpty;
     if (hook != null && (hasAccess || hasRefresh)) {
-      try {
-        await hook(accessToken: accessToken, refreshToken: refreshToken);
-      } on Object {
-        // Session-disk sync is best-effort; memory tokens already updated.
-      }
+      // Fire-and-forget: awaiting Hive/session sync here blocked auth after a
+      // successful HTTP response until an outer FutureEitherTimeout fired.
+      unawaited(
+        _runTokensPersistedHook(
+          hook,
+          accessToken: accessToken,
+          refreshToken: refreshToken,
+        ),
+      );
+    }
+  }
+
+  Future<void> _runTokensPersistedHook(
+    FutureOr<void> Function({String? accessToken, String? refreshToken}) hook, {
+    String? accessToken,
+    String? refreshToken,
+  }) async {
+    try {
+      await Future<void>(
+        () => hook(accessToken: accessToken, refreshToken: refreshToken),
+      ).timeout(_secureWriteTimeout);
+    } on Object {
+      // Session-disk sync is best-effort; memory tokens already updated.
     }
   }
 

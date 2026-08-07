@@ -1,4 +1,6 @@
-﻿import 'package:coore/lib.dart';
+﻿import 'dart:async';
+
+import 'package:coore/lib.dart';
 import 'package:qeyadah_mobile_app/src/core/constants/raw_values.dart';
 import 'package:qeyadah_mobile_app/src/core/constants/storage_keys.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/data/data_sources/auth_local_data_source.dart';
@@ -62,13 +64,17 @@ abstract final class AuthTokenCoordinator {
     }
   }
 
+  static const _sessionHiveSyncTimeout = Duration(seconds: 2);
+
   static Future<void> _syncSessionTokens(
     AuthLocalDataSource localDataSource, {
     String? accessToken,
     String? refreshToken,
   }) async {
     try {
-      final sessionResult = await localDataSource.readSession();
+      final sessionResult = await localDataSource
+          .readSession()
+          .timeout(_sessionHiveSyncTimeout);
       await sessionResult.fold((_) async {}, (session) async {
         if (session == null) return;
         final access = accessToken?.trim();
@@ -83,13 +89,15 @@ abstract final class AuthTokenCoordinator {
             nextRefresh == session.refreshToken) {
           return;
         }
-        await localDataSource.saveSession(
-          AuthSessionEntity(
-            user: session.user,
-            accessToken: nextAccess,
-            refreshToken: nextRefresh,
-          ),
-        );
+        await localDataSource
+            .saveSession(
+              AuthSessionEntity(
+                user: session.user,
+                accessToken: nextAccess,
+                refreshToken: nextRefresh,
+              ),
+            )
+            .timeout(_sessionHiveSyncTimeout);
       });
     } on Object {
       // Best-effort Hive token sync after refresh.
