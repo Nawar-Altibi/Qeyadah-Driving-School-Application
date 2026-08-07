@@ -1,4 +1,4 @@
-import 'dart:async';
+﻿import 'dart:async';
 
 import 'package:coore/lib.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -14,7 +14,7 @@ void main() {
 
     setUp(() {
       secureDatabase = _MockSecureDatabase();
-      manager = AuthTokenManager(secureDatabase, secureStorageEnabled: false);
+      manager = AuthTokenManager(secureDatabase);
     });
 
     test('does not await a hanging onTokensPersisted hook', () async {
