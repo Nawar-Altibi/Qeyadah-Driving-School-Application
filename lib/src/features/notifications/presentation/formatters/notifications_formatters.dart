@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:qeyadah_mobile_app/src/core/formatters/app_date_formatters.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_status_badge.dart';
 import 'package:qeyadah_mobile_app/src/features/notifications/domain/entities/app_notification_type.dart';
 
@@ -36,7 +36,7 @@ abstract final class NotificationsFormatters {
     DateTime createdAt,
     String localeName,
   ) {
-    return DateFormat.yMMMd(localeName).add_Hm().format(createdAt);
+    return AppDateFormatters.dateTimeLabel(createdAt, localeName);
   }
 
   static bool isCalendarIcon(AppNotificationType type) {
