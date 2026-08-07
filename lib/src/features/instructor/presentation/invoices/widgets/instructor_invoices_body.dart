@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart' hide TextDirection;
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
+import 'package:qeyadah_mobile_app/src/core/formatters/app_date_formatters.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
@@ -220,7 +220,7 @@ class _InvoiceCard extends StatelessWidget {
       invoice.paymentMethod,
     );
     final paidLabel = l10n.instructorInvoicesPaidAt(
-      DateFormat.yMMMd(localeName).add_Hm().format(invoice.paidAt),
+      AppDateFormatters.dateTimeLabel(invoice.paidAt, localeName),
     );
 
     return AppCard(
