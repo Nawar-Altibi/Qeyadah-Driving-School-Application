@@ -399,9 +399,7 @@ class _StatusOnlyCard extends StatelessWidget {
 
     return AppCard(
       padding: const EdgeInsets.all(AppDesignTokens.spacingLg),
-      backgroundColor: isAllCompleted
-          ? colors.successBg
-          : colors.neutralBg,
+      backgroundColor: isAllCompleted ? colors.successBg : colors.neutralBg,
       borderColor: isAllCompleted
           ? colors.success.withValues(alpha: 0.45)
           : colors.line,
@@ -419,11 +417,7 @@ class _StatusOnlyCard extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(
-                  PhosphorIconsBold.clock,
-                  size: 16,
-                  color: colors.muted,
-                ),
+                Icon(PhosphorIconsBold.clock, size: 16, color: colors.muted),
                 const SizedBox(width: AppDesignTokens.spacingSm),
                 Expanded(
                   child: Text(

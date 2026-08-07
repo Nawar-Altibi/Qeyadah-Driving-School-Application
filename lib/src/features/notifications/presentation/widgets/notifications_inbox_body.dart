@@ -281,10 +281,7 @@ class _NotificationCard extends StatelessWidget {
         foreground: colors.danger,
         background: colors.dangerBg,
       ),
-      AppBadgeTone.info => (
-        foreground: colors.info,
-        background: colors.infoBg,
-      ),
+      AppBadgeTone.info => (foreground: colors.info, background: colors.infoBg),
       AppBadgeTone.neutral => (
         foreground: colors.muted,
         background: colors.neutralBg,

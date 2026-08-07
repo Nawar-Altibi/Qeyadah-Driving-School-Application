@@ -87,11 +87,7 @@ class _NotificationBellButton extends StatelessWidget {
             clipBehavior: Clip.none,
             alignment: Alignment.center,
             children: [
-              Icon(
-                PhosphorIconsBold.bell,
-                size: 21,
-                color: colors.ink,
-              ),
+              Icon(PhosphorIconsBold.bell, size: 21, color: colors.ink),
               if (unreadCount > 0)
                 Positioned(
                   top: 4,
@@ -325,9 +321,7 @@ class _TimelineRow extends StatelessWidget {
                   ),
                 ),
                 if (showConnector)
-                  Expanded(
-                    child: Container(width: 1, color: colors.line),
-                  ),
+                  Expanded(child: Container(width: 1, color: colors.line)),
               ],
             ),
           ),
@@ -383,8 +377,9 @@ class _TimelineRow extends StatelessWidget {
                         const SizedBox(height: 4),
                         Text(
                           '${InstructorFormatters.vehicleSourceLabel(l10n, booking.vehicleSource)} · ${InstructorFormatters.durationLabel(l10n, booking.duration)}',
-                          style: Theme.of(context).textTheme.labelSmall
-                              ?.copyWith(color: colors.muted),
+                          style: Theme.of(
+                            context,
+                          ).textTheme.labelSmall?.copyWith(color: colors.muted),
                         ),
                       ],
                     ),

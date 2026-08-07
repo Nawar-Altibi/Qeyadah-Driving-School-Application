@@ -276,18 +276,14 @@ class InstructorLessonCard extends StatelessWidget {
                 const SizedBox(height: 6),
                 Row(
                   children: [
-                    Icon(
-                      PhosphorIconsBold.car,
-                      size: 15,
-                      color: colors.muted,
-                    ),
+                    Icon(PhosphorIconsBold.car, size: 15, color: colors.muted),
                     const SizedBox(width: 6),
                     Expanded(
                       child: Text(
                         '${InstructorFormatters.vehicleSourceLabel(l10n, booking.vehicleSource)} · ${InstructorFormatters.durationLabel(l10n, booking.duration)}',
-                        style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                          color: colors.muted,
-                        ),
+                        style: Theme.of(
+                          context,
+                        ).textTheme.labelSmall?.copyWith(color: colors.muted),
                       ),
                     ),
                   ],

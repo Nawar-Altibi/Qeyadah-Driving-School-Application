@@ -55,16 +55,10 @@ class ProfileScreen extends StatelessWidget {
                               gradient: LinearGradient(
                                 begin: Alignment.topLeft,
                                 end: Alignment.bottomRight,
-                                colors: [
-                                  colors.brandSoft,
-                                  AppColors.brandMint,
-                                ],
+                                colors: [colors.brandSoft, AppColors.brandMint],
                               ),
                               shape: BoxShape.circle,
-                              border: Border.all(
-                                color: colors.card,
-                                width: 3,
-                              ),
+                              border: Border.all(color: colors.card, width: 3),
                               boxShadow: const [
                                 BoxShadow(
                                   color: Color(0x1A0F5132),
@@ -94,10 +88,7 @@ class ProfileScreen extends StatelessWidget {
                             user?.phone ?? '—',
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.bodyMedium
-                                ?.copyWith(
-                                  color: colors.muted,
-                                  fontSize: 15,
-                                ),
+                                ?.copyWith(color: colors.muted, fontSize: 15),
                           ),
                           if (user?.mustChangePassword ?? false) ...[
                             const SizedBox(height: AppDesignTokens.spacingMd),

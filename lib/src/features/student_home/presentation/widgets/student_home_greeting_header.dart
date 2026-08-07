@@ -76,11 +76,7 @@ class _NotificationBellButton extends StatelessWidget {
           child: Stack(
             alignment: Alignment.center,
             children: [
-              Icon(
-                PhosphorIconsBold.bell,
-                size: 21,
-                color: colors.ink,
-              ),
+              Icon(PhosphorIconsBold.bell, size: 21, color: colors.ink),
               if (hasUnread)
                 Positioned(
                   top: 6,
