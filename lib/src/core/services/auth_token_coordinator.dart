@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 
 import 'package:coore/lib.dart';
 import 'package:qeyadah_mobile_app/src/core/constants/raw_values.dart';
@@ -72,9 +72,9 @@ abstract final class AuthTokenCoordinator {
     String? refreshToken,
   }) async {
     try {
-      final sessionResult = await localDataSource
-          .readSession()
-          .timeout(_sessionHiveSyncTimeout);
+      final sessionResult = await localDataSource.readSession().timeout(
+        _sessionHiveSyncTimeout,
+      );
       await sessionResult.fold((_) async {}, (session) async {
         if (session == null) return;
         final access = accessToken?.trim();

@@ -14,10 +14,7 @@ void main() {
 
     setUp(() {
       secureDatabase = _MockSecureDatabase();
-      manager = AuthTokenManager(
-        secureDatabase,
-        secureStorageEnabled: false,
-      );
+      manager = AuthTokenManager(secureDatabase, secureStorageEnabled: false);
     });
 
     test('does not await a hanging onTokensPersisted hook', () async {
