@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:coore/lib.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:injectable/injectable.dart';
@@ -15,10 +17,20 @@ import 'package:qeyadah_mobile_app/src/features/auth/domain/repositories/auth_re
 
 @LazySingleton(as: AuthRepository)
 class AuthRepositoryImpl implements AuthRepository {
-  AuthRepositoryImpl(this._remoteDataSource, this._localDataSource);
+  AuthRepositoryImpl(this._remoteDataSource, this._localDataSource) {
+    AuthTokenCoordinator.installSessionHiveSync(_localDataSource);
+  }
 
   final AuthRemoteDataSource _remoteDataSource;
   final AuthLocalDataSource _localDataSource;
+
+  static const _sessionSaveTimeout = Duration(seconds: 2);
+  static const _sessionSaveRetryDelays = <Duration>[
+    Duration(milliseconds: 500),
+    Duration(seconds: 1),
+    Duration(seconds: 2),
+    Duration(seconds: 4),
+  ];
 
   @override
   FutureEither<AuthSessionEntity> login(LoginParams params) async {
@@ -45,16 +57,39 @@ class AuthRepositoryImpl implements AuthRepository {
       accessToken: session.accessToken,
       refreshToken: session.refreshToken,
     );
-    try {
-      final saved = await _localDataSource
-          .saveSession(session)
-          .timeout(const Duration(seconds: 2));
-      // Ignore disk failures; in-memory session is enough to enter the app.
-      saved.fold((_) {}, (_) {});
-    } on Object {
-      // Best-effort session disk write.
+
+    // First write is short-timeout so login is never blocked; failed / timed
+    // out disk saves are retried in the background so cold start can restore.
+    final saved = await _trySaveSession(session);
+    if (!saved) {
+      unawaited(_retrySaveSession(session));
     }
     return right(session);
+  }
+
+  Future<bool> _trySaveSession(AuthSessionEntity session) async {
+    try {
+      final result = await _localDataSource
+          .saveSession(session)
+          .timeout(_sessionSaveTimeout);
+      return result.fold((_) => false, (_) => true);
+    } on Object {
+      return false;
+    }
+  }
+
+  Future<void> _retrySaveSession(AuthSessionEntity session) async {
+    for (final delay in _sessionSaveRetryDelays) {
+      await Future<void>.delayed(delay);
+      final access = await getIt<AuthTokenManager>().accessToken;
+      // Stop if the user logged out or a different session took over.
+      if (access.isEmpty || access != session.accessToken) {
+        return;
+      }
+      if (await _trySaveSession(session)) {
+        return;
+      }
+    }
   }
 
   @override
