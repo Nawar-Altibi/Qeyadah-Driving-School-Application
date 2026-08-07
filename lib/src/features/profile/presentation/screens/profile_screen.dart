@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_action_list_tile.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
@@ -19,13 +20,12 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    final colors = AppSemanticColors.of(context);
     final session = context.watch<AuthSessionCubit>().currentSession;
     final user = session?.user;
 
     return Scaffold(
-      backgroundColor: AppColors.appCanvas,
       appBar: AppBar(
-        backgroundColor: AppColors.appCanvas,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
         title: Text(l10n.profileTitle),
@@ -51,17 +51,17 @@ class ProfileScreen extends StatelessWidget {
                             width: 72,
                             height: 72,
                             decoration: BoxDecoration(
-                              gradient: const LinearGradient(
+                              gradient: LinearGradient(
                                 begin: Alignment.topLeft,
                                 end: Alignment.bottomRight,
                                 colors: [
-                                  AppColors.brandMintSoft,
+                                  colors.brandSoft,
                                   AppColors.brandMint,
                                 ],
                               ),
                               shape: BoxShape.circle,
                               border: Border.all(
-                                color: AppColors.white,
+                                color: colors.card,
                                 width: 3,
                               ),
                               boxShadow: const [
@@ -94,7 +94,7 @@ class ProfileScreen extends StatelessWidget {
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.bodyMedium
                                 ?.copyWith(
-                                  color: AppColors.muted,
+                                  color: colors.muted,
                                   fontSize: 15,
                                 ),
                           ),
@@ -102,7 +102,7 @@ class ProfileScreen extends StatelessWidget {
                             const SizedBox(height: AppDesignTokens.spacingMd),
                             DecoratedBox(
                               decoration: BoxDecoration(
-                                color: AppColors.warningBg,
+                                color: colors.warningBg,
                                 borderRadius: BorderRadius.circular(
                                   AppDesignTokens.radiusControl,
                                 ),
@@ -111,9 +111,9 @@ class ProfileScreen extends StatelessWidget {
                                 padding: const EdgeInsetsDirectional.all(12),
                                 child: Row(
                                   children: [
-                                    const Icon(
+                                    Icon(
                                       PhosphorIconsBold.warning,
-                                      color: AppColors.warning,
+                                      color: colors.warning,
                                       size: 18,
                                     ),
                                     const SizedBox(width: 8),
@@ -151,7 +151,7 @@ class ProfileScreen extends StatelessWidget {
                           Divider(
                             height: 1,
                             indent: 56,
-                            color: AppColors.line.withValues(alpha: 0.7),
+                            color: colors.line.withValues(alpha: 0.7),
                           ),
                           AppActionListTile(
                             icon: PhosphorIconsBold.signOut,

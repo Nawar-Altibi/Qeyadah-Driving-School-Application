@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_button.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_segmented_control.dart';
@@ -18,6 +19,7 @@ class StudentBookingPreferencesBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    final colors = AppSemanticColors.of(context);
     final filters = context.select(
       (StudentBookingCubit cubit) => cubit.state.filters,
     );
@@ -31,7 +33,7 @@ class StudentBookingPreferencesBody extends StatelessWidget {
               width: 48,
               height: 48,
               decoration: BoxDecoration(
-                color: AppColors.brandMintSoft,
+                color: colors.brandSoft,
                 borderRadius: BorderRadius.circular(15),
               ),
               child: const AppNonMirroredIcon(
@@ -52,7 +54,7 @@ class StudentBookingPreferencesBody extends StatelessWidget {
               textAlign: TextAlign.center,
               style: Theme.of(
                 context,
-              ).textTheme.bodySmall?.copyWith(color: AppColors.muted),
+              ).textTheme.bodySmall?.copyWith(color: colors.muted),
             ),
           ],
         ),

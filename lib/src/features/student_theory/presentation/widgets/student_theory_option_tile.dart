@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/features/student_theory/domain/entities/theory_question_entity.dart';
 
@@ -26,26 +27,27 @@ class StudentTheoryOptionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color border = AppColors.line;
-    Color fill = AppColors.white;
-    Color foreground = AppColors.ink;
+    final colors = AppSemanticColors.of(context);
+    Color border = colors.line;
+    Color fill = colors.card;
+    Color foreground = colors.ink;
     IconData? trailing;
 
     if (revealed) {
       if (isCorrect) {
-        border = AppColors.success;
-        fill = AppColors.successBg;
-        foreground = AppColors.success;
+        border = colors.success;
+        fill = colors.successBg;
+        foreground = colors.success;
         trailing = PhosphorIconsBold.checkCircle;
       } else if (isSelected) {
-        border = AppColors.danger;
-        fill = AppColors.dangerBg;
-        foreground = AppColors.danger;
+        border = colors.danger;
+        fill = colors.dangerBg;
+        foreground = colors.danger;
         trailing = PhosphorIconsBold.xCircle;
       }
     } else if (isSelected) {
       border = AppColors.brandPrimary;
-      fill = AppColors.brandMintSoft;
+      fill = colors.brandSoft;
     }
 
     return Material(
@@ -68,7 +70,7 @@ class StudentTheoryOptionTile extends StatelessWidget {
                 height: 28,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  color: AppColors.neutralBg,
+                  color: colors.neutralBg,
                   borderRadius: BorderRadius.circular(AppDesignTokens.radiusSm),
                 ),
                 child: Text(

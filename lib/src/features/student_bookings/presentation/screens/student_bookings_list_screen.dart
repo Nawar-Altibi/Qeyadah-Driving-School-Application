@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
-import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_async_body.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/responsive/app_breakpoints.dart';
 import 'package:qeyadah_mobile_app/src/features/student_bookings/presentation/coordinators/student_bookings_list_screen_coordinator.dart';
@@ -20,9 +19,7 @@ class StudentBookingsListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return StudentBookingsListScreenCoordinator(
       child: Scaffold(
-        backgroundColor: AppColors.appCanvas,
         appBar: AppBar(
-          backgroundColor: AppColors.appCanvas,
           surfaceTintColor: Colors.transparent,
           elevation: 0,
           title: Text(AppLocalizations.of(context).studentBookingsTitle),

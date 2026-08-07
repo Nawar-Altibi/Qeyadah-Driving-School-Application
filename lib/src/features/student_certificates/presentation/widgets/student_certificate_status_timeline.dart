@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/certificate_request_status.dart';
 
@@ -74,18 +75,19 @@ class _TimelineStep extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppSemanticColors.of(context);
     final textTheme = Theme.of(context).textTheme;
     final Color dotColor;
     final Color labelColor;
     if (isPast) {
-      dotColor = AppColors.success;
-      labelColor = AppColors.muted;
+      dotColor = colors.success;
+      labelColor = colors.muted;
     } else if (isCurrent) {
       dotColor = AppColors.brandPrimary;
-      labelColor = AppColors.ink;
+      labelColor = colors.ink;
     } else {
-      dotColor = AppColors.line;
-      labelColor = AppColors.muted.withValues(alpha: 0.75);
+      dotColor = colors.line;
+      labelColor = colors.muted.withValues(alpha: 0.75);
     }
 
     return IntrinsicHeight(
@@ -100,7 +102,7 @@ class _TimelineStep extends StatelessWidget {
                   width: isCurrent ? 18 : 14,
                   height: isCurrent ? 18 : 14,
                   decoration: BoxDecoration(
-                    color: isPast || isCurrent ? dotColor : AppColors.white,
+                    color: isPast || isCurrent ? dotColor : colors.card,
                     shape: BoxShape.circle,
                     border: Border.all(
                       color: dotColor,
@@ -131,7 +133,7 @@ class _TimelineStep extends StatelessWidget {
                     child: Container(
                       width: 2,
                       margin: const EdgeInsets.symmetric(vertical: 4),
-                      color: isPast ? AppColors.success : AppColors.line,
+                      color: isPast ? colors.success : colors.line,
                     ),
                   ),
               ],

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_async_body.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_button.dart';
@@ -28,9 +29,7 @@ class StudentCertificatesListScreen extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
     return StudentCertificatesListScreenCoordinator(
       child: Scaffold(
-        backgroundColor: AppColors.appCanvas,
         appBar: AppBar(
-          backgroundColor: AppColors.appCanvas,
           surfaceTintColor: Colors.transparent,
           title: Text(l10n.studentCertificatesHistoryTitle),
           centerTitle: true,
@@ -62,6 +61,7 @@ class _CertificatesListBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    final colors = AppSemanticColors.of(context);
     final items = page.items;
 
     return RefreshIndicator(
@@ -81,19 +81,19 @@ class _CertificatesListBody extends StatelessWidget {
                 children: [
                   DropdownButtonFormField<CertificateRequestStatus?>(
                     initialValue: state.selectedStatus,
-                    dropdownColor: AppColors.white,
-                    icon: const Icon(
+                    dropdownColor: colors.card,
+                    icon: Icon(
                       Icons.keyboard_arrow_down_rounded,
-                      color: AppColors.ink,
+                      color: colors.ink,
                     ),
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: AppColors.ink,
+                      color: colors.ink,
                       fontSize: 15,
                     ),
                     decoration: InputDecoration(
                       labelText: l10n.studentCertificatesFilterStatus,
                       filled: true,
-                      fillColor: AppColors.white,
+                      fillColor: colors.card,
                       contentPadding: const EdgeInsets.symmetric(
                         horizontal: AppDesignTokens.spacingMd,
                         vertical: AppDesignTokens.spacing,
@@ -102,13 +102,13 @@ class _CertificatesListBody extends StatelessWidget {
                         borderRadius: BorderRadius.circular(
                           AppDesignTokens.radiusControl,
                         ),
-                        borderSide: const BorderSide(color: AppColors.line),
+                        borderSide: BorderSide(color: colors.line),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(
                           AppDesignTokens.radiusControl,
                         ),
-                        borderSide: const BorderSide(color: AppColors.line),
+                        borderSide: BorderSide(color: colors.line),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(
@@ -151,8 +151,8 @@ class _CertificatesListBody extends StatelessWidget {
                           Container(
                             width: 56,
                             height: 56,
-                            decoration: const BoxDecoration(
-                              color: AppColors.brandMintSoft,
+                            decoration: BoxDecoration(
+                              color: colors.brandSoft,
                               shape: BoxShape.circle,
                             ),
                             child: const Icon(
@@ -167,7 +167,7 @@ class _CertificatesListBody extends StatelessWidget {
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.bodyMedium
                                 ?.copyWith(
-                                  color: AppColors.muted,
+                                  color: colors.muted,
                                   height: 1.45,
                                 ),
                           ),
@@ -232,6 +232,7 @@ class _CertificateCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    final colors = AppSemanticColors.of(context);
     final textTheme = Theme.of(context).textTheme;
     return Material(
       color: Colors.transparent,
@@ -251,8 +252,8 @@ class _CertificateCard extends StatelessWidget {
                   Container(
                     width: 42,
                     height: 42,
-                    decoration: const BoxDecoration(
-                      color: AppColors.brandMintSoft,
+                    decoration: BoxDecoration(
+                      color: colors.brandSoft,
                       shape: BoxShape.circle,
                     ),
                     child: const Icon(
@@ -280,7 +281,7 @@ class _CertificateCard extends StatelessWidget {
                             item.category?.apiValue ?? '-',
                           ),
                           style: textTheme.bodyMedium?.copyWith(
-                            color: AppColors.muted,
+                            color: colors.muted,
                             fontSize: 14,
                           ),
                         ),
@@ -302,7 +303,7 @@ class _CertificateCard extends StatelessWidget {
                   width: double.infinity,
                   padding: const EdgeInsets.all(AppDesignTokens.spacing),
                   decoration: BoxDecoration(
-                    color: AppColors.neutralBg,
+                    color: colors.neutralBg,
                     borderRadius: BorderRadius.circular(
                       AppDesignTokens.radiusMd,
                     ),
@@ -316,7 +317,7 @@ class _CertificateCard extends StatelessWidget {
                             item.courseNumber!,
                           ),
                           labelStyle: textTheme.bodySmall?.copyWith(
-                            color: AppColors.ink,
+                            color: colors.ink,
                             fontSize: 13,
                             height: 1.35,
                           ),
@@ -335,7 +336,7 @@ class _CertificateCard extends StatelessWidget {
                             ),
                           ),
                           labelStyle: textTheme.bodySmall?.copyWith(
-                            color: AppColors.ink,
+                            color: colors.ink,
                             fontSize: 13,
                             height: 1.35,
                           ),
@@ -350,7 +351,7 @@ class _CertificateCard extends StatelessWidget {
                 child: Icon(
                   PhosphorIconsBold.caretLeft,
                   size: 16,
-                  color: AppColors.muted.withValues(alpha: 0.7),
+                  color: colors.muted.withValues(alpha: 0.7),
                   textDirection: TextDirection.ltr,
                 ),
               ),

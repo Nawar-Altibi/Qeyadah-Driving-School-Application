@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_button.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
@@ -110,6 +111,7 @@ class _InstructorSlotsCardState extends State<_InstructorSlotsCard> {
     if (slots.isEmpty) return const SizedBox.shrink();
 
     final l10n = AppLocalizations.of(context);
+    final colors = AppSemanticColors.of(context);
     final instructor = widget.instructorSlots.instructor;
     final dateEntries = _groupSlots(slots).entries.toList();
 
@@ -122,11 +124,11 @@ class _InstructorSlotsCardState extends State<_InstructorSlotsCard> {
               Container(
                 width: 44,
                 height: 44,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
-                    colors: [AppColors.brandMintSoft, AppColors.brandMint],
+                    colors: [colors.brandSoft, AppColors.brandMint],
                   ),
                   shape: BoxShape.circle,
                 ),
@@ -193,13 +195,14 @@ class _DateGroupHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppSemanticColors.of(context);
     return Row(
       children: [
         Container(
           width: 28,
           height: 28,
           decoration: BoxDecoration(
-            color: AppColors.brandMintSoft,
+            color: colors.brandSoft,
             borderRadius: BorderRadius.circular(8),
           ),
           child: const Icon(
@@ -213,7 +216,7 @@ class _DateGroupHeader extends StatelessWidget {
         Text(
           label,
           style: Theme.of(context).textTheme.titleSmall?.copyWith(
-            color: AppColors.ink,
+            color: colors.ink,
             fontWeight: FontWeight.w700,
             fontSize: 14,
           ),
@@ -236,6 +239,7 @@ class _SlotChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppSemanticColors.of(context);
     final selected = context.select((StudentBookingCubit cubit) {
       final selection = cubit.state.selection;
       return selection != null &&
@@ -248,12 +252,12 @@ class _SlotChip extends StatelessWidget {
       duration: AppDesignTokens.animationNormal,
       curve: Curves.easeOutCubic,
       decoration: BoxDecoration(
-        color: selected ? AppColors.brandPrimary : AppColors.white,
+        color: selected ? AppColors.brandPrimary : colors.card,
         borderRadius: BorderRadius.circular(AppDesignTokens.radiusControl),
         border: Border.all(
           color: selected
               ? AppColors.brandPrimary
-              : AppColors.line.withValues(alpha: 0.9),
+              : colors.line.withValues(alpha: 0.9),
           width: selected ? 1.5 : 1,
         ),
         boxShadow: selected
@@ -310,7 +314,7 @@ class _SlotChip extends StatelessWidget {
                     slot.endTime,
                   ),
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: selected ? AppColors.white : AppColors.ink,
+                    color: selected ? AppColors.white : colors.ink,
                     fontWeight: FontWeight.w700,
                     fontSize: 13.5,
                   ),
@@ -331,14 +335,15 @@ class _StickyContinueBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppSemanticColors.of(context);
     final selection = context.select(
       (StudentBookingCubit cubit) => cubit.state.selection,
     );
 
     return DecoratedBox(
-      decoration: const BoxDecoration(
-        color: AppColors.white,
-        boxShadow: [
+      decoration: BoxDecoration(
+        color: colors.card,
+        boxShadow: const [
           BoxShadow(
             color: Color(0x14153023),
             blurRadius: 20,
@@ -406,9 +411,10 @@ class _SelectedSummaryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppSemanticColors.of(context);
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: AppColors.brandMintSoft,
+        color: colors.brandSoft,
         borderRadius: BorderRadius.circular(AppDesignTokens.radiusControl),
       ),
       child: Padding(
@@ -421,8 +427,8 @@ class _SelectedSummaryCard extends StatelessWidget {
             Container(
               width: 36,
               height: 36,
-              decoration: const BoxDecoration(
-                color: AppColors.white,
+              decoration: BoxDecoration(
+                color: colors.card,
                 shape: BoxShape.circle,
               ),
               child: const Icon(
@@ -455,16 +461,16 @@ class _SelectedSummaryCard extends StatelessWidget {
                   const SizedBox(height: 2),
                   Row(
                     children: [
-                      const Icon(
+                      Icon(
                         PhosphorIconsBold.clock,
                         size: 14,
-                        color: AppColors.muted,
+                        color: colors.muted,
                       ),
                       const SizedBox(width: 4),
                       Text(
                         timeLabel,
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: AppColors.ink,
+                          color: colors.ink,
                           fontWeight: FontWeight.w600,
                           fontSize: 14,
                         ),
@@ -488,6 +494,7 @@ class _EmptySlotsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppSemanticColors.of(context);
     return ListView(
       padding: AppDesignTokens.screenContentPadding(),
       children: [
@@ -497,12 +504,12 @@ class _EmptySlotsView extends StatelessWidget {
           height: 56,
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: AppColors.neutralBg,
+            color: colors.neutralBg,
             borderRadius: BorderRadius.circular(18),
           ),
-          child: const Icon(
+          child: Icon(
             PhosphorIconsBold.calendarX,
-            color: AppColors.muted,
+            color: colors.muted,
             size: 26,
           ),
         ),
@@ -520,7 +527,7 @@ class _EmptySlotsView extends StatelessWidget {
           textAlign: TextAlign.center,
           style: Theme.of(
             context,
-          ).textTheme.bodyMedium?.copyWith(color: AppColors.muted),
+          ).textTheme.bodyMedium?.copyWith(color: colors.muted),
         ),
       ],
     );

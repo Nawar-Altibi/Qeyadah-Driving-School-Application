@@ -2,7 +2,6 @@ import 'package:coore/lib.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
-import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_button.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
@@ -100,10 +99,8 @@ class _StudentCertificateReexamScreenState
         context.read<StudentCertificateWriteCubit>().clearEffect();
       },
       builder: (context, state) => Scaffold(
-        backgroundColor: AppColors.appCanvas,
         appBar: AppBar(
           title: Text(l10n.studentCertificatesReexamTitle),
-          backgroundColor: AppColors.appCanvas,
           surfaceTintColor: Colors.transparent,
           leading: AppFlowBackButton(
             onCancel: context.read<StudentCertificateWriteCubit>().resetDraft,

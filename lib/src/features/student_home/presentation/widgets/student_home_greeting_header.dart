@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 
 class StudentHomeGreetingHeader extends StatelessWidget {
   const StudentHomeGreetingHeader({
@@ -18,6 +18,8 @@ class StudentHomeGreetingHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppSemanticColors.of(context);
+
     return Row(
       children: [
         Expanded(
@@ -28,7 +30,7 @@ class StudentHomeGreetingHeader extends StatelessWidget {
                 dateLabel,
                 style: Theme.of(
                   context,
-                ).textTheme.labelSmall?.copyWith(color: AppColors.muted),
+                ).textTheme.labelSmall?.copyWith(color: colors.muted),
               ),
               const SizedBox(height: 3),
               Text(
@@ -57,11 +59,13 @@ class _NotificationBellButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppSemanticColors.of(context);
+
     return Material(
-      color: AppColors.white.withValues(alpha: 0.75),
+      color: colors.card.withValues(alpha: 0.75),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(13),
-        side: const BorderSide(color: AppColors.line),
+        side: BorderSide(color: colors.line),
       ),
       child: InkWell(
         onTap: onTap,
@@ -72,10 +76,10 @@ class _NotificationBellButton extends StatelessWidget {
           child: Stack(
             alignment: Alignment.center,
             children: [
-              const Icon(
+              Icon(
                 PhosphorIconsBold.bell,
                 size: 21,
-                color: AppColors.ink,
+                color: colors.ink,
               ),
               if (hasUnread)
                 Positioned(
@@ -87,7 +91,7 @@ class _NotificationBellButton extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: const Color(0xFFC4313C),
                       shape: BoxShape.circle,
-                      border: Border.all(color: AppColors.white, width: 2),
+                      border: Border.all(color: colors.card, width: 2),
                     ),
                   ),
                 ),

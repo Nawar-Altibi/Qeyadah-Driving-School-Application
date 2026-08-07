@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_button.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
@@ -28,6 +29,7 @@ class NotificationsInboxBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    final colors = AppSemanticColors.of(context);
     final notifications = page.notifications;
     final unreadCount = notifications.where((n) => !n.isRead).length;
 
@@ -54,7 +56,7 @@ class NotificationsInboxBody extends StatelessWidget {
                         width: 48,
                         height: 48,
                         decoration: BoxDecoration(
-                          color: AppColors.brandMintSoft,
+                          color: colors.brandSoft,
                           borderRadius: BorderRadius.circular(15),
                         ),
                         child: const Icon(
@@ -75,7 +77,7 @@ class NotificationsInboxBody extends StatelessWidget {
                         textAlign: TextAlign.center,
                         style: Theme.of(
                           context,
-                        ).textTheme.bodySmall?.copyWith(color: AppColors.muted),
+                        ).textTheme.bodySmall?.copyWith(color: colors.muted),
                       ),
                     ],
                   ),
@@ -173,10 +175,11 @@ class _NotificationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final localeName = Localizations.localeOf(context).toLanguageTag();
+    final semantic = AppSemanticColors.of(context);
     final tone = NotificationsFormatters.notificationTone(
       notification.notificationType,
     );
-    final colors = _colorsForTone(tone);
+    final colors = _colorsForTone(semantic, tone);
     final icon = NotificationsFormatters.notificationIcon(
       notification.notificationType,
     );
@@ -187,7 +190,7 @@ class _NotificationCard extends StatelessWidget {
     return AppCard(
       backgroundColor: notification.isRead
           ? null
-          : AppColors.brandMintSoft.withValues(alpha: 0.55),
+          : semantic.brandSoft.withValues(alpha: 0.55),
       borderColor: notification.isRead ? null : AppColors.brandMint,
       onTap: interactive
           ? () => context.read<NotificationsInboxCubit>().openNotification(
@@ -241,7 +244,7 @@ class _NotificationCard extends StatelessWidget {
                   notification.body,
                   style: Theme.of(
                     context,
-                  ).textTheme.bodySmall?.copyWith(color: AppColors.muted),
+                  ).textTheme.bodySmall?.copyWith(color: semantic.muted),
                 ),
                 const SizedBox(height: AppDesignTokens.spacingSm),
                 Text(
@@ -251,7 +254,7 @@ class _NotificationCard extends StatelessWidget {
                   ),
                   style: Theme.of(
                     context,
-                  ).textTheme.labelSmall?.copyWith(color: AppColors.muted),
+                  ).textTheme.labelSmall?.copyWith(color: semantic.muted),
                 ),
               ],
             ),
@@ -261,27 +264,30 @@ class _NotificationCard extends StatelessWidget {
     );
   }
 
-  ({Color foreground, Color background}) _colorsForTone(AppBadgeTone tone) {
+  ({Color foreground, Color background}) _colorsForTone(
+    AppSemanticColors colors,
+    AppBadgeTone tone,
+  ) {
     return switch (tone) {
       AppBadgeTone.success => (
-        foreground: AppColors.success,
-        background: AppColors.successBg,
+        foreground: colors.success,
+        background: colors.successBg,
       ),
       AppBadgeTone.warning => (
-        foreground: AppColors.warning,
-        background: AppColors.warningBg,
+        foreground: colors.warning,
+        background: colors.warningBg,
       ),
       AppBadgeTone.danger => (
-        foreground: AppColors.danger,
-        background: AppColors.dangerBg,
+        foreground: colors.danger,
+        background: colors.dangerBg,
       ),
       AppBadgeTone.info => (
-        foreground: AppColors.info,
-        background: AppColors.infoBg,
+        foreground: colors.info,
+        background: colors.infoBg,
       ),
       AppBadgeTone.neutral => (
-        foreground: AppColors.muted,
-        background: AppColors.neutralBg,
+        foreground: colors.muted,
+        background: colors.neutralBg,
       ),
     };
   }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
-import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_button.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_input_field.dart';
@@ -24,7 +24,7 @@ Future<void> showStudentBookingCancelSheet({
     context: context,
     isScrollControlled: true,
     useSafeArea: true,
-    backgroundColor: AppColors.white,
+    backgroundColor: AppSemanticColors.of(context).card,
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(
         top: Radius.circular(AppDesignTokens.radiusSheet),
@@ -45,6 +45,7 @@ class _StudentBookingCancelSheetContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    final colors = AppSemanticColors.of(context);
     final textTheme = Theme.of(context).textTheme;
     final bottomInset = MediaQuery.of(context).viewInsets.bottom;
     final safeBottom = MediaQuery.of(context).padding.bottom;
@@ -89,7 +90,7 @@ class _StudentBookingCancelSheetContent extends StatelessWidget {
                     width: 40,
                     height: 4,
                     decoration: BoxDecoration(
-                      color: AppColors.line,
+                      color: colors.line,
                       borderRadius: BorderRadius.circular(999),
                     ),
                   ),
@@ -101,13 +102,13 @@ class _StudentBookingCancelSheetContent extends StatelessWidget {
                     Container(
                       width: 44,
                       height: 44,
-                      decoration: const BoxDecoration(
-                        color: AppColors.dangerBg,
+                      decoration: BoxDecoration(
+                        color: colors.dangerBg,
                         shape: BoxShape.circle,
                       ),
-                      child: const Icon(
+                      child: Icon(
                         PhosphorIconsBold.calendarX,
-                        color: AppColors.danger,
+                        color: colors.danger,
                         size: 22,
                       ),
                     ),
@@ -122,14 +123,14 @@ class _StudentBookingCancelSheetContent extends StatelessWidget {
                               fontWeight: FontWeight.w800,
                               fontSize: 17,
                               height: 1.3,
-                              color: AppColors.ink,
+                              color: colors.ink,
                             ),
                           ),
                           const SizedBox(height: 6),
                           Text(
                             l10n.studentBookingDetailCancelSheetMessage,
                             style: textTheme.bodyMedium?.copyWith(
-                              color: AppColors.muted,
+                              color: colors.muted,
                               fontSize: 14,
                               height: 1.45,
                             ),

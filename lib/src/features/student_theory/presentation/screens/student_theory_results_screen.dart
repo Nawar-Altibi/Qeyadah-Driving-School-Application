@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_button.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
@@ -18,9 +19,7 @@ class StudentTheoryResultsScreen extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
 
     return Scaffold(
-      backgroundColor: AppColors.appCanvas,
       appBar: AppBar(
-        backgroundColor: AppColors.appCanvas,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
         title: Text(l10n.studentTheoryResultsTitle),
@@ -64,7 +63,11 @@ class StudentTheoryResultsScreen extends StatelessWidget {
                               Text(
                                 l10n.studentTheoryResultsBody,
                                 style: Theme.of(context).textTheme.bodyMedium
-                                    ?.copyWith(color: AppColors.muted),
+                                    ?.copyWith(
+                                      color: AppSemanticColors.of(
+                                        context,
+                                      ).muted,
+                                    ),
                                 textAlign: TextAlign.center,
                               ),
                             ],

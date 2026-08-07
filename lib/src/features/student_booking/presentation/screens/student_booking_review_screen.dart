@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
-import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_flow_back_button.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/responsive/app_breakpoints.dart';
 import 'package:qeyadah_mobile_app/src/features/student_booking/presentation/coordinators/student_booking_screen_coordinators.dart';
@@ -18,9 +17,7 @@ class StudentBookingReviewScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return StudentBookingReviewScreenCoordinator(
       child: Scaffold(
-        backgroundColor: AppColors.appCanvas,
         appBar: AppBar(
-          backgroundColor: AppColors.appCanvas,
           surfaceTintColor: Colors.transparent,
           elevation: 0,
           leading: AppFlowBackButton(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
-import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_meta_row.dart';
@@ -24,6 +24,7 @@ class StudentBookingsListItemCard extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
     final localeName = Localizations.localeOf(context).toLanguageTag();
     final textTheme = Theme.of(context).textTheme;
+    final colors = AppSemanticColors.of(context);
 
     return AppCard(
       onTap: onTap,
@@ -66,8 +67,8 @@ class StudentBookingsListItemCard extends StatelessWidget {
             ),
             iconSize: 14,
             gap: 6,
-            labelColor: AppColors.muted,
-            labelStyle: textTheme.bodySmall?.copyWith(color: AppColors.muted),
+            labelColor: colors.muted,
+            labelStyle: textTheme.bodySmall?.copyWith(color: colors.muted),
           ),
           const SizedBox(height: 6),
           AppMetaRow(
@@ -75,8 +76,8 @@ class StudentBookingsListItemCard extends StatelessWidget {
             label: item.instructorName,
             iconSize: 14,
             gap: 6,
-            labelColor: AppColors.muted,
-            labelStyle: textTheme.bodySmall?.copyWith(color: AppColors.muted),
+            labelColor: colors.muted,
+            labelStyle: textTheme.bodySmall?.copyWith(color: colors.muted),
           ),
           if (item.trainingType != null || item.vehicleSource != null) ...[
             const SizedBox(height: 6),
@@ -98,8 +99,8 @@ class StudentBookingsListItemCard extends StatelessWidget {
               ].join(' · '),
               iconSize: 14,
               gap: 6,
-              labelColor: AppColors.muted,
-              labelStyle: textTheme.bodySmall?.copyWith(color: AppColors.muted),
+              labelColor: colors.muted,
+              labelStyle: textTheme.bodySmall?.copyWith(color: colors.muted),
             ),
           ],
           const SizedBox(height: AppDesignTokens.spacing),
@@ -124,7 +125,7 @@ class StudentBookingsListItemCard extends StatelessWidget {
                     ),
                   ),
                   style: textTheme.bodySmall?.copyWith(
-                    color: AppColors.muted,
+                    color: colors.muted,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
