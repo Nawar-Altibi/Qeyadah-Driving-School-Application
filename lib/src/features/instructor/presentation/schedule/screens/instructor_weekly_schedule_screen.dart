@@ -5,6 +5,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
 import 'package:qeyadah_mobile_app/src/core/mappers/core_failure_message_mapper.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_button.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
@@ -38,7 +39,6 @@ class _InstructorWeeklyScheduleScreenState
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     return Scaffold(
-      backgroundColor: AppColors.appCanvas,
       appBar: AppBar(title: Text(l10n.instructorWeeklyScheduleTitle)),
       body:
           BlocBuilder<
@@ -125,6 +125,7 @@ class _ScheduleDayCard extends StatelessWidget {
         schedule?.periods ?? const <InstructorSchedulePeriodEntity>[];
     final hasPeriods = periods.isNotEmpty;
     final theme = Theme.of(context);
+    final colors = AppSemanticColors.of(context);
 
     return AppCard(
       child: Row(
@@ -134,7 +135,7 @@ class _ScheduleDayCard extends StatelessWidget {
             width: 48,
             height: 48,
             decoration: BoxDecoration(
-              color: hasPeriods ? AppColors.brandMintSoft : AppColors.neutralBg,
+              color: hasPeriods ? colors.brandSoft : colors.neutralBg,
               borderRadius: BorderRadius.circular(AppDesignTokens.radiusLg),
             ),
             child: Icon(
@@ -142,7 +143,7 @@ class _ScheduleDayCard extends StatelessWidget {
                   ? PhosphorIconsBold.clock
                   : PhosphorIconsBold.calendarX,
               size: 22,
-              color: hasPeriods ? AppColors.brandPrimary : AppColors.muted,
+              color: hasPeriods ? AppColors.brandPrimary : colors.muted,
               textDirection: TextDirection.ltr,
             ),
           ),
@@ -162,7 +163,7 @@ class _ScheduleDayCard extends StatelessWidget {
                   Text(
                     l10n.instructorDayOff,
                     style: theme.textTheme.bodyMedium?.copyWith(
-                      color: AppColors.muted,
+                      color: colors.muted,
                     ),
                   )
                 else
@@ -177,7 +178,7 @@ class _ScheduleDayCard extends StatelessWidget {
                             vertical: AppDesignTokens.spacingSm,
                           ),
                           decoration: BoxDecoration(
-                            color: AppColors.brandMintSoft,
+                            color: colors.brandSoft,
                             borderRadius: BorderRadius.circular(
                               AppDesignTokens.radiusMd,
                             ),

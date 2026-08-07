@@ -4,7 +4,7 @@ import 'package:intl/intl.dart' hide TextDirection;
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
 import 'package:qeyadah_mobile_app/src/core/formatters/app_date_formatters.dart';
-import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_metric_tile.dart';
@@ -30,6 +30,7 @@ class InstructorEarningsBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    final colors = AppSemanticColors.of(context);
     final isDay = state.viewMode == InstructorEarningsViewMode.day;
     final total = isDay ? earnings.dayTotal ?? 0 : earnings.monthTotal;
     final count = isDay
@@ -73,7 +74,7 @@ class InstructorEarningsBody extends StatelessWidget {
                       : l10n.instructorPeriodHintMonth,
                   style: Theme.of(
                     context,
-                  ).textTheme.bodySmall?.copyWith(color: AppColors.muted),
+                  ).textTheme.bodySmall?.copyWith(color: colors.muted),
                 ),
                 const SizedBox(height: AppDesignTokens.spacing),
                 InstructorPeriodStepper(
@@ -192,6 +193,7 @@ class _SessionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    final colors = AppSemanticColors.of(context);
     final localeName = Localizations.localeOf(context).toLanguageTag();
     final timeFormat = DateFormat.Hm(localeName);
     return AppCard(
@@ -215,14 +217,14 @@ class _SessionCard extends StatelessWidget {
           const SizedBox(height: AppDesignTokens.spacingSm),
           Text(
             '${timeFormat.format(session.startAt)} – ${timeFormat.format(session.endAt)}',
-            style: const TextStyle(color: AppColors.muted),
+            style: TextStyle(color: colors.muted),
           ),
           const SizedBox(height: 2),
           Text(
             l10n.instructorEarningsPaidAt(
               AppDateFormatters.dateTimeLabel(session.paidAt, localeName),
             ),
-            style: const TextStyle(color: AppColors.muted),
+            style: TextStyle(color: colors.muted),
           ),
         ],
       ),
