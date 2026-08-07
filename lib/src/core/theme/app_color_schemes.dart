@@ -88,6 +88,12 @@ abstract interface class AppGradients {
     colors: [AppColors.brandMintSoft, AppColors.appCanvas],
   );
 
+  static const softDarkBackground = LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [Color(0xFF16241D), Color(0xFF101612)],
+  );
+
   static const primaryButton = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
@@ -100,4 +106,15 @@ abstract interface class AppGradients {
     colors: [Color(0x8CD1E7DD), AppColors.appCanvas],
     stops: [0, 0.38],
   );
+
+  /// Soft page background that follows light / dark brightness.
+  static LinearGradient softBackground(Brightness brightness) {
+    return brightness == Brightness.dark
+        ? softDarkBackground
+        : softMintBackground;
+  }
+
+  static LinearGradient softBackgroundOf(BuildContext context) {
+    return softBackground(Theme.of(context).brightness);
+  }
 }
