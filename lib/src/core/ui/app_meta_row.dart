@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 
 /// Compact icon + label row used across list/detail cards.
@@ -9,8 +9,8 @@ class AppMetaRow extends StatelessWidget {
     required this.icon,
     required this.label,
     this.iconSize = 16,
-    this.iconColor = AppColors.muted,
-    this.labelColor = AppColors.ink,
+    this.iconColor,
+    this.labelColor,
     this.labelStyle,
     this.gap,
     this.crossAxisAlignment = CrossAxisAlignment.center,
@@ -23,7 +23,7 @@ class AppMetaRow extends StatelessWidget {
   final IconData icon;
   final String label;
   final double iconSize;
-  final Color iconColor;
+  final Color? iconColor;
   final Color? labelColor;
   final TextStyle? labelStyle;
   final double? gap;
@@ -35,10 +35,11 @@ class AppMetaRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppSemanticColors.of(context);
     final resolvedStyle =
         labelStyle ??
         Theme.of(context).textTheme.bodyMedium?.copyWith(
-          color: labelColor,
+          color: labelColor ?? colors.ink,
           fontSize: 14,
           height: 1.4,
         );
@@ -56,7 +57,7 @@ class AppMetaRow extends StatelessWidget {
           : MainAxisAlignment.start,
       crossAxisAlignment: crossAxisAlignment,
       children: [
-        Icon(icon, size: iconSize, color: iconColor),
+        Icon(icon, size: iconSize, color: iconColor ?? colors.muted),
         SizedBox(width: gap ?? AppDesignTokens.spacingSm),
         if (expandLabel)
           Expanded(child: labelWidget)
@@ -89,11 +90,12 @@ class AppMetaTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppSemanticColors.of(context);
     final textTheme = Theme.of(context).textTheme;
     final content = Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(icon, size: 18, color: AppColors.muted),
+        Icon(icon, size: 18, color: colors.muted),
         const SizedBox(width: 10),
         Expanded(
           child: Column(
@@ -104,13 +106,14 @@ class AppMetaTile extends StatelessWidget {
                 style: textTheme.bodyMedium?.copyWith(
                   fontWeight: FontWeight.w700,
                   fontSize: 14.5,
+                  color: colors.ink,
                 ),
               ),
               const SizedBox(height: 2),
               Text(
                 subtitle,
                 style: textTheme.bodySmall?.copyWith(
-                  color: AppColors.muted,
+                  color: colors.muted,
                   fontSize: 13,
                   height: 1.4,
                 ),

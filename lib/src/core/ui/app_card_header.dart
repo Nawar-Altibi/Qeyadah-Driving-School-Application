@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 
 class AppCardHeader extends StatelessWidget {
@@ -16,17 +16,18 @@ class AppCardHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppSemanticColors.of(context);
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
           width: 42,
           height: 42,
-          decoration: const BoxDecoration(
-            color: AppColors.brandMintSoft,
+          decoration: BoxDecoration(
+            color: colors.brandSoft,
             shape: BoxShape.circle,
           ),
-          child: Icon(icon, size: 20, color: AppColors.brandPrimary),
+          child: Icon(icon, size: 20, color: colors.primary),
         ),
         const SizedBox(width: AppDesignTokens.spacing),
         Expanded(
@@ -36,7 +37,7 @@ class AppCardHeader extends StatelessWidget {
               fontWeight: FontWeight.w800,
               fontSize: 17,
               height: 1.3,
-              color: AppColors.ink,
+              color: colors.ink,
             ),
           ),
         ),

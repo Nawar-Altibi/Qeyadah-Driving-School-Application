@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 
 enum AppInfoRowLayout {
@@ -46,13 +46,14 @@ class AppInfoRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppSemanticColors.of(context);
     final textTheme = Theme.of(context).textTheme;
 
     final Widget child = switch (layout) {
       AppInfoRowLayout.stacked => Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _iconBox(rounded: true),
+          _iconBox(colors, rounded: true),
           const SizedBox(width: AppDesignTokens.spacingSm),
           Expanded(
             child: Column(
@@ -61,7 +62,7 @@ class AppInfoRow extends StatelessWidget {
                 Text(
                   label,
                   style: textTheme.bodySmall?.copyWith(
-                    color: AppColors.muted,
+                    color: colors.muted,
                     fontSize: 12.5,
                     fontWeight: FontWeight.w600,
                   ),
@@ -73,6 +74,7 @@ class AppInfoRow extends StatelessWidget {
                     fontWeight: FontWeight.w700,
                     fontSize: 15,
                     height: 1.35,
+                    color: colors.ink,
                   ),
                 ),
               ],
@@ -82,12 +84,12 @@ class AppInfoRow extends StatelessWidget {
       ),
       AppInfoRowLayout.inline => Row(
         children: [
-          _iconBox(rounded: false),
+          _iconBox(colors, rounded: false),
           const SizedBox(width: AppDesignTokens.spacing),
           Expanded(
             child: Text(
               label,
-              style: textTheme.bodyMedium?.copyWith(color: AppColors.muted),
+              style: textTheme.bodyMedium?.copyWith(color: colors.muted),
             ),
           ),
           const SizedBox(width: AppDesignTokens.spacingSm),
@@ -96,7 +98,7 @@ class AppInfoRow extends StatelessWidget {
               value,
               textAlign: TextAlign.end,
               style: textTheme.bodyMedium?.copyWith(
-                color: AppColors.ink,
+                color: colors.ink,
                 fontWeight: FontWeight.w700,
               ),
             ),
@@ -108,11 +110,14 @@ class AppInfoRow extends StatelessWidget {
         children: [
           Text(
             label,
-            style: textTheme.bodyMedium?.copyWith(color: AppColors.muted),
+            style: textTheme.bodyMedium?.copyWith(color: colors.muted),
           ),
           Text(
             value,
-            style: textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),
+            style: textTheme.titleSmall?.copyWith(
+              fontWeight: FontWeight.w700,
+              color: colors.ink,
+            ),
           ),
         ],
       ),
@@ -122,19 +127,19 @@ class AppInfoRow extends StatelessWidget {
     return Padding(padding: padding!, child: child);
   }
 
-  Widget _iconBox({required bool rounded}) {
+  Widget _iconBox(AppSemanticColors colors, {required bool rounded}) {
     return Container(
       width: 36,
       height: 36,
       decoration: BoxDecoration(
-        color: AppColors.brandMintSoft,
+        color: colors.brandSoft,
         borderRadius: rounded
             ? BorderRadius.circular(AppDesignTokens.radiusControl)
             : null,
         shape: rounded ? BoxShape.rectangle : BoxShape.circle,
       ),
       alignment: Alignment.center,
-      child: Icon(icon, size: 18, color: AppColors.brandPrimary),
+      child: Icon(icon, size: 18, color: colors.primary),
     );
   }
 }

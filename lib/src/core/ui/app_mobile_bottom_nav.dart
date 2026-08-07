@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 
 class AppMobileBottomNavItem {
@@ -28,16 +28,17 @@ class AppMobileBottomNav extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppSemanticColors.of(context);
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: AppColors.white.withValues(alpha: 0.94),
+        color: colors.card.withValues(alpha: colors.isDark ? 0.96 : 0.94),
         borderRadius: BorderRadius.circular(AppDesignTokens.radiusLg),
-        border: Border.all(color: AppColors.line),
-        boxShadow: const [
+        border: Border.all(color: colors.line),
+        boxShadow: [
           BoxShadow(
-            color: AppColors.shadow,
+            color: colors.shadow,
             blurRadius: 25,
-            offset: Offset(0, 10),
+            offset: const Offset(0, 10),
           ),
         ],
       ),
@@ -75,10 +76,11 @@ class _BottomNavButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = isActive ? AppColors.brandPrimary : AppColors.muted;
+    final colors = AppSemanticColors.of(context);
+    final color = isActive ? colors.primary : colors.muted;
 
     return Material(
-      color: isActive ? AppColors.brandMintSoft : Colors.transparent,
+      color: isActive ? colors.brandSoft : Colors.transparent,
       borderRadius: BorderRadius.circular(AppDesignTokens.radiusControl),
       child: InkWell(
         onTap: onTap,
@@ -96,7 +98,7 @@ class _BottomNavButton extends StatelessWidget {
                     width: 22,
                     height: 3,
                     decoration: BoxDecoration(
-                      color: AppColors.brandPrimary,
+                      color: colors.primary,
                       borderRadius: BorderRadius.circular(9),
                     ),
                   ),

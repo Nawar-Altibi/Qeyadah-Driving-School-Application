@@ -1,5 +1,5 @@
 ﻿import 'package:flutter/material.dart';
-import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_text_theme_extension.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 
@@ -17,13 +17,14 @@ class AppSegmentedControl<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppSemanticColors.of(context);
     final textTheme = Theme.of(context).extension<AppTextStylesExtension>();
     final selectedIndex = items.indexWhere((item) => item.value == value);
     final index = selectedIndex < 0 ? 0 : selectedIndex;
 
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: AppColors.neutralBg,
+        color: colors.neutralBg,
         borderRadius: BorderRadius.circular(AppDesignTokens.radiusControl),
       ),
       child: Padding(
@@ -47,15 +48,9 @@ class AppSegmentedControl<T> extends StatelessWidget {
                   width: segmentWidth,
                   child: DecoratedBox(
                     decoration: BoxDecoration(
-                      color: AppColors.white,
+                      color: colors.card,
                       borderRadius: BorderRadius.circular(11),
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Color(0x14153023),
-                          blurRadius: 10,
-                          offset: Offset(0, 3),
-                        ),
-                      ],
+                      boxShadow: colors.cardShadows,
                     ),
                   ),
                 ),
@@ -103,10 +98,11 @@ class _SegmentButton<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppSemanticColors.of(context);
     return TextButton(
       onPressed: onPressed,
       style: TextButton.styleFrom(
-        foregroundColor: selected ? AppColors.brandPrimary : AppColors.muted,
+        foregroundColor: selected ? colors.primary : colors.muted,
         padding: const EdgeInsets.symmetric(vertical: 10),
         minimumSize: const Size(0, 40),
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -116,7 +112,7 @@ class _SegmentButton<T> extends StatelessWidget {
         duration: AppDesignTokens.animationNormal,
         curve: Curves.easeOutCubic,
         style: (textStyle ?? const TextStyle()).copyWith(
-          color: selected ? AppColors.brandPrimary : AppColors.muted,
+          color: selected ? colors.primary : colors.muted,
           fontWeight: selected ? FontWeight.w700 : FontWeight.w600,
         ),
         child: Text(item.label, textAlign: TextAlign.center),

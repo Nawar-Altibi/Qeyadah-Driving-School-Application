@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_text_theme_extension.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 
@@ -21,7 +21,8 @@ class AppAlertBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final (:foreground, :background, :border) = _colorsForTone(tone);
+    final colors = AppSemanticColors.of(context);
+    final (:foreground, :background, :border) = _colorsForTone(colors, tone);
     final textTheme = Theme.of(context).extension<AppTextStylesExtension>();
 
     return DecoratedBox(
@@ -66,23 +67,24 @@ class AppAlertBanner extends StatelessWidget {
   }
 
   ({Color foreground, Color background, Color border}) _colorsForTone(
+    AppSemanticColors colors,
     AppAlertTone tone,
   ) {
     return switch (tone) {
       AppAlertTone.warning => (
-        foreground: AppColors.warning,
-        background: AppColors.warningBg,
-        border: const Color(0xFFF2D48B),
+        foreground: colors.warning,
+        background: colors.warningBg,
+        border: colors.warning.withValues(alpha: 0.35),
       ),
       AppAlertTone.danger => (
-        foreground: AppColors.danger,
-        background: AppColors.dangerBg,
-        border: const Color(0xFFF2C8CD),
+        foreground: colors.danger,
+        background: colors.dangerBg,
+        border: colors.danger.withValues(alpha: 0.35),
       ),
       AppAlertTone.info => (
-        foreground: AppColors.info,
-        background: AppColors.infoBg,
-        border: const Color(0xFFCBE5D6),
+        foreground: colors.info,
+        background: colors.infoBg,
+        border: colors.info.withValues(alpha: 0.35),
       ),
     };
   }
