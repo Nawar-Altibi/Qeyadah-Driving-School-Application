@@ -18,6 +18,12 @@ class AuthTokenManager {
   String? _refreshToken;
   final bool secureStorageEnabled;
 
+  /// Optional hook after memory tokens are updated (e.g. sync app session disk).
+  ///
+  /// Not invoked from [clearTokens]. Callers should ignore empty/null pairs.
+  FutureOr<void> Function({String? accessToken, String? refreshToken})?
+  onTokensPersisted;
+
   /// Retrieves the access token.
   ///
   /// If secure storage is enabled, first checks if the token is already available
@@ -71,16 +77,27 @@ class AuthTokenManager {
     _accessToken = accessToken;
     _refreshToken = refreshToken;
 
-    if (!secureStorageEnabled) return;
+    if (secureStorageEnabled) {
+      await _bestEffortSecureWrite(() async {
+        if (accessToken != null && accessToken.isNotEmpty) {
+          await _secureDatabaseInterface.write('accessToken', accessToken);
+        }
+        if (refreshToken != null && refreshToken.isNotEmpty) {
+          await _secureDatabaseInterface.write('refreshToken', refreshToken);
+        }
+      });
+    }
 
-    await _bestEffortSecureWrite(() async {
-      if (accessToken != null && accessToken.isNotEmpty) {
-        await _secureDatabaseInterface.write('accessToken', accessToken);
+    final hook = onTokensPersisted;
+    final hasAccess = accessToken != null && accessToken.isNotEmpty;
+    final hasRefresh = refreshToken != null && refreshToken.isNotEmpty;
+    if (hook != null && (hasAccess || hasRefresh)) {
+      try {
+        await hook(accessToken: accessToken, refreshToken: refreshToken);
+      } on Object {
+        // Session-disk sync is best-effort; memory tokens already updated.
       }
-      if (refreshToken != null && refreshToken.isNotEmpty) {
-        await _secureDatabaseInterface.write('refreshToken', refreshToken);
-      }
-    });
+    }
   }
 
   /// Clears tokens from memory and secure storage (if enabled).

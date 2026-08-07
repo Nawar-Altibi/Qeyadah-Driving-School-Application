@@ -1,8 +1,27 @@
 ﻿import 'package:coore/lib.dart';
 import 'package:qeyadah_mobile_app/src/core/constants/raw_values.dart';
 import 'package:qeyadah_mobile_app/src/core/constants/storage_keys.dart';
+import 'package:qeyadah_mobile_app/src/features/auth/data/data_sources/auth_local_data_source.dart';
+import 'package:qeyadah_mobile_app/src/features/auth/domain/entities/auth_session_entity.dart';
 
 abstract final class AuthTokenCoordinator {
+  static bool _sessionHiveSyncInstalled = false;
+
+  /// Wire AuthTokenManager refreshes into Hive `session_json` so cold starts
+  /// rehydrate rotated tokens instead of stale ones.
+  static void installSessionHiveSync(AuthLocalDataSource localDataSource) {
+    if (_sessionHiveSyncInstalled) return;
+    _sessionHiveSyncInstalled = true;
+    getIt<AuthTokenManager>().onTokensPersisted =
+        ({String? accessToken, String? refreshToken}) {
+          return _syncSessionTokens(
+            localDataSource,
+            accessToken: accessToken,
+            refreshToken: refreshToken,
+          );
+        };
+  }
+
   static Future<void> persist({
     String? accessToken,
     String? refreshToken,
@@ -40,6 +59,40 @@ abstract final class AuthTokenCoordinator {
       await manager.setTokens(accessToken: access, refreshToken: refresh);
     } on Object {
       // Best-effort migration.
+    }
+  }
+
+  static Future<void> _syncSessionTokens(
+    AuthLocalDataSource localDataSource, {
+    String? accessToken,
+    String? refreshToken,
+  }) async {
+    try {
+      final sessionResult = await localDataSource.readSession();
+      await sessionResult.fold((_) async {}, (session) async {
+        if (session == null) return;
+        final access = accessToken?.trim();
+        final refresh = refreshToken?.trim();
+        final nextAccess = (access != null && access.isNotEmpty)
+            ? access
+            : session.accessToken;
+        final nextRefresh = (refresh != null && refresh.isNotEmpty)
+            ? refresh
+            : session.refreshToken;
+        if (nextAccess == session.accessToken &&
+            nextRefresh == session.refreshToken) {
+          return;
+        }
+        await localDataSource.saveSession(
+          AuthSessionEntity(
+            user: session.user,
+            accessToken: nextAccess,
+            refreshToken: nextRefresh,
+          ),
+        );
+      });
+    } on Object {
+      // Best-effort Hive token sync after refresh.
     }
   }
 
