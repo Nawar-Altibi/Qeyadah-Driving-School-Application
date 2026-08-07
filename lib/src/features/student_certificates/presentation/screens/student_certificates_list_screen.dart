@@ -329,6 +329,9 @@ class _CertificateCard extends StatelessWidget {
                           label: l10n.studentCertificatesRequestedAt(
                             StudentCertificatesFormatters.date(
                               item.requestedAt!,
+                              localeName: Localizations.localeOf(
+                                context,
+                              ).toLanguageTag(),
                             ),
                           ),
                           labelStyle: textTheme.bodySmall?.copyWith(

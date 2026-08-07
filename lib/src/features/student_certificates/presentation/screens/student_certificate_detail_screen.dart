@@ -230,6 +230,9 @@ class _DetailBody extends StatelessWidget {
                         ? l10n.studentCertificatesNotScheduled
                         : StudentCertificatesFormatters.dateTime(
                             exam.scheduledAt!,
+                            localeName: Localizations.localeOf(
+                              context,
+                            ).toLanguageTag(),
                           ),
                     icon: PhosphorIconsBold.clipboardText,
                     trailing: exam.examResult == null
