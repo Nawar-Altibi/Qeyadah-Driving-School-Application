@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_calendar_strip.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
@@ -25,6 +26,7 @@ class InstructorScheduleGreetingHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    final colors = AppSemanticColors.of(context);
     return Row(
       children: [
         InstructorAvatar(
@@ -40,7 +42,7 @@ class InstructorScheduleGreetingHeader extends StatelessWidget {
                 l10n.instructorWelcomeBackEyebrow,
                 style: Theme.of(
                   context,
-                ).textTheme.labelSmall?.copyWith(color: AppColors.muted),
+                ).textTheme.labelSmall?.copyWith(color: colors.muted),
               ),
               Text(
                 InstructorFormatters.welcomeBack(l10n, name),
@@ -68,11 +70,12 @@ class _NotificationBellButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppSemanticColors.of(context);
     return Material(
-      color: AppColors.white.withValues(alpha: 0.75),
+      color: colors.card.withValues(alpha: 0.75),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(13),
-        side: const BorderSide(color: AppColors.line),
+        side: BorderSide(color: colors.line),
       ),
       child: InkWell(
         onTap: onTap,
@@ -84,10 +87,10 @@ class _NotificationBellButton extends StatelessWidget {
             clipBehavior: Clip.none,
             alignment: Alignment.center,
             children: [
-              const Icon(
+              Icon(
                 PhosphorIconsBold.bell,
                 size: 21,
-                color: AppColors.ink,
+                color: colors.ink,
               ),
               if (unreadCount > 0)
                 Positioned(
@@ -99,7 +102,7 @@ class _NotificationBellButton extends StatelessWidget {
                     height: 14,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                      color: AppColors.danger,
+                      color: colors.danger,
                       borderRadius: BorderRadius.circular(999),
                     ),
                     child: Text(
@@ -232,6 +235,7 @@ class _InstructorTimelineSectionState extends State<InstructorTimelineSection> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    final colors = AppSemanticColors.of(context);
     final sorted = _sortedFor(widget.bookings);
 
     if (sorted.isEmpty) {
@@ -240,7 +244,7 @@ class _InstructorTimelineSectionState extends State<InstructorTimelineSection> {
           l10n.instructorNoSessionsToday,
           style: Theme.of(
             context,
-          ).textTheme.bodyMedium?.copyWith(color: AppColors.muted),
+          ).textTheme.bodyMedium?.copyWith(color: colors.muted),
         ),
       );
     }
@@ -272,6 +276,7 @@ class _TimelineRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    final colors = AppSemanticColors.of(context);
     final durationMinutes = booking.duration.inMinutes;
 
     return IntrinsicHeight(
@@ -292,7 +297,7 @@ class _TimelineRow extends StatelessWidget {
                 Text(
                   '$durationMinutes ${l10n.instructorMinuteUnit}',
                   style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                    color: AppColors.muted,
+                    color: colors.muted,
                     fontSize: 9,
                   ),
                 ),
@@ -310,7 +315,7 @@ class _TimelineRow extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: AppColors.brandPrimary,
                     shape: BoxShape.circle,
-                    border: Border.all(color: AppColors.white, width: 2),
+                    border: Border.all(color: colors.canvas, width: 2),
                     boxShadow: [
                       BoxShadow(
                         color: AppColors.brandPrimary.withValues(alpha: 0.2),
@@ -321,7 +326,7 @@ class _TimelineRow extends StatelessWidget {
                 ),
                 if (showConnector)
                   Expanded(
-                    child: Container(width: 1, color: const Color(0xFFCAD8D0)),
+                    child: Container(width: 1, color: colors.line),
                   ),
               ],
             ),
@@ -379,7 +384,7 @@ class _TimelineRow extends StatelessWidget {
                         Text(
                           '${InstructorFormatters.vehicleSourceLabel(l10n, booking.vehicleSource)} · ${InstructorFormatters.durationLabel(l10n, booking.duration)}',
                           style: Theme.of(context).textTheme.labelSmall
-                              ?.copyWith(color: AppColors.muted),
+                              ?.copyWith(color: colors.muted),
                         ),
                       ],
                     ),

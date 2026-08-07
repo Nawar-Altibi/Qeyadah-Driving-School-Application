@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_calendar_strip.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
@@ -28,6 +29,7 @@ class InstructorScheduleBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    final colors = AppSemanticColors.of(context);
     final localeName = Localizations.localeOf(context).toLanguageTag();
     final calendarDays = InstructorFormatters.weekAround(
       dashboard.selectedDate,
@@ -84,16 +86,16 @@ class InstructorScheduleBody extends StatelessWidget {
                       ),
                       style: Theme.of(
                         context,
-                      ).textTheme.bodySmall?.copyWith(color: AppColors.muted),
+                      ).textTheme.bodySmall?.copyWith(color: colors.muted),
                     ),
                   ],
                 ),
               ),
               Material(
-                color: AppColors.white,
+                color: colors.card,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
-                  side: const BorderSide(color: AppColors.line),
+                  side: BorderSide(color: colors.line),
                 ),
                 child: InkWell(
                   onTap: interactive ? () => _pickDate(context) : null,
@@ -206,6 +208,7 @@ class _InstructorWeeklyBookings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppSemanticColors.of(context);
     final groupedBookings = dashboard.bookingsByDate;
     if (groupedBookings.isEmpty) {
       return AppCard(
@@ -213,7 +216,7 @@ class _InstructorWeeklyBookings extends StatelessWidget {
           AppLocalizations.of(context).instructorNoSessionsThisWeek,
           style: Theme.of(
             context,
-          ).textTheme.bodyMedium?.copyWith(color: AppColors.muted),
+          ).textTheme.bodyMedium?.copyWith(color: colors.muted),
         ),
       );
     }

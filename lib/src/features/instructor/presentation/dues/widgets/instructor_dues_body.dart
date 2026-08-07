@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_metric_tile.dart';
@@ -21,6 +22,7 @@ class InstructorDuesBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    final colors = AppSemanticColors.of(context);
     final localeName = Localizations.localeOf(context).toLanguageTag();
     final sortOrder = context.select(
       (InstructorDuesCubit cubit) => cubit.state.sortOrder,
@@ -53,7 +55,7 @@ class InstructorDuesBody extends StatelessWidget {
                   ),
                   label: l10n.instructorDuesGrandTotal,
                   icon: PhosphorIconsBold.wallet,
-                  iconColor: AppColors.warning,
+                  iconColor: colors.warning,
                 ),
                 const SizedBox(height: AppDesignTokens.spacingLg),
                 AppSectionHeading(
@@ -65,8 +67,8 @@ class InstructorDuesBody extends StatelessWidget {
                     onPressed: () =>
                         context.read<InstructorDuesCubit>().toggleSortOrder(),
                     style: IconButton.styleFrom(
-                      backgroundColor: AppColors.white,
-                      side: const BorderSide(color: AppColors.line),
+                      backgroundColor: colors.card,
+                      side: BorderSide(color: colors.line),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(
                           AppDesignTokens.radiusControl,
@@ -77,7 +79,7 @@ class InstructorDuesBody extends StatelessWidget {
                       sortOrder == InstructorDuesSortOrder.newestFirst
                           ? PhosphorIconsBold.sortDescending
                           : PhosphorIconsBold.sortAscending,
-                      color: AppColors.ink,
+                      color: colors.ink,
                       size: 20,
                     ),
                   ),
@@ -136,7 +138,7 @@ class InstructorDuesBody extends StatelessWidget {
                             ),
                             Text(
                               l10n.instructorDuesLessonCount(due.lessonCount),
-                              style: const TextStyle(color: AppColors.muted),
+                              style: TextStyle(color: colors.muted),
                             ),
                           ],
                         ),

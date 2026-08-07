@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_calendar_strip.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
@@ -27,6 +28,7 @@ class InstructorProfileBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    final colors = AppSemanticColors.of(context);
     final profile = dashboard.profile;
     final leaveStatus = profile.leaveStatus?.trim();
     final details = <_ProfileDetail>[
@@ -103,7 +105,7 @@ class InstructorProfileBody extends StatelessWidget {
                     child: Text(
                       l10n.instructorProfileData,
                       style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                        color: AppColors.muted,
+                        color: colors.muted,
                         fontWeight: FontWeight.w800,
                       ),
                     ),
@@ -124,7 +126,7 @@ class InstructorProfileBody extends StatelessWidget {
                             value: details[index].value,
                           ),
                           if (index != details.length - 1)
-                            const Divider(height: 1, color: AppColors.line),
+                            Divider(height: 1, color: colors.line),
                         ],
                       ],
                     ),
@@ -135,7 +137,7 @@ class InstructorProfileBody extends StatelessWidget {
                     child: Text(
                       l10n.instructorProfileSettings,
                       style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                        color: AppColors.muted,
+                        color: colors.muted,
                         fontWeight: FontWeight.w800,
                       ),
                     ),
@@ -154,7 +156,7 @@ class InstructorProfileBody extends StatelessWidget {
                                 )
                               : null,
                         ),
-                        const Divider(height: 1, color: AppColors.line),
+                        Divider(height: 1, color: colors.line),
                         InstructorSettingsRow(
                           icon: PhosphorIconsBold.calendarX,
                           label: l10n.instructorLeaveTitle,
@@ -162,7 +164,7 @@ class InstructorProfileBody extends StatelessWidget {
                               ? () => InstructorNavigation.openLeaves(context)
                               : null,
                         ),
-                        const Divider(height: 1, color: AppColors.line),
+                        Divider(height: 1, color: colors.line),
                         InstructorSettingsRow(
                           icon: PhosphorIconsBold.wallet,
                           label: l10n.instructorDuesTitle,
@@ -170,7 +172,7 @@ class InstructorProfileBody extends StatelessWidget {
                               ? () => InstructorNavigation.openDues(context)
                               : null,
                         ),
-                        const Divider(height: 1, color: AppColors.line),
+                        Divider(height: 1, color: colors.line),
                         InstructorSettingsRow(
                           icon: PhosphorIconsBold.money,
                           label: l10n.instructorEarningsTitle,
@@ -178,7 +180,7 @@ class InstructorProfileBody extends StatelessWidget {
                               ? () => InstructorNavigation.openEarnings(context)
                               : null,
                         ),
-                        const Divider(height: 1, color: AppColors.line),
+                        Divider(height: 1, color: colors.line),
                         InstructorSettingsRow(
                           icon: PhosphorIconsBold.receipt,
                           label: l10n.instructorInvoicesTitle,
@@ -186,7 +188,7 @@ class InstructorProfileBody extends StatelessWidget {
                               ? () => InstructorNavigation.openInvoices(context)
                               : null,
                         ),
-                        const Divider(height: 1, color: AppColors.line),
+                        Divider(height: 1, color: colors.line),
                         InstructorSettingsRow(
                           icon: PhosphorIconsBold.signOut,
                           label: l10n.logout,

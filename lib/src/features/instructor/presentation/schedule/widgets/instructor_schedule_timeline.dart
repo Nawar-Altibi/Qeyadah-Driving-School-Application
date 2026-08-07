@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_status_badge.dart';
@@ -48,6 +49,7 @@ class _InstructorScheduleTimelineState
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    final colors = AppSemanticColors.of(context);
     final items = _itemsFor(widget.bookings);
 
     if (items.isEmpty) {
@@ -58,9 +60,9 @@ class _InstructorScheduleTimelineState
         ),
         child: Row(
           children: [
-            const Icon(
+            Icon(
               PhosphorIconsBold.calendarBlank,
-              color: AppColors.muted,
+              color: colors.muted,
               size: 22,
             ),
             const SizedBox(width: AppDesignTokens.spacing),
@@ -69,7 +71,7 @@ class _InstructorScheduleTimelineState
                 l10n.instructorNoSessionsToday,
                 style: Theme.of(
                   context,
-                ).textTheme.bodyMedium?.copyWith(color: AppColors.muted),
+                ).textTheme.bodyMedium?.copyWith(color: colors.muted),
               ),
             ),
           ],
@@ -123,6 +125,7 @@ class _TimelineRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const accent = AppColors.brandPrimary;
+    final colors = AppSemanticColors.of(context);
 
     return IntrinsicHeight(
       child: Row(
@@ -139,7 +142,7 @@ class _TimelineRow extends StatelessWidget {
                     _formatMinutes(item.startMinute),
                     textDirection: TextDirection.ltr,
                     style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                      color: AppColors.ink,
+                      color: colors.ink,
                       fontWeight: FontWeight.w800,
                     ),
                   ),
@@ -147,7 +150,7 @@ class _TimelineRow extends StatelessWidget {
                   Text(
                     '${item.durationMinutes} ${AppLocalizations.of(context).instructorMinuteUnit}',
                     style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                      color: AppColors.muted,
+                      color: colors.muted,
                       fontSize: 9,
                     ),
                   ),
@@ -166,7 +169,7 @@ class _TimelineRow extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: accent,
                     shape: BoxShape.circle,
-                    border: Border.all(color: AppColors.white, width: 3),
+                    border: Border.all(color: colors.canvas, width: 3),
                     boxShadow: [
                       BoxShadow(
                         color: accent.withValues(alpha: 0.24),
@@ -208,6 +211,7 @@ class InstructorLessonCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    final colors = AppSemanticColors.of(context);
     return AppCard(
       padding: EdgeInsets.zero,
       borderColor: AppColors.brandMint,
@@ -232,7 +236,7 @@ class InstructorLessonCard extends StatelessWidget {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                          color: AppColors.ink,
+                          color: colors.ink,
                           fontWeight: FontWeight.w800,
                         ),
                       ),
@@ -272,17 +276,17 @@ class InstructorLessonCard extends StatelessWidget {
                 const SizedBox(height: 6),
                 Row(
                   children: [
-                    const Icon(
+                    Icon(
                       PhosphorIconsBold.car,
                       size: 15,
-                      color: AppColors.muted,
+                      color: colors.muted,
                     ),
                     const SizedBox(width: 6),
                     Expanded(
                       child: Text(
                         '${InstructorFormatters.vehicleSourceLabel(l10n, booking.vehicleSource)} · ${InstructorFormatters.durationLabel(l10n, booking.duration)}',
                         style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                          color: AppColors.muted,
+                          color: colors.muted,
                         ),
                       ),
                     ),

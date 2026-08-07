@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
 import 'package:qeyadah_mobile_app/src/core/mappers/core_failure_message_mapper.dart';
-import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_button.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_mobile_bottom_nav.dart';
@@ -24,7 +23,6 @@ class InstructorProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return InstructorProfileScreenCoordinator(
       child: Scaffold(
-        backgroundColor: AppColors.appCanvas,
         body: SafeArea(
           child: Stack(
             children: [

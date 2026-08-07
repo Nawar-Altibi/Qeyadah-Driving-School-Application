@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_alert_banner.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
@@ -17,6 +18,7 @@ class InstructorLeaveBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    final colors = AppSemanticColors.of(context);
     final localeName = Localizations.localeOf(context).toLanguageTag();
     return ListView(
       padding: AppDesignTokens.screenContentPadding(
@@ -30,7 +32,7 @@ class InstructorLeaveBody extends StatelessWidget {
               width: 48,
               height: 48,
               decoration: BoxDecoration(
-                color: AppColors.brandMintSoft,
+                color: colors.brandSoft,
                 borderRadius: BorderRadius.circular(15),
               ),
               child: const AppNonMirroredIcon(
@@ -51,7 +53,7 @@ class InstructorLeaveBody extends StatelessWidget {
               textAlign: TextAlign.center,
               style: Theme.of(
                 context,
-              ).textTheme.bodySmall?.copyWith(color: AppColors.muted),
+              ).textTheme.bodySmall?.copyWith(color: colors.muted),
             ),
           ],
         ),
@@ -69,7 +71,7 @@ class InstructorLeaveBody extends StatelessWidget {
               l10n.instructorLeaveEmpty,
               style: Theme.of(
                 context,
-              ).textTheme.bodyMedium?.copyWith(color: AppColors.muted),
+              ).textTheme.bodyMedium?.copyWith(color: colors.muted),
             ),
           )
         else
@@ -96,7 +98,7 @@ class InstructorLeaveBody extends StatelessWidget {
                         '${l10n.instructorLeaveReasonLabel}: ${leave.reason!}',
                         style: Theme.of(
                           context,
-                        ).textTheme.bodySmall?.copyWith(color: AppColors.muted),
+                        ).textTheme.bodySmall?.copyWith(color: colors.muted),
                       ),
                     ],
                   ],

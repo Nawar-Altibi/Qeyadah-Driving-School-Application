@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
 import 'package:qeyadah_mobile_app/src/core/formatters/app_date_formatters.dart';
-import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
+import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_meta_row.dart';
@@ -33,6 +33,7 @@ class InstructorInvoicesBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    final colors = AppSemanticColors.of(context);
     final isDay = state.viewMode == InstructorInvoicesViewMode.day;
     final invoices = page.invoices;
 
@@ -72,7 +73,7 @@ class InstructorInvoicesBody extends StatelessWidget {
                       : l10n.instructorPeriodHintMonth,
                   style: Theme.of(
                     context,
-                  ).textTheme.bodySmall?.copyWith(color: AppColors.muted),
+                  ).textTheme.bodySmall?.copyWith(color: colors.muted),
                 ),
                 const SizedBox(height: AppDesignTokens.spacing),
                 InstructorPeriodStepper(
@@ -212,6 +213,7 @@ class _InvoiceCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    final colors = AppSemanticColors.of(context);
     final localeName = Localizations.localeOf(context).toLanguageTag();
     final textTheme = Theme.of(context).textTheme;
     final entryLabel = l10n.instructorInvoicesEntryCount(invoice.entryCount);
@@ -245,7 +247,7 @@ class _InvoiceCard extends StatelessWidget {
               Text(
                 InstructorFormatters.currencyAmount(l10n, invoice.amount),
                 style: textTheme.titleSmall?.copyWith(
-                  color: AppColors.brandPrimary,
+                  color: colors.primary,
                   fontWeight: FontWeight.w800,
                 ),
               ),
@@ -261,11 +263,11 @@ class _InvoiceCard extends StatelessWidget {
                   label: entryLabel,
                   iconSize: 14,
                   gap: 6,
-                  labelColor: AppColors.muted,
+                  labelColor: colors.muted,
                   expandLabel: false,
                   mainAxisSize: MainAxisSize.min,
                   labelStyle: textTheme.bodySmall?.copyWith(
-                    color: AppColors.muted,
+                    color: colors.muted,
                   ),
                 ),
               ),
@@ -276,12 +278,12 @@ class _InvoiceCard extends StatelessWidget {
                   label: methodLabel,
                   iconSize: 14,
                   gap: 6,
-                  labelColor: AppColors.muted,
+                  labelColor: colors.muted,
                   expandLabel: false,
                   mainAxisSize: MainAxisSize.min,
                   alignEnd: true,
                   labelStyle: textTheme.bodySmall?.copyWith(
-                    color: AppColors.muted,
+                    color: colors.muted,
                   ),
                 ),
               ),
@@ -293,11 +295,11 @@ class _InvoiceCard extends StatelessWidget {
             label: paidLabel,
             iconSize: 14,
             gap: 6,
-            labelColor: AppColors.muted,
+            labelColor: colors.muted,
             expandLabel: false,
             mainAxisSize: MainAxisSize.min,
-            iconColor: AppColors.success,
-            labelStyle: textTheme.bodySmall?.copyWith(color: AppColors.muted),
+            iconColor: colors.success,
+            labelStyle: textTheme.bodySmall?.copyWith(color: colors.muted),
           ),
         ],
       ),
