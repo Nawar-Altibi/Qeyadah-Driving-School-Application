@@ -103,6 +103,11 @@
   "mustChangePasswordNotice": "يُطلب منك تغيير كلمة المرور عند تسجيل الدخول التالي.",
   "logoutCurrentDevice": "تسجيل الخروج من هذا الجهاز",
   "logoutAllDevices": "تسجيل الخروج من كل الأجهزة",
+  "logoutConfirmTitle": "تأكيد تسجيل الخروج",
+  "logoutConfirmMessage": "هل تريد تسجيل الخروج من هذا الجهاز؟",
+  "logoutAllConfirmMessage": "هل تريد تسجيل الخروج من كل الأجهزة؟",
+  "logoutConfirmAction": "تسجيل الخروج",
+  "actionCancel": "إلغاء",
   "splashLoading": "جاري التحميل...",
   "offlineQueuePending": "{count} طلبات بانتظار المزامنة",
   "offlineQueueSyncing": "جاري مزامنة الطلبات غير المتصلة...",
@@ -326,13 +331,9 @@
   "instructorEarningsMonthTotal": "إجمالي الشهر",
   "instructorEarningsSessions": "الجلسات",
   "instructorEarningsEmpty": "لا توجد أرباح مسجلة لهذه الفترة.",
-  "instructorEarningsPaidAt": "تم الدفع: {date}",
+  "instructorEarningsPaidAt": "تم الدفع",
   "@instructorEarningsPaidAt": {
-    "placeholders": {
-      "date": {
-        "type": "String"
-      }
-    }
+    "description": "Caption for paid-at chips on earnings session cards"
   },
   "instructorPeriodDay": "يوم",
   "instructorPeriodMonth": "شهر",
@@ -359,13 +360,9 @@
       }
     }
   },
-  "instructorInvoicesPaidAt": "تم الدفع: {date}",
+  "instructorInvoicesPaidAt": "تم الدفع",
   "@instructorInvoicesPaidAt": {
-    "placeholders": {
-      "date": {
-        "type": "String"
-      }
-    }
+    "description": "Caption for paid-at chips on invoice cards"
   },
   "instructorInvoiceTypeLessons": "دروس",
   "instructorInvoiceTypeBonus": "مكافأة",
@@ -415,6 +412,8 @@
   "studentBookingReviewCreateButton": "تأكيد الحجز",
   "studentBookingErrorSlotConflict": "تم حجز هذا الموعد للتو من قبل شخص آخر. الرجاء اختيار موعد آخر.",
   "studentBookingErrorPendingPaymentExists": "لديك بالفعل حجز بانتظار الدفع.",
+  "studentBookingErrorStudentTimeConflict": "لديك حجز آخر في هذا الوقت. الرجاء اختيار موعد مختلف.",
+  "studentBookingErrorGenericConflict": "تعذر تأكيد الحجز بسبب تعارض. الرجاء اختيار موعد آخر.",
   "studentBookingsTitle": "حجوزاتي",
   "studentBookingsFilterAll": "الكل",
   "studentBookingsSearchHint": "ابحث باسم المدرب",

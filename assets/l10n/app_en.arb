@@ -103,6 +103,11 @@
   "mustChangePasswordNotice": "You will be asked to change your password on next sign-in.",
   "logoutCurrentDevice": "Log out from this device",
   "logoutAllDevices": "Log out from all devices",
+  "logoutConfirmTitle": "Confirm logout",
+  "logoutConfirmMessage": "Do you want to log out from this device?",
+  "logoutAllConfirmMessage": "Do you want to log out from all devices?",
+  "logoutConfirmAction": "Log out",
+  "actionCancel": "Cancel",
   "splashLoading": "Loading...",
   "offlineQueuePending": "{count} requests pending sync",
   "@offlineQueuePending": {
@@ -340,13 +345,9 @@
   "instructorEarningsMonthTotal": "Month total",
   "instructorEarningsSessions": "Sessions",
   "instructorEarningsEmpty": "No earnings recorded for this period.",
-  "instructorEarningsPaidAt": "Paid at: {date}",
+  "instructorEarningsPaidAt": "Paid",
   "@instructorEarningsPaidAt": {
-    "placeholders": {
-      "date": {
-        "type": "String"
-      }
-    }
+    "description": "Caption for paid-at chips on earnings session cards"
   },
   "instructorPeriodDay": "Day",
   "instructorPeriodMonth": "Month",
@@ -373,13 +374,9 @@
       }
     }
   },
-  "instructorInvoicesPaidAt": "Paid at: {date}",
+  "instructorInvoicesPaidAt": "Paid",
   "@instructorInvoicesPaidAt": {
-    "placeholders": {
-      "date": {
-        "type": "String"
-      }
-    }
+    "description": "Caption for paid-at chips on invoice cards"
   },
   "instructorInvoiceTypeLessons": "Lessons",
   "instructorInvoiceTypeBonus": "Bonus",
@@ -429,6 +426,8 @@
   "studentBookingReviewCreateButton": "Confirm booking",
   "studentBookingErrorSlotConflict": "This slot was just booked by someone else. Please choose another one.",
   "studentBookingErrorPendingPaymentExists": "You already have a booking awaiting payment.",
+  "studentBookingErrorStudentTimeConflict": "You already have another booking at this time. Please choose a different slot.",
+  "studentBookingErrorGenericConflict": "Could not confirm the booking due to a conflict. Please choose another slot.",
   "studentBookingsTitle": "My bookings",
   "studentBookingsFilterAll": "All",
   "studentBookingsSearchHint": "Search by instructor name",

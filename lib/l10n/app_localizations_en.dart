@@ -294,6 +294,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get logoutAllDevices => 'Log out from all devices';
 
   @override
+  String get logoutConfirmTitle => 'Confirm logout';
+
+  @override
+  String get logoutConfirmMessage => 'Do you want to log out from this device?';
+
+  @override
+  String get logoutAllConfirmMessage =>
+      'Do you want to log out from all devices?';
+
+  @override
+  String get logoutConfirmAction => 'Log out';
+
+  @override
+  String get actionCancel => 'Cancel';
+
+  @override
   String get splashLoading => 'Loading...';
 
   @override
@@ -663,9 +679,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get instructorEarningsEmpty => 'No earnings recorded for this period.';
 
   @override
-  String instructorEarningsPaidAt(String date) {
-    return 'Paid at: $date';
-  }
+  String get instructorEarningsPaidAt => 'Paid';
 
   @override
   String get instructorPeriodDay => 'Day';
@@ -732,9 +746,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String instructorInvoicesPaidAt(String date) {
-    return 'Paid at: $date';
-  }
+  String get instructorInvoicesPaidAt => 'Paid';
 
   @override
   String get instructorInvoiceTypeLessons => 'Lessons';
@@ -865,6 +877,14 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get studentBookingErrorPendingPaymentExists =>
       'You already have a booking awaiting payment.';
+
+  @override
+  String get studentBookingErrorStudentTimeConflict =>
+      'You already have another booking at this time. Please choose a different slot.';
+
+  @override
+  String get studentBookingErrorGenericConflict =>
+      'Could not confirm the booking due to a conflict. Please choose another slot.';
 
   @override
   String get studentBookingsTitle => 'My bookings';

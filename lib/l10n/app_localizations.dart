@@ -632,6 +632,36 @@ abstract class AppLocalizations {
   /// **'Log out from all devices'**
   String get logoutAllDevices;
 
+  /// No description provided for @logoutConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm logout'**
+  String get logoutConfirmTitle;
+
+  /// No description provided for @logoutConfirmMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to log out from this device?'**
+  String get logoutConfirmMessage;
+
+  /// No description provided for @logoutAllConfirmMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to log out from all devices?'**
+  String get logoutAllConfirmMessage;
+
+  /// No description provided for @logoutConfirmAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Log out'**
+  String get logoutConfirmAction;
+
+  /// No description provided for @actionCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get actionCancel;
+
   /// No description provided for @splashLoading.
   ///
   /// In en, this message translates to:
@@ -1286,11 +1316,11 @@ abstract class AppLocalizations {
   /// **'No earnings recorded for this period.'**
   String get instructorEarningsEmpty;
 
-  /// No description provided for @instructorEarningsPaidAt.
+  /// Caption for paid-at chips on earnings session cards
   ///
   /// In en, this message translates to:
-  /// **'Paid at: {date}'**
-  String instructorEarningsPaidAt(String date);
+  /// **'Paid'**
+  String get instructorEarningsPaidAt;
 
   /// No description provided for @instructorPeriodDay.
   ///
@@ -1400,11 +1430,11 @@ abstract class AppLocalizations {
   /// **'{count, plural, =1{1 entry} other{{count} entries}}'**
   String instructorInvoicesEntryCount(int count);
 
-  /// No description provided for @instructorInvoicesPaidAt.
+  /// Caption for paid-at chips on invoice cards
   ///
   /// In en, this message translates to:
-  /// **'Paid at: {date}'**
-  String instructorInvoicesPaidAt(String date);
+  /// **'Paid'**
+  String get instructorInvoicesPaidAt;
 
   /// No description provided for @instructorInvoiceTypeLessons.
   ///
@@ -1651,6 +1681,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You already have a booking awaiting payment.'**
   String get studentBookingErrorPendingPaymentExists;
+
+  /// No description provided for @studentBookingErrorStudentTimeConflict.
+  ///
+  /// In en, this message translates to:
+  /// **'You already have another booking at this time. Please choose a different slot.'**
+  String get studentBookingErrorStudentTimeConflict;
+
+  /// No description provided for @studentBookingErrorGenericConflict.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm the booking due to a conflict. Please choose another slot.'**
+  String get studentBookingErrorGenericConflict;
 
   /// No description provided for @studentBookingsTitle.
   ///

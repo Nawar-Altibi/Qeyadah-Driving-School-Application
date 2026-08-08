@@ -292,6 +292,21 @@ class AppLocalizationsAr extends AppLocalizations {
   String get logoutAllDevices => 'تسجيل الخروج من كل الأجهزة';
 
   @override
+  String get logoutConfirmTitle => 'تأكيد تسجيل الخروج';
+
+  @override
+  String get logoutConfirmMessage => 'هل تريد تسجيل الخروج من هذا الجهاز؟';
+
+  @override
+  String get logoutAllConfirmMessage => 'هل تريد تسجيل الخروج من كل الأجهزة؟';
+
+  @override
+  String get logoutConfirmAction => 'تسجيل الخروج';
+
+  @override
+  String get actionCancel => 'إلغاء';
+
+  @override
   String get splashLoading => 'جاري التحميل...';
 
   @override
@@ -659,9 +674,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get instructorEarningsEmpty => 'لا توجد أرباح مسجلة لهذه الفترة.';
 
   @override
-  String instructorEarningsPaidAt(String date) {
-    return 'تم الدفع: $date';
-  }
+  String get instructorEarningsPaidAt => 'تم الدفع';
 
   @override
   String get instructorPeriodDay => 'يوم';
@@ -732,9 +745,7 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String instructorInvoicesPaidAt(String date) {
-    return 'تم الدفع: $date';
-  }
+  String get instructorInvoicesPaidAt => 'تم الدفع';
 
   @override
   String get instructorInvoiceTypeLessons => 'دروس';
@@ -865,6 +876,14 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get studentBookingErrorPendingPaymentExists =>
       'لديك بالفعل حجز بانتظار الدفع.';
+
+  @override
+  String get studentBookingErrorStudentTimeConflict =>
+      'لديك حجز آخر في هذا الوقت. الرجاء اختيار موعد مختلف.';
+
+  @override
+  String get studentBookingErrorGenericConflict =>
+      'تعذر تأكيد الحجز بسبب تعارض. الرجاء اختيار موعد آخر.';
 
   @override
   String get studentBookingsTitle => 'حجوزاتي';
