@@ -24,29 +24,30 @@ class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDataSource _remoteDataSource;
   final AuthLocalDataSource _localDataSource;
 
-  /// Hive auth-box open alone can take several seconds on cold start; keep this
-  /// under the outer login/register FutureEitherTimeout (25s).
-  static const _sessionSaveTimeout = Duration(seconds: 8);
+  /// Keep login/register well under the outer FutureEitherTimeout (25s).
+  /// A hanging Hive open/flush must never look like a network timeout after
+  /// HTTP 200 — succeed with memory tokens and retry disk in the background.
+  static const _sessionSaveTimeout = Duration(seconds: 4);
   static const _tokenPersistTimeout = Duration(seconds: 3);
   static const _sessionSaveRetryDelays = <Duration>[
-    Duration(milliseconds: 500),
-    Duration(seconds: 1),
-    Duration(seconds: 2),
-    Duration(seconds: 4),
-    Duration(seconds: 8),
+    Duration(milliseconds: 300),
+    Duration(milliseconds: 600),
   ];
 
   @override
   FutureEither<AuthSessionEntity> login(LoginParams params) async {
     final remote = await _remoteDataSource.login(params);
-    return remote.fold((failure) async => left(failure), _persistMobileSession);
+    return remote.fold(
+      (failure) async => left(failure),
+      _persistMobileSession,
+    );
   }
 
   FutureEither<AuthSessionEntity> _persistMobileSession(
     AuthSessionEntity session,
   ) async {
     if (!session.canUseMobileApp) {
-      await AuthTokenCoordinator.clear();
+      unawaited(AuthTokenCoordinator.clear());
       return left(
         const BusinessFailure(
           message:
@@ -55,25 +56,27 @@ class AuthRepositoryImpl implements AuthRepository {
       );
     }
 
-    // Memory tokens first — login/register must succeed even if disk I/O hangs
-    // (seen on some Android OEMs with secure storage / Hive). Cap the whole
-    // persist step so a hung sync cannot burn the outer FutureEitherTimeout and
-    // surface a fake "request timed out" after HTTP 200/201.
+    // 1) Memory tokens immediately (AuthTokenManager) so interceptors work.
+    // Secure-disk writes stay fire-and-forget — some OEMs hang on Keystore.
     try {
       await AuthTokenCoordinator.persist(
         accessToken: session.accessToken,
         refreshToken: session.refreshToken,
       ).timeout(_tokenPersistTimeout);
     } on Object {
-      // Memory may already be updated inside setTokens; continue to session save.
+      // Memory may already be updated inside setTokens.
     }
 
-    // Prefer completing Hive session_json before returning — cold start only
-    // restores from disk. Failed / timed-out writes still retry in background.
+    // 2) Prefer durable Hive session_json, but never block UI login on OEM
+    // disk hangs. AuthLocalDataSource still keeps an in-process memory copy.
     final saved = await _trySaveSession(session);
     if (!saved) {
-      unawaited(_retrySaveSession(session));
+      final recovered = await _retrySaveSessionQuick(session);
+      if (!recovered) {
+        unawaited(_retrySaveSession(session));
+      }
     }
+
     return right(session);
   }
 
@@ -88,8 +91,22 @@ class AuthRepositoryImpl implements AuthRepository {
     }
   }
 
-  Future<void> _retrySaveSession(AuthSessionEntity session) async {
+  /// Bounded quick retries on the login path (keep well under ~3s total).
+  Future<bool> _retrySaveSessionQuick(AuthSessionEntity session) async {
     for (final delay in _sessionSaveRetryDelays) {
+      await Future<void>.delayed(delay);
+      if (await _trySaveSession(session)) return true;
+    }
+    return false;
+  }
+
+  Future<void> _retrySaveSession(AuthSessionEntity session) async {
+    const lateDelays = <Duration>[
+      Duration(seconds: 2),
+      Duration(seconds: 4),
+      Duration(seconds: 8),
+    ];
+    for (final delay in lateDelays) {
       await Future<void>.delayed(delay);
       final access = await getIt<AuthTokenManager>().accessToken;
       // Stop if the user logged out or a different session took over.
@@ -142,10 +159,12 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   FutureEither<AuthSessionEntity?> getPersistedSession() async {
-    await AuthTokenCoordinator.ensureInterceptorTokensFromLegacyStorage();
+    // Read the local Hive session before secure storage. Keystore reads can
+    // block long enough to make the router's cold-start restore time out.
     final session = await _localDataSource.readSession();
     return session.fold(
       (failure) async {
+        await AuthTokenCoordinator.ensureInterceptorTokensFromLegacyStorage();
         // Hive read failed — still try secure-storage tokens + /me.
         return _restoreSessionFromStoredTokens();
       },
@@ -165,6 +184,7 @@ class AuthRepositoryImpl implements AuthRepository {
           );
           return right(value);
         }
+        await AuthTokenCoordinator.ensureInterceptorTokensFromLegacyStorage();
         // session_json missing (save raced with process kill) — rebuild from
         // secure-storage tokens via /auth/me when possible.
         return _restoreSessionFromStoredTokens();
@@ -176,7 +196,9 @@ class AuthRepositoryImpl implements AuthRepository {
     final manager = getIt<AuthTokenManager>();
     final access = (await manager.accessToken).trim();
     final refresh = (await manager.refreshToken).trim();
-    if (access.isEmpty) return right(null);
+    if (access.isEmpty) {
+      return right(null);
+    }
 
     try {
       await AuthTokenCoordinator.persist(
@@ -189,8 +211,14 @@ class AuthRepositoryImpl implements AuthRepository {
 
     final remote = await _remoteDataSource.me();
     return remote.fold(
-      (_) async {
-        await AuthTokenCoordinator.clear();
+      (failure) async {
+        // Only wipe credentials on hard auth rejection. Transient network /
+        // server errors must not force the user back to login when tokens
+        // still exist — next launch can retry, and Hive may already have
+        // session_json from a later successful save.
+        if (failure is AuthFailure) {
+          await AuthTokenCoordinator.clear();
+        }
         return right(null);
       },
       (profile) async {

@@ -12,12 +12,13 @@ class HeadersInterceptor extends Interceptor {
 
   static void resetForStartup() {
     _authDatabase = null;
+    // Only clear opening futures once at true process start (before warmUp /
+    // restoreSession). Calling this again during warmUp races Hive.openBox and
+    // can make cold-start session restore look like "logged out".
     HiveLocalDatabase.resetOpeningFutures();
   }
 
   static Future<void> warmUp() async {
-    resetForStartup();
-
     try {
       final language = await getIt<ConfigService>().getLanguageCode().timeout(
         const Duration(seconds: 3),
@@ -30,13 +31,14 @@ class HeadersInterceptor extends Interceptor {
     }
 
     try {
+      // Use the shared named auth box — same instance as session restore.
       final authDatabase = getIt<LocalDatabaseInterface>(
-        param1: RawValues.authNamedInstance,
+        instanceName: RawValues.authNamedInstance,
       );
       _authDatabase = authDatabase;
 
       final initResult = await authDatabase.initialize().timeout(
-        const Duration(seconds: 3),
+        const Duration(seconds: 10),
       );
       if (initResult.isLeft()) return;
 
@@ -102,7 +104,9 @@ class HeadersInterceptor extends Interceptor {
     try {
       final authDatabase =
           _authDatabase ??
-          getIt<LocalDatabaseInterface>(param1: RawValues.authNamedInstance);
+          getIt<LocalDatabaseInterface>(
+            instanceName: RawValues.authNamedInstance,
+          );
       _authDatabase = authDatabase;
       await authDatabase.save(StorageKeys.visitorSessionToken, latestToken);
     } on Object {

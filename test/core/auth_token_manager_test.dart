@@ -14,10 +14,33 @@ void main() {
 
     setUp(() {
       secureDatabase = _MockSecureDatabase();
-      manager = AuthTokenManager(secureDatabase);
+      manager = AuthTokenManager(
+        secureDatabase,
+        secureStorageEnabled: true,
+      );
+    });
+
+    test('returns immediately even when secure write hangs', () async {
+      final hanging = Completer<Either<CacheFailure, Unit>>();
+      when(
+        () => secureDatabase.write(any(), any()),
+      ).thenAnswer((_) => hanging.future);
+
+      final stopwatch = Stopwatch()..start();
+      await manager
+          .setTokens(accessToken: 'access', refreshToken: 'refresh')
+          .timeout(const Duration(milliseconds: 300));
+      stopwatch.stop();
+
+      expect(stopwatch.elapsed, lessThan(const Duration(milliseconds: 300)));
+      expect(await manager.accessToken, 'access');
+      expect(await manager.refreshToken, 'refresh');
+
+      hanging.complete(right(unit));
     });
 
     test('does not await a hanging onTokensPersisted hook', () async {
+      manager = AuthTokenManager(secureDatabase);
       final hanging = Completer<void>();
       var hookStarted = false;
 
@@ -45,6 +68,7 @@ void main() {
     });
 
     test('memory tokens update even when secure write is skipped', () async {
+      manager = AuthTokenManager(secureDatabase);
       when(
         () => secureDatabase.write(any(), any()),
       ).thenAnswer((_) async => right(unit));

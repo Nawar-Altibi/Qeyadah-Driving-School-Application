@@ -9,8 +9,9 @@ class AuthTokenManager {
   });
 
   /// Samsung / some OEMs can hang indefinitely on
-  /// `FlutterSecureStorage` + encryptedSharedPreferences. Keep memory
-  /// tokens authoritative and treat disk writes as best-effort.
+  /// `FlutterSecureStorage` writes. Keep memory tokens authoritative and
+  /// treat disk I/O as fire-and-forget — `Future.timeout` alone has still
+  /// let login look like a request timeout after HTTP 200/201.
   static const _secureWriteTimeout = Duration(seconds: 2);
 
   final SecureDatabaseInterface _secureDatabaseInterface;
@@ -74,31 +75,30 @@ class AuthTokenManager {
 
   /// Sets the tokens in memory and, if secure storage is enabled, persists them.
   ///
-  /// Memory is always updated first. Disk writes and [onTokensPersisted] are
-  /// best-effort and must never block callers — hung OEM secure storage / Hive
-  /// sync previously made login/register look like request timeouts after HTTP
-  /// 200/201.
+  /// Memory is always updated synchronously before this returns. Disk writes and
+  /// [onTokensPersisted] are fire-and-forget — never await them on auth
+  /// critical paths (login / register / refresh).
   Future<void> setTokens({String? accessToken, String? refreshToken}) async {
     _accessToken = accessToken;
     _refreshToken = refreshToken;
 
     if (secureStorageEnabled) {
-      await _bestEffortSecureWrite(() async {
-        if (accessToken != null && accessToken.isNotEmpty) {
-          await _secureDatabaseInterface.write('accessToken', accessToken);
-        }
-        if (refreshToken != null && refreshToken.isNotEmpty) {
-          await _secureDatabaseInterface.write('refreshToken', refreshToken);
-        }
-      });
+      unawaited(
+        _bestEffortSecureWrite(() async {
+          if (accessToken != null && accessToken.isNotEmpty) {
+            await _secureDatabaseInterface.write('accessToken', accessToken);
+          }
+          if (refreshToken != null && refreshToken.isNotEmpty) {
+            await _secureDatabaseInterface.write('refreshToken', refreshToken);
+          }
+        }),
+      );
     }
 
     final hook = onTokensPersisted;
     final hasAccess = accessToken != null && accessToken.isNotEmpty;
     final hasRefresh = refreshToken != null && refreshToken.isNotEmpty;
     if (hook != null && (hasAccess || hasRefresh)) {
-      // Fire-and-forget: awaiting Hive/session sync here blocked auth after a
-      // successful HTTP response until an outer FutureEitherTimeout fired.
       unawaited(
         _runTokensPersistedHook(
           hook,
@@ -130,10 +130,12 @@ class AuthTokenManager {
 
     if (!secureStorageEnabled) return;
 
-    await _bestEffortSecureWrite(() async {
-      await _secureDatabaseInterface.delete('accessToken');
-      await _secureDatabaseInterface.delete('refreshToken');
-    });
+    unawaited(
+      _bestEffortSecureWrite(() async {
+        await _secureDatabaseInterface.delete('accessToken');
+        await _secureDatabaseInterface.delete('refreshToken');
+      }),
+    );
   }
 
   Future<void> _bestEffortSecureWrite(Future<void> Function() action) async {

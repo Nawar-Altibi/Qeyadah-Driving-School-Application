@@ -199,7 +199,11 @@ class TokenAuthInterceptor extends AuthInterceptor {
       if (rt.isEmpty) return false;
 
       final api = getIt<ApiHandlerInterface>();
-      final result = await api.post('auth/refresh', body: {'refreshToken': rt});
+      final result = await api.post(
+        'auth/refresh',
+        body: {'refreshToken': rt},
+        isAuthorized: false,
+      );
 
       return result.fold((l) => false, (data) async {
         final payload = data['data'] is Map

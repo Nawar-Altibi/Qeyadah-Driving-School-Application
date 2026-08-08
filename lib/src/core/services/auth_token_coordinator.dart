@@ -38,7 +38,8 @@ abstract final class AuthTokenCoordinator {
 
   static Future<void> clear() async {
     await getIt<AuthTokenManager>().clearTokens();
-    await _clearLegacyHiveTokens();
+    // Legacy Hive keys are best-effort; never block logout / rejected login.
+    unawaited(_clearLegacyHiveTokens());
   }
 
   static Future<void> ensureInterceptorTokensFromLegacyStorage() async {
@@ -50,6 +51,8 @@ abstract final class AuthTokenCoordinator {
       final db = getIt<LocalDatabaseInterface>(
         instanceName: RawValues.authNamedInstance,
       );
+      // Prefer session_json (owned by AuthLocalDataSource); these keys are
+      // legacy leftovers from older builds.
       final accessResult = await db.get<String>(StorageKeys.authToken);
       final refreshResult = await db.get<String>(StorageKeys.authRefreshToken);
       final access = accessResult.fold((_) => null, (v) => v)?.trim();

@@ -4,6 +4,9 @@ import 'package:qeyadah_mobile_app/src/core/constants/raw_values.dart';
 
 @module
 abstract class LocalDatabaseModule {
+  /// One shared wrapper for the auth Hive box. A factory created a new
+  /// `HiveLocalDatabase` per resolve and raced cold-start restore vs warmUp.
+  @lazySingleton
   @Named(RawValues.authNamedInstance)
   LocalDatabaseInterface get authDatabase =>
       getIt.get<LocalDatabaseInterface>(param1: RawValues.authNamedInstance);

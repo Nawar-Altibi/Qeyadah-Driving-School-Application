@@ -209,7 +209,7 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i698.NetworkExceptionMapper>(),
       ),
     );
-    gh.factory<_i698.LocalDatabaseInterface>(
+    gh.lazySingleton<_i698.LocalDatabaseInterface>(
       () => localDatabaseModule.authDatabase,
       instanceName: 'auth',
     );

@@ -78,8 +78,13 @@ Future<void> _initializeApp(CoreEnvironment environment) async {
   await _runStartupStep('project dependencies', setupProjectDependencies);
 
   HeadersInterceptor.resetForStartup();
-  // Hive + header cache preload must not block startup on web hot restart.
-  unawaited(HeadersInterceptor.warmUp());
+  // Await auth-box warmUp before constructing AppNavigationConfig so restore
+  // does not join a zombie Hive initialize Future in parallel with warmUp.
+  try {
+    await HeadersInterceptor.warmUp().timeout(const Duration(seconds: 12));
+  } on Object {
+    // Continue; restoreSession will open the auth box itself.
+  }
 
   await _runStartupStep(
     'navigation',

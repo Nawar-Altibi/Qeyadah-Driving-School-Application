@@ -73,22 +73,29 @@ class AuthSessionCubit
       final result = await _getPersistedSessionUseCase(
         const NoParams(),
       ).timeout(const Duration(seconds: 15));
-      _initialRestoreComplete = true;
 
-      result.fold((Failure failure) => _finishInitialRestoreWithoutSession(), (
-        AuthSessionEntity? session,
-      ) {
-        if (session == null) {
+      result.fold(
+        (Failure failure) {
+          _initialRestoreComplete = true;
           _finishInitialRestoreWithoutSession();
-          return;
-        }
-        emit(
-          state.copyWith(
-            apiState: ApiState<AuthSessionEntity>.succeeded(session),
-          ),
-        );
-        unawaited(_pushCoordinator.startForAuthenticatedSession());
-      });
+        },
+        (AuthSessionEntity? session) {
+          if (session == null) {
+            _initialRestoreComplete = true;
+            _finishInitialRestoreWithoutSession();
+            return;
+          }
+          emit(
+            state.copyWith(
+              apiState: ApiState<AuthSessionEntity>.succeeded(session),
+            ),
+          );
+          // Set after emit so the router never sees restoreCompleted=true
+          // while apiState is still initial.
+          _initialRestoreComplete = true;
+          unawaited(_pushCoordinator.startForAuthenticatedSession());
+        },
+      );
     } on Object {
       _initialRestoreComplete = true;
       _finishInitialRestoreWithoutSession();
@@ -138,12 +145,14 @@ class AuthSessionCubit
         }
 
         result.fold(
-          (failure) => emit(
-            state.copyWith(
-              isLoggingIn: false,
-              loginEffect: AuthSessionEffectLoginFailed(failure),
-            ),
-          ),
+          (failure) {
+            emit(
+              state.copyWith(
+                isLoggingIn: false,
+                loginEffect: AuthSessionEffectLoginFailed(failure),
+              ),
+            );
+          },
           (session) {
             _authEpoch++;
             emit(

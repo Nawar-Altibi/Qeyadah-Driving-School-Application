@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:coore/lib.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:injectable/injectable.dart';
@@ -20,16 +22,24 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
 
   final LocalDatabaseInterface _database;
 
+  /// Same-process cache (mirrors muntaji). Survives Hive transient failures
+  /// within one launch; durable across force-kill still requires disk write.
+  AuthSessionEntity? _memorySession;
+
   @override
   FutureEither<void> saveSession(AuthSessionEntity session) async {
+    _memorySession = session;
     try {
       final model = authSessionEntityToModel(session);
       final result = await _database.save(
         StorageKeys.sessionJson,
-        model.toJson(),
+        // Persist a primitive instead of a Hive Map. This makes the session
+        // portable across launches and avoids runtime generic-map casts while
+        // restoring it after Android has killed the process.
+        jsonEncode(model.toJson()),
       );
       return result.fold(left, (_) => right(null));
-    } on Exception catch (error, stackTrace) {
+    } on Exception catch (_, stackTrace) {
       return left(UnknownFailure(stackTrace: stackTrace));
     }
   }
@@ -37,21 +47,52 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
   @override
   FutureEither<AuthSessionEntity?> readSession() async {
     try {
-      final result = await _database.get<Map<dynamic, dynamic>>(
-        StorageKeys.sessionJson,
+      final result = await _database.get<Object>(StorageKeys.sessionJson);
+      return result.fold(
+        (failure) {
+          // Disk failed — still return hot memory if this process had login.
+          if (_memorySession != null) {
+            return right(_memorySession);
+          }
+          return left(failure);
+        },
+        (value) {
+          if (value == null) {
+            return right(_memorySession);
+          }
+          final map = _sessionJsonToMap(value);
+          if (map == null) {
+            return right(_memorySession);
+          }
+          final session = authSessionModelToEntity(
+            AuthSessionModel.fromJson(map),
+          );
+          _memorySession = session;
+          return right(session);
+        },
       );
-      return result.fold(left, (value) {
-        if (value == null) return right(null);
-        final map = Map<String, dynamic>.from(value);
-        return right(authSessionModelToEntity(AuthSessionModel.fromJson(map)));
-      });
-    } on Exception catch (error, stackTrace) {
+    } on Exception catch (_, stackTrace) {
+      if (_memorySession != null) {
+        return right(_memorySession);
+      }
       return left(UnknownFailure(stackTrace: stackTrace));
     }
   }
 
+  /// Supports the previous Hive Map format so users do not lose an existing
+  /// signed-in session when upgrading to the JSON representation.
+  Map<String, dynamic>? _sessionJsonToMap(Object value) {
+    if (value is String) {
+      final decoded = jsonDecode(value);
+      return decoded is Map ? Map<String, dynamic>.from(decoded) : null;
+    }
+    if (value is Map) return Map<String, dynamic>.from(value);
+    return null;
+  }
+
   @override
   FutureEither<void> clearSession() async {
+    _memorySession = null;
     final sessionResult = await _database.delete(StorageKeys.sessionJson);
     // Instructor caches are session-scoped; drop them with the auth session.
     await _database.delete(StorageKeys.instructorProfileCache);
