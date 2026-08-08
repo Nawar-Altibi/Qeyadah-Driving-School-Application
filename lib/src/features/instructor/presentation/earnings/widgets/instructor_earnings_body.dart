@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart' hide TextDirection;
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
 import 'package:qeyadah_mobile_app/src/core/formatters/app_date_formatters.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
+import 'package:qeyadah_mobile_app/src/core/ui/app_datetime_chips.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_metric_tile.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_section_heading.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_segmented_control.dart';
@@ -195,7 +195,6 @@ class _SessionCard extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
     final colors = AppSemanticColors.of(context);
     final localeName = Localizations.localeOf(context).toLanguageTag();
-    final timeFormat = DateFormat.Hm(localeName);
     return AppCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -205,26 +204,36 @@ class _SessionCard extends StatelessWidget {
               Expanded(
                 child: Text(
                   session.studentName,
-                  style: Theme.of(context).textTheme.titleSmall,
+                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
               Text(
                 InstructorFormatters.currencyAmount(l10n, session.amount),
-                style: Theme.of(context).textTheme.titleSmall,
+                style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                  color: colors.primary,
+                  fontWeight: FontWeight.w800,
+                ),
               ),
             ],
           ),
-          const SizedBox(height: AppDesignTokens.spacingSm),
-          Text(
-            '${timeFormat.format(session.startAt)} – ${timeFormat.format(session.endAt)}',
-            style: TextStyle(color: colors.muted),
-          ),
-          const SizedBox(height: 2),
-          Text(
-            l10n.instructorEarningsPaidAt(
-              AppDateFormatters.dateTimeLabel(session.paidAt, localeName),
+          const SizedBox(height: AppDesignTokens.spacing),
+          AppInfoChip(
+            icon: PhosphorIconsBold.clock,
+            label: AppDateFormatters.timeRangeFromDates(
+              session.startAt,
+              session.endAt,
+              localeName,
             ),
-            style: TextStyle(color: colors.muted),
+            iconColor: colors.primary,
+            backgroundColor: colors.neutralBg,
+          ),
+          const SizedBox(height: AppDesignTokens.spacing),
+          AppPaidAtRow(
+            caption: l10n.instructorEarningsPaidAt,
+            at: session.paidAt,
+            compact: true,
           ),
         ],
       ),

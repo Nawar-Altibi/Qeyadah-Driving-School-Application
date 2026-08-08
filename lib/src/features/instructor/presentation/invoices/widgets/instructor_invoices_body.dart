@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
-import 'package:qeyadah_mobile_app/src/core/formatters/app_date_formatters.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
+import 'package:qeyadah_mobile_app/src/core/ui/app_datetime_chips.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_meta_row.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_metric_tile.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_section_heading.dart';
@@ -214,15 +214,11 @@ class _InvoiceCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final colors = AppSemanticColors.of(context);
-    final localeName = Localizations.localeOf(context).toLanguageTag();
     final textTheme = Theme.of(context).textTheme;
     final entryLabel = l10n.instructorInvoicesEntryCount(invoice.entryCount);
     final methodLabel = InstructorFormatters.paymentMethodLabel(
       l10n,
       invoice.paymentMethod,
-    );
-    final paidLabel = l10n.instructorInvoicesPaidAt(
-      AppDateFormatters.dateTimeLabel(invoice.paidAt, localeName),
     );
 
     return AppCard(
@@ -289,17 +285,11 @@ class _InvoiceCard extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: AppDesignTokens.spacingSm),
-          AppMetaRow(
-            icon: PhosphorIconsBold.checkCircle,
-            label: paidLabel,
-            iconSize: 14,
-            gap: 6,
-            labelColor: colors.muted,
-            expandLabel: false,
-            mainAxisSize: MainAxisSize.min,
-            iconColor: colors.success,
-            labelStyle: textTheme.bodySmall?.copyWith(color: colors.muted),
+          const SizedBox(height: AppDesignTokens.spacing),
+          AppPaidAtRow(
+            caption: l10n.instructorInvoicesPaidAt,
+            at: invoice.paidAt,
+            compact: true,
           ),
         ],
       ),
