@@ -28,6 +28,14 @@ class StudentCertificateStatusTimeline extends StatelessWidget {
     CertificateRequestStatus.completed,
   ];
 
+  static const _icons = <IconData>[
+    PhosphorIconsBold.paperPlaneTilt,
+    PhosphorIconsBold.buildings,
+    PhosphorIconsBold.bookOpenText,
+    PhosphorIconsBold.steeringWheel,
+    PhosphorIconsBold.sealCheck,
+  ];
+
   @override
   Widget build(BuildContext context) {
     if (status == CertificateRequestStatus.failed ||
@@ -46,10 +54,25 @@ class StudentCertificateStatusTimeline extends StatelessWidget {
       l10n.studentCertificatesTimelineLicense,
     ];
 
+    final colors = AppSemanticColors.of(context);
+    final progress = (currentIndex + 1) / _flow.length;
+
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(999),
+          child: LinearProgressIndicator(
+            value: progress,
+            minHeight: 6,
+            backgroundColor: colors.line.withValues(alpha: 0.55),
+            color: AppColors.brandPrimary,
+          ),
+        ),
+        const SizedBox(height: AppDesignTokens.spacingMd),
         for (var i = 0; i < _flow.length; i++)
           _TimelineStep(
+            icon: _icons[i],
             label: labels[i],
             isPast: i < currentIndex,
             isCurrent: i == currentIndex,
@@ -62,102 +85,105 @@ class StudentCertificateStatusTimeline extends StatelessWidget {
 
 class _TimelineStep extends StatelessWidget {
   const _TimelineStep({
+    required this.icon,
     required this.label,
     required this.isPast,
     required this.isCurrent,
     required this.isLast,
   });
 
+  final IconData icon;
   final String label;
   final bool isPast;
   final bool isCurrent;
   final bool isLast;
 
+  static const double _circleSize = 28;
+  static const double _connectorHeight = 10;
+
   @override
   Widget build(BuildContext context) {
     final colors = AppSemanticColors.of(context);
     final textTheme = Theme.of(context).textTheme;
-    final Color dotColor;
+    final Color connectorColor;
     final Color labelColor;
     if (isPast) {
-      dotColor = colors.success;
+      connectorColor = colors.success;
       labelColor = colors.muted;
     } else if (isCurrent) {
-      dotColor = AppColors.brandPrimary;
+      connectorColor = AppColors.brandPrimary.withValues(alpha: 0.35);
       labelColor = colors.ink;
     } else {
-      dotColor = colors.line;
-      labelColor = colors.muted.withValues(alpha: 0.75);
+      connectorColor = colors.muted.withValues(alpha: 0.4);
+      labelColor = colors.ink.withValues(alpha: 0.62);
     }
 
-    return IntrinsicHeight(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            width: 28,
-            child: Column(
-              children: [
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          width: 36,
+          child: Column(
+            children: [
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 220),
+                width: isCurrent ? 30 : _circleSize,
+                height: isCurrent ? 30 : _circleSize,
+                decoration: BoxDecoration(
+                  color: isPast
+                      ? colors.success
+                      : isCurrent
+                      ? AppColors.brandPrimary
+                      : colors.card,
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: isCurrent
+                        ? AppColors.brandPrimary
+                        : isPast
+                        ? colors.success
+                        : colors.muted.withValues(alpha: 0.55),
+                    width: isCurrent ? 2 : 1.5,
+                  ),
+                ),
+                child: Icon(
+                  isPast ? PhosphorIconsBold.check : icon,
+                  size: isCurrent ? 14 : 13,
+                  color: isPast || isCurrent
+                      ? AppColors.white
+                      : colors.ink.withValues(alpha: 0.55),
+                ),
+              ),
+              if (!isLast)
                 Container(
-                  width: isCurrent ? 18 : 14,
-                  height: isCurrent ? 18 : 14,
+                  width: 2,
+                  height: _connectorHeight,
+                  margin: const EdgeInsets.symmetric(vertical: 6),
                   decoration: BoxDecoration(
-                    color: isPast || isCurrent ? dotColor : colors.card,
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: dotColor,
-                      width: isCurrent ? 3 : 2,
-                    ),
-                    boxShadow: isCurrent
-                        ? [
-                            BoxShadow(
-                              color: AppColors.brandPrimary.withValues(
-                                alpha: 0.22,
-                              ),
-                              blurRadius: 10,
-                              spreadRadius: 1,
-                            ),
-                          ]
-                        : null,
+                    color: connectorColor,
+                    borderRadius: BorderRadius.circular(999),
                   ),
-                  child: isPast
-                      ? const Icon(
-                          PhosphorIconsBold.check,
-                          size: 9,
-                          color: AppColors.white,
-                        )
-                      : null,
                 ),
-                if (!isLast)
-                  Expanded(
-                    child: Container(
-                      width: 2,
-                      margin: const EdgeInsets.symmetric(vertical: 4),
-                      color: isPast ? colors.success : colors.line,
-                    ),
-                  ),
-              ],
-            ),
+            ],
           ),
-          const SizedBox(width: AppDesignTokens.spacingSm),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.only(
-                bottom: isLast ? 0 : AppDesignTokens.spacing,
-                top: 1,
-              ),
-              child: Text(
-                label,
-                style: textTheme.bodyMedium?.copyWith(
-                  color: labelColor,
-                  fontWeight: isCurrent ? FontWeight.w700 : FontWeight.w500,
-                  height: 1.35,
-                ),
+        ),
+        const SizedBox(width: AppDesignTokens.spacingSm),
+        Expanded(
+          child: Padding(
+            padding: EdgeInsets.only(
+              top: 5,
+              bottom: isLast ? 0 : AppDesignTokens.spacingSm,
+            ),
+            child: Text(
+              label,
+              style: textTheme.bodyMedium?.copyWith(
+                color: labelColor,
+                fontWeight: isCurrent ? FontWeight.w700 : FontWeight.w500,
+                height: 1.35,
               ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

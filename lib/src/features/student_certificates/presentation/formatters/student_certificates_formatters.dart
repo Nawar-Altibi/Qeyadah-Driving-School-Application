@@ -2,6 +2,7 @@ import 'package:intl/intl.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
 import 'package:qeyadah_mobile_app/src/core/formatters/app_date_formatters.dart';
 import 'package:qeyadah_mobile_app/src/core/formatters/app_money_formatters.dart';
+import 'package:qeyadah_mobile_app/src/core/ui/app_status_badge.dart';
 import 'package:qeyadah_mobile_app/src/features/student_bookings/presentation/formatters/student_bookings_formatters.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/certificate_charge_reason.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/certificate_request_status.dart';
@@ -81,6 +82,19 @@ abstract final class StudentCertificatesFormatters {
       CertificateRequestStatus.failed => l10n.studentCertificatesStatusFailed,
       CertificateRequestStatus.cancelled =>
         l10n.studentCertificatesStatusCancelled,
+    };
+  }
+
+  static AppBadgeTone requestStatusTone(CertificateRequestStatus status) {
+    return switch (status) {
+      CertificateRequestStatus.completed => AppBadgeTone.success,
+      CertificateRequestStatus.failed => AppBadgeTone.danger,
+      CertificateRequestStatus.cancelled => AppBadgeTone.neutral,
+      CertificateRequestStatus.waitingForTrainingSchedule =>
+        AppBadgeTone.warning,
+      CertificateRequestStatus.inGovernmentTraining => AppBadgeTone.info,
+      CertificateRequestStatus.waitingForTheoreticalExam => AppBadgeTone.info,
+      CertificateRequestStatus.waitingForPracticalExam => AppBadgeTone.info,
     };
   }
 

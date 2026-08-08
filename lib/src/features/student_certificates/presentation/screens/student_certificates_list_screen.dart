@@ -8,7 +8,7 @@ import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart'
 import 'package:qeyadah_mobile_app/src/core/ui/app_async_body.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_button.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
-import 'package:qeyadah_mobile_app/src/core/ui/app_meta_row.dart';
+import 'package:qeyadah_mobile_app/src/core/ui/app_datetime_chips.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_status_badge.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/responsive/app_breakpoints.dart';
 import 'package:qeyadah_mobile_app/src/features/student_certificates/domain/entities/student_certificate_entities.dart';
@@ -62,6 +62,7 @@ class _CertificatesListBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final colors = AppSemanticColors.of(context);
+    final textTheme = Theme.of(context).textTheme;
     final items = page.items;
 
     return RefreshIndicator(
@@ -92,6 +93,10 @@ class _CertificatesListBody extends StatelessWidget {
                     ),
                     decoration: InputDecoration(
                       labelText: l10n.studentCertificatesFilterStatus,
+                      labelStyle: textTheme.bodySmall?.copyWith(
+                        color: colors.ink.withValues(alpha: 0.72),
+                        fontWeight: FontWeight.w600,
+                      ),
                       filled: true,
                       fillColor: colors.card,
                       contentPadding: const EdgeInsets.symmetric(
@@ -102,13 +107,17 @@ class _CertificatesListBody extends StatelessWidget {
                         borderRadius: BorderRadius.circular(
                           AppDesignTokens.radiusControl,
                         ),
-                        borderSide: BorderSide(color: colors.line),
+                        borderSide: BorderSide(
+                          color: colors.muted.withValues(alpha: 0.35),
+                        ),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(
                           AppDesignTokens.radiusControl,
                         ),
-                        borderSide: BorderSide(color: colors.line),
+                        borderSide: BorderSide(
+                          color: colors.muted.withValues(alpha: 0.35),
+                        ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(
@@ -231,6 +240,7 @@ class _CertificateCard extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
     final colors = AppSemanticColors.of(context);
     final textTheme = Theme.of(context).textTheme;
+    final localeName = Localizations.localeOf(context).toLanguageTag();
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -240,6 +250,7 @@ class _CertificateCard extends StatelessWidget {
           certificateId: item.id,
         ),
         child: AppCard(
+          borderColor: colors.muted.withValues(alpha: 0.28),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -247,16 +258,18 @@ class _CertificateCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    width: 42,
-                    height: 42,
+                    width: 46,
+                    height: 46,
                     decoration: BoxDecoration(
-                      color: colors.brandSoft,
-                      shape: BoxShape.circle,
+                      color: AppColors.brandPrimary,
+                      borderRadius: BorderRadius.circular(
+                        AppDesignTokens.radiusMd,
+                      ),
                     ),
                     child: const Icon(
                       PhosphorIconsBold.certificate,
-                      size: 20,
-                      color: AppColors.brandPrimary,
+                      size: 22,
+                      color: AppColors.white,
                     ),
                   ),
                   const SizedBox(width: AppDesignTokens.spacing),
@@ -270,6 +283,7 @@ class _CertificateCard extends StatelessWidget {
                             fontWeight: FontWeight.w800,
                             fontSize: 16,
                             height: 1.3,
+                            color: colors.ink,
                           ),
                         ),
                         const SizedBox(height: 4),
@@ -278,68 +292,52 @@ class _CertificateCard extends StatelessWidget {
                             item.category?.apiValue ?? '-',
                           ),
                           style: textTheme.bodyMedium?.copyWith(
-                            color: colors.muted,
+                            color: colors.ink.withValues(alpha: 0.68),
                             fontSize: 14,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                       ],
                     ),
                   ),
-                  const SizedBox(width: AppDesignTokens.spacingSm),
-                  AppStatusBadge(
-                    label: StudentCertificatesFormatters.requestStatusLabel(
-                      l10n,
-                      item.requestStatus,
-                    ),
-                  ),
                 ],
+              ),
+              const SizedBox(height: AppDesignTokens.spacing),
+              AppStatusBadge(
+                label: StudentCertificatesFormatters.requestStatusLabel(
+                  l10n,
+                  item.requestStatus,
+                ),
+                tone: StudentCertificatesFormatters.requestStatusTone(
+                  item.requestStatus,
+                ),
               ),
               if (item.courseNumber != null || item.requestedAt != null) ...[
                 const SizedBox(height: AppDesignTokens.spacingMd),
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(AppDesignTokens.spacing),
-                  decoration: BoxDecoration(
-                    color: colors.neutralBg,
-                    borderRadius: BorderRadius.circular(
-                      AppDesignTokens.radiusMd,
-                    ),
-                  ),
-                  child: Column(
-                    children: [
-                      if (item.courseNumber != null)
-                        AppMetaRow(
-                          icon: PhosphorIconsBold.numberCircleOne,
-                          label: l10n.studentCertificatesCourseNumber(
-                            item.courseNumber!,
-                          ),
-                          labelStyle: textTheme.bodySmall?.copyWith(
-                            color: colors.ink,
-                            fontSize: 13,
-                            height: 1.35,
-                          ),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: [
+                    if (item.courseNumber != null)
+                      AppInfoChip(
+                        icon: PhosphorIconsBold.numberCircleOne,
+                        label: l10n.studentCertificatesCourseNumber(
+                          item.courseNumber!,
                         ),
-                      if (item.courseNumber != null && item.requestedAt != null)
-                        const SizedBox(height: AppDesignTokens.spacingSm),
-                      if (item.requestedAt != null)
-                        AppMetaRow(
-                          icon: PhosphorIconsBold.calendarBlank,
-                          label: l10n.studentCertificatesRequestedAt(
-                            StudentCertificatesFormatters.date(
-                              item.requestedAt!,
-                              localeName: Localizations.localeOf(
-                                context,
-                              ).toLanguageTag(),
-                            ),
-                          ),
-                          labelStyle: textTheme.bodySmall?.copyWith(
-                            color: colors.ink,
-                            fontSize: 13,
-                            height: 1.35,
-                          ),
+                        iconColor: colors.primary,
+                        backgroundColor: colors.neutralBg,
+                      ),
+                    if (item.requestedAt != null)
+                      AppInfoChip(
+                        icon: PhosphorIconsBold.calendarBlank,
+                        label: StudentCertificatesFormatters.date(
+                          item.requestedAt!,
+                          localeName: localeName,
                         ),
-                    ],
-                  ),
+                        iconColor: colors.primary,
+                        backgroundColor: colors.brandSoft,
+                      ),
+                  ],
                 ),
               ],
               const SizedBox(height: AppDesignTokens.spacingSm),
@@ -348,7 +346,7 @@ class _CertificateCard extends StatelessWidget {
                 child: Icon(
                   PhosphorIconsBold.caretLeft,
                   size: 16,
-                  color: colors.muted.withValues(alpha: 0.7),
+                  color: colors.muted,
                   textDirection: TextDirection.ltr,
                 ),
               ),

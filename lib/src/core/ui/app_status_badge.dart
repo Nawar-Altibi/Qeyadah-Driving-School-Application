@@ -18,19 +18,25 @@ class AppStatusBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final (:foreground, :background) = _colorsForTone(
-      AppSemanticColors.of(context),
-      tone,
-    );
+    final colors = AppSemanticColors.of(context);
+    final (:foreground, :background) = _colorsForTone(colors, tone);
     final textTheme = Theme.of(context).extension<AppTextStylesExtension>();
+    final borderColor = switch (tone) {
+      AppBadgeTone.success => colors.success.withValues(alpha: 0.35),
+      AppBadgeTone.warning => colors.warning.withValues(alpha: 0.4),
+      AppBadgeTone.danger => colors.danger.withValues(alpha: 0.35),
+      AppBadgeTone.info => colors.info.withValues(alpha: 0.35),
+      AppBadgeTone.neutral => colors.muted.withValues(alpha: 0.28),
+    };
 
     return DecoratedBox(
       decoration: BoxDecoration(
         color: background,
         borderRadius: BorderRadius.circular(9),
+        border: Border.all(color: borderColor),
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -38,10 +44,19 @@ class AppStatusBadge extends StatelessWidget {
               Icon(icon, size: 14, color: foreground),
               const SizedBox(width: 4),
             ],
-            Text(
-              label,
-              style: (textTheme?.medium12 ?? const TextStyle(fontSize: 12))
-                  .copyWith(color: foreground),
+            Flexible(
+              child: Text(
+                label,
+                softWrap: true,
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+                style: (textTheme?.medium12 ?? const TextStyle(fontSize: 12))
+                    .copyWith(
+                      color: foreground,
+                      fontWeight: FontWeight.w700,
+                      height: 1.35,
+                    ),
+              ),
             ),
           ],
         ),
@@ -68,7 +83,7 @@ class AppStatusBadge extends StatelessWidget {
       ),
       AppBadgeTone.info => (foreground: colors.info, background: colors.infoBg),
       AppBadgeTone.neutral => (
-        foreground: colors.muted,
+        foreground: colors.ink.withValues(alpha: 0.78),
         background: colors.neutralBg,
       ),
     };
