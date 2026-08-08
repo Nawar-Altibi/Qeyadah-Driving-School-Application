@@ -12,6 +12,7 @@ import 'package:qeyadah_mobile_app/src/core/ui/app_info_row.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_status_badge.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/responsive/app_breakpoints.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/presentation/cubit/auth_session_cubit.dart';
+import 'package:qeyadah_mobile_app/src/features/auth/presentation/utils/logout_confirmation.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/domain/entities/instructor_entities.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/shared/formatters/instructor_formatters.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/shared/navigation/instructor_navigation.dart';
@@ -198,7 +199,14 @@ class InstructorProfileBody extends StatelessWidget {
                           danger: true,
                           showChevron: false,
                           onTap: interactive
-                              ? () => context.read<AuthSessionCubit>().logout()
+                              ? () async {
+                                  final confirmed =
+                                      await confirmLogout(context);
+                                  if (!context.mounted || !confirmed) return;
+                                  await context
+                                      .read<AuthSessionCubit>()
+                                      .logout();
+                                }
                               : null,
                         ),
                       ],

@@ -10,6 +10,7 @@ import 'package:qeyadah_mobile_app/src/core/ui/app_appearance_section.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/responsive/app_breakpoints.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/presentation/cubit/auth_session_cubit.dart';
+import 'package:qeyadah_mobile_app/src/features/auth/presentation/utils/logout_confirmation.dart';
 import 'package:qeyadah_mobile_app/src/features/student_home/presentation/widgets/student_shell_bottom_nav.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -139,8 +140,11 @@ class ProfileScreen extends StatelessWidget {
                           AppActionListTile(
                             icon: PhosphorIconsBold.signOut,
                             label: l10n.logoutCurrentDevice,
-                            onTap: () =>
-                                context.read<AuthSessionCubit>().logout(),
+                            onTap: () async {
+                              final confirmed = await confirmLogout(context);
+                              if (!context.mounted || !confirmed) return;
+                              await context.read<AuthSessionCubit>().logout();
+                            },
                           ),
                           Divider(
                             height: 1,
@@ -151,8 +155,14 @@ class ProfileScreen extends StatelessWidget {
                             icon: PhosphorIconsBold.signOut,
                             label: l10n.logoutAllDevices,
                             isDestructive: true,
-                            onTap: () =>
-                                context.read<AuthSessionCubit>().logoutAll(),
+                            onTap: () async {
+                              final confirmed = await confirmLogout(
+                                context,
+                                allDevices: true,
+                              );
+                              if (!context.mounted || !confirmed) return;
+                              await context.read<AuthSessionCubit>().logoutAll();
+                            },
                           ),
                         ],
                       ),
