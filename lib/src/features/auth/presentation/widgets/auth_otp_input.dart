@@ -42,14 +42,17 @@ class AuthOtpInput extends StatelessWidget {
       ),
     );
 
-    return Pinput(
-      length: AuthConstants.otpLength,
-      controller: controller,
-      defaultPinTheme: defaultPinTheme,
-      focusedPinTheme: focusedPinTheme,
-      separatorBuilder: (_) => const SizedBox(width: 10),
-      autofocus: autofocus,
-      onCompleted: onCompleted,
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: Pinput(
+        length: AuthConstants.otpLength,
+        controller: controller,
+        defaultPinTheme: defaultPinTheme,
+        focusedPinTheme: focusedPinTheme,
+        separatorBuilder: (_) => const SizedBox(width: 10),
+        autofocus: autofocus,
+        onCompleted: onCompleted,
+      ),
     );
   }
 }
