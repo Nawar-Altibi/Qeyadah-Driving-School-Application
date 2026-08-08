@@ -80,6 +80,20 @@ class StudentBookingRepositoryImpl implements StudentBookingRepository {
       return StudentBookingConflictReason.pendingPaymentExists;
     }
 
+    const studentTimeConflictHints = <String>[
+      'already has another booking',
+      'exact time',
+      'same time',
+      'overlapping booking',
+      'في نفس الوقت',
+      'حجز آخر',
+    ];
+    for (final hint in studentTimeConflictHints) {
+      if (normalized.contains(hint.toLowerCase())) {
+        return StudentBookingConflictReason.studentTimeConflict;
+      }
+    }
+
     const slotUnavailableHints = <String>[
       'not available',
       'conflicts with an existing reservation',

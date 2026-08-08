@@ -34,6 +34,7 @@ class StudentBookingPreferencesScreenCoordinator extends StatelessWidget {
           case StudentBookingEffectNavigateToReview():
           case StudentBookingEffectBookingCreated():
           case StudentBookingEffectSlotConflict():
+          case StudentBookingEffectStudentTimeConflict():
           case StudentBookingEffectBackendConflict():
           case StudentBookingEffectPendingPaymentConflict():
           case StudentBookingEffectActionFailed():
@@ -67,6 +68,7 @@ class StudentBookingSlotsScreenCoordinator extends StatelessWidget {
           case StudentBookingEffectNavigateToSlots():
           case StudentBookingEffectBookingCreated():
           case StudentBookingEffectSlotConflict():
+          case StudentBookingEffectStudentTimeConflict():
           case StudentBookingEffectBackendConflict():
           case StudentBookingEffectPendingPaymentConflict():
           case StudentBookingEffectActionFailed():
@@ -116,11 +118,13 @@ class StudentBookingReviewScreenCoordinator extends StatelessWidget {
             showErrorMessage(message: l10n.studentBookingErrorSlotConflict);
             Navigator.of(context).pop();
             context.read<StudentBookingCubit>().loadSlots();
-          case StudentBookingEffectBackendConflict(:final failure):
+          case StudentBookingEffectStudentTimeConflict():
             showErrorMessage(
-              message: failure.message.isNotEmpty
-                  ? failure.message
-                  : l10n.errorGeneric,
+              message: l10n.studentBookingErrorStudentTimeConflict,
+            );
+          case StudentBookingEffectBackendConflict():
+            showErrorMessage(
+              message: l10n.studentBookingErrorGenericConflict,
             );
           case StudentBookingEffectPendingPaymentConflict():
             showErrorMessage(

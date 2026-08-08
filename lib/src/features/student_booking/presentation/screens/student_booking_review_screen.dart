@@ -20,9 +20,7 @@ class StudentBookingReviewScreen extends StatelessWidget {
         appBar: AppBar(
           surfaceTintColor: Colors.transparent,
           elevation: 0,
-          leading: AppFlowBackButton(
-            onCancel: context.read<StudentBookingCubit>().resetDraft,
-          ),
+          leading: const AppFlowBackButton(),
           title: Text(AppLocalizations.of(context).studentBookingReviewTitle),
           centerTitle: true,
         ),

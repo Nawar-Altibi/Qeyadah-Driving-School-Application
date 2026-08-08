@@ -26,9 +26,15 @@ final class StudentBookingEffectSlotConflict extends StudentBookingEffect {
   final Failure failure;
 }
 
-/// Backend 409 with a message we should show as-is (e.g. overlapping booking
-/// with another instructor). Do not force a slots refresh unless the user
-/// chooses to go back.
+/// Student already has a booking at the same time (localized toast).
+final class StudentBookingEffectStudentTimeConflict
+    extends StudentBookingEffect {
+  const StudentBookingEffectStudentTimeConflict(this.failure);
+
+  final Failure failure;
+}
+
+/// Unrecognized backend 409 — show a localized generic conflict message.
 final class StudentBookingEffectBackendConflict extends StudentBookingEffect {
   const StudentBookingEffectBackendConflict(this.failure);
 

@@ -9,8 +9,10 @@ enum StudentBookingConflictReason {
   pendingPaymentExists,
   slotUnavailable,
 
-  /// Unrecognized 409 — show the backend message as-is (e.g. student already
-  /// booked the same time with another instructor).
+  /// Student already has another booking at the same wall-clock time.
+  studentTimeConflict,
+
+  /// Unrecognized 409 — show a localized generic conflict message.
   unspecifiedConflict,
 }
 
