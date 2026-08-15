@@ -133,7 +133,6 @@ class _ActiveRequestSummaryCard extends StatelessWidget {
         ),
         border: Border.all(
           color: AppColors.brandPrimary.withValues(alpha: 0.12),
-          width: 1,
         ),
         boxShadow: [
           BoxShadow(
@@ -229,9 +228,7 @@ class _ActiveRequestSummaryCard extends StatelessWidget {
                   width: 1.6,
                 ),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(
-                    AppDesignTokens.radiusMd,
-                  ),
+                  borderRadius: BorderRadius.circular(AppDesignTokens.radiusMd),
                 ),
                 textStyle: textTheme.labelLarge?.copyWith(
                   fontWeight: FontWeight.w700,
@@ -497,11 +494,7 @@ class _StatusOnlyCard extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(
-                  PhosphorIconsBold.clock,
-                  size: 16,
-                  color: colors.primary,
-                ),
+                Icon(PhosphorIconsBold.clock, size: 16, color: colors.primary),
                 const SizedBox(width: AppDesignTokens.spacingSm),
                 Expanded(
                   child: Text(

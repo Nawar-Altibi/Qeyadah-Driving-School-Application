@@ -416,6 +416,39 @@
   "studentBookingSlotsEmptyMessage": "Try different preferences or check back later.",
   "studentBookingSlotsSelectedHeading": "Selected appointment",
   "studentBookingSlotsContinueButton": "Continue to review",
+  "studentBookingSlotsPricingTitle": "Lesson pricing",
+  "studentBookingSlotsLessonPrice": "Lesson price: {amount}",
+  "@studentBookingSlotsLessonPrice": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "studentBookingSlotsDepositAmount": "Required deposit: {amount}",
+  "@studentBookingSlotsDepositAmount": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "studentBookingSlotsDepositPercentage": "({percent}% of the lesson price)",
+  "@studentBookingSlotsDepositPercentage": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "studentBookingSlotsLessonDuration": "Lesson duration: {minutes} minutes",
+  "@studentBookingSlotsLessonDuration": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "studentBookingReviewTitle": "Review booking",
   "studentBookingReviewSummaryTitle": "Booking summary",
   "studentBookingReviewInstructorLabel": "Instructor",
@@ -424,10 +457,35 @@
   "studentBookingReviewTrainingTypeLabel": "Training type",
   "studentBookingReviewVehicleSourceLabel": "Vehicle",
   "studentBookingReviewCreateButton": "Confirm booking",
+  "studentBookingReviewCreateWithPaymentButton": "Confirm and continue to payment",
+  "studentBookingReviewCreateWithoutPaymentButton": "Confirm booking (no payment)",
+  "studentBookingReviewCreditBannerTitle": "Saved deposit available",
+  "studentBookingReviewCreditBannerMessage": "You have a saved deposit of {amount}. It will be used for this booking and you will not need to pay now.",
+  "@studentBookingReviewCreditBannerMessage": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "studentBookingReviewDepositBannerTitle": "Deposit required",
+  "studentBookingReviewDepositBannerMessage": "Required deposit: {amount} via ShamCash.",
+  "@studentBookingReviewDepositBannerMessage": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "studentBookingCreditSuccessTitle": "Booking confirmed",
+  "studentBookingCreditSuccessMessage": "Your booking was confirmed using your saved deposit. You can check any remaining amount (if any) in the booking details.",
+  "studentBookingCreditSuccessViewDetails": "View booking details",
+  "studentBookingCreditSuccessBackHome": "Back to home",
   "studentBookingErrorSlotConflict": "This slot was just booked by someone else. Please choose another one.",
   "studentBookingErrorPendingPaymentExists": "You already have a booking awaiting payment.",
   "studentBookingErrorStudentTimeConflict": "You already have another booking at this time. Please choose a different slot.",
   "studentBookingErrorGenericConflict": "Could not confirm the booking due to a conflict. Please choose another slot.",
+  "studentBookingErrorPaymentHoldIncomplete": "Booking was created but payment details are incomplete. Please contact support.",
   "studentBookingsTitle": "My bookings",
   "studentBookingsFilterAll": "All",
   "studentBookingsSearchHint": "Search by instructor name",
@@ -518,6 +576,15 @@
   "studentPaymentShamCashTitle": "Complete your ShamCash transfer",
   "studentPaymentDepositAmount": "Deposit amount",
   "studentPaymentReceiverName": "Receiver name",
+  "studentPaymentExactAmountWarningTitle": "Send the exact deposit amount",
+  "studentPaymentExactAmountWarningMessage": "Send exactly {amount}. No more, no less. If you miss the lesson, the full deposit is forfeited and is not refunded. Any amount above the deposit is also forfeited.",
+  "@studentPaymentExactAmountWarningMessage": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
   "studentPaymentCountdownTitle": "Time remaining",
   "studentPaymentCountdownMessage": "Confirm within {time} or the slot will be released.",
   "@studentPaymentCountdownMessage": {

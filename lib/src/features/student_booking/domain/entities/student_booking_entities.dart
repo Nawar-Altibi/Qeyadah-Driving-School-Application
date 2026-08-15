@@ -111,11 +111,72 @@ class StudentAvailableInstructorSlotsEntity extends Equatable {
   List<Object?> get props => [instructor, slots];
 }
 
+/// Lesson pricing returned once with available slots (same for all instructors).
+class StudentBookingPricingEntity extends Equatable {
+  const StudentBookingPricingEntity({
+    required this.lessonPrice,
+    required this.depositAmount,
+    required this.depositPercentage,
+    required this.lessonDurationMinutes,
+  });
+
+  factory StudentBookingPricingEntity.placeholder() {
+    return const StudentBookingPricingEntity(
+      lessonPrice: '66000.00',
+      depositAmount: '33000.00',
+      depositPercentage: 50,
+      lessonDurationMinutes: 60,
+    );
+  }
+
+  /// Raw API string (e.g. `"66000.00"`) — keep as text for display.
+  final String lessonPrice;
+
+  /// Raw API string (e.g. `"33000.00"`).
+  final String depositAmount;
+  final int depositPercentage;
+  final int lessonDurationMinutes;
+
+  @override
+  List<Object?> get props => [
+    lessonPrice,
+    depositAmount,
+    depositPercentage,
+    lessonDurationMinutes,
+  ];
+}
+
+/// Saved-deposit credit from a school-cancelled booking (`GET my-credit`).
+class StudentBookingCreditEntity extends Equatable {
+  const StudentBookingCreditEntity({
+    required this.hasCredit,
+    this.creditFromBookingId,
+    this.creditAmount,
+  });
+
+  const StudentBookingCreditEntity.none() : this(hasCredit: false);
+
+  final bool hasCredit;
+
+  /// Source cancelled booking id as returned by the API (string).
+  final String? creditFromBookingId;
+
+  /// Saved deposit amount as returned by the API (string).
+  final String? creditAmount;
+
+  @override
+  List<Object?> get props => [hasCredit, creditFromBookingId, creditAmount];
+}
+
 class StudentAvailableSlotsPageEntity extends Equatable {
-  const StudentAvailableSlotsPageEntity({required this.instructors});
+  const StudentAvailableSlotsPageEntity({
+    required this.pricing,
+    required this.instructors,
+  });
 
   factory StudentAvailableSlotsPageEntity.placeholder() {
     return StudentAvailableSlotsPageEntity(
+      pricing: StudentBookingPricingEntity.placeholder(),
       instructors: [
         StudentAvailableInstructorSlotsEntity.placeholder(),
         StudentAvailableInstructorSlotsEntity.placeholder(id: 2),
@@ -123,13 +184,14 @@ class StudentAvailableSlotsPageEntity extends Equatable {
     );
   }
 
+  final StudentBookingPricingEntity pricing;
   final List<StudentAvailableInstructorSlotsEntity> instructors;
 
   bool get hasAnySlots =>
       instructors.any((instructor) => instructor.slots.isNotEmpty);
 
   @override
-  List<Object?> get props => [instructors];
+  List<Object?> get props => [pricing, instructors];
 }
 
 /// The instructor + slot picked by the student on the slots screen.
@@ -201,21 +263,24 @@ class StudentBookingEntity extends Equatable {
   ];
 }
 
-/// The full "create booking" response: the booking plus ShamCash payment
-/// hold details required to render the payment screen.
+/// The full "create booking" response: the booking plus optional ShamCash
+/// hold details when [paymentRequired] is true.
+///
+/// When payment is not required (saved deposit), [depositAmount] and
+/// [lockedUntil] may be absent/`null` — do not invent defaults.
 class StudentBookingHoldEntity extends Equatable {
   const StudentBookingHoldEntity({
     required this.booking,
     required this.paymentRequired,
-    required this.depositAmount,
-    required this.lockedUntil,
-    required this.receiverName,
+    this.depositAmount,
+    this.lockedUntil,
+    this.receiverName = '',
   });
 
   final StudentBookingEntity booking;
   final bool paymentRequired;
-  final String depositAmount;
-  final DateTime lockedUntil;
+  final String? depositAmount;
+  final DateTime? lockedUntil;
   final String receiverName;
 
   @override

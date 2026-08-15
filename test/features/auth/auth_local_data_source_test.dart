@@ -44,9 +44,12 @@ void main() {
     final result = await dataSource.saveSession(_session);
 
     expect(result.isRight(), isTrue);
-    final stored = verify(
-      () => database.save<String>(StorageKeys.sessionJson, captureAny()),
-    ).captured.single as String;
+    final stored =
+        verify(
+              () =>
+                  database.save<String>(StorageKeys.sessionJson, captureAny()),
+            ).captured.single
+            as String;
     final json = jsonDecode(stored) as Map<String, dynamic>;
     expect(json['accessToken'], _session.accessToken);
     expect(json['refreshToken'], _session.refreshToken);

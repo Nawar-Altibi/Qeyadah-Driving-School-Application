@@ -67,7 +67,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       },
       // Login must not inject/await prior tokens (or hang on secure-storage
       // reads) before the request is sent.
-      isAuthorized: false,
       cancelRequestAdapter: params.cancelRequestAdapter,
     );
     return response.fold(_networkFailure, _sessionFromResponse);
@@ -165,7 +164,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         'email': email.trim(),
         'password': password,
       },
-      isAuthorized: false,
     );
     return response.fold(_networkFailure, _otpChallengeFromResponse);
   }
@@ -194,7 +192,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         if (fcmToken?.trim().isNotEmpty ?? false) 'fcmToken': fcmToken!.trim(),
         if (platform?.trim().isNotEmpty ?? false) 'platform': platform!.trim(),
       },
-      isAuthorized: false,
     );
     return response.fold(_networkFailure, _sessionFromResponse);
   }
@@ -204,7 +201,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     final response = await _apiHandler.post(
       Endpoints.authForgotPassword,
       body: {'phone': phone},
-      isAuthorized: false,
     );
     return response.fold(_networkFailure, _otpChallengeFromResponse);
   }
@@ -217,7 +213,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     final response = await _apiHandler.post(
       Endpoints.authVerifyOtp,
       body: {'phone': phone, 'code': code},
-      isAuthorized: false,
     );
     return response.fold(_networkFailure, (json) {
       final resetToken = _unwrapData(json)['resetToken']?.toString();
@@ -236,7 +231,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     final response = await _apiHandler.post(
       Endpoints.authResetPassword,
       body: {'resetToken': resetToken, 'newPassword': newPassword},
-      isAuthorized: false,
     );
     return response.fold(_networkFailure, (json) {
       final message = _unwrapData(json)['message']?.toString();

@@ -17,7 +17,6 @@ Future<bool> confirmLogout(
 
   final confirmed = await showDialog<bool>(
     context: context,
-    barrierDismissible: true,
     builder: (dialogContext) {
       final textTheme = Theme.of(dialogContext).textTheme;
       return Dialog(
@@ -68,17 +67,13 @@ Future<bool> confirmLogout(
                 children: [
                   Expanded(
                     child: OutlinedButton(
-                      onPressed: () =>
-                          Navigator.of(dialogContext).pop(false),
+                      onPressed: () => Navigator.of(dialogContext).pop(false),
                       style: OutlinedButton.styleFrom(
                         foregroundColor: colors.ink,
                         minimumSize: const Size.fromHeight(
                           AppDesignTokens.buttonHeight,
                         ),
-                        side: BorderSide(
-                          color: colors.line,
-                          width: 1.4,
-                        ),
+                        side: BorderSide(color: colors.line, width: 1.4),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(
                             AppDesignTokens.radiusMd,
@@ -94,8 +89,7 @@ Future<bool> confirmLogout(
                   const SizedBox(width: AppDesignTokens.spacing),
                   Expanded(
                     child: FilledButton(
-                      onPressed: () =>
-                          Navigator.of(dialogContext).pop(true),
+                      onPressed: () => Navigator.of(dialogContext).pop(true),
                       style: FilledButton.styleFrom(
                         backgroundColor: confirmColor,
                         foregroundColor: AppColors.white,

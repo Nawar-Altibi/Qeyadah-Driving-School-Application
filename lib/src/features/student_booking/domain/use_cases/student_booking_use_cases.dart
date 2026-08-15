@@ -31,6 +31,17 @@ class CreateStudentBookingUseCase {
 }
 
 @injectable
+class GetStudentBookingCreditUseCase {
+  const GetStudentBookingCreditUseCase(this._repository);
+
+  final StudentBookingRepository _repository;
+
+  FutureEither<StudentBookingCreditEntity> call() {
+    return _repository.getMyCredit();
+  }
+}
+
+@injectable
 class GetPendingStudentBookingHoldUseCase {
   const GetPendingStudentBookingHoldUseCase(this._repository);
 

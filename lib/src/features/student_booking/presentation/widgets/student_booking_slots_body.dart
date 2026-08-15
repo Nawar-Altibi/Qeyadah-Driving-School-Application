@@ -37,6 +37,8 @@ class StudentBookingSlotsBody extends StatelessWidget {
               extraBottom: interactive ? _stickyBarClearance : 0,
             ),
             children: [
+              _PricingCard(pricing: page.pricing),
+              const SizedBox(height: AppDesignTokens.spacingMd),
               for (final instructorSlots in page.instructors) ...[
                 _InstructorSlotsCard(
                   instructorSlots: instructorSlots,
@@ -47,7 +49,7 @@ class StudentBookingSlotsBody extends StatelessWidget {
               ],
             ],
           )
-        : _EmptySlotsView(l10n: l10n);
+        : _EmptySlotsView(l10n: l10n, pricing: page.pricing);
 
     return Stack(
       children: [
@@ -487,10 +489,63 @@ class _SelectedSummaryCard extends StatelessWidget {
   }
 }
 
+class _PricingCard extends StatelessWidget {
+  const _PricingCard({required this.pricing});
+
+  final StudentBookingPricingEntity pricing;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final lessonPrice = StudentBookingFormatters.currency(
+      l10n,
+      pricing.lessonPrice,
+    );
+    final depositAmount = StudentBookingFormatters.currency(
+      l10n,
+      pricing.depositAmount,
+    );
+
+    return AppCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            l10n.studentBookingSlotsPricingTitle,
+            style: Theme.of(
+              context,
+            ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w800),
+          ),
+          const SizedBox(height: AppDesignTokens.spacingSm),
+          Text(l10n.studentBookingSlotsLessonPrice(lessonPrice)),
+          const SizedBox(height: 4),
+          Text(l10n.studentBookingSlotsDepositAmount(depositAmount)),
+          const SizedBox(height: 2),
+          Text(
+            l10n.studentBookingSlotsDepositPercentage(
+              pricing.depositPercentage,
+            ),
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              color: AppSemanticColors.of(context).muted,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            l10n.studentBookingSlotsLessonDuration(
+              pricing.lessonDurationMinutes,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class _EmptySlotsView extends StatelessWidget {
-  const _EmptySlotsView({required this.l10n});
+  const _EmptySlotsView({required this.l10n, required this.pricing});
 
   final AppLocalizations l10n;
+  final StudentBookingPricingEntity pricing;
 
   @override
   Widget build(BuildContext context) {
@@ -498,6 +553,7 @@ class _EmptySlotsView extends StatelessWidget {
     return ListView(
       padding: AppDesignTokens.screenContentPadding(),
       children: [
+        _PricingCard(pricing: pricing),
         const SizedBox(height: AppDesignTokens.spacingXl),
         Container(
           width: 56,

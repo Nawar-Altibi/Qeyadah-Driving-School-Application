@@ -112,6 +112,17 @@ class _StudentPaymentScreenState extends State<StudentPaymentScreen> {
                     ),
                     const SizedBox(height: AppDesignTokens.spacingMd),
                     AppAlertBanner(
+                      icon: PhosphorIconsBold.warning,
+                      title: l10n.studentPaymentExactAmountWarningTitle,
+                      message: l10n.studentPaymentExactAmountWarningMessage(
+                        StudentBookingFormatters.currency(
+                          l10n,
+                          widget.args.depositAmount,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: AppDesignTokens.spacingMd),
+                    AppAlertBanner(
                       icon: PhosphorIconsBold.timer,
                       tone: state.isExpired
                           ? AppAlertTone.danger

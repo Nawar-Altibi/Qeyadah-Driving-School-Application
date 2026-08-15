@@ -102,17 +102,30 @@ class StudentBookingReviewScreenCoordinator extends StatelessWidget {
         switch (effect) {
           case StudentBookingEffectBookingCreated(:final hold):
             if (hold.paymentRequired) {
+              final lockedUntil = hold.lockedUntil;
+              final depositAmount = hold.depositAmount;
+              if (lockedUntil == null ||
+                  depositAmount == null ||
+                  depositAmount.isEmpty) {
+                showErrorMessage(
+                  message: l10n.studentBookingErrorPaymentHoldIncomplete,
+                );
+                break;
+              }
               StudentPaymentNavigation.pushPayment(
                 context: context,
                 args: StudentPaymentHoldArgs(
                   bookingId: hold.booking.id,
-                  depositAmount: hold.depositAmount,
+                  depositAmount: depositAmount,
                   receiverName: hold.receiverName,
-                  lockedUntil: hold.lockedUntil,
+                  lockedUntil: lockedUntil,
                 ),
               );
             } else {
-              StudentBookingNavigation.goHome(context: context);
+              StudentBookingNavigation.goCreditSuccess(
+                context: context,
+                bookingId: hold.booking.id,
+              );
             }
           case StudentBookingEffectSlotConflict():
             showErrorMessage(message: l10n.studentBookingErrorSlotConflict);
@@ -123,9 +136,7 @@ class StudentBookingReviewScreenCoordinator extends StatelessWidget {
               message: l10n.studentBookingErrorStudentTimeConflict,
             );
           case StudentBookingEffectBackendConflict():
-            showErrorMessage(
-              message: l10n.studentBookingErrorGenericConflict,
-            );
+            showErrorMessage(message: l10n.studentBookingErrorGenericConflict);
           case StudentBookingEffectPendingPaymentConflict():
             showErrorMessage(
               message: l10n.studentBookingErrorPendingPaymentExists,
@@ -152,7 +163,13 @@ class StudentBookingReviewScreenCoordinator extends StatelessWidget {
     if (!context.mounted) return;
 
     final hold = result.fold((_) => null, (hold) => hold);
-    if (hold == null) {
+    final lockedUntil = hold?.lockedUntil;
+    final depositAmount = hold?.depositAmount;
+    if (hold == null ||
+        lockedUntil == null ||
+        depositAmount == null ||
+        depositAmount.isEmpty ||
+        !hold.paymentRequired) {
       StudentBookingNavigation.goHome(context: context);
       return;
     }
@@ -161,9 +178,9 @@ class StudentBookingReviewScreenCoordinator extends StatelessWidget {
       context: context,
       args: StudentPaymentHoldArgs(
         bookingId: hold.booking.id,
-        depositAmount: hold.depositAmount,
+        depositAmount: depositAmount,
         receiverName: hold.receiverName,
-        lockedUntil: hold.lockedUntil,
+        lockedUntil: lockedUntil,
       ),
     );
   }

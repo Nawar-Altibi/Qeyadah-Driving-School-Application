@@ -29,7 +29,10 @@ class StudentBookingReviewScreen extends StatelessWidget {
             child: BlocBuilder<StudentBookingCubit, StudentBookingState>(
               buildWhen: (previous, current) =>
                   previous.selection != current.selection ||
-                  previous.isCreatingBooking != current.isCreatingBooking,
+                  previous.isCreatingBooking != current.isCreatingBooking ||
+                  previous.isLoadingCredit != current.isLoadingCredit ||
+                  previous.credit != current.credit ||
+                  previous.pricing != current.pricing,
               builder: (context, state) {
                 final selection = state.selection;
                 if (selection == null) {
@@ -38,6 +41,9 @@ class StudentBookingReviewScreen extends StatelessWidget {
                 return StudentBookingReviewBody(
                   selection: selection,
                   isCreatingBooking: state.isCreatingBooking,
+                  isLoadingCredit: state.isLoadingCredit,
+                  credit: state.credit,
+                  pricing: state.pricing,
                 );
               },
             ),

@@ -29,7 +29,10 @@ abstract final class AppDateFormatters {
     DateTime end,
     String localeName,
   ) {
-    return timeRangeLabel(timeLabel(start, localeName), timeLabel(end, localeName));
+    return timeRangeLabel(
+      timeLabel(start, localeName),
+      timeLabel(end, localeName),
+    );
   }
 
   static String countdown(Duration remaining) {

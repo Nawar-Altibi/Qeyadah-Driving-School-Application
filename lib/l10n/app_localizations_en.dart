@@ -847,6 +847,29 @@ class AppLocalizationsEn extends AppLocalizations {
   String get studentBookingSlotsContinueButton => 'Continue to review';
 
   @override
+  String get studentBookingSlotsPricingTitle => 'Lesson pricing';
+
+  @override
+  String studentBookingSlotsLessonPrice(String amount) {
+    return 'Lesson price: $amount';
+  }
+
+  @override
+  String studentBookingSlotsDepositAmount(String amount) {
+    return 'Required deposit: $amount';
+  }
+
+  @override
+  String studentBookingSlotsDepositPercentage(int percent) {
+    return '($percent% of the lesson price)';
+  }
+
+  @override
+  String studentBookingSlotsLessonDuration(int minutes) {
+    return 'Lesson duration: $minutes minutes';
+  }
+
+  @override
   String get studentBookingReviewTitle => 'Review booking';
 
   @override
@@ -871,6 +894,43 @@ class AppLocalizationsEn extends AppLocalizations {
   String get studentBookingReviewCreateButton => 'Confirm booking';
 
   @override
+  String get studentBookingReviewCreateWithPaymentButton =>
+      'Confirm and continue to payment';
+
+  @override
+  String get studentBookingReviewCreateWithoutPaymentButton =>
+      'Confirm booking (no payment)';
+
+  @override
+  String get studentBookingReviewCreditBannerTitle => 'Saved deposit available';
+
+  @override
+  String studentBookingReviewCreditBannerMessage(String amount) {
+    return 'You have a saved deposit of $amount. It will be used for this booking and you will not need to pay now.';
+  }
+
+  @override
+  String get studentBookingReviewDepositBannerTitle => 'Deposit required';
+
+  @override
+  String studentBookingReviewDepositBannerMessage(String amount) {
+    return 'Required deposit: $amount via ShamCash.';
+  }
+
+  @override
+  String get studentBookingCreditSuccessTitle => 'Booking confirmed';
+
+  @override
+  String get studentBookingCreditSuccessMessage =>
+      'Your booking was confirmed using your saved deposit. You can check any remaining amount (if any) in the booking details.';
+
+  @override
+  String get studentBookingCreditSuccessViewDetails => 'View booking details';
+
+  @override
+  String get studentBookingCreditSuccessBackHome => 'Back to home';
+
+  @override
   String get studentBookingErrorSlotConflict =>
       'This slot was just booked by someone else. Please choose another one.';
 
@@ -885,6 +945,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get studentBookingErrorGenericConflict =>
       'Could not confirm the booking due to a conflict. Please choose another slot.';
+
+  @override
+  String get studentBookingErrorPaymentHoldIncomplete =>
+      'Booking was created but payment details are incomplete. Please contact support.';
 
   @override
   String get studentBookingsTitle => 'My bookings';
@@ -1080,6 +1144,15 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get studentPaymentReceiverName => 'Receiver name';
+
+  @override
+  String get studentPaymentExactAmountWarningTitle =>
+      'Send the exact deposit amount';
+
+  @override
+  String studentPaymentExactAmountWarningMessage(String amount) {
+    return 'Send exactly $amount. No more, no less. If you miss the lesson, the full deposit is forfeited and is not refunded. Any amount above the deposit is also forfeited.';
+  }
 
   @override
   String get studentPaymentCountdownTitle => 'Time remaining';

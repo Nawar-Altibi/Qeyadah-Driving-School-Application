@@ -59,7 +59,9 @@ class StudentBookingDetailCubit
       ),
     );
 
-    final result = await _loadDetailUseCase(bookingId, forceRefresh: silent);
+    // Always force-refresh so cancel/actions reflect the latest bookingStatus
+    // (cached BOOKED must not keep showing Cancel after school cancellation).
+    final result = await _loadDetailUseCase(bookingId, forceRefresh: true);
     if (!isActiveGeneration(
       capturedGeneration: generation,
       currentGeneration: _loadGeneration,
@@ -106,15 +108,27 @@ class StudentBookingDetailCubit
       return;
     }
 
-    if (hold.lockedUntil.isAfter(DateTime.now())) {
+    final lockedUntil = hold.lockedUntil;
+    final depositAmount = hold.depositAmount;
+    if (lockedUntil == null || depositAmount == null || !hold.paymentRequired) {
+      await _studentBookingRepository.clearPendingHold();
+      emit(
+        state.copyWith(
+          effect: const StudentBookingDetailEffectPendingPaymentNoHold(),
+        ),
+      );
+      return;
+    }
+
+    if (lockedUntil.isAfter(DateTime.now())) {
       emit(
         state.copyWith(
           effect: StudentBookingDetailEffectNavigateToPayment(
             StudentPaymentHoldArgs(
               bookingId: hold.booking.id,
-              depositAmount: hold.depositAmount,
+              depositAmount: depositAmount,
               receiverName: hold.receiverName,
-              lockedUntil: hold.lockedUntil,
+              lockedUntil: lockedUntil,
             ),
           ),
         ),
@@ -129,6 +143,14 @@ class StudentBookingDetailCubit
   Future<void> cancel(String rawReason) async {
     final bookingId = state.bookingId;
     if (bookingId == null || state.isCancelling) return;
+
+    final detail = state.apiState.maybeWhen(
+      succeeded: (value) => value,
+      orElse: () => null,
+    );
+    if (detail == null || !detail.booking.isCancellable) {
+      return;
+    }
 
     final validation = StudentBookingsCancelReasonRules.validateReason(
       rawReason,

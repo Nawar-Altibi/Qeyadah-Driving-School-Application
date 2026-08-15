@@ -501,6 +501,11 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i151.StudentBookingRepository>(),
       ),
     );
+    gh.factory<_i843.GetStudentBookingCreditUseCase>(
+      () => _i843.GetStudentBookingCreditUseCase(
+        gh<_i151.StudentBookingRepository>(),
+      ),
+    );
     gh.factory<_i843.GetPendingStudentBookingHoldUseCase>(
       () => _i843.GetPendingStudentBookingHoldUseCase(
         gh<_i151.StudentBookingRepository>(),
@@ -564,6 +569,13 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i648.InvalidateInstructorWeeklyScheduleCacheUseCase>(),
       ),
     );
+    gh.factory<_i1016.StudentBookingCubit>(
+      () => _i1016.StudentBookingCubit(
+        gh<_i843.LoadStudentAvailableSlotsUseCase>(),
+        gh<_i843.CreateStudentBookingUseCase>(),
+        gh<_i843.GetStudentBookingCreditUseCase>(),
+      ),
+    );
     gh.factory<_i434.InstructorDuesCubit>(
       () => _i434.InstructorDuesCubit(gh<_i648.LoadInstructorDuesUseCase>()),
     );
@@ -593,12 +605,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i696.StudentPaymentCubit>(
       () => _i696.StudentPaymentCubit(gh<_i660.ConfirmStudentPaymentUseCase>()),
-    );
-    gh.factory<_i1016.StudentBookingCubit>(
-      () => _i1016.StudentBookingCubit(
-        gh<_i843.LoadStudentAvailableSlotsUseCase>(),
-        gh<_i843.CreateStudentBookingUseCase>(),
-      ),
     );
     gh.factory<_i240.PasswordResetCubit>(
       () => _i240.PasswordResetCubit(

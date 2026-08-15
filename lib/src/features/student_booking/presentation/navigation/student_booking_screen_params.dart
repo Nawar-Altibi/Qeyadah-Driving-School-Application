@@ -23,3 +23,25 @@ StudentBookingCubit? studentBookingCubitFromExtra(Object? extra) {
   final value = extra[StudentBookingScreenParams.cubitExtraKey];
   return value is StudentBookingCubit ? value : null;
 }
+
+/// Carries the confirmed booking id to the saved-deposit success screen.
+class StudentBookingCreditSuccessScreenParams extends BaseScreenParams {
+  const StudentBookingCreditSuccessScreenParams({required this.bookingId});
+
+  final int bookingId;
+
+  static const String bookingIdExtraKey = 'studentBookingCreditSuccessId';
+
+  @override
+  Map<String, Object> get extra => {bookingIdExtraKey: bookingId};
+
+  @override
+  List<Object?> get props => [bookingId];
+}
+
+int? studentBookingCreditSuccessIdFromExtra(Object? extra) {
+  if (extra is! Map) return null;
+  final value =
+      extra[StudentBookingCreditSuccessScreenParams.bookingIdExtraKey];
+  return value is int ? value : null;
+}

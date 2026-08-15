@@ -8,6 +8,9 @@ abstract class StudentBookingState with _$StudentBookingState {
     ApiState<StudentAvailableSlotsPageEntity> apiState,
     @Default(false) bool isSilentRefresh,
     StudentBookingSelectionEntity? selection,
+    StudentBookingPricingEntity? pricing,
+    StudentBookingCreditEntity? credit,
+    @Default(false) bool isLoadingCredit,
     @Default(false) bool isCreatingBooking,
     StudentBookingEffect? effect,
   }) = _StudentBookingState;

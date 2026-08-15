@@ -99,8 +99,9 @@ class HiveLocalDatabase implements LocalDatabaseInterface {
 
       // Store the raw open future (no .timeout on the map entry). Timed-out
       // waiters must not remove a still-running openBox; next initialize can adopt.
-      final rawOpen = _boxOpeningFutures[_boxName] ??=
-          Hive.openBox<dynamic>(_boxName);
+      final rawOpen = _boxOpeningFutures[_boxName] ??= Hive.openBox<dynamic>(
+        _boxName,
+      );
 
       final Box box;
       try {

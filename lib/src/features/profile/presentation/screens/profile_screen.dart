@@ -161,7 +161,9 @@ class ProfileScreen extends StatelessWidget {
                                 allDevices: true,
                               );
                               if (!context.mounted || !confirmed) return;
-                              await context.read<AuthSessionCubit>().logoutAll();
+                              await context
+                                  .read<AuthSessionCubit>()
+                                  .logoutAll();
                             },
                           ),
                         ],
