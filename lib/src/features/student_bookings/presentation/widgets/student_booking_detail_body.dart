@@ -229,7 +229,10 @@ class StudentBookingDetailBody extends StatelessWidget {
             ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
           ),
         ),
-        if (interactive && booking.isCancellable) ...[
+        if (interactive &&
+            (booking.bookingStatus == StudentBookingStatus.booked ||
+                booking.bookingStatus ==
+                    StudentBookingStatus.pendingPayment)) ...[
           const SizedBox(height: AppDesignTokens.spacingLg),
           AppButton.danger(
             label: l10n.studentBookingDetailCancelButton,

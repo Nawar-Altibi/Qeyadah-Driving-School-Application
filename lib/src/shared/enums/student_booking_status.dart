@@ -11,7 +11,7 @@ enum StudentBookingStatus {
       'PENDING_PAYMENT' => StudentBookingStatus.pendingPayment,
       'BOOKED' => StudentBookingStatus.booked,
       'COMPLETED' => StudentBookingStatus.completed,
-      'CANCELLED' => StudentBookingStatus.cancelled,
+      'CANCELLED' || 'CANCELED' => StudentBookingStatus.cancelled,
       'EXPIRED' => StudentBookingStatus.expired,
       'NO_SHOW' => StudentBookingStatus.noShow,
       _ => null,
