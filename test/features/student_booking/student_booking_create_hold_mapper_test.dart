@@ -166,48 +166,4 @@ void main() {
       ).called(1);
     });
   });
-
-  group('fetchMyCredit', () {
-    test('maps hasCredit false', () async {
-      when(
-        () => apiHandler.get(any(), isAuthorized: any(named: 'isAuthorized')),
-      ).thenAnswer(
-        (_) async => right({
-          'data': {'hasCredit': false},
-        }),
-      );
-
-      final result = await dataSource.fetchMyCredit();
-      final credit = result.fold((_) => null, (value) => value)!;
-      expect(credit.hasCredit, isFalse);
-      expect(credit.creditAmount, isNull);
-    });
-
-    test('maps hasCredit true with amount fields as strings', () async {
-      when(
-        () => apiHandler.get(any(), isAuthorized: any(named: 'isAuthorized')),
-      ).thenAnswer(
-        (_) async => right({
-          'data': {
-            'hasCredit': true,
-            'creditFromBookingId': '557',
-            'creditAmount': '33000.00',
-          },
-        }),
-      );
-
-      final result = await dataSource.fetchMyCredit();
-      final credit = result.fold((_) => null, (value) => value)!;
-      expect(credit.hasCredit, isTrue);
-      expect(credit.creditFromBookingId, '557');
-      expect(credit.creditAmount, '33000.00');
-
-      verify(
-        () => apiHandler.get(
-          Endpoints.studentBookingsMyCredit,
-          isAuthorized: true,
-        ),
-      ).called(1);
-    });
-  });
 }

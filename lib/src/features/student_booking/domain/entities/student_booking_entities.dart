@@ -146,28 +146,6 @@ class StudentBookingPricingEntity extends Equatable {
   ];
 }
 
-/// Saved-deposit credit from a school-cancelled booking (`GET my-credit`).
-class StudentBookingCreditEntity extends Equatable {
-  const StudentBookingCreditEntity({
-    required this.hasCredit,
-    this.creditFromBookingId,
-    this.creditAmount,
-  });
-
-  const StudentBookingCreditEntity.none() : this(hasCredit: false);
-
-  final bool hasCredit;
-
-  /// Source cancelled booking id as returned by the API (string).
-  final String? creditFromBookingId;
-
-  /// Saved deposit amount as returned by the API (string).
-  final String? creditAmount;
-
-  @override
-  List<Object?> get props => [hasCredit, creditFromBookingId, creditAmount];
-}
-
 class StudentAvailableSlotsPageEntity extends Equatable {
   const StudentAvailableSlotsPageEntity({
     required this.pricing,

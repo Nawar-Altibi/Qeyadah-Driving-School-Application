@@ -894,35 +894,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get studentBookingReviewCreateButton => 'Confirm booking';
 
   @override
-  String get studentBookingReviewCreateWithPaymentButton =>
-      'Confirm and continue to payment';
-
-  @override
-  String get studentBookingReviewCreateWithoutPaymentButton =>
-      'Confirm booking (no payment)';
-
-  @override
-  String get studentBookingReviewCreditBannerTitle => 'Saved deposit available';
-
-  @override
-  String studentBookingReviewCreditBannerMessage(String amount) {
-    return 'You have a saved deposit of $amount. It will be used for this booking and you will not need to pay now.';
-  }
-
-  @override
-  String get studentBookingReviewDepositBannerTitle => 'Deposit required';
-
-  @override
-  String studentBookingReviewDepositBannerMessage(String amount) {
-    return 'Required deposit: $amount via ShamCash.';
-  }
-
-  @override
   String get studentBookingCreditSuccessTitle => 'Booking confirmed';
 
   @override
   String get studentBookingCreditSuccessMessage =>
-      'Your booking was confirmed using your saved deposit. You can check any remaining amount (if any) in the booking details.';
+      'Your booking was confirmed successfully. You can review the details anytime.';
 
   @override
   String get studentBookingCreditSuccessViewDetails => 'View booking details';

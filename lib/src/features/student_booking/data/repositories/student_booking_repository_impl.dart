@@ -54,15 +54,6 @@ class StudentBookingRepositoryImpl implements StudentBookingRepository {
   }
 
   @override
-  FutureEither<StudentBookingCreditEntity> getMyCredit() async {
-    final response = await _remoteDataSource.fetchMyCredit();
-    return response.fold(
-      (failure) => left(NetworkFailureMapper.toDomainFailure(failure)),
-      right,
-    );
-  }
-
-  @override
   FutureEither<StudentBookingHoldEntity?> getPendingHold() {
     return _localDataSource.readHold();
   }

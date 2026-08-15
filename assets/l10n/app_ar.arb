@@ -443,28 +443,8 @@
   "studentBookingReviewTrainingTypeLabel": "نوع التدريب",
   "studentBookingReviewVehicleSourceLabel": "المركبة",
   "studentBookingReviewCreateButton": "تأكيد الحجز",
-  "studentBookingReviewCreateWithPaymentButton": "تأكيد ومتابعة للدفع",
-  "studentBookingReviewCreateWithoutPaymentButton": "تأكيد الحجز (بلا دفع)",
-  "studentBookingReviewCreditBannerTitle": "لديك عربون محفوظ",
-  "studentBookingReviewCreditBannerMessage": "لديك عربون محفوظ {amount} — سيُستخدم لهذا الحجز ولن تحتاج للدفع الآن.",
-  "@studentBookingReviewCreditBannerMessage": {
-    "placeholders": {
-      "amount": {
-        "type": "String"
-      }
-    }
-  },
-  "studentBookingReviewDepositBannerTitle": "عربون مطلوب",
-  "studentBookingReviewDepositBannerMessage": "العربون المطلوب: {amount} عبر شام كاش.",
-  "@studentBookingReviewDepositBannerMessage": {
-    "placeholders": {
-      "amount": {
-        "type": "String"
-      }
-    }
-  },
   "studentBookingCreditSuccessTitle": "تم تأكيد حجزك",
-  "studentBookingCreditSuccessMessage": "تم تأكيد حجزك باستخدام عربونك المحفوظ. يمكنك معرفة المبلغ المتبقي (إن وُجد) من تفاصيل الحجز.",
+  "studentBookingCreditSuccessMessage": "تم تأكيد حجزك بنجاح. يمكنك مراجعة التفاصيل في أي وقت.",
   "studentBookingCreditSuccessViewDetails": "عرض تفاصيل الحجز",
   "studentBookingCreditSuccessBackHome": "العودة إلى الرئيسية",
   "studentBookingErrorSlotConflict": "تم حجز هذا الموعد للتو من قبل شخص آخر. الرجاء اختيار موعد آخر.",

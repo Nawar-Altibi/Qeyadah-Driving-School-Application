@@ -21,18 +21,13 @@ class StudentBookingCubit
     extends
         AppCoreCoreCubit<StudentBookingState, StudentAvailableSlotsPageEntity>
     with DraftResettable {
-  StudentBookingCubit(
-    this._loadSlotsUseCase,
-    this._createBookingUseCase,
-    this._getCreditUseCase,
-  ) : super(const StudentBookingState());
+  StudentBookingCubit(this._loadSlotsUseCase, this._createBookingUseCase)
+    : super(const StudentBookingState());
 
   final LoadStudentAvailableSlotsUseCase _loadSlotsUseCase;
   final CreateStudentBookingUseCase _createBookingUseCase;
-  final GetStudentBookingCreditUseCase _getCreditUseCase;
 
   int _loadGeneration = 0;
-  int _creditGeneration = 0;
 
   @override
   ApiState<StudentAvailableSlotsPageEntity> getApiState(
@@ -126,31 +121,6 @@ class StudentBookingCubit
   void confirmSlotSelection() {
     if (state.selection == null) return;
     emit(state.copyWith(effect: const StudentBookingEffectNavigateToReview()));
-    loadMyCredit();
-  }
-
-  /// Preview credit for review UI only. Failures fall back to no-credit UX.
-  Future<void> loadMyCredit() async {
-    final generation = ++_creditGeneration;
-    emit(state.copyWith(isLoadingCredit: true, credit: null));
-
-    final result = await _getCreditUseCase();
-    if (!isActiveGeneration(
-      capturedGeneration: generation,
-      currentGeneration: _creditGeneration,
-    )) {
-      return;
-    }
-
-    result.fold(
-      (_) => emit(
-        state.copyWith(
-          isLoadingCredit: false,
-          credit: const StudentBookingCreditEntity.none(),
-        ),
-      ),
-      (credit) => emit(state.copyWith(isLoadingCredit: false, credit: credit)),
-    );
   }
 
   Future<void> createBooking() async {
@@ -214,14 +184,12 @@ class StudentBookingCubit
   @override
   void resetDraft() {
     _loadGeneration++;
-    _creditGeneration++;
     emit(const StudentBookingState());
   }
 
   @override
   Future<void> close() {
     _loadGeneration++;
-    _creditGeneration++;
     return super.close();
   }
 }

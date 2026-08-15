@@ -35,7 +35,6 @@ void main() {
       cubit = StudentBookingCubit(
         LoadStudentAvailableSlotsUseCase(repository),
         CreateStudentBookingUseCase(repository),
-        GetStudentBookingCreditUseCase(repository),
       );
     });
 
