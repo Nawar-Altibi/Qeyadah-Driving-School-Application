@@ -11,6 +11,10 @@ abstract interface class StudentBookingRepository {
     CreateStudentBookingParams params,
   );
 
+  /// Preview-only credit check before confirm. Do not branch create on this —
+  /// [StudentBookingHoldEntity.paymentRequired] is the source of truth.
+  FutureEither<StudentBookingCreditEntity> getMyCredit();
+
   /// Reads the locally cached pending booking hold, if any (e.g. to resume
   /// an interrupted ShamCash payment after the app was restarted).
   FutureEither<StudentBookingHoldEntity?> getPendingHold();

@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$StudentBookingState {
 
- StudentBookingFiltersEntity get filters; ApiState<StudentAvailableSlotsPageEntity> get apiState; bool get isSilentRefresh; StudentBookingSelectionEntity? get selection; bool get isCreatingBooking; StudentBookingEffect? get effect;
+ StudentBookingFiltersEntity get filters; ApiState<StudentAvailableSlotsPageEntity> get apiState; bool get isSilentRefresh; StudentBookingSelectionEntity? get selection; StudentBookingPricingEntity? get pricing; StudentBookingCreditEntity? get credit; bool get isLoadingCredit; bool get isCreatingBooking; StudentBookingEffect? get effect;
 /// Create a copy of StudentBookingState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $StudentBookingStateCopyWith<StudentBookingState> get copyWith => _$StudentBooki
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StudentBookingState&&(identical(other.filters, filters) || other.filters == filters)&&(identical(other.apiState, apiState) || other.apiState == apiState)&&(identical(other.isSilentRefresh, isSilentRefresh) || other.isSilentRefresh == isSilentRefresh)&&(identical(other.selection, selection) || other.selection == selection)&&(identical(other.isCreatingBooking, isCreatingBooking) || other.isCreatingBooking == isCreatingBooking)&&(identical(other.effect, effect) || other.effect == effect));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StudentBookingState&&(identical(other.filters, filters) || other.filters == filters)&&(identical(other.apiState, apiState) || other.apiState == apiState)&&(identical(other.isSilentRefresh, isSilentRefresh) || other.isSilentRefresh == isSilentRefresh)&&(identical(other.selection, selection) || other.selection == selection)&&(identical(other.pricing, pricing) || other.pricing == pricing)&&(identical(other.credit, credit) || other.credit == credit)&&(identical(other.isLoadingCredit, isLoadingCredit) || other.isLoadingCredit == isLoadingCredit)&&(identical(other.isCreatingBooking, isCreatingBooking) || other.isCreatingBooking == isCreatingBooking)&&(identical(other.effect, effect) || other.effect == effect));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,filters,apiState,isSilentRefresh,selection,isCreatingBooking,effect);
+int get hashCode => Object.hash(runtimeType,filters,apiState,isSilentRefresh,selection,pricing,credit,isLoadingCredit,isCreatingBooking,effect);
 
 @override
 String toString() {
-  return 'StudentBookingState(filters: $filters, apiState: $apiState, isSilentRefresh: $isSilentRefresh, selection: $selection, isCreatingBooking: $isCreatingBooking, effect: $effect)';
+  return 'StudentBookingState(filters: $filters, apiState: $apiState, isSilentRefresh: $isSilentRefresh, selection: $selection, pricing: $pricing, credit: $credit, isLoadingCredit: $isLoadingCredit, isCreatingBooking: $isCreatingBooking, effect: $effect)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $StudentBookingStateCopyWith<$Res>  {
   factory $StudentBookingStateCopyWith(StudentBookingState value, $Res Function(StudentBookingState) _then) = _$StudentBookingStateCopyWithImpl;
 @useResult
 $Res call({
- StudentBookingFiltersEntity filters, ApiState<StudentAvailableSlotsPageEntity> apiState, bool isSilentRefresh, StudentBookingSelectionEntity? selection, bool isCreatingBooking, StudentBookingEffect? effect
+ StudentBookingFiltersEntity filters, ApiState<StudentAvailableSlotsPageEntity> apiState, bool isSilentRefresh, StudentBookingSelectionEntity? selection, StudentBookingPricingEntity? pricing, StudentBookingCreditEntity? credit, bool isLoadingCredit, bool isCreatingBooking, StudentBookingEffect? effect
 });
 
 
@@ -62,13 +62,16 @@ class _$StudentBookingStateCopyWithImpl<$Res>
 
 /// Create a copy of StudentBookingState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? filters = null,Object? apiState = null,Object? isSilentRefresh = null,Object? selection = freezed,Object? isCreatingBooking = null,Object? effect = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? filters = null,Object? apiState = null,Object? isSilentRefresh = null,Object? selection = freezed,Object? pricing = freezed,Object? credit = freezed,Object? isLoadingCredit = null,Object? isCreatingBooking = null,Object? effect = freezed,}) {
   return _then(_self.copyWith(
 filters: null == filters ? _self.filters : filters // ignore: cast_nullable_to_non_nullable
 as StudentBookingFiltersEntity,apiState: null == apiState ? _self.apiState : apiState // ignore: cast_nullable_to_non_nullable
 as ApiState<StudentAvailableSlotsPageEntity>,isSilentRefresh: null == isSilentRefresh ? _self.isSilentRefresh : isSilentRefresh // ignore: cast_nullable_to_non_nullable
 as bool,selection: freezed == selection ? _self.selection : selection // ignore: cast_nullable_to_non_nullable
-as StudentBookingSelectionEntity?,isCreatingBooking: null == isCreatingBooking ? _self.isCreatingBooking : isCreatingBooking // ignore: cast_nullable_to_non_nullable
+as StudentBookingSelectionEntity?,pricing: freezed == pricing ? _self.pricing : pricing // ignore: cast_nullable_to_non_nullable
+as StudentBookingPricingEntity?,credit: freezed == credit ? _self.credit : credit // ignore: cast_nullable_to_non_nullable
+as StudentBookingCreditEntity?,isLoadingCredit: null == isLoadingCredit ? _self.isLoadingCredit : isLoadingCredit // ignore: cast_nullable_to_non_nullable
+as bool,isCreatingBooking: null == isCreatingBooking ? _self.isCreatingBooking : isCreatingBooking // ignore: cast_nullable_to_non_nullable
 as bool,effect: freezed == effect ? _self.effect : effect // ignore: cast_nullable_to_non_nullable
 as StudentBookingEffect?,
   ));
@@ -164,10 +167,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( StudentBookingFiltersEntity filters,  ApiState<StudentAvailableSlotsPageEntity> apiState,  bool isSilentRefresh,  StudentBookingSelectionEntity? selection,  bool isCreatingBooking,  StudentBookingEffect? effect)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( StudentBookingFiltersEntity filters,  ApiState<StudentAvailableSlotsPageEntity> apiState,  bool isSilentRefresh,  StudentBookingSelectionEntity? selection,  StudentBookingPricingEntity? pricing,  StudentBookingCreditEntity? credit,  bool isLoadingCredit,  bool isCreatingBooking,  StudentBookingEffect? effect)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _StudentBookingState() when $default != null:
-return $default(_that.filters,_that.apiState,_that.isSilentRefresh,_that.selection,_that.isCreatingBooking,_that.effect);case _:
+return $default(_that.filters,_that.apiState,_that.isSilentRefresh,_that.selection,_that.pricing,_that.credit,_that.isLoadingCredit,_that.isCreatingBooking,_that.effect);case _:
   return orElse();
 
 }
@@ -185,10 +188,10 @@ return $default(_that.filters,_that.apiState,_that.isSilentRefresh,_that.selecti
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( StudentBookingFiltersEntity filters,  ApiState<StudentAvailableSlotsPageEntity> apiState,  bool isSilentRefresh,  StudentBookingSelectionEntity? selection,  bool isCreatingBooking,  StudentBookingEffect? effect)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( StudentBookingFiltersEntity filters,  ApiState<StudentAvailableSlotsPageEntity> apiState,  bool isSilentRefresh,  StudentBookingSelectionEntity? selection,  StudentBookingPricingEntity? pricing,  StudentBookingCreditEntity? credit,  bool isLoadingCredit,  bool isCreatingBooking,  StudentBookingEffect? effect)  $default,) {final _that = this;
 switch (_that) {
 case _StudentBookingState():
-return $default(_that.filters,_that.apiState,_that.isSilentRefresh,_that.selection,_that.isCreatingBooking,_that.effect);case _:
+return $default(_that.filters,_that.apiState,_that.isSilentRefresh,_that.selection,_that.pricing,_that.credit,_that.isLoadingCredit,_that.isCreatingBooking,_that.effect);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -205,10 +208,10 @@ return $default(_that.filters,_that.apiState,_that.isSilentRefresh,_that.selecti
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( StudentBookingFiltersEntity filters,  ApiState<StudentAvailableSlotsPageEntity> apiState,  bool isSilentRefresh,  StudentBookingSelectionEntity? selection,  bool isCreatingBooking,  StudentBookingEffect? effect)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( StudentBookingFiltersEntity filters,  ApiState<StudentAvailableSlotsPageEntity> apiState,  bool isSilentRefresh,  StudentBookingSelectionEntity? selection,  StudentBookingPricingEntity? pricing,  StudentBookingCreditEntity? credit,  bool isLoadingCredit,  bool isCreatingBooking,  StudentBookingEffect? effect)?  $default,) {final _that = this;
 switch (_that) {
 case _StudentBookingState() when $default != null:
-return $default(_that.filters,_that.apiState,_that.isSilentRefresh,_that.selection,_that.isCreatingBooking,_that.effect);case _:
+return $default(_that.filters,_that.apiState,_that.isSilentRefresh,_that.selection,_that.pricing,_that.credit,_that.isLoadingCredit,_that.isCreatingBooking,_that.effect);case _:
   return null;
 
 }
@@ -220,13 +223,16 @@ return $default(_that.filters,_that.apiState,_that.isSilentRefresh,_that.selecti
 
 
 class _StudentBookingState implements StudentBookingState {
-  const _StudentBookingState({this.filters = const StudentBookingFiltersEntity(), this.apiState = const ApiState<StudentAvailableSlotsPageEntity>.initial(), this.isSilentRefresh = false, this.selection, this.isCreatingBooking = false, this.effect});
+  const _StudentBookingState({this.filters = const StudentBookingFiltersEntity(), this.apiState = const ApiState<StudentAvailableSlotsPageEntity>.initial(), this.isSilentRefresh = false, this.selection, this.pricing, this.credit, this.isLoadingCredit = false, this.isCreatingBooking = false, this.effect});
   
 
 @override@JsonKey() final  StudentBookingFiltersEntity filters;
 @override@JsonKey() final  ApiState<StudentAvailableSlotsPageEntity> apiState;
 @override@JsonKey() final  bool isSilentRefresh;
 @override final  StudentBookingSelectionEntity? selection;
+@override final  StudentBookingPricingEntity? pricing;
+@override final  StudentBookingCreditEntity? credit;
+@override@JsonKey() final  bool isLoadingCredit;
 @override@JsonKey() final  bool isCreatingBooking;
 @override final  StudentBookingEffect? effect;
 
@@ -240,16 +246,16 @@ _$StudentBookingStateCopyWith<_StudentBookingState> get copyWith => __$StudentBo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StudentBookingState&&(identical(other.filters, filters) || other.filters == filters)&&(identical(other.apiState, apiState) || other.apiState == apiState)&&(identical(other.isSilentRefresh, isSilentRefresh) || other.isSilentRefresh == isSilentRefresh)&&(identical(other.selection, selection) || other.selection == selection)&&(identical(other.isCreatingBooking, isCreatingBooking) || other.isCreatingBooking == isCreatingBooking)&&(identical(other.effect, effect) || other.effect == effect));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StudentBookingState&&(identical(other.filters, filters) || other.filters == filters)&&(identical(other.apiState, apiState) || other.apiState == apiState)&&(identical(other.isSilentRefresh, isSilentRefresh) || other.isSilentRefresh == isSilentRefresh)&&(identical(other.selection, selection) || other.selection == selection)&&(identical(other.pricing, pricing) || other.pricing == pricing)&&(identical(other.credit, credit) || other.credit == credit)&&(identical(other.isLoadingCredit, isLoadingCredit) || other.isLoadingCredit == isLoadingCredit)&&(identical(other.isCreatingBooking, isCreatingBooking) || other.isCreatingBooking == isCreatingBooking)&&(identical(other.effect, effect) || other.effect == effect));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,filters,apiState,isSilentRefresh,selection,isCreatingBooking,effect);
+int get hashCode => Object.hash(runtimeType,filters,apiState,isSilentRefresh,selection,pricing,credit,isLoadingCredit,isCreatingBooking,effect);
 
 @override
 String toString() {
-  return 'StudentBookingState(filters: $filters, apiState: $apiState, isSilentRefresh: $isSilentRefresh, selection: $selection, isCreatingBooking: $isCreatingBooking, effect: $effect)';
+  return 'StudentBookingState(filters: $filters, apiState: $apiState, isSilentRefresh: $isSilentRefresh, selection: $selection, pricing: $pricing, credit: $credit, isLoadingCredit: $isLoadingCredit, isCreatingBooking: $isCreatingBooking, effect: $effect)';
 }
 
 
@@ -260,7 +266,7 @@ abstract mixin class _$StudentBookingStateCopyWith<$Res> implements $StudentBook
   factory _$StudentBookingStateCopyWith(_StudentBookingState value, $Res Function(_StudentBookingState) _then) = __$StudentBookingStateCopyWithImpl;
 @override @useResult
 $Res call({
- StudentBookingFiltersEntity filters, ApiState<StudentAvailableSlotsPageEntity> apiState, bool isSilentRefresh, StudentBookingSelectionEntity? selection, bool isCreatingBooking, StudentBookingEffect? effect
+ StudentBookingFiltersEntity filters, ApiState<StudentAvailableSlotsPageEntity> apiState, bool isSilentRefresh, StudentBookingSelectionEntity? selection, StudentBookingPricingEntity? pricing, StudentBookingCreditEntity? credit, bool isLoadingCredit, bool isCreatingBooking, StudentBookingEffect? effect
 });
 
 
@@ -277,13 +283,16 @@ class __$StudentBookingStateCopyWithImpl<$Res>
 
 /// Create a copy of StudentBookingState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? filters = null,Object? apiState = null,Object? isSilentRefresh = null,Object? selection = freezed,Object? isCreatingBooking = null,Object? effect = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? filters = null,Object? apiState = null,Object? isSilentRefresh = null,Object? selection = freezed,Object? pricing = freezed,Object? credit = freezed,Object? isLoadingCredit = null,Object? isCreatingBooking = null,Object? effect = freezed,}) {
   return _then(_StudentBookingState(
 filters: null == filters ? _self.filters : filters // ignore: cast_nullable_to_non_nullable
 as StudentBookingFiltersEntity,apiState: null == apiState ? _self.apiState : apiState // ignore: cast_nullable_to_non_nullable
 as ApiState<StudentAvailableSlotsPageEntity>,isSilentRefresh: null == isSilentRefresh ? _self.isSilentRefresh : isSilentRefresh // ignore: cast_nullable_to_non_nullable
 as bool,selection: freezed == selection ? _self.selection : selection // ignore: cast_nullable_to_non_nullable
-as StudentBookingSelectionEntity?,isCreatingBooking: null == isCreatingBooking ? _self.isCreatingBooking : isCreatingBooking // ignore: cast_nullable_to_non_nullable
+as StudentBookingSelectionEntity?,pricing: freezed == pricing ? _self.pricing : pricing // ignore: cast_nullable_to_non_nullable
+as StudentBookingPricingEntity?,credit: freezed == credit ? _self.credit : credit // ignore: cast_nullable_to_non_nullable
+as StudentBookingCreditEntity?,isLoadingCredit: null == isLoadingCredit ? _self.isLoadingCredit : isLoadingCredit // ignore: cast_nullable_to_non_nullable
+as bool,isCreatingBooking: null == isCreatingBooking ? _self.isCreatingBooking : isCreatingBooking // ignore: cast_nullable_to_non_nullable
 as bool,effect: freezed == effect ? _self.effect : effect // ignore: cast_nullable_to_non_nullable
 as StudentBookingEffect?,
   ));

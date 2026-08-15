@@ -19,6 +19,8 @@ abstract interface class StudentBookingRemoteDataSource {
   RemoteResponse<StudentBookingHoldEntity> createBooking(
     CreateStudentBookingParams params,
   );
+
+  RemoteResponse<StudentBookingCreditEntity> fetchMyCredit();
 }
 
 @LazySingleton(as: StudentBookingRemoteDataSource)
@@ -82,21 +84,83 @@ class StudentBookingRemoteDataSourceImpl
     });
   }
 
+  @override
+  RemoteResponse<StudentBookingCreditEntity> fetchMyCredit() async {
+    final response = await _apiHandler.get(
+      Endpoints.studentBookingsMyCredit,
+      isAuthorized: true,
+    );
+    return response.fold(left, (json) {
+      try {
+        return right(_creditFromJson(_unwrapData(json)));
+      } on Exception {
+        return left(
+          const InternalServerErrorFailure(
+            'Failed to parse my-credit response',
+          ),
+        );
+      }
+    });
+  }
+
+  StudentBookingCreditEntity _creditFromJson(Map<String, dynamic> json) {
+    final hasCredit = json['hasCredit'] == true;
+    if (!hasCredit) {
+      return const StudentBookingCreditEntity.none();
+    }
+    return StudentBookingCreditEntity(
+      hasCredit: true,
+      creditFromBookingId: json['creditFromBookingId']?.toString(),
+      creditAmount: json['creditAmount']?.toString(),
+    );
+  }
+
   StudentAvailableSlotsPageEntity _availableSlotsPageFromJson(
     Map<String, dynamic> json,
   ) {
     final data = json['data'];
-    if (data is! Iterable) {
-      throw const FormatException('Invalid available slots response');
+    if (data is! Map) {
+      throw const FormatException(
+        'Invalid available slots response: expected data object',
+      );
+    }
+    final dataMap = Map<String, dynamic>.from(data);
+    final instructorsRaw = dataMap['instructors'];
+    if (instructorsRaw is! Iterable) {
+      throw const FormatException(
+        'Invalid available slots response: missing instructors',
+      );
+    }
+    final pricingRaw = dataMap['pricing'];
+    if (pricingRaw is! Map) {
+      throw const FormatException(
+        'Invalid available slots response: missing pricing',
+      );
     }
     return StudentAvailableSlotsPageEntity(
-      instructors: data
+      pricing: _pricingFromJson(Map<String, dynamic>.from(pricingRaw)),
+      instructors: instructorsRaw
           .map(
             (item) => _instructorSlotsFromJson(
               Map<String, dynamic>.from(item as Map),
             ),
           )
           .toList(),
+    );
+  }
+
+  StudentBookingPricingEntity _pricingFromJson(Map<String, dynamic> json) {
+    final percentageRaw = json['depositPercentage'];
+    final durationRaw = json['lessonDurationMinutes'];
+    return StudentBookingPricingEntity(
+      lessonPrice: json['lessonPrice']?.toString() ?? '0',
+      depositAmount: json['depositAmount']?.toString() ?? '0',
+      depositPercentage: percentageRaw is num
+          ? percentageRaw.toInt()
+          : int.tryParse(percentageRaw?.toString() ?? '') ?? 0,
+      lessonDurationMinutes: durationRaw is num
+          ? durationRaw.toInt()
+          : int.tryParse(durationRaw?.toString() ?? '') ?? 0,
     );
   }
 
@@ -143,16 +207,35 @@ class StudentBookingRemoteDataSourceImpl
 
   StudentBookingHoldEntity _holdFromJson(Map<String, dynamic> json) {
     final bookingJson = Map<String, dynamic>.from(json['booking'] as Map);
+    final paymentRequired = json['paymentRequired'] == true;
     final lockedUntilRaw = json['lockedUntil'] ?? bookingJson['lockedUntil'];
-    if (lockedUntilRaw == null) {
-      throw const FormatException('Missing lockedUntil in booking response');
+    final depositAmount = json['depositAmount']?.toString();
+    final receiverName = json['receiverName']?.toString() ?? '';
+
+    DateTime? lockedUntil;
+    if (lockedUntilRaw != null) {
+      lockedUntil = DateTime.tryParse(lockedUntilRaw.toString());
     }
+
+    if (paymentRequired) {
+      if (depositAmount == null || depositAmount.isEmpty) {
+        throw const FormatException(
+          'Missing depositAmount in payment-required booking response',
+        );
+      }
+      if (lockedUntil == null) {
+        throw const FormatException(
+          'Missing lockedUntil in payment-required booking response',
+        );
+      }
+    }
+
     return StudentBookingHoldEntity(
       booking: _bookingFromJson(bookingJson),
-      paymentRequired: json['paymentRequired'] == true,
-      depositAmount: json['depositAmount']?.toString() ?? '0',
-      lockedUntil: DateTime.parse(lockedUntilRaw.toString()),
-      receiverName: json['receiverName']?.toString() ?? '',
+      paymentRequired: paymentRequired,
+      depositAmount: depositAmount,
+      lockedUntil: lockedUntil,
+      receiverName: receiverName,
     );
   }
 

@@ -846,6 +846,29 @@ class AppLocalizationsAr extends AppLocalizations {
   String get studentBookingSlotsContinueButton => 'متابعة إلى المراجعة';
 
   @override
+  String get studentBookingSlotsPricingTitle => 'تسعير الدرس';
+
+  @override
+  String studentBookingSlotsLessonPrice(String amount) {
+    return 'سعر الدرس: $amount';
+  }
+
+  @override
+  String studentBookingSlotsDepositAmount(String amount) {
+    return 'العربون المطلوب: $amount';
+  }
+
+  @override
+  String studentBookingSlotsDepositPercentage(int percent) {
+    return '($percent% من السعر)';
+  }
+
+  @override
+  String studentBookingSlotsLessonDuration(int minutes) {
+    return 'مدة الدرس: $minutes دقيقة';
+  }
+
+  @override
   String get studentBookingReviewTitle => 'مراجعة الحجز';
 
   @override
@@ -870,6 +893,43 @@ class AppLocalizationsAr extends AppLocalizations {
   String get studentBookingReviewCreateButton => 'تأكيد الحجز';
 
   @override
+  String get studentBookingReviewCreateWithPaymentButton =>
+      'تأكيد ومتابعة للدفع';
+
+  @override
+  String get studentBookingReviewCreateWithoutPaymentButton =>
+      'تأكيد الحجز (بلا دفع)';
+
+  @override
+  String get studentBookingReviewCreditBannerTitle => 'لديك عربون محفوظ';
+
+  @override
+  String studentBookingReviewCreditBannerMessage(String amount) {
+    return 'لديك عربون محفوظ $amount — سيُستخدم لهذا الحجز ولن تحتاج للدفع الآن.';
+  }
+
+  @override
+  String get studentBookingReviewDepositBannerTitle => 'عربون مطلوب';
+
+  @override
+  String studentBookingReviewDepositBannerMessage(String amount) {
+    return 'العربون المطلوب: $amount عبر شام كاش.';
+  }
+
+  @override
+  String get studentBookingCreditSuccessTitle => 'تم تأكيد حجزك';
+
+  @override
+  String get studentBookingCreditSuccessMessage =>
+      'تم تأكيد حجزك باستخدام عربونك المحفوظ. يمكنك معرفة المبلغ المتبقي (إن وُجد) من تفاصيل الحجز.';
+
+  @override
+  String get studentBookingCreditSuccessViewDetails => 'عرض تفاصيل الحجز';
+
+  @override
+  String get studentBookingCreditSuccessBackHome => 'العودة إلى الرئيسية';
+
+  @override
   String get studentBookingErrorSlotConflict =>
       'تم حجز هذا الموعد للتو من قبل شخص آخر. الرجاء اختيار موعد آخر.';
 
@@ -884,6 +944,10 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get studentBookingErrorGenericConflict =>
       'تعذر تأكيد الحجز بسبب تعارض. الرجاء اختيار موعد آخر.';
+
+  @override
+  String get studentBookingErrorPaymentHoldIncomplete =>
+      'تم إنشاء الحجز لكن تفاصيل الدفع غير مكتملة. الرجاء التواصل مع الدعم.';
 
   @override
   String get studentBookingsTitle => 'حجوزاتي';
@@ -1079,6 +1143,15 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get studentPaymentReceiverName => 'اسم المستلم';
+
+  @override
+  String get studentPaymentExactAmountWarningTitle =>
+      'أرسل مبلغ العربون بالضبط';
+
+  @override
+  String studentPaymentExactAmountWarningMessage(String amount) {
+    return 'أرسل بالضبط $amount. لا أكثر ولا أقل. في حال لم تحضر الدرس، يُحرق العربون كاملاً ولا يُسترد. أي مبلغ زائد يُحرق أيضاً مع العربون.';
+  }
 
   @override
   String get studentPaymentCountdownTitle => 'الوقت المتبقي';

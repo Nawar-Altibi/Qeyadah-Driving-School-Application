@@ -40,6 +40,7 @@ import 'package:qeyadah_mobile_app/src/features/splash/presentation/cubit/splash
 import 'package:qeyadah_mobile_app/src/features/splash/presentation/screens/splash_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/student_booking/presentation/cubit/student_booking_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/student_booking/presentation/navigation/student_booking_screen_params.dart';
+import 'package:qeyadah_mobile_app/src/features/student_booking/presentation/screens/student_booking_credit_success_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/student_booking/presentation/screens/student_booking_preferences_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/student_booking/presentation/screens/student_booking_review_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/student_booking/presentation/screens/student_booking_slots_screen.dart';
@@ -234,6 +235,20 @@ class AppNavigationConfig {
                   value: cubit,
                   child: const StudentBookingReviewScreen(),
                 ),
+              ),
+            );
+          },
+        ),
+        GoRoute(
+          path: StudentBookingCreditSuccessScreen.routePath,
+          name: StudentBookingCreditSuccessScreen.routeName,
+          pageBuilder: (context, state) {
+            final bookingId =
+                studentBookingCreditSuccessIdFromExtra(state.extra) ?? 0;
+            return FadePage(
+              key: state.pageKey,
+              child: _withSession(
+                StudentBookingCreditSuccessScreen(bookingId: bookingId),
               ),
             );
           },

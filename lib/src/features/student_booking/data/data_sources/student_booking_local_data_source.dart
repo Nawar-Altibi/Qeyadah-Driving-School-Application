@@ -69,7 +69,7 @@ class StudentBookingLocalDataSourceImpl
   Map<String, dynamic> _holdToJson(StudentBookingHoldEntity hold) {
     return {
       'depositAmount': hold.depositAmount,
-      'lockedUntil': hold.lockedUntil.toIso8601String(),
+      'lockedUntil': hold.lockedUntil?.toIso8601String(),
       'receiverName': hold.receiverName,
       'paymentRequired': hold.paymentRequired,
       'booking': _bookingToJson(hold.booking),
@@ -81,16 +81,14 @@ class StudentBookingLocalDataSourceImpl
     if (bookingJson is! Map) {
       throw const FormatException('Invalid cached booking hold');
     }
-    final lockedUntil = DateTime.tryParse(
-      json['lockedUntil']?.toString() ?? '',
-    );
-    if (lockedUntil == null) {
-      throw const FormatException('Invalid cached lockedUntil');
-    }
+    final lockedUntilRaw = json['lockedUntil']?.toString();
+    final lockedUntil = lockedUntilRaw != null && lockedUntilRaw.isNotEmpty
+        ? DateTime.tryParse(lockedUntilRaw)
+        : null;
     return StudentBookingHoldEntity(
       booking: _bookingFromJson(Map<String, dynamic>.from(bookingJson)),
       paymentRequired: json['paymentRequired'] == true,
-      depositAmount: json['depositAmount']?.toString() ?? '0',
+      depositAmount: json['depositAmount']?.toString(),
       lockedUntil: lockedUntil,
       receiverName: json['receiverName']?.toString() ?? '',
     );

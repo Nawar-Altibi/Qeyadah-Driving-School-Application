@@ -42,10 +42,23 @@ class StudentBookingRepositoryImpl implements StudentBookingRepository {
     return response.fold(
       (failure) async => left(_mapCreateBookingFailure(failure)),
       (hold) async {
-        await _localDataSource.saveHold(hold);
+        if (hold.paymentRequired) {
+          await _localDataSource.saveHold(hold);
+        } else {
+          await _localDataSource.clearHold();
+        }
         _bookingsRepository.invalidateCache();
         return right(hold);
       },
+    );
+  }
+
+  @override
+  FutureEither<StudentBookingCreditEntity> getMyCredit() async {
+    final response = await _remoteDataSource.fetchMyCredit();
+    return response.fold(
+      (failure) => left(NetworkFailureMapper.toDomainFailure(failure)),
+      right,
     );
   }
 

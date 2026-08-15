@@ -193,17 +193,22 @@ class StudentHomeRepositoryImpl implements StudentHomeRepository {
     );
 
     if (hold != null) {
-      final remaining = hold.lockedUntil.difference(now);
-      if (!remaining.isNegative) {
-        final totalSeconds = remaining.inSeconds;
-        return StudentHomePendingPaymentEntity(
-          remainingMinutes: totalSeconds ~/ 60,
-          remainingSeconds: totalSeconds % 60,
-          bookingId: hold.booking.id,
-          depositAmount: hold.depositAmount,
-          receiverName: hold.receiverName,
-          lockedUntil: hold.lockedUntil,
-        );
+      final lockedUntil = hold.lockedUntil;
+      if (lockedUntil == null || !hold.paymentRequired) {
+        // Incomplete or credit-confirmed hold — ignore for pending payment UX.
+      } else {
+        final remaining = lockedUntil.difference(now);
+        if (!remaining.isNegative) {
+          final totalSeconds = remaining.inSeconds;
+          return StudentHomePendingPaymentEntity(
+            remainingMinutes: totalSeconds ~/ 60,
+            remainingSeconds: totalSeconds % 60,
+            bookingId: hold.booking.id,
+            depositAmount: hold.depositAmount,
+            receiverName: hold.receiverName,
+            lockedUntil: lockedUntil,
+          );
+        }
       }
     }
 

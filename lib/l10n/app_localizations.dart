@@ -1622,6 +1622,36 @@ abstract class AppLocalizations {
   /// **'Continue to review'**
   String get studentBookingSlotsContinueButton;
 
+  /// No description provided for @studentBookingSlotsPricingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Lesson pricing'**
+  String get studentBookingSlotsPricingTitle;
+
+  /// No description provided for @studentBookingSlotsLessonPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Lesson price: {amount}'**
+  String studentBookingSlotsLessonPrice(String amount);
+
+  /// No description provided for @studentBookingSlotsDepositAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Required deposit: {amount}'**
+  String studentBookingSlotsDepositAmount(String amount);
+
+  /// No description provided for @studentBookingSlotsDepositPercentage.
+  ///
+  /// In en, this message translates to:
+  /// **'({percent}% of the lesson price)'**
+  String studentBookingSlotsDepositPercentage(int percent);
+
+  /// No description provided for @studentBookingSlotsLessonDuration.
+  ///
+  /// In en, this message translates to:
+  /// **'Lesson duration: {minutes} minutes'**
+  String studentBookingSlotsLessonDuration(int minutes);
+
   /// No description provided for @studentBookingReviewTitle.
   ///
   /// In en, this message translates to:
@@ -1670,6 +1700,66 @@ abstract class AppLocalizations {
   /// **'Confirm booking'**
   String get studentBookingReviewCreateButton;
 
+  /// No description provided for @studentBookingReviewCreateWithPaymentButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm and continue to payment'**
+  String get studentBookingReviewCreateWithPaymentButton;
+
+  /// No description provided for @studentBookingReviewCreateWithoutPaymentButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm booking (no payment)'**
+  String get studentBookingReviewCreateWithoutPaymentButton;
+
+  /// No description provided for @studentBookingReviewCreditBannerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved deposit available'**
+  String get studentBookingReviewCreditBannerTitle;
+
+  /// No description provided for @studentBookingReviewCreditBannerMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'You have a saved deposit of {amount}. It will be used for this booking and you will not need to pay now.'**
+  String studentBookingReviewCreditBannerMessage(String amount);
+
+  /// No description provided for @studentBookingReviewDepositBannerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Deposit required'**
+  String get studentBookingReviewDepositBannerTitle;
+
+  /// No description provided for @studentBookingReviewDepositBannerMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Required deposit: {amount} via ShamCash.'**
+  String studentBookingReviewDepositBannerMessage(String amount);
+
+  /// No description provided for @studentBookingCreditSuccessTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Booking confirmed'**
+  String get studentBookingCreditSuccessTitle;
+
+  /// No description provided for @studentBookingCreditSuccessMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Your booking was confirmed using your saved deposit. You can check any remaining amount (if any) in the booking details.'**
+  String get studentBookingCreditSuccessMessage;
+
+  /// No description provided for @studentBookingCreditSuccessViewDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'View booking details'**
+  String get studentBookingCreditSuccessViewDetails;
+
+  /// No description provided for @studentBookingCreditSuccessBackHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to home'**
+  String get studentBookingCreditSuccessBackHome;
+
   /// No description provided for @studentBookingErrorSlotConflict.
   ///
   /// In en, this message translates to:
@@ -1693,6 +1783,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Could not confirm the booking due to a conflict. Please choose another slot.'**
   String get studentBookingErrorGenericConflict;
+
+  /// No description provided for @studentBookingErrorPaymentHoldIncomplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Booking was created but payment details are incomplete. Please contact support.'**
+  String get studentBookingErrorPaymentHoldIncomplete;
 
   /// No description provided for @studentBookingsTitle.
   ///
@@ -2033,6 +2129,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Receiver name'**
   String get studentPaymentReceiverName;
+
+  /// No description provided for @studentPaymentExactAmountWarningTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Send the exact deposit amount'**
+  String get studentPaymentExactAmountWarningTitle;
+
+  /// No description provided for @studentPaymentExactAmountWarningMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Send exactly {amount}. No more, no less. If you miss the lesson, the full deposit is forfeited and is not refunded. Any amount above the deposit is also forfeited.'**
+  String studentPaymentExactAmountWarningMessage(String amount);
 
   /// No description provided for @studentPaymentCountdownTitle.
   ///

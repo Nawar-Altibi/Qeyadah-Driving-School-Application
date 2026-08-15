@@ -402,6 +402,39 @@
   "studentBookingSlotsEmptyMessage": "جرّب تفضيلات مختلفة أو حاول لاحقاً.",
   "studentBookingSlotsSelectedHeading": "الموعد المحدد",
   "studentBookingSlotsContinueButton": "متابعة إلى المراجعة",
+  "studentBookingSlotsPricingTitle": "تسعير الدرس",
+  "studentBookingSlotsLessonPrice": "سعر الدرس: {amount}",
+  "@studentBookingSlotsLessonPrice": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "studentBookingSlotsDepositAmount": "العربون المطلوب: {amount}",
+  "@studentBookingSlotsDepositAmount": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "studentBookingSlotsDepositPercentage": "({percent}% من السعر)",
+  "@studentBookingSlotsDepositPercentage": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "studentBookingSlotsLessonDuration": "مدة الدرس: {minutes} دقيقة",
+  "@studentBookingSlotsLessonDuration": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "studentBookingReviewTitle": "مراجعة الحجز",
   "studentBookingReviewSummaryTitle": "ملخص الحجز",
   "studentBookingReviewInstructorLabel": "المدرب",
@@ -410,10 +443,35 @@
   "studentBookingReviewTrainingTypeLabel": "نوع التدريب",
   "studentBookingReviewVehicleSourceLabel": "المركبة",
   "studentBookingReviewCreateButton": "تأكيد الحجز",
+  "studentBookingReviewCreateWithPaymentButton": "تأكيد ومتابعة للدفع",
+  "studentBookingReviewCreateWithoutPaymentButton": "تأكيد الحجز (بلا دفع)",
+  "studentBookingReviewCreditBannerTitle": "لديك عربون محفوظ",
+  "studentBookingReviewCreditBannerMessage": "لديك عربون محفوظ {amount} — سيُستخدم لهذا الحجز ولن تحتاج للدفع الآن.",
+  "@studentBookingReviewCreditBannerMessage": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "studentBookingReviewDepositBannerTitle": "عربون مطلوب",
+  "studentBookingReviewDepositBannerMessage": "العربون المطلوب: {amount} عبر شام كاش.",
+  "@studentBookingReviewDepositBannerMessage": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "studentBookingCreditSuccessTitle": "تم تأكيد حجزك",
+  "studentBookingCreditSuccessMessage": "تم تأكيد حجزك باستخدام عربونك المحفوظ. يمكنك معرفة المبلغ المتبقي (إن وُجد) من تفاصيل الحجز.",
+  "studentBookingCreditSuccessViewDetails": "عرض تفاصيل الحجز",
+  "studentBookingCreditSuccessBackHome": "العودة إلى الرئيسية",
   "studentBookingErrorSlotConflict": "تم حجز هذا الموعد للتو من قبل شخص آخر. الرجاء اختيار موعد آخر.",
   "studentBookingErrorPendingPaymentExists": "لديك بالفعل حجز بانتظار الدفع.",
   "studentBookingErrorStudentTimeConflict": "لديك حجز آخر في هذا الوقت. الرجاء اختيار موعد مختلف.",
   "studentBookingErrorGenericConflict": "تعذر تأكيد الحجز بسبب تعارض. الرجاء اختيار موعد آخر.",
+  "studentBookingErrorPaymentHoldIncomplete": "تم إنشاء الحجز لكن تفاصيل الدفع غير مكتملة. الرجاء التواصل مع الدعم.",
   "studentBookingsTitle": "حجوزاتي",
   "studentBookingsFilterAll": "الكل",
   "studentBookingsSearchHint": "ابحث باسم المدرب",
@@ -504,6 +562,15 @@
   "studentPaymentShamCashTitle": "أكمل تحويل شام كاش",
   "studentPaymentDepositAmount": "مبلغ العربون",
   "studentPaymentReceiverName": "اسم المستلم",
+  "studentPaymentExactAmountWarningTitle": "أرسل مبلغ العربون بالضبط",
+  "studentPaymentExactAmountWarningMessage": "أرسل بالضبط {amount}. لا أكثر ولا أقل. في حال لم تحضر الدرس، يُحرق العربون كاملاً ولا يُسترد. أي مبلغ زائد يُحرق أيضاً مع العربون.",
+  "@studentPaymentExactAmountWarningMessage": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
   "studentPaymentCountdownTitle": "الوقت المتبقي",
   "studentPaymentCountdownMessage": "أكّد خلال {time} وإلا سيتم تحرير الموعد.",
   "@studentPaymentCountdownMessage": {
