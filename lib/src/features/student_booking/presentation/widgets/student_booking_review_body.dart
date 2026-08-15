@@ -5,7 +5,6 @@ import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
-import 'package:qeyadah_mobile_app/src/core/ui/app_alert_banner.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_button.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
 import 'package:qeyadah_mobile_app/src/features/student_booking/domain/entities/student_booking_entities.dart';
@@ -17,16 +16,10 @@ class StudentBookingReviewBody extends StatelessWidget {
     super.key,
     required this.selection,
     required this.isCreatingBooking,
-    required this.isLoadingCredit,
-    this.credit,
-    this.pricing,
   });
 
   final StudentBookingSelectionEntity selection;
   final bool isCreatingBooking;
-  final bool isLoadingCredit;
-  final StudentBookingCreditEntity? credit;
-  final StudentBookingPricingEntity? pricing;
 
   @override
   Widget build(BuildContext context) {
@@ -36,13 +29,6 @@ class StudentBookingReviewBody extends StatelessWidget {
     final filters = context.select(
       (StudentBookingCubit cubit) => cubit.state.filters,
     );
-
-    final hasCredit = credit?.hasCredit == true;
-    final depositFallback = pricing?.depositAmount;
-    final creditAmount = credit?.creditAmount;
-    final confirmLabel = hasCredit
-        ? l10n.studentBookingReviewCreateWithoutPaymentButton
-        : l10n.studentBookingReviewCreateWithPaymentButton;
 
     return ListView(
       padding: const EdgeInsets.all(AppDesignTokens.screenHorizontalPadding),
@@ -113,44 +99,11 @@ class StudentBookingReviewBody extends StatelessWidget {
             ],
           ),
         ),
-        const SizedBox(height: AppDesignTokens.spacingMd),
-        if (isLoadingCredit)
-          const Center(
-            child: Padding(
-              padding: EdgeInsets.symmetric(vertical: AppDesignTokens.spacing),
-              child: SizedBox(
-                width: 24,
-                height: 24,
-                child: CircularProgressIndicator(strokeWidth: 2),
-              ),
-            ),
-          )
-        else if (hasCredit && creditAmount != null)
-          AppAlertBanner(
-            tone: AppAlertTone.info,
-            icon: PhosphorIconsBold.wallet,
-            title: l10n.studentBookingReviewCreditBannerTitle,
-            message: l10n.studentBookingReviewCreditBannerMessage(
-              StudentBookingFormatters.currency(l10n, creditAmount),
-            ),
-          )
-        else if (depositFallback != null)
-          AppAlertBanner(
-            icon: PhosphorIconsBold.money,
-            title: l10n.studentBookingReviewDepositBannerTitle,
-            message: l10n.studentBookingReviewDepositBannerMessage(
-              StudentBookingFormatters.currency(l10n, depositFallback),
-            ),
-          ),
         const SizedBox(height: AppDesignTokens.spacingLg),
         AppButton.primary(
-          label: isLoadingCredit
-              ? l10n.studentBookingReviewCreateButton
-              : confirmLabel,
+          label: l10n.studentBookingReviewCreateButton,
           isLoading: isCreatingBooking,
-          onPressed: isLoadingCredit
-              ? null
-              : context.read<StudentBookingCubit>().createBooking,
+          onPressed: context.read<StudentBookingCubit>().createBooking,
         ),
       ],
     );

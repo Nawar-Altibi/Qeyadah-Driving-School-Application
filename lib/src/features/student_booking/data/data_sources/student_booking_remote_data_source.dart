@@ -19,8 +19,6 @@ abstract interface class StudentBookingRemoteDataSource {
   RemoteResponse<StudentBookingHoldEntity> createBooking(
     CreateStudentBookingParams params,
   );
-
-  RemoteResponse<StudentBookingCreditEntity> fetchMyCredit();
 }
 
 @LazySingleton(as: StudentBookingRemoteDataSource)
@@ -82,37 +80,6 @@ class StudentBookingRemoteDataSourceImpl
         );
       }
     });
-  }
-
-  @override
-  RemoteResponse<StudentBookingCreditEntity> fetchMyCredit() async {
-    final response = await _apiHandler.get(
-      Endpoints.studentBookingsMyCredit,
-      isAuthorized: true,
-    );
-    return response.fold(left, (json) {
-      try {
-        return right(_creditFromJson(_unwrapData(json)));
-      } on Exception {
-        return left(
-          const InternalServerErrorFailure(
-            'Failed to parse my-credit response',
-          ),
-        );
-      }
-    });
-  }
-
-  StudentBookingCreditEntity _creditFromJson(Map<String, dynamic> json) {
-    final hasCredit = json['hasCredit'] == true;
-    if (!hasCredit) {
-      return const StudentBookingCreditEntity.none();
-    }
-    return StudentBookingCreditEntity(
-      hasCredit: true,
-      creditFromBookingId: json['creditFromBookingId']?.toString(),
-      creditAmount: json['creditAmount']?.toString(),
-    );
   }
 
   StudentAvailableSlotsPageEntity _availableSlotsPageFromJson(

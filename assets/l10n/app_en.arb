@@ -457,28 +457,8 @@
   "studentBookingReviewTrainingTypeLabel": "Training type",
   "studentBookingReviewVehicleSourceLabel": "Vehicle",
   "studentBookingReviewCreateButton": "Confirm booking",
-  "studentBookingReviewCreateWithPaymentButton": "Confirm and continue to payment",
-  "studentBookingReviewCreateWithoutPaymentButton": "Confirm booking (no payment)",
-  "studentBookingReviewCreditBannerTitle": "Saved deposit available",
-  "studentBookingReviewCreditBannerMessage": "You have a saved deposit of {amount}. It will be used for this booking and you will not need to pay now.",
-  "@studentBookingReviewCreditBannerMessage": {
-    "placeholders": {
-      "amount": {
-        "type": "String"
-      }
-    }
-  },
-  "studentBookingReviewDepositBannerTitle": "Deposit required",
-  "studentBookingReviewDepositBannerMessage": "Required deposit: {amount} via ShamCash.",
-  "@studentBookingReviewDepositBannerMessage": {
-    "placeholders": {
-      "amount": {
-        "type": "String"
-      }
-    }
-  },
   "studentBookingCreditSuccessTitle": "Booking confirmed",
-  "studentBookingCreditSuccessMessage": "Your booking was confirmed using your saved deposit. You can check any remaining amount (if any) in the booking details.",
+  "studentBookingCreditSuccessMessage": "Your booking was confirmed successfully. You can review the details anytime.",
   "studentBookingCreditSuccessViewDetails": "View booking details",
   "studentBookingCreditSuccessBackHome": "Back to home",
   "studentBookingErrorSlotConflict": "This slot was just booked by someone else. Please choose another one.",

@@ -893,35 +893,11 @@ class AppLocalizationsAr extends AppLocalizations {
   String get studentBookingReviewCreateButton => 'تأكيد الحجز';
 
   @override
-  String get studentBookingReviewCreateWithPaymentButton =>
-      'تأكيد ومتابعة للدفع';
-
-  @override
-  String get studentBookingReviewCreateWithoutPaymentButton =>
-      'تأكيد الحجز (بلا دفع)';
-
-  @override
-  String get studentBookingReviewCreditBannerTitle => 'لديك عربون محفوظ';
-
-  @override
-  String studentBookingReviewCreditBannerMessage(String amount) {
-    return 'لديك عربون محفوظ $amount — سيُستخدم لهذا الحجز ولن تحتاج للدفع الآن.';
-  }
-
-  @override
-  String get studentBookingReviewDepositBannerTitle => 'عربون مطلوب';
-
-  @override
-  String studentBookingReviewDepositBannerMessage(String amount) {
-    return 'العربون المطلوب: $amount عبر شام كاش.';
-  }
-
-  @override
   String get studentBookingCreditSuccessTitle => 'تم تأكيد حجزك';
 
   @override
   String get studentBookingCreditSuccessMessage =>
-      'تم تأكيد حجزك باستخدام عربونك المحفوظ. يمكنك معرفة المبلغ المتبقي (إن وُجد) من تفاصيل الحجز.';
+      'تم تأكيد حجزك بنجاح. يمكنك مراجعة التفاصيل في أي وقت.';
 
   @override
   String get studentBookingCreditSuccessViewDetails => 'عرض تفاصيل الحجز';

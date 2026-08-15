@@ -1700,42 +1700,6 @@ abstract class AppLocalizations {
   /// **'Confirm booking'**
   String get studentBookingReviewCreateButton;
 
-  /// No description provided for @studentBookingReviewCreateWithPaymentButton.
-  ///
-  /// In en, this message translates to:
-  /// **'Confirm and continue to payment'**
-  String get studentBookingReviewCreateWithPaymentButton;
-
-  /// No description provided for @studentBookingReviewCreateWithoutPaymentButton.
-  ///
-  /// In en, this message translates to:
-  /// **'Confirm booking (no payment)'**
-  String get studentBookingReviewCreateWithoutPaymentButton;
-
-  /// No description provided for @studentBookingReviewCreditBannerTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Saved deposit available'**
-  String get studentBookingReviewCreditBannerTitle;
-
-  /// No description provided for @studentBookingReviewCreditBannerMessage.
-  ///
-  /// In en, this message translates to:
-  /// **'You have a saved deposit of {amount}. It will be used for this booking and you will not need to pay now.'**
-  String studentBookingReviewCreditBannerMessage(String amount);
-
-  /// No description provided for @studentBookingReviewDepositBannerTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Deposit required'**
-  String get studentBookingReviewDepositBannerTitle;
-
-  /// No description provided for @studentBookingReviewDepositBannerMessage.
-  ///
-  /// In en, this message translates to:
-  /// **'Required deposit: {amount} via ShamCash.'**
-  String studentBookingReviewDepositBannerMessage(String amount);
-
   /// No description provided for @studentBookingCreditSuccessTitle.
   ///
   /// In en, this message translates to:
@@ -1745,7 +1709,7 @@ abstract class AppLocalizations {
   /// No description provided for @studentBookingCreditSuccessMessage.
   ///
   /// In en, this message translates to:
-  /// **'Your booking was confirmed using your saved deposit. You can check any remaining amount (if any) in the booking details.'**
+  /// **'Your booking was confirmed successfully. You can review the details anytime.'**
   String get studentBookingCreditSuccessMessage;
 
   /// No description provided for @studentBookingCreditSuccessViewDetails.
