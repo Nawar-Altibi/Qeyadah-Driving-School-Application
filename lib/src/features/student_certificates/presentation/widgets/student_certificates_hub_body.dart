@@ -117,6 +117,21 @@ class _ActiveRequestSummaryCard extends StatelessWidget {
     final status = eligibility.requestStatus;
     final textTheme = Theme.of(context).textTheme;
     final radius = BorderRadius.circular(AppDesignTokens.radiusLg);
+    final gradientColors = colors.isDark
+        ? [colors.brandSoft, colors.elevatedCard]
+        : [AppColors.brandMintSoft.withValues(alpha: 0.85), AppColors.white];
+    final borderColor = colors.isDark
+        ? colors.primary.withValues(alpha: 0.28)
+        : AppColors.brandPrimary.withValues(alpha: 0.12);
+    final buttonForeground = colors.isDark
+        ? colors.primary
+        : AppColors.brandPrimary;
+    final buttonBackground = colors.isDark
+        ? colors.card.withValues(alpha: 0.72)
+        : AppColors.white.withValues(alpha: 0.92);
+    final buttonBorder = colors.isDark
+        ? colors.primary.withValues(alpha: 0.72)
+        : AppColors.brandPrimary.withValues(alpha: 0.72);
 
     return AnimatedContainer(
       duration: AppDesignTokens.animationFast,
@@ -126,21 +141,18 @@ class _ActiveRequestSummaryCard extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topRight,
           end: Alignment.bottomLeft,
-          colors: [
-            AppColors.brandMintSoft.withValues(alpha: 0.85),
-            AppColors.white,
-          ],
+          colors: gradientColors,
         ),
-        border: Border.all(
-          color: AppColors.brandPrimary.withValues(alpha: 0.12),
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.brandPrimary.withValues(alpha: 0.05),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        border: Border.all(color: borderColor),
+        boxShadow: colors.isDark
+            ? colors.cardShadows
+            : [
+                BoxShadow(
+                  color: AppColors.brandPrimary.withValues(alpha: 0.05),
+                  blurRadius: 12,
+                  offset: const Offset(0, 4),
+                ),
+              ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -152,12 +164,14 @@ class _ActiveRequestSummaryCard extends StatelessWidget {
                 width: 48,
                 height: 48,
                 decoration: BoxDecoration(
-                  color: AppColors.brandPrimary,
+                  color: colors.isDark
+                      ? colors.primary
+                      : AppColors.brandPrimary,
                   borderRadius: BorderRadius.circular(AppDesignTokens.radiusMd),
                 ),
-                child: const Icon(
+                child: Icon(
                   PhosphorIconsBold.certificate,
-                  color: AppColors.white,
+                  color: colors.isDark ? colors.onPrimary : AppColors.white,
                   size: 24,
                 ),
               ),
@@ -221,12 +235,9 @@ class _ActiveRequestSummaryCard extends StatelessWidget {
             child: OutlinedButton(
               onPressed: onViewDetailsTap,
               style: OutlinedButton.styleFrom(
-                foregroundColor: AppColors.brandPrimary,
-                backgroundColor: AppColors.white.withValues(alpha: 0.92),
-                side: BorderSide(
-                  color: AppColors.brandPrimary.withValues(alpha: 0.72),
-                  width: 1.6,
-                ),
+                foregroundColor: buttonForeground,
+                backgroundColor: buttonBackground,
+                side: BorderSide(color: buttonBorder, width: 1.6),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(AppDesignTokens.radiusMd),
                 ),
