@@ -204,9 +204,9 @@ class _SessionCard extends StatelessWidget {
               Expanded(
                 child: Text(
                   session.studentName,
-                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                    fontWeight: FontWeight.w700,
-                  ),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),
                 ),
               ),
               Text(

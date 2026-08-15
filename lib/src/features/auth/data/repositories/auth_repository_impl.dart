@@ -37,10 +37,7 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   FutureEither<AuthSessionEntity> login(LoginParams params) async {
     final remote = await _remoteDataSource.login(params);
-    return remote.fold(
-      (failure) async => left(failure),
-      _persistMobileSession,
-    );
+    return remote.fold((failure) async => left(failure), _persistMobileSession);
   }
 
   FutureEither<AuthSessionEntity> _persistMobileSession(

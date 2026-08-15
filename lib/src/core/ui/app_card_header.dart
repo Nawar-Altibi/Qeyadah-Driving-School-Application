@@ -26,9 +26,7 @@ class AppCardHeader extends StatelessWidget {
           decoration: BoxDecoration(
             color: colors.brandSoft,
             shape: BoxShape.circle,
-            border: Border.all(
-              color: colors.primary.withValues(alpha: 0.22),
-            ),
+            border: Border.all(color: colors.primary.withValues(alpha: 0.22)),
           ),
           child: Icon(icon, size: 20, color: colors.primary),
         ),

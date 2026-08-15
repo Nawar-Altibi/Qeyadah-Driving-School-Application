@@ -200,8 +200,9 @@ class InstructorProfileBody extends StatelessWidget {
                           showChevron: false,
                           onTap: interactive
                               ? () async {
-                                  final confirmed =
-                                      await confirmLogout(context);
+                                  final confirmed = await confirmLogout(
+                                    context,
+                                  );
                                   if (!context.mounted || !confirmed) return;
                                   await context
                                       .read<AuthSessionCubit>()
