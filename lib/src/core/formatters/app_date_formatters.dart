@@ -35,11 +35,22 @@ abstract final class AppDateFormatters {
     );
   }
 
+  /// Short hold windows (Sham Cash payment): `MM:SS`.
   static String countdown(Duration remaining) {
     final clamped = remaining.isNegative ? Duration.zero : remaining;
     final minutes = clamped.inMinutes.remainder(60).toString().padLeft(2, '0');
     final seconds = clamped.inSeconds.remainder(60).toString().padLeft(2, '0');
     return '$minutes:$seconds';
+  }
+
+  /// Longer deadlines (certificate reexam registration): `HH:MM:SS`.
+  /// Hours are not wrapped at 24 — a 47-hour window shows as `47:12:05`.
+  static String countdownHms(Duration remaining) {
+    final clamped = remaining.isNegative ? Duration.zero : remaining;
+    final hours = clamped.inHours.toString().padLeft(2, '0');
+    final minutes = clamped.inMinutes.remainder(60).toString().padLeft(2, '0');
+    final seconds = clamped.inSeconds.remainder(60).toString().padLeft(2, '0');
+    return '$hours:$minutes:$seconds';
   }
 
   static String paymentCountdown({required int minutes, required int seconds}) {

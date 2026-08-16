@@ -20,7 +20,7 @@ abstract final class StudentCertificatesFormatters {
   }
 
   static String countdown(Duration remaining) {
-    return AppDateFormatters.countdown(remaining);
+    return AppDateFormatters.countdownHms(remaining);
   }
 
   /// School wall-clock is fixed UTC+3 (no DST). Never use device [DateTime.toLocal].
