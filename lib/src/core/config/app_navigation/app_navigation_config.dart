@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
 import 'package:qeyadah_mobile_app/src/core/config/app_navigation/stream_to_listenable.dart';
 import 'package:qeyadah_mobile_app/src/core/offline/presentation/cubit/offline_queue_cubit.dart';
+import 'package:qeyadah_mobile_app/src/core/services/auth_token_coordinator.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/presentation/cubit/auth_session_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/presentation/cubit/password_reset_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/auth/presentation/cubit/registration_cubit.dart';
@@ -70,6 +71,8 @@ import 'package:qeyadah_mobile_app/src/shared/enums/user_role.dart';
 @lazySingleton
 class AppNavigationConfig {
   AppNavigationConfig(this._authSessionCubit, this._splashScreenCubit) {
+    AuthTokenCoordinator.onSessionInvalidated =
+        _authSessionCubit.discardInvalidSession;
     _authSessionCubit.restoreSession();
     _routerRefreshListenable = StreamToListenable([
       _authSessionCubit.stream,

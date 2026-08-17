@@ -196,25 +196,38 @@ class TokenAuthInterceptor extends AuthInterceptor {
   Future<bool> handleRefresh(DioException err) async {
     try {
       final rt = await _tokenManager.refreshToken;
-      if (rt.isEmpty) return false;
+      if (rt.isEmpty) {
+        await _tokenManager.clearTokens();
+        return false;
+      }
 
       final api = getIt<ApiHandlerInterface>();
-      final result = await api.post('auth/refresh', body: {'refreshToken': rt});
+      final result = await api.post(
+        'auth/refresh',
+        body: {'refreshToken': rt},
+        isAuthorized: false,
+      );
 
-      return result.fold((l) => false, (data) async {
-        final payload = data['data'] is Map
-            ? Map<String, dynamic>.from(data['data'] as Map)
-            : data;
-        await _tokenManager.setTokens(
-          accessToken:
-              (payload['accessToken'] as String?) ??
-              (payload['access_token'] as String?),
-          refreshToken:
-              (payload['refreshToken'] as String?) ??
-              (payload['refresh_token'] as String?),
-        );
-        return true;
-      });
+      return await result.fold(
+        (_) async {
+          await _tokenManager.clearTokens();
+          return false;
+        },
+        (data) async {
+          final payload = data['data'] is Map
+              ? Map<String, dynamic>.from(data['data'] as Map)
+              : data;
+          await _tokenManager.setTokens(
+            accessToken:
+                (payload['accessToken'] as String?) ??
+                (payload['access_token'] as String?),
+            refreshToken:
+                (payload['refreshToken'] as String?) ??
+                (payload['refresh_token'] as String?),
+          );
+          return true;
+        },
+      );
     } catch (e) {
       await _clearTokensAndThrowException(err: err, exception: e);
     }

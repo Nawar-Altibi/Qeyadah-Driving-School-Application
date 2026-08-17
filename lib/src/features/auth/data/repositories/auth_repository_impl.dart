@@ -179,7 +179,7 @@ class AuthRepositoryImpl implements AuthRepository {
             accessToken: value.accessToken,
             refreshToken: value.refreshToken,
           );
-          return right(value);
+          return _validatePersistedSession(value);
         }
         await AuthTokenCoordinator.ensureInterceptorTokensFromLegacyStorage();
         // session_json missing (save raced with process kill) — rebuild from
@@ -187,6 +187,52 @@ class AuthRepositoryImpl implements AuthRepository {
         return _restoreSessionFromStoredTokens();
       },
     );
+  }
+
+  /// Confirm a Hive session still authenticates. Stale tokens after reinstall
+  /// / backup restore must not open Home as "Unauthorized".
+  FutureEither<AuthSessionEntity?> _validatePersistedSession(
+    AuthSessionEntity session,
+  ) async {
+    try {
+      final remote = await _remoteDataSource.me().timeout(
+        const Duration(seconds: 8),
+      );
+      return remote.fold(
+        (failure) async {
+          if (failure is AuthFailure) {
+            await AuthTokenCoordinator.clear();
+            await _localDataSource.clearSession();
+            return right(null);
+          }
+          return right(session);
+        },
+        (profile) async {
+          final manager = getIt<AuthTokenManager>();
+          final access = (await manager.accessToken).trim();
+          final refresh = (await manager.refreshToken).trim();
+          final merged = AuthSessionEntity(
+            user: profile.user,
+            accessToken: access.isNotEmpty ? access : session.accessToken,
+            refreshToken: refresh.isNotEmpty ? refresh : session.refreshToken,
+          );
+          if (!merged.canUseMobileApp) {
+            await AuthTokenCoordinator.clear();
+            await _localDataSource.clearSession();
+            return right(null);
+          }
+          final saved = await _trySaveSession(merged);
+          if (!saved) {
+            unawaited(_retrySaveSession(merged));
+          }
+          return right(merged);
+        },
+      );
+    } on TimeoutException {
+      return right(session);
+    } on Object {
+      return right(session);
+    }
   }
 
   FutureEither<AuthSessionEntity?> _restoreSessionFromStoredTokens() async {

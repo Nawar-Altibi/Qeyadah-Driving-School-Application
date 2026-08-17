@@ -177,6 +177,14 @@ class AuthSessionCubit
     unawaited(_pushCoordinator.startForAuthenticatedSession());
   }
 
+  /// Tokens were wiped (failed refresh). Drop the in-memory session so the
+  /// router redirects to login instead of leaving Home on "Unauthorized".
+  void discardInvalidSession() {
+    if (!isAuthenticated) return;
+    _authEpoch++;
+    emit(const AuthSessionState());
+  }
+
   Future<void> refreshProfile() async {
     final generation = ++_profileGeneration;
     emit(state.copyWith(isRefreshingProfile: true));

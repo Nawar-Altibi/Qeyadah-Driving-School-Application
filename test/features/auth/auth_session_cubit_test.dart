@@ -183,6 +183,21 @@ void main() {
     );
 
     blocTest<AuthSessionCubit, AuthSessionState>(
+      'discardInvalidSession drops an authenticated session',
+      build: buildCubit,
+      seed: () =>
+          const AuthSessionState(apiState: ApiState.succeeded(_demoSession)),
+      act: (cubit) => cubit.discardInvalidSession(),
+      expect: () => [
+        isA<AuthSessionState>().having(
+          (s) => s.apiState.isSuccess,
+          'success',
+          false,
+        ),
+      ],
+    );
+
+    blocTest<AuthSessionCubit, AuthSessionState>(
       'logout unregisters device token before clearing session',
       build: buildCubit,
       seed: () =>
