@@ -12,6 +12,7 @@ import 'package:qeyadah_mobile_app/src/core/ui/app_status_badge.dart';
 import 'package:qeyadah_mobile_app/src/features/student_certificates/domain/entities/certificate_eligibility_entity.dart';
 import 'package:qeyadah_mobile_app/src/features/student_certificates/presentation/cubit/student_certificates_hub_state.dart';
 import 'package:qeyadah_mobile_app/src/features/student_certificates/presentation/formatters/student_certificates_formatters.dart';
+import 'package:qeyadah_mobile_app/src/features/student_certificates/presentation/widgets/student_certificate_registration_countdown.dart';
 import 'package:qeyadah_mobile_app/src/features/student_certificates/presentation/widgets/student_certificate_status_timeline.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/certificate_category.dart';
 
@@ -426,15 +427,7 @@ class _ReexamCard extends StatelessWidget {
           ],
           if (remaining > Duration.zero) ...[
             const SizedBox(height: AppDesignTokens.spacingSm),
-            Text(
-              l10n.studentCertificatesRegistrationCountdown(
-                StudentCertificatesFormatters.countdown(remaining),
-              ),
-              style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                color: AppColors.brandPrimary,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
+            StudentCertificateRegistrationCountdown(remaining: remaining),
           ],
           const SizedBox(height: AppDesignTokens.spacingMd),
           if (isBlocked)

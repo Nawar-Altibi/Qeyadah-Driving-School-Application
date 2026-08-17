@@ -517,6 +517,18 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get durationDaysUnit => 'd';
+
+  @override
+  String get durationHoursUnit => 'h';
+
+  @override
+  String get durationMinutesUnit => 'm';
+
+  @override
+  String get durationSecondsUnit => 's';
+
+  @override
   String instructorCurrencyAmount(int amount) {
     return '$amount SYP';
   }
@@ -551,6 +563,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get instructorProfileTrainingType => 'Training type';
+
+  @override
+  String get instructorTrainingTypeBoth => 'Manual and automatic';
 
   @override
   String get instructorProfileAccountStatus => 'Account status';
@@ -1221,6 +1236,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String studentCertificatesRegistrationCloses(String label) {
     return 'Registration closes: $label';
   }
+
+  @override
+  String get studentCertificatesRegistrationCountdownLabel =>
+      'Time left to register';
 
   @override
   String studentCertificatesRegistrationCountdown(String time) {

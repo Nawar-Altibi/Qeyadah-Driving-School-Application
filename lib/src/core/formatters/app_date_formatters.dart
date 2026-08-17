@@ -43,14 +43,40 @@ abstract final class AppDateFormatters {
     return '$minutes:$seconds';
   }
 
-  /// Longer deadlines (certificate reexam registration): `HH:MM:SS`.
-  /// Hours are not wrapped at 24 — a 47-hour window shows as `47:12:05`.
-  static String countdownHms(Duration remaining) {
+  /// Splits a countdown into days + leftover hours/minutes/seconds.
+  static ({int days, int hours, int minutes, int seconds}) countdownParts(
+    Duration remaining,
+  ) {
     final clamped = remaining.isNegative ? Duration.zero : remaining;
-    final hours = clamped.inHours.toString().padLeft(2, '0');
-    final minutes = clamped.inMinutes.remainder(60).toString().padLeft(2, '0');
-    final seconds = clamped.inSeconds.remainder(60).toString().padLeft(2, '0');
-    return '$hours:$minutes:$seconds';
+    return (
+      days: clamped.inDays,
+      hours: clamped.inHours.remainder(24),
+      minutes: clamped.inMinutes.remainder(60),
+      seconds: clamped.inSeconds.remainder(60),
+    );
+  }
+
+  /// Longer deadlines (certificate reexam registration).
+  ///
+  /// Over 24 hours includes days, e.g. `13 يوم · 16 س · 30 د · 23 ث`.
+  /// Under 24 hours omits days, e.g. `16 س · 30 د · 23 ث`.
+  static String countdownHms(
+    Duration remaining, {
+    required String hoursUnit,
+    required String minutesUnit,
+    required String secondsUnit,
+    String? daysUnit,
+  }) {
+    final parts = countdownParts(remaining);
+    final hours = parts.hours.toString().padLeft(2, '0');
+    final minutes = parts.minutes.toString().padLeft(2, '0');
+    final seconds = parts.seconds.toString().padLeft(2, '0');
+    final hms =
+        '$hours $hoursUnit · $minutes $minutesUnit · $seconds $secondsUnit';
+    if (parts.days > 0 && daysUnit != null && daysUnit.isNotEmpty) {
+      return '${parts.days} $daysUnit · $hms';
+    }
+    return hms;
   }
 
   static String paymentCountdown({required int minutes, required int seconds}) {

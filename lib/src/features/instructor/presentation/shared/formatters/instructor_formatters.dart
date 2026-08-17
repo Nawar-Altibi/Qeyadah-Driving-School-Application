@@ -63,10 +63,11 @@ abstract final class InstructorFormatters {
       '${timeLabel(startTime)} – ${timeLabel(endTime)}';
 
   static String trainingHoursLabel(AppLocalizations l10n, double hours) {
-    if (hours == hours.roundToDouble()) {
-      return l10n.instructorTrainingHoursCount(hours.round());
+    final rounded = double.parse(hours.toStringAsFixed(2));
+    if (rounded == rounded.roundToDouble()) {
+      return l10n.instructorTrainingHoursCount(rounded.round());
     }
-    return l10n.instructorTrainingHoursDecimal(hours);
+    return l10n.instructorTrainingHoursDecimal(rounded);
   }
 
   static String trainingTypeLabel(AppLocalizations l10n, InstructorType type) {

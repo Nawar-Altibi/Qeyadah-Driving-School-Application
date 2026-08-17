@@ -1,6 +1,5 @@
 import 'package:intl/intl.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
-import 'package:qeyadah_mobile_app/src/core/formatters/app_date_formatters.dart';
 import 'package:qeyadah_mobile_app/src/core/formatters/app_money_formatters.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_status_badge.dart';
 import 'package:qeyadah_mobile_app/src/features/student_bookings/presentation/formatters/student_bookings_formatters.dart';
@@ -17,10 +16,6 @@ abstract final class StudentCertificatesFormatters {
 
   static String moneyAmount(String raw) {
     return AppMoneyFormatters.formatGrouped(raw);
-  }
-
-  static String countdown(Duration remaining) {
-    return AppDateFormatters.countdownHms(remaining);
   }
 
   /// School wall-clock is fixed UTC+3 (no DST). Never use device [DateTime.toLocal].

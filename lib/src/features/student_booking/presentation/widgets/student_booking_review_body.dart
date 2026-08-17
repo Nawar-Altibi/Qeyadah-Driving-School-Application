@@ -7,6 +7,7 @@ import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_button.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_card.dart';
+import 'package:qeyadah_mobile_app/src/core/ui/app_skeleton_shell.dart';
 import 'package:qeyadah_mobile_app/src/features/student_booking/domain/entities/student_booking_entities.dart';
 import 'package:qeyadah_mobile_app/src/features/student_booking/presentation/cubit/student_booking_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/student_booking/presentation/formatters/student_booking_formatters.dart';
@@ -42,7 +43,7 @@ class StudentBookingReviewBody extends StatelessWidget {
                 color: colors.brandSoft,
                 borderRadius: BorderRadius.circular(15),
               ),
-              child: const Icon(
+              child: const AppNonMirroredIcon(
                 PhosphorIconsBold.checkCircle,
                 color: AppColors.brandPrimary,
               ),

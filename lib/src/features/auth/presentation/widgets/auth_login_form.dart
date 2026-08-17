@@ -77,7 +77,6 @@ class AuthLoginForm extends StatelessWidget {
                 builder: (context, state) {
                   return AuthGradientButton(
                     label: l10n.loginButton,
-                    icon: PhosphorIconsBold.shieldCheck,
                     isLoading: state.isLoggingIn,
                     onPressed: () => _submit(context),
                   );

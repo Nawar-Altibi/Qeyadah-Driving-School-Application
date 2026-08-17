@@ -120,7 +120,7 @@ class NotificationsInboxBody extends StatelessWidget {
                   final notification = notifications[index];
                   return Padding(
                     padding: const EdgeInsets.only(
-                      bottom: AppDesignTokens.spacingSm,
+                      bottom: AppDesignTokens.spacingMd,
                     ),
                     child: _NotificationCard(
                       notification: notification,

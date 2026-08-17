@@ -4,6 +4,7 @@ import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_color_schemes.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/app_semantic_colors.dart';
 import 'package:qeyadah_mobile_app/src/core/theme/tokens/app_design_tokens.dart';
+import 'package:qeyadah_mobile_app/src/core/ui/app_skeleton_shell.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/certificate_request_status.dart';
 
 /// Vertical status journey for an active certificate request.
@@ -145,13 +146,19 @@ class _TimelineStep extends StatelessWidget {
                     width: isCurrent ? 2 : 1.5,
                   ),
                 ),
-                child: Icon(
-                  isPast ? PhosphorIconsBold.check : icon,
-                  size: isCurrent ? 14 : 13,
-                  color: isPast || isCurrent
-                      ? AppColors.white
-                      : colors.ink.withValues(alpha: 0.55),
-                ),
+                child: isPast
+                    ? AppNonMirroredIcon(
+                        PhosphorIconsBold.check,
+                        size: isCurrent ? 14 : 13,
+                        color: AppColors.white,
+                      )
+                    : Icon(
+                        icon,
+                        size: isCurrent ? 14 : 13,
+                        color: isCurrent
+                            ? AppColors.white
+                            : colors.ink.withValues(alpha: 0.55),
+                      ),
               ),
               if (!isLast)
                 Container(
