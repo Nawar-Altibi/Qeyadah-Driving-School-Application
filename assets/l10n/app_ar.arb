@@ -440,6 +440,17 @@
       }
     }
   },
+  "studentBookingSlotsMorning": "صباحاً",
+  "studentBookingSlotsAfternoon": "بعد الظهر",
+  "studentBookingSlotsEvening": "مساءً",
+  "studentBookingSlotsCount": "{count} مواعيد",
+  "@studentBookingSlotsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "studentBookingReviewTitle": "مراجعة الحجز",
   "studentBookingReviewSummaryTitle": "ملخص الحجز",
   "studentBookingReviewInstructorLabel": "المدرب",
@@ -460,6 +471,14 @@
   "studentBookingsTitle": "حجوزاتي",
   "studentBookingsFilterAll": "الكل",
   "studentBookingsSearchHint": "ابحث باسم المدرب",
+  "studentBookingsInstructorName": "المدرب: {name}",
+  "@studentBookingsInstructorName": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "studentBookingsSortNewestFirst": "الأحدث أولاً",
   "studentBookingsSortOldestFirst": "الأقدم أولاً",
   "studentBookingsEmptyTitle": "لا توجد حجوزات بعد",

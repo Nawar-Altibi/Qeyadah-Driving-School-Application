@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
 import 'package:qeyadah_mobile_app/src/core/formatters/app_date_formatters.dart';
 import 'package:qeyadah_mobile_app/src/core/formatters/app_money_formatters.dart';
@@ -37,6 +38,21 @@ abstract final class StudentBookingFormatters {
     return AppDateFormatters.fullDayLabel(date, localeName);
   }
 
+  static String compactWeekday(DateTime date, String localeName) {
+    return DateFormat('EEE', localeName).format(date);
+  }
+
+  static String compactDayNumber(DateTime date, String localeName) {
+    return DateFormat('d', localeName).format(date);
+  }
+
+  static SlotDayPeriod dayPeriod(String startTime) {
+    final hour = int.tryParse(startTime.split(':').first.trim()) ?? 0;
+    if (hour < 12) return SlotDayPeriod.morning;
+    if (hour < 17) return SlotDayPeriod.afternoon;
+    return SlotDayPeriod.evening;
+  }
+
   static String timeRangeLabel(String startTime, String endTime) {
     return AppDateFormatters.timeRangeLabel(startTime, endTime);
   }
@@ -52,3 +68,5 @@ abstract final class StudentBookingFormatters {
     );
   }
 }
+
+enum SlotDayPeriod { morning, afternoon, evening }

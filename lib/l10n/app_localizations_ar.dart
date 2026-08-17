@@ -884,6 +884,20 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String get studentBookingSlotsMorning => 'صباحاً';
+
+  @override
+  String get studentBookingSlotsAfternoon => 'بعد الظهر';
+
+  @override
+  String get studentBookingSlotsEvening => 'مساءً';
+
+  @override
+  String studentBookingSlotsCount(int count) {
+    return '$count مواعيد';
+  }
+
+  @override
   String get studentBookingReviewTitle => 'مراجعة الحجز';
 
   @override
@@ -948,6 +962,11 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get studentBookingsSearchHint => 'ابحث باسم المدرب';
+
+  @override
+  String studentBookingsInstructorName(String name) {
+    return 'المدرب: $name';
+  }
 
   @override
   String get studentBookingsSortNewestFirst => 'الأحدث أولاً';

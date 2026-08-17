@@ -93,6 +93,7 @@ class _InstructorSlotsCard extends StatefulWidget {
 class _InstructorSlotsCardState extends State<_InstructorSlotsCard> {
   List<StudentBookingSlotEntity>? _cachedSlots;
   Map<DateTime, List<StudentBookingSlotEntity>> _slotsByDate = const {};
+  DateTime? _selectedDate;
 
   Map<DateTime, List<StudentBookingSlotEntity>> _groupSlots(
     List<StudentBookingSlotEntity> slots,
@@ -107,6 +108,47 @@ class _InstructorSlotsCardState extends State<_InstructorSlotsCard> {
     return _slotsByDate;
   }
 
+  DateTime _resolveSelectedDate(
+    Map<DateTime, List<StudentBookingSlotEntity>> slotsByDate,
+  ) {
+    final current = _selectedDate;
+    if (current != null && slotsByDate.containsKey(current)) {
+      return current;
+    }
+    return slotsByDate.keys.first;
+  }
+
+  List<(SlotDayPeriod, List<StudentBookingSlotEntity>)> _groupByPeriod(
+    List<StudentBookingSlotEntity> slots,
+  ) {
+    final morning = <StudentBookingSlotEntity>[];
+    final afternoon = <StudentBookingSlotEntity>[];
+    final evening = <StudentBookingSlotEntity>[];
+    for (final slot in slots) {
+      switch (StudentBookingFormatters.dayPeriod(slot.startTime)) {
+        case SlotDayPeriod.morning:
+          morning.add(slot);
+        case SlotDayPeriod.afternoon:
+          afternoon.add(slot);
+        case SlotDayPeriod.evening:
+          evening.add(slot);
+      }
+    }
+    return [
+      if (morning.isNotEmpty) (SlotDayPeriod.morning, morning),
+      if (afternoon.isNotEmpty) (SlotDayPeriod.afternoon, afternoon),
+      if (evening.isNotEmpty) (SlotDayPeriod.evening, evening),
+    ];
+  }
+
+  String _periodLabel(AppLocalizations l10n, SlotDayPeriod period) {
+    return switch (period) {
+      SlotDayPeriod.morning => l10n.studentBookingSlotsMorning,
+      SlotDayPeriod.afternoon => l10n.studentBookingSlotsAfternoon,
+      SlotDayPeriod.evening => l10n.studentBookingSlotsEvening,
+    };
+  }
+
   @override
   Widget build(BuildContext context) {
     final slots = widget.instructorSlots.slots;
@@ -116,6 +158,10 @@ class _InstructorSlotsCardState extends State<_InstructorSlotsCard> {
     final colors = AppSemanticColors.of(context);
     final instructor = widget.instructorSlots.instructor;
     final dateEntries = _groupSlots(slots).entries.toList();
+    final selectedDate = _resolveSelectedDate(_slotsByDate);
+    final selectedSlots = _slotsByDate[selectedDate] ?? const [];
+    final periods = _groupByPeriod(selectedSlots);
+    final showPeriodHeaders = periods.length > 1;
 
     return AppCard(
       child: Column(
@@ -142,12 +188,25 @@ class _InstructorSlotsCardState extends State<_InstructorSlotsCard> {
               ),
               const SizedBox(width: AppDesignTokens.spacing),
               Expanded(
-                child: Text(
-                  instructor.name,
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 16,
-                  ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      l10n.studentBookingReviewInstructorLabel,
+                      style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                        color: colors.muted,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 12,
+                      ),
+                    ),
+                    Text(
+                      instructor.name,
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               AppStatusBadge(
@@ -162,30 +221,196 @@ class _InstructorSlotsCardState extends State<_InstructorSlotsCard> {
             ],
           ),
           const SizedBox(height: AppDesignTokens.spacingLg),
-          for (var i = 0; i < dateEntries.length; i++) ...[
-            if (i > 0) const SizedBox(height: AppDesignTokens.spacingMd),
-            _DateGroupHeader(
-              label: StudentBookingFormatters.dayLabel(
-                dateEntries[i].key,
-                widget.localeName,
+          if (dateEntries.length > 1) ...[
+            SizedBox(
+              height: 82,
+              child: IgnorePointer(
+                ignoring: !widget.interactive,
+                child: ListView.separated(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: dateEntries.length,
+                  separatorBuilder: (_, _) =>
+                      const SizedBox(width: AppDesignTokens.spacingSm),
+                  itemBuilder: (context, index) {
+                    final entry = dateEntries[index];
+                    final selected = entry.key == selectedDate;
+                    return _DateChip(
+                      date: entry.key,
+                      localeName: widget.localeName,
+                      slotCount: entry.value.length,
+                      selected: selected,
+                      onTap: () => setState(() => _selectedDate = entry.key),
+                    );
+                  },
+                ),
               ),
             ),
-            const SizedBox(height: AppDesignTokens.spacing),
-            Wrap(
-              spacing: AppDesignTokens.spacingSm,
-              runSpacing: AppDesignTokens.spacingSm,
-              children: [
-                for (final slot in dateEntries[i].value)
-                  _SlotChip(
-                    instructor: instructor,
-                    slot: slot,
-                    interactive: widget.interactive,
-                  ),
-              ],
+            const SizedBox(height: AppDesignTokens.spacingMd),
+          ] else
+            Padding(
+              padding: const EdgeInsets.only(bottom: AppDesignTokens.spacing),
+              child: _DateGroupHeader(
+                label: StudentBookingFormatters.dayLabel(
+                  selectedDate,
+                  widget.localeName,
+                ),
+              ),
+            ),
+          if (dateEntries.length > 1)
+            Padding(
+              padding: const EdgeInsets.only(bottom: AppDesignTokens.spacing),
+              child: _DateGroupHeader(
+                label: StudentBookingFormatters.dayLabel(
+                  selectedDate,
+                  widget.localeName,
+                ),
+              ),
+            ),
+          for (var i = 0; i < periods.length; i++) ...[
+            if (i > 0) const SizedBox(height: AppDesignTokens.spacingMd),
+            if (showPeriodHeaders) ...[
+              Text(
+                _periodLabel(l10n, periods[i].$1),
+                style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                  color: colors.muted,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              const SizedBox(height: AppDesignTokens.spacingSm),
+            ],
+            _SlotGrid(
+              instructor: instructor,
+              slots: periods[i].$2,
+              interactive: widget.interactive,
             ),
           ],
         ],
       ),
+    );
+  }
+}
+
+class _DateChip extends StatelessWidget {
+  const _DateChip({
+    required this.date,
+    required this.localeName,
+    required this.slotCount,
+    required this.selected,
+    required this.onTap,
+  });
+
+  final DateTime date;
+  final String localeName;
+  final int slotCount;
+  final bool selected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final colors = AppSemanticColors.of(context);
+    final weekday = StudentBookingFormatters.compactWeekday(date, localeName);
+    final dayNumber = StudentBookingFormatters.compactDayNumber(
+      date,
+      localeName,
+    );
+
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(AppDesignTokens.radiusControl),
+        child: AnimatedContainer(
+          duration: AppDesignTokens.animationFast,
+          width: 84,
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 6),
+          decoration: BoxDecoration(
+            color: selected ? AppColors.brandPrimary : colors.canvas,
+            borderRadius: BorderRadius.circular(AppDesignTokens.radiusControl),
+            border: Border.all(
+              color: selected
+                  ? AppColors.brandPrimary
+                  : colors.line.withValues(alpha: 0.9),
+            ),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                weekday,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                  color: selected
+                      ? AppColors.white.withValues(alpha: 0.86)
+                      : colors.muted,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 11,
+                ),
+              ),
+              Text(
+                dayNumber,
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  color: selected ? AppColors.white : colors.ink,
+                  fontWeight: FontWeight.w800,
+                  height: 1.1,
+                ),
+              ),
+              Text(
+                l10n.studentBookingSlotsCount(slotCount),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                  color: selected
+                      ? AppColors.white.withValues(alpha: 0.8)
+                      : colors.muted,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _SlotGrid extends StatelessWidget {
+  const _SlotGrid({
+    required this.instructor,
+    required this.slots,
+    required this.interactive,
+  });
+
+  final StudentBookingInstructorEntity instructor;
+  final List<StudentBookingSlotEntity> slots;
+  final bool interactive;
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        const columns = 2;
+        const gap = AppDesignTokens.spacingSm;
+        final itemWidth =
+            (constraints.maxWidth - gap * (columns - 1)) / columns;
+        return Wrap(
+          spacing: gap,
+          runSpacing: gap,
+          children: [
+            for (final slot in slots)
+              SizedBox(
+                width: itemWidth,
+                child: _SlotChip(
+                  instructor: instructor,
+                  slot: slot,
+                  interactive: interactive,
+                ),
+              ),
+          ],
+        );
+      },
     );
   }
 }
@@ -253,6 +478,7 @@ class _SlotChip extends StatelessWidget {
     return AnimatedContainer(
       duration: AppDesignTokens.animationNormal,
       curve: Curves.easeOutCubic,
+      width: double.infinity,
       decoration: BoxDecoration(
         color: selected ? AppColors.brandPrimary : colors.card,
         borderRadius: BorderRadius.circular(AppDesignTokens.radiusControl),
@@ -290,11 +516,11 @@ class _SlotChip extends StatelessWidget {
               : null,
           child: Padding(
             padding: const EdgeInsets.symmetric(
-              horizontal: AppDesignTokens.spacingMd,
+              horizontal: AppDesignTokens.spacingSm,
               vertical: 11,
             ),
             child: Row(
-              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 AnimatedSwitcher(
                   duration: AppDesignTokens.animationFast,
@@ -310,15 +536,19 @@ class _SlotChip extends StatelessWidget {
                         )
                       : const SizedBox.shrink(key: ValueKey('empty')),
                 ),
-                Text(
-                  StudentBookingFormatters.timeRangeLabel(
-                    slot.startTime,
-                    slot.endTime,
-                  ),
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: selected ? AppColors.white : colors.ink,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 13.5,
+                Flexible(
+                  child: Text(
+                    StudentBookingFormatters.timeRangeLabel(
+                      slot.startTime,
+                      slot.endTime,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: selected ? AppColors.white : colors.ink,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 13.5,
+                    ),
                   ),
                 ),
               ],
@@ -379,6 +609,10 @@ class _StickyContinueBar extends StatelessWidget {
                         child: _SelectedSummaryCard(
                           l10n: l10n,
                           instructorName: selection.instructor.name,
+                          dateLabel: StudentBookingFormatters.dayLabel(
+                            selection.slot.date,
+                            Localizations.localeOf(context).toLanguageTag(),
+                          ),
                           timeLabel: StudentBookingFormatters.timeRangeLabel(
                             selection.slot.startTime,
                             selection.slot.endTime,
@@ -404,11 +638,13 @@ class _SelectedSummaryCard extends StatelessWidget {
   const _SelectedSummaryCard({
     required this.l10n,
     required this.instructorName,
+    required this.dateLabel,
     required this.timeLabel,
   });
 
   final AppLocalizations l10n;
   final String instructorName;
+  final String dateLabel;
   final String timeLabel;
 
   @override
@@ -454,11 +690,33 @@ class _SelectedSummaryCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 2),
                   Text(
-                    instructorName,
+                    '${l10n.studentBookingReviewInstructorLabel}: $instructorName',
                     style: Theme.of(context).textTheme.titleSmall?.copyWith(
                       fontWeight: FontWeight.w800,
                       fontSize: 15,
                     ),
+                  ),
+                  const SizedBox(height: 2),
+                  Row(
+                    children: [
+                      Icon(
+                        PhosphorIconsBold.calendarBlank,
+                        size: 14,
+                        color: colors.muted,
+                      ),
+                      const SizedBox(width: 4),
+                      Expanded(
+                        child: Text(
+                          dateLabel,
+                          style: Theme.of(context).textTheme.bodyMedium
+                              ?.copyWith(
+                                color: colors.ink,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 13.5,
+                              ),
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 2),
                   Row(

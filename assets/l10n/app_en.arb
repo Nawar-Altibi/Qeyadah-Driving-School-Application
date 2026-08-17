@@ -454,6 +454,17 @@
       }
     }
   },
+  "studentBookingSlotsMorning": "Morning",
+  "studentBookingSlotsAfternoon": "Afternoon",
+  "studentBookingSlotsEvening": "Evening",
+  "studentBookingSlotsCount": "{count} slots",
+  "@studentBookingSlotsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "studentBookingReviewTitle": "Review booking",
   "studentBookingReviewSummaryTitle": "Booking summary",
   "studentBookingReviewInstructorLabel": "Instructor",
@@ -474,6 +485,14 @@
   "studentBookingsTitle": "My bookings",
   "studentBookingsFilterAll": "All",
   "studentBookingsSearchHint": "Search by instructor name",
+  "studentBookingsInstructorName": "Instructor: {name}",
+  "@studentBookingsInstructorName": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "studentBookingsSortNewestFirst": "Newest first",
   "studentBookingsSortOldestFirst": "Oldest first",
   "studentBookingsEmptyTitle": "No bookings yet",
