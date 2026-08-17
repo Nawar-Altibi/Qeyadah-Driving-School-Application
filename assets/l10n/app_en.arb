@@ -261,6 +261,10 @@
       }
     }
   },
+  "durationDaysUnit": "d",
+  "durationHoursUnit": "h",
+  "durationMinutesUnit": "m",
+  "durationSecondsUnit": "s",
   "instructorCurrencyAmount": "{amount} SYP",
   "@instructorCurrencyAmount": {
     "placeholders": {
@@ -279,6 +283,7 @@
   "instructorProfileGenderMale": "Male",
   "instructorProfileGenderFemale": "Female",
   "instructorProfileTrainingType": "Training type",
+  "instructorTrainingTypeBoth": "Manual and automatic",
   "instructorProfileAccountStatus": "Account status",
   "instructorProfileStatusActive": "Active",
   "instructorProfileSessionWage": "Session wage",
@@ -644,6 +649,7 @@
       }
     }
   },
+  "studentCertificatesRegistrationCountdownLabel": "Time left to register",
   "studentCertificatesRegistrationCountdown": "Time left to register: {time}",
   "@studentCertificatesRegistrationCountdown": {
     "placeholders": {

@@ -513,6 +513,18 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String get durationDaysUnit => 'يوم';
+
+  @override
+  String get durationHoursUnit => 'س';
+
+  @override
+  String get durationMinutesUnit => 'د';
+
+  @override
+  String get durationSecondsUnit => 'ث';
+
+  @override
   String instructorCurrencyAmount(int amount) {
     return '$amount ل.س';
   }
@@ -546,6 +558,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get instructorProfileTrainingType => 'نوع التدريب';
+
+  @override
+  String get instructorTrainingTypeBoth => 'يدوي وأوتوماتيك';
 
   @override
   String get instructorProfileAccountStatus => 'حالة الحساب';
@@ -1217,6 +1232,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String studentCertificatesRegistrationCloses(String label) {
     return 'آخر موعد للتسجيل: $label';
   }
+
+  @override
+  String get studentCertificatesRegistrationCountdownLabel =>
+      'الوقت المتبقي للتسجيل';
 
   @override
   String studentCertificatesRegistrationCountdown(String time) {

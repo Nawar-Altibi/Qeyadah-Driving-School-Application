@@ -1016,6 +1016,30 @@ abstract class AppLocalizations {
   /// **'{minutes} minutes'**
   String instructorDurationMinutes(int minutes);
 
+  /// No description provided for @durationDaysUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'d'**
+  String get durationDaysUnit;
+
+  /// No description provided for @durationHoursUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'h'**
+  String get durationHoursUnit;
+
+  /// No description provided for @durationMinutesUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'m'**
+  String get durationMinutesUnit;
+
+  /// No description provided for @durationSecondsUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'s'**
+  String get durationSecondsUnit;
+
   /// No description provided for @instructorCurrencyAmount.
   ///
   /// In en, this message translates to:
@@ -1081,6 +1105,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Training type'**
   String get instructorProfileTrainingType;
+
+  /// No description provided for @instructorTrainingTypeBoth.
+  ///
+  /// In en, this message translates to:
+  /// **'Manual and automatic'**
+  String get instructorTrainingTypeBoth;
 
   /// No description provided for @instructorProfileAccountStatus.
   ///
@@ -2243,6 +2273,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Registration closes: {label}'**
   String studentCertificatesRegistrationCloses(String label);
+
+  /// No description provided for @studentCertificatesRegistrationCountdownLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Time left to register'**
+  String get studentCertificatesRegistrationCountdownLabel;
 
   /// No description provided for @studentCertificatesRegistrationCountdown.
   ///

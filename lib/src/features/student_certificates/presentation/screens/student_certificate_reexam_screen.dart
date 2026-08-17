@@ -9,6 +9,7 @@ import 'package:qeyadah_mobile_app/src/core/ui/app_flow_back_button.dart';
 import 'package:qeyadah_mobile_app/src/features/student_certificates/presentation/cubit/student_certificate_write_cubit.dart';
 import 'package:qeyadah_mobile_app/src/features/student_certificates/presentation/formatters/student_certificates_formatters.dart';
 import 'package:qeyadah_mobile_app/src/features/student_certificates/presentation/mappers/student_certificate_write_failure_mapper.dart';
+import 'package:qeyadah_mobile_app/src/features/student_certificates/presentation/widgets/student_certificate_registration_countdown.dart';
 import 'package:qeyadah_mobile_app/src/shared/payments/sham_cash_transaction_input.dart';
 
 class StudentCertificateReexamScreen extends StatefulWidget {
@@ -154,15 +155,12 @@ class _StudentCertificateReexamScreenState
                             reexam.registrationClosesLabel!,
                           ),
                         ),
-                      if (state.reexamRemaining > Duration.zero)
-                        Text(
-                          l10n.studentCertificatesRegistrationCountdown(
-                            StudentCertificatesFormatters.countdown(
-                              state.reexamRemaining,
-                            ),
-                          ),
-                          style: Theme.of(context).textTheme.titleSmall,
+                      if (state.reexamRemaining > Duration.zero) ...[
+                        const SizedBox(height: AppDesignTokens.spacingSm),
+                        StudentCertificateRegistrationCountdown(
+                          remaining: state.reexamRemaining,
                         ),
+                      ],
                     ],
                   ),
                 ),

@@ -21,6 +21,7 @@ import 'package:qeyadah_mobile_app/src/features/student_home/presentation/naviga
 import 'package:qeyadah_mobile_app/src/features/student_home/presentation/widgets/student_home_greeting_header.dart';
 import 'package:qeyadah_mobile_app/src/features/student_home/presentation/widgets/student_home_next_lesson_card.dart';
 import 'package:qeyadah_mobile_app/src/features/student_home/presentation/widgets/student_home_quick_actions_section.dart';
+import 'package:qeyadah_mobile_app/src/features/student_home/presentation/widgets/student_home_skeleton_body.dart';
 import 'package:qeyadah_mobile_app/src/features/student_home/presentation/widgets/student_shell_bottom_nav.dart';
 
 class StudentHomeScreen extends StatelessWidget {
@@ -48,9 +49,8 @@ class StudentHomeScreen extends StatelessWidget {
                           previous.isSilentRefresh != current.isSilentRefresh,
                       builder: (context, state) {
                         return state.apiState.when(
-                          initial: () => const SizedBox.shrink(),
-                          loading: () =>
-                              const Center(child: CircularProgressIndicator()),
+                          initial: () => const StudentHomeSkeletonBody(),
+                          loading: () => const StudentHomeSkeletonBody(),
                           succeeded: (dashboard) =>
                               _StudentHomeContent(dashboard: dashboard),
                           failed: (failure, retry) {
