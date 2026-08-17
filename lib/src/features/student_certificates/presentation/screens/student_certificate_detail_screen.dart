@@ -131,6 +131,9 @@ class _DetailBody extends StatelessWidget {
                         l10n,
                         certificate.requestStatus,
                       ),
+                      tone: StudentCertificatesFormatters.requestStatusTone(
+                        certificate.requestStatus,
+                      ),
                     ),
                   ],
                 ),
@@ -202,46 +205,49 @@ class _DetailBody extends StatelessWidget {
             title: l10n.studentCertificatesSessionsTitle,
             icon: PhosphorIconsBold.steeringWheel,
             empty: detail.sessions.isEmpty,
-            children: detail.sessions
-                .map(
-                  (session) => AppMetaTile(
-                    title: l10n.studentCertificatesSessionNumber(
-                      session.sessionNumber,
-                    ),
-                    subtitle: session.label,
-                    icon: PhosphorIconsBold.calendarBlank,
+            children: [
+              for (var i = 0; i < detail.sessions.length; i++)
+                _CertificateScheduleTile(
+                  icon: PhosphorIconsBold.calendarBlank,
+                  title: l10n.studentCertificatesSessionNumber(
+                    detail.sessions[i].sessionNumber,
                   ),
-                )
-                .toList(),
+                  scheduledAt: detail.sessions[i].scheduledAt,
+                  fallbackLabel: detail.sessions[i].label.isEmpty
+                      ? l10n.studentCertificatesNotScheduled
+                      : detail.sessions[i].label,
+                  isLast: i == detail.sessions.length - 1,
+                ),
+            ],
           ),
           _Section(
             title: l10n.studentCertificatesExamsTitle,
             icon: PhosphorIconsBold.exam,
             empty: detail.exams.isEmpty,
-            children: detail.exams
-                .map(
-                  (exam) => AppMetaTile(
-                    title: StudentCertificatesFormatters.examTypeLabel(
-                      l10n,
-                      exam.examType,
-                    ),
-                    subtitle: exam.scheduledAt == null
-                        ? l10n.studentCertificatesNotScheduled
-                        : StudentCertificatesFormatters.dateTime(
-                            exam.scheduledAt!,
-                            localeName: Localizations.localeOf(
-                              context,
-                            ).toLanguageTag(),
-                          ),
-                    icon: PhosphorIconsBold.clipboardText,
-                    trailing: exam.examResult == null
-                        ? null
-                        : AppStatusBadge(
-                            label: _examResultLabel(l10n, exam.examResult!),
-                          ),
+            children: [
+              for (var i = 0; i < detail.exams.length; i++)
+                _CertificateScheduleTile(
+                  icon: PhosphorIconsBold.clipboardText,
+                  title: StudentCertificatesFormatters.examTypeLabel(
+                    l10n,
+                    detail.exams[i].examType,
                   ),
-                )
-                .toList(),
+                  scheduledAt: detail.exams[i].scheduledAt,
+                  fallbackLabel: l10n.studentCertificatesNotScheduled,
+                  trailing: detail.exams[i].examResult == null
+                      ? null
+                      : AppStatusBadge(
+                          label: _examResultLabel(
+                            l10n,
+                            detail.exams[i].examResult!,
+                          ),
+                          tone: StudentCertificatesFormatters.examResultTone(
+                            detail.exams[i].examResult!,
+                          ),
+                        ),
+                  isLast: i == detail.exams.length - 1,
+                ),
+            ],
           ),
           _Section(
             title: l10n.studentCertificatesChargesTitle,
@@ -295,6 +301,165 @@ class _DetailBody extends StatelessWidget {
       ExamResult.fail => l10n.studentCertificatesExamResultFail,
       ExamResult.absent => l10n.studentCertificatesExamResultAbsent,
     };
+  }
+}
+
+class _CertificateScheduleTile extends StatelessWidget {
+  const _CertificateScheduleTile({
+    required this.icon,
+    required this.title,
+    required this.scheduledAt,
+    required this.fallbackLabel,
+    this.trailing,
+    this.isLast = false,
+  });
+
+  final IconData icon;
+  final String title;
+  final DateTime? scheduledAt;
+  final String fallbackLabel;
+  final Widget? trailing;
+  final bool isLast;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = AppSemanticColors.of(context);
+    final textTheme = Theme.of(context).textTheme;
+    final localeName = Localizations.localeOf(context).toLanguageTag();
+    final when = scheduledAt;
+
+    final insetColor = colors.isDark ? colors.elevatedCard : colors.brandSoft;
+    final chipColor = colors.card;
+
+    return Padding(
+      padding: EdgeInsets.only(bottom: isLast ? 0 : AppDesignTokens.spacing),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: insetColor,
+          borderRadius: BorderRadius.circular(AppDesignTokens.radiusLg),
+          border: Border.all(
+            color: colors.primary.withValues(
+              alpha: colors.isDark ? 0.22 : 0.12,
+            ),
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(AppDesignTokens.spacing),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    width: 36,
+                    height: 36,
+                    decoration: BoxDecoration(
+                      color: chipColor,
+                      borderRadius: BorderRadius.circular(
+                        AppDesignTokens.radiusControl,
+                      ),
+                    ),
+                    alignment: Alignment.center,
+                    child: Icon(icon, size: 18, color: colors.primary),
+                  ),
+                  const SizedBox(width: AppDesignTokens.spacingSm),
+                  Expanded(
+                    child: Text(
+                      title,
+                      style: textTheme.bodyMedium?.copyWith(
+                        fontWeight: FontWeight.w800,
+                        fontSize: 15,
+                        color: colors.ink,
+                      ),
+                    ),
+                  ),
+                  if (trailing != null) ...[
+                    const SizedBox(width: AppDesignTokens.spacingSm),
+                    trailing!,
+                  ],
+                ],
+              ),
+              const SizedBox(height: AppDesignTokens.spacingSm),
+              if (when == null)
+                AppMetaRow(
+                  icon: PhosphorIconsBold.clock,
+                  label: fallbackLabel,
+                  iconSize: 16,
+                  gap: 6,
+                  labelColor: colors.muted,
+                  labelStyle: textTheme.bodySmall?.copyWith(
+                    color: colors.muted,
+                    fontSize: 13,
+                    height: 1.4,
+                  ),
+                )
+              else ...[
+                AppMetaRow(
+                  icon: PhosphorIconsBold.calendarBlank,
+                  label: StudentCertificatesFormatters.weekdayDate(
+                    when,
+                    localeName: localeName,
+                  ),
+                  iconSize: 16,
+                  gap: 6,
+                  labelColor: colors.ink,
+                  labelStyle: textTheme.bodyMedium?.copyWith(
+                    color: colors.ink,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 13.5,
+                    height: 1.35,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Align(
+                  alignment: AlignmentDirectional.centerStart,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: chipColor,
+                      borderRadius: BorderRadius.circular(999),
+                      border: Border.all(
+                        color: colors.line.withValues(alpha: 0.9),
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 6,
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            PhosphorIconsBold.clock,
+                            size: 14,
+                            color: colors.primary,
+                          ),
+                          const SizedBox(width: 6),
+                          Text(
+                            StudentCertificatesFormatters.time(
+                              when,
+                              localeName: localeName,
+                            ),
+                            style: textTheme.labelLarge?.copyWith(
+                              color: colors.primary,
+                              fontWeight: FontWeight.w800,
+                              fontFeatures: const [
+                                FontFeature.tabularFigures(),
+                              ],
+                              letterSpacing: 0.4,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
 

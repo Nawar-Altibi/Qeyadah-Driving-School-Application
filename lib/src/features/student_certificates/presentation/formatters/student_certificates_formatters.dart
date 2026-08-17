@@ -1,10 +1,12 @@
 import 'package:intl/intl.dart';
 import 'package:qeyadah_mobile_app/l10n/app_localizations.dart';
+import 'package:qeyadah_mobile_app/src/core/formatters/app_date_formatters.dart';
 import 'package:qeyadah_mobile_app/src/core/formatters/app_money_formatters.dart';
 import 'package:qeyadah_mobile_app/src/core/ui/app_status_badge.dart';
 import 'package:qeyadah_mobile_app/src/features/student_bookings/presentation/formatters/student_bookings_formatters.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/certificate_charge_reason.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/certificate_request_status.dart';
+import 'package:qeyadah_mobile_app/src/shared/enums/exam_result.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/exam_type.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/student_charge_status.dart';
 import 'package:qeyadah_mobile_app/src/shared/enums/training_type.dart';
@@ -32,14 +34,22 @@ abstract final class StudentCertificatesFormatters {
   }
 
   static String date(DateTime value, {String localeName = 'ar'}) {
-    return DateFormat('d MMMM yyyy', localeName).format(schoolWallClock(value));
+    return AppDateFormatters.dateLabel(schoolWallClock(value), localeName);
+  }
+
+  static String weekdayDate(DateTime value, {String localeName = 'ar'}) {
+    return DateFormat(
+      'EEEE، d MMMM yyyy',
+      localeName,
+    ).format(schoolWallClock(value));
+  }
+
+  static String time(DateTime value, {String localeName = 'ar'}) {
+    return AppDateFormatters.timeLabel(schoolWallClock(value), localeName);
   }
 
   static String dateTime(DateTime value, {String localeName = 'ar'}) {
-    final wall = schoolWallClock(value);
-    final datePart = DateFormat('d MMMM yyyy', localeName).format(wall);
-    final timePart = DateFormat.Hm(localeName).format(wall);
-    return '$datePart · $timePart';
+    return '${weekdayDate(value, localeName: localeName)} · ${time(value, localeName: localeName)}';
   }
 
   static String examTypeLabel(AppLocalizations l10n, ExamType type) {
@@ -77,6 +87,14 @@ abstract final class StudentCertificatesFormatters {
       CertificateRequestStatus.failed => l10n.studentCertificatesStatusFailed,
       CertificateRequestStatus.cancelled =>
         l10n.studentCertificatesStatusCancelled,
+    };
+  }
+
+  static AppBadgeTone examResultTone(ExamResult result) {
+    return switch (result) {
+      ExamResult.pass => AppBadgeTone.success,
+      ExamResult.fail => AppBadgeTone.danger,
+      ExamResult.absent => AppBadgeTone.warning,
     };
   }
 
