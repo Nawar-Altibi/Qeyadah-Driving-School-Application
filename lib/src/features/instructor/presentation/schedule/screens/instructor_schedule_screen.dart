@@ -22,8 +22,19 @@ class InstructorScheduleScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final canPop = CoreNavigator.canPop(context: context);
+    final l10n = AppLocalizations.of(context);
+
     return InstructorScheduleScreenCoordinator(
       child: Scaffold(
+        appBar: canPop
+            ? AppBar(
+                surfaceTintColor: Colors.transparent,
+                elevation: 0,
+                title: Text(l10n.instructorNavSchedule),
+                centerTitle: true,
+              )
+            : null,
         body: SafeArea(
           child: Stack(
             children: [
@@ -81,12 +92,17 @@ class InstructorScheduleScreen extends StatelessWidget {
                 left: AppDesignTokens.screenHorizontalPadding,
                 right: AppDesignTokens.screenHorizontalPadding,
                 bottom: AppDesignTokens.spacing,
-                child: AppMobileBottomNav(
-                  activeId: 'schedule',
-                  items: _bottomNavItems(context),
-                  onItemSelected: (tabId) =>
-                      InstructorNavigation.handleBottomNav(context, tabId),
-                ),
+                child: canPop
+                    ? const SizedBox.shrink()
+                    : AppMobileBottomNav(
+                        activeId: 'schedule',
+                        items: _bottomNavItems(context),
+                        onItemSelected: (tabId) =>
+                            InstructorNavigation.handleBottomNav(
+                              context,
+                              tabId,
+                            ),
+                      ),
               ),
             ],
           ),

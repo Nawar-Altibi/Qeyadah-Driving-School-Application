@@ -493,7 +493,15 @@ class AppNavigationConfig {
         GoRoute(
           path: '/instructor/notifications',
           name: 'instructor-notifications',
-          redirect: (context, state) => NotificationsInboxScreen.routePath,
+          pageBuilder: (context, state) => FadePage(
+            key: state.pageKey,
+            child: _withSession(
+              BlocProvider(
+                create: (_) => getIt<NotificationsInboxCubit>(),
+                child: const NotificationsInboxScreen(),
+              ),
+            ),
+          ),
         ),
         GoRoute(
           path: ProfileScreen.routePath,
