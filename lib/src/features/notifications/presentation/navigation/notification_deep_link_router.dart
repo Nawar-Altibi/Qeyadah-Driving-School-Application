@@ -1,12 +1,17 @@
 import 'package:coore/lib.dart';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:qeyadah_mobile_app/src/features/auth/presentation/cubit/auth_session_cubit.dart';
+import 'package:qeyadah_mobile_app/src/features/instructor/presentation/invoices/screens/instructor_invoices_screen.dart';
+import 'package:qeyadah_mobile_app/src/features/instructor/presentation/schedule/screens/instructor_schedule_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/instructor/presentation/schedule/screens/instructor_weekly_schedule_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/notifications/domain/entities/app_notification_entity.dart';
 import 'package:qeyadah_mobile_app/src/features/notifications/domain/entities/app_notification_type.dart';
 import 'package:qeyadah_mobile_app/src/features/notifications/presentation/navigation/notifications_navigation.dart';
+import 'package:qeyadah_mobile_app/src/features/notifications/presentation/screens/notifications_inbox_screen.dart';
 import 'package:qeyadah_mobile_app/src/features/student_bookings/presentation/navigation/student_bookings_navigation.dart';
 import 'package:qeyadah_mobile_app/src/features/student_certificates/presentation/navigation/student_certificates_navigation.dart';
+import 'package:qeyadah_mobile_app/src/shared/enums/user_role.dart';
 
 enum NotificationDeepLinkKind {
   bookingDetail,
@@ -14,7 +19,10 @@ enum NotificationDeepLinkKind {
   certificateDetail,
   certificatesHub,
   instructorSchedule,
+  instructorHome,
+  instructorInvoices,
   inbox,
+  none,
 }
 
 /// Pure routing decision for push + inbox taps (testable without navigator).
@@ -44,6 +52,7 @@ class NotificationDeepLinkRouter {
       type: type,
       bookingIdRaw: data['bookingId']?.toString(),
       certificateIdRaw: data['certificateId']?.toString(),
+      role: _currentRole(),
     );
     _navigate(destination);
   }
@@ -53,6 +62,7 @@ class NotificationDeepLinkRouter {
       type: item.notificationType,
       bookingIdRaw: item.data['bookingId'],
       certificateIdRaw: item.data['certificateId'],
+      role: _currentRole(),
     );
     // Inbox is already pushed on the stack — prefer push so back returns here.
     _navigate(destination, preferPush: true);
@@ -63,7 +73,9 @@ class NotificationDeepLinkRouter {
     required AppNotificationType type,
     String? bookingIdRaw,
     String? certificateIdRaw,
+    UserRole? role,
   }) {
+    final isInstructor = role == UserRole.instructor;
     switch (type) {
       case AppNotificationType.instructorSchedule:
         return const NotificationDeepLinkDestination(
@@ -74,6 +86,11 @@ class NotificationDeepLinkRouter {
       case AppNotificationType.bookingExpired:
       case AppNotificationType.paymentAccepted:
       case AppNotificationType.paymentRejected:
+        if (isInstructor) {
+          return const NotificationDeepLinkDestination(
+            kind: NotificationDeepLinkKind.instructorHome,
+          );
+        }
         final bookingId = _parseBookingId(bookingIdRaw);
         if (bookingId != null) {
           return NotificationDeepLinkDestination(
@@ -85,6 +102,11 @@ class NotificationDeepLinkRouter {
           kind: NotificationDeepLinkKind.bookingsList,
         );
       case AppNotificationType.certificateStatusChanged:
+        if (isInstructor) {
+          return const NotificationDeepLinkDestination(
+            kind: NotificationDeepLinkKind.instructorHome,
+          );
+        }
         final certificateId = _normalizeId(certificateIdRaw);
         if (certificateId != null) {
           return NotificationDeepLinkDestination(
@@ -96,6 +118,11 @@ class NotificationDeepLinkRouter {
           kind: NotificationDeepLinkKind.certificatesHub,
         );
       case AppNotificationType.general:
+        if (isInstructor) {
+          return const NotificationDeepLinkDestination(
+            kind: NotificationDeepLinkKind.instructorInvoices,
+          );
+        }
         return const NotificationDeepLinkDestination(
           kind: NotificationDeepLinkKind.inbox,
         );
@@ -107,6 +134,8 @@ class NotificationDeepLinkRouter {
     bool preferPush = false,
   }) {
     switch (destination.kind) {
+      case NotificationDeepLinkKind.none:
+        return;
       case NotificationDeepLinkKind.bookingDetail:
         final bookingId = destination.bookingId;
         if (bookingId == null) {
@@ -153,8 +182,39 @@ class NotificationDeepLinkRouter {
         }
       case NotificationDeepLinkKind.instructorSchedule:
         CoreNavigator.pushNamed(InstructorWeeklyScheduleScreen.routeName);
+      case NotificationDeepLinkKind.instructorHome:
+        if (preferPush) {
+          CoreNavigator.pushNamed(InstructorScheduleScreen.routeName);
+        } else {
+          CoreNavigator.toNamed(InstructorScheduleScreen.routeName);
+        }
+      case NotificationDeepLinkKind.instructorInvoices:
+        CoreNavigator.pushNamed(InstructorInvoicesScreen.routeName);
       case NotificationDeepLinkKind.inbox:
-        NotificationsNavigation.goInbox();
+        _openInbox();
+    }
+  }
+
+  void _openInbox() {
+    if (_isOnInbox()) return;
+    // Always push so the inbox is never installed as the stack root.
+    // A `go('/notifications')` leaves no back target, and the system
+    // back button then exits the app.
+    NotificationsNavigation.pushInbox();
+  }
+
+  UserRole? _currentRole() {
+    if (!getIt.isRegistered<AuthSessionCubit>()) return null;
+    return getIt<AuthSessionCubit>().currentSession?.user.primaryRole;
+  }
+
+  static bool _isOnInbox() {
+    try {
+      final location = CoreNavigator.getCurrentLocation();
+      return location == NotificationsInboxScreen.routePath ||
+          location == '/instructor/notifications';
+    } catch (_) {
+      return false;
     }
   }
 

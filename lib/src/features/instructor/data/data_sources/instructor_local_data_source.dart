@@ -183,10 +183,7 @@ class InstructorLocalDataSourceImpl implements InstructorLocalDataSource {
       'userId': profile.userId,
       'name': profile.name,
       'gender': profile.gender,
-      'instructorType': switch (profile.instructorType) {
-        InstructorType.manual => 'MANUAL',
-        InstructorType.automatic => 'AUTOMATIC',
-      },
+      'instructorType': profile.instructorType.apiValue,
       'accountStatus': profile.accountStatus,
       'sessionWage': profile.sessionWage,
       'todayLessonsCount': profile.todayLessonsCount,

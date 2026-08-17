@@ -155,6 +155,14 @@ class CoreNavigator {
     }
   }
 
+  static bool canPop({BuildContext? context}) {
+    try {
+      return _getContext(context).canPop();
+    } catch (_) {
+      return false;
+    }
+  }
+
   static void pop<T extends Object?>(BuildContext? context, [T? result]) {
     final ctx = _getContext(context);
     if (ctx.canPop()) {

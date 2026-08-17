@@ -9,6 +9,10 @@ import 'package:qeyadah_mobile_app/src/features/auth/domain/entities/auth_sessio
 abstract final class AuthTokenCoordinator {
   static bool _sessionHiveSyncInstalled = false;
 
+  /// Called after tokens are wiped (failed refresh). Lets the session cubit
+  /// drop the authenticated UI so the router can send the user to login.
+  static void Function()? onSessionInvalidated;
+
   /// Wire AuthTokenManager refreshes into Hive `session_json` so cold starts
   /// rehydrate rotated tokens instead of stale ones.
   static void installSessionHiveSync(AuthLocalDataSource localDataSource) {
@@ -22,6 +26,10 @@ abstract final class AuthTokenCoordinator {
             refreshToken: refreshToken,
           );
         };
+    getIt<AuthTokenManager>().onTokensCleared = () {
+      unawaited(localDataSource.clearSession());
+      onSessionInvalidated?.call();
+    };
   }
 
   static Future<void> persist({

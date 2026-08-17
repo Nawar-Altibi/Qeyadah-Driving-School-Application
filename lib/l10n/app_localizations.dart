@@ -1682,6 +1682,30 @@ abstract class AppLocalizations {
   /// **'Lesson duration: {minutes} minutes'**
   String studentBookingSlotsLessonDuration(int minutes);
 
+  /// No description provided for @studentBookingSlotsMorning.
+  ///
+  /// In en, this message translates to:
+  /// **'Morning'**
+  String get studentBookingSlotsMorning;
+
+  /// No description provided for @studentBookingSlotsAfternoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Afternoon'**
+  String get studentBookingSlotsAfternoon;
+
+  /// No description provided for @studentBookingSlotsEvening.
+  ///
+  /// In en, this message translates to:
+  /// **'Evening'**
+  String get studentBookingSlotsEvening;
+
+  /// No description provided for @studentBookingSlotsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} slots'**
+  String studentBookingSlotsCount(int count);
+
   /// No description provided for @studentBookingReviewTitle.
   ///
   /// In en, this message translates to:
@@ -1801,6 +1825,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Search by instructor name'**
   String get studentBookingsSearchHint;
+
+  /// No description provided for @studentBookingsInstructorName.
+  ///
+  /// In en, this message translates to:
+  /// **'Instructor: {name}'**
+  String studentBookingsInstructorName(String name);
 
   /// No description provided for @studentBookingsSortNewestFirst.
   ///

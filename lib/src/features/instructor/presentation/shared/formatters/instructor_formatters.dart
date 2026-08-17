@@ -74,6 +74,7 @@ abstract final class InstructorFormatters {
     return switch (type) {
       InstructorType.manual => l10n.studentHomeManual,
       InstructorType.automatic => l10n.studentHomeAutomatic,
+      InstructorType.both => l10n.instructorTrainingTypeBoth,
     };
   }
 

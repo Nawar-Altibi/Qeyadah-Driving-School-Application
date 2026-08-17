@@ -24,73 +24,79 @@ class StudentBookingCreditSuccessScreen extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
     final colors = AppSemanticColors.of(context);
 
-    return Scaffold(
-      appBar: AppBar(
-        surfaceTintColor: Colors.transparent,
-        elevation: 0,
-        automaticallyImplyLeading: false,
-        title: Text(l10n.studentBookingCreditSuccessTitle),
-        centerTitle: true,
-      ),
-      body: SafeArea(
-        child: ResponsiveShell(
-          child: Padding(
-            padding: const EdgeInsets.all(
-              AppDesignTokens.screenHorizontalPadding,
-            ),
-            child: Column(
-              children: [
-                const Spacer(),
-                AppCard(
-                  child: Column(
-                    children: [
-                      Container(
-                        width: 56,
-                        height: 56,
-                        decoration: BoxDecoration(
-                          color: colors.brandSoft,
-                          borderRadius: BorderRadius.circular(18),
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, _) {
+        if (didPop) return;
+        StudentBookingNavigation.goHome(context: context);
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          surfaceTintColor: Colors.transparent,
+          elevation: 0,
+          automaticallyImplyLeading: false,
+          title: Text(l10n.studentBookingCreditSuccessTitle),
+          centerTitle: true,
+        ),
+        body: SafeArea(
+          child: ResponsiveShell(
+            child: Padding(
+              padding: const EdgeInsets.all(
+                AppDesignTokens.screenHorizontalPadding,
+              ),
+              child: Column(
+                children: [
+                  const Spacer(),
+                  AppCard(
+                    child: Column(
+                      children: [
+                        Container(
+                          width: 56,
+                          height: 56,
+                          decoration: BoxDecoration(
+                            color: colors.brandSoft,
+                            borderRadius: BorderRadius.circular(18),
+                          ),
+                          child: const Icon(
+                            PhosphorIconsBold.checkCircle,
+                            color: AppColors.brandPrimary,
+                            size: 28,
+                          ),
                         ),
-                        child: const Icon(
-                          PhosphorIconsBold.checkCircle,
-                          color: AppColors.brandPrimary,
-                          size: 28,
+                        const SizedBox(height: AppDesignTokens.spacingMd),
+                        Text(
+                          l10n.studentBookingCreditSuccessTitle,
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.titleLarge
+                              ?.copyWith(fontWeight: FontWeight.w800),
                         ),
-                      ),
-                      const SizedBox(height: AppDesignTokens.spacingMd),
-                      Text(
-                        l10n.studentBookingCreditSuccessTitle,
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          fontWeight: FontWeight.w800,
+                        const SizedBox(height: AppDesignTokens.spacingSm),
+                        Text(
+                          l10n.studentBookingCreditSuccessMessage,
+                          textAlign: TextAlign.center,
+                          style: Theme.of(
+                            context,
+                          ).textTheme.bodyMedium?.copyWith(color: colors.muted),
                         ),
-                      ),
-                      const SizedBox(height: AppDesignTokens.spacingSm),
-                      Text(
-                        l10n.studentBookingCreditSuccessMessage,
-                        textAlign: TextAlign.center,
-                        style: Theme.of(
-                          context,
-                        ).textTheme.bodyMedium?.copyWith(color: colors.muted),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                const Spacer(),
-                AppButton.primary(
-                  label: l10n.studentBookingCreditSuccessViewDetails,
-                  onPressed: () => StudentBookingsNavigation.goDetail(
-                    context: context,
-                    bookingId: bookingId,
+                  const Spacer(),
+                  AppButton.primary(
+                    label: l10n.studentBookingCreditSuccessViewDetails,
+                    onPressed: () => StudentBookingsNavigation.pushDetail(
+                      context: context,
+                      bookingId: bookingId,
+                    ),
                   ),
-                ),
-                const SizedBox(height: AppDesignTokens.spacing),
-                AppButton.secondary(
-                  label: l10n.studentBookingCreditSuccessBackHome,
-                  onPressed: () =>
-                      StudentBookingNavigation.goHome(context: context),
-                ),
-              ],
+                  const SizedBox(height: AppDesignTokens.spacing),
+                  AppButton.secondary(
+                    label: l10n.studentBookingCreditSuccessBackHome,
+                    onPressed: () =>
+                        StudentBookingNavigation.goHome(context: context),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

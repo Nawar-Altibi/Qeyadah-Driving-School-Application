@@ -51,6 +51,9 @@ class AuthLoginForm extends StatelessWidget {
                 keyboardType: TextInputType.phone,
                 textInputAction: TextInputAction.next,
                 autoFillHints: const [AutofillHints.telephoneNumber],
+                autocorrect: false,
+                enableSuggestions: false,
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 prefixIcon: const Icon(
                   PhosphorIconsBold.phone,
                   size: 18,
@@ -62,8 +65,11 @@ class AuthLoginForm extends StatelessWidget {
                 name: 'password',
                 label: l10n.password,
                 obscureText: true,
+                keyboardType: TextInputType.visiblePassword,
                 textInputAction: TextInputAction.done,
                 autoFillHints: const [AutofillHints.password],
+                autocorrect: false,
+                enableSuggestions: false,
               ),
               const SizedBox(height: 4),
               AuthTextLink(

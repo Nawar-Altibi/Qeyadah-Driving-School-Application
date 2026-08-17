@@ -64,6 +64,21 @@ void main() {
       hanging.complete();
     });
 
+    test('clearTokens invokes onTokensCleared', () async {
+      manager = AuthTokenManager(secureDatabase);
+      var cleared = false;
+      manager.onTokensCleared = () {
+        cleared = true;
+      };
+
+      await manager.setTokens(accessToken: 'a', refreshToken: 'r');
+      await manager.clearTokens();
+      await Future<void>.delayed(Duration.zero);
+
+      expect(await manager.accessToken, '');
+      expect(cleared, isTrue);
+    });
+
     test('memory tokens update even when secure write is skipped', () async {
       manager = AuthTokenManager(secureDatabase);
       when(

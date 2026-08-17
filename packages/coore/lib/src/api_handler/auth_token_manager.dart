@@ -25,6 +25,9 @@ class AuthTokenManager {
   FutureOr<void> Function({String? accessToken, String? refreshToken})?
   onTokensPersisted;
 
+  /// Optional hook after memory tokens are cleared (refresh failure / logout).
+  FutureOr<void> Function()? onTokensCleared;
+
   /// Retrieves the access token.
   ///
   /// If secure storage is enabled, first checks if the token is already available
@@ -128,6 +131,11 @@ class AuthTokenManager {
     _accessToken = null;
     _refreshToken = null;
 
+    final clearedHook = onTokensCleared;
+    if (clearedHook != null) {
+      unawaited(_runTokensClearedHook(clearedHook));
+    }
+
     if (!secureStorageEnabled) return;
 
     unawaited(
@@ -136,6 +144,14 @@ class AuthTokenManager {
         await _secureDatabaseInterface.delete('refreshToken');
       }),
     );
+  }
+
+  Future<void> _runTokensClearedHook(FutureOr<void> Function() hook) async {
+    try {
+      await Future<void>(() => hook()).timeout(_secureWriteTimeout);
+    } on Object {
+      // Session teardown is best-effort; memory tokens already cleared.
+    }
   }
 
   Future<void> _bestEffortSecureWrite(Future<void> Function() action) async {

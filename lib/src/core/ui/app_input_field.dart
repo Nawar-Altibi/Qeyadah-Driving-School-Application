@@ -1,5 +1,6 @@
 import 'package:coore/lib.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class AppInputField extends StatelessWidget {
   const AppInputField({
@@ -16,6 +17,10 @@ class AppInputField extends StatelessWidget {
     this.maxLines = 1,
     this.minLines,
     this.maxLength,
+    this.inputFormatters,
+    this.autocorrect = true,
+    this.enableSuggestions = true,
+    this.enableInteractiveSelection = true,
   });
 
   final String name;
@@ -36,6 +41,11 @@ class AppInputField extends StatelessWidget {
   /// the field.
   final int? maxLength;
 
+  final List<TextInputFormatter>? inputFormatters;
+  final bool autocorrect;
+  final bool enableSuggestions;
+  final bool enableInteractiveSelection;
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -54,6 +64,10 @@ class AppInputField extends StatelessWidget {
       maxLines: maxLines,
       minLines: minLines,
       maxLength: maxLength,
+      inputFormatters: inputFormatters,
+      autocorrect: autocorrect,
+      enableSuggestions: enableSuggestions,
+      enableInteractiveSelection: enableInteractiveSelection,
       style: theme.textTheme.bodyLarge?.copyWith(color: onSurface),
       decoration: const InputDecoration().applyDefaults(
         theme.inputDecorationTheme,

@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:qeyadah_mobile_app/src/features/notifications/domain/entities/app_notification_type.dart';
 import 'package:qeyadah_mobile_app/src/features/notifications/presentation/navigation/notification_deep_link_router.dart';
+import 'package:qeyadah_mobile_app/src/shared/enums/user_role.dart';
 
 void main() {
   group('AppNotificationType.fromApi', () {
@@ -85,6 +86,48 @@ void main() {
         NotificationDeepLinkKind.inbox,
       );
     });
+
+    test(
+      'instructor booking types open the instructor schedule, not student detail',
+      () {
+        for (final type in <AppNotificationType>[
+          AppNotificationType.bookingConfirmed,
+          AppNotificationType.bookingCancelled,
+          AppNotificationType.bookingExpired,
+          AppNotificationType.paymentAccepted,
+          AppNotificationType.paymentRejected,
+        ]) {
+          final destination = NotificationDeepLinkRouter.resolveDestination(
+            type: type,
+            bookingIdRaw: '555',
+            role: UserRole.instructor,
+          );
+          expect(destination.kind, NotificationDeepLinkKind.instructorHome);
+          expect(destination.bookingId, isNull);
+        }
+      },
+    );
+
+    test('instructor general notifications open invoices', () {
+      final destination = NotificationDeepLinkRouter.resolveDestination(
+        type: AppNotificationType.general,
+        role: UserRole.instructor,
+      );
+      expect(destination.kind, NotificationDeepLinkKind.instructorInvoices);
+    });
+
+    test(
+      'instructor certificate notifications open the instructor schedule',
+      () {
+        final destination = NotificationDeepLinkRouter.resolveDestination(
+          type: AppNotificationType.certificateStatusChanged,
+          certificateIdRaw: '42',
+          role: UserRole.instructor,
+        );
+        expect(destination.kind, NotificationDeepLinkKind.instructorHome);
+        expect(destination.certificateId, isNull);
+      },
+    );
 
     test(
       'push type keys accept type or notificationType via fromApi input',

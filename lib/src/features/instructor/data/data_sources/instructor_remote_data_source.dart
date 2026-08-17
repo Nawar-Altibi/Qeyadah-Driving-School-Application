@@ -40,10 +40,10 @@ class InstructorRemoteDataSourceImpl implements InstructorRemoteDataSource {
     return response.fold(left, (json) {
       try {
         return right(_profileFromJson(_unwrapData(json)));
-      } on Exception {
+      } catch (error) {
         return left(
-          const InternalServerErrorFailure(
-            'Failed to parse instructor profile',
+          InternalServerErrorFailure(
+            'Failed to parse instructor profile: $error',
           ),
         );
       }

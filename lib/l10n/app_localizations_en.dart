@@ -885,6 +885,20 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get studentBookingSlotsMorning => 'Morning';
+
+  @override
+  String get studentBookingSlotsAfternoon => 'Afternoon';
+
+  @override
+  String get studentBookingSlotsEvening => 'Evening';
+
+  @override
+  String studentBookingSlotsCount(int count) {
+    return '$count slots';
+  }
+
+  @override
   String get studentBookingReviewTitle => 'Review booking';
 
   @override
@@ -949,6 +963,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get studentBookingsSearchHint => 'Search by instructor name';
+
+  @override
+  String studentBookingsInstructorName(String name) {
+    return 'Instructor: $name';
+  }
 
   @override
   String get studentBookingsSortNewestFirst => 'Newest first';

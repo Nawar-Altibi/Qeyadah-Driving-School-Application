@@ -73,7 +73,7 @@ class StudentBookingsListItemCard extends StatelessWidget {
           const SizedBox(height: 6),
           AppMetaRow(
             icon: PhosphorIconsBold.user,
-            label: item.instructorName,
+            label: l10n.studentBookingsInstructorName(item.instructorName),
             iconSize: 14,
             gap: 6,
             labelColor: colors.muted,

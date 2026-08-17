@@ -32,4 +32,31 @@ void main() {
       expect(result, l10n.errorForbidden);
     });
   });
+
+  group('CoreFailureMessageMapper service errors', () {
+    late AppLocalizations l10n;
+
+    setUp(() async {
+      l10n = await AppLocalizations.delegate.load(const Locale('en'));
+    });
+
+    test('shows the backend OTP delivery message for 503', () {
+      const message = 'تعذر إرسال رمز التحقق، يرجى المحاولة مرة أخرى';
+      final result = CoreFailureMessageMapper.messageFor(
+        const ServiceUnavailableFailure(message),
+        l10n,
+      );
+
+      expect(result, message);
+    });
+
+    test('falls back to localized server error for generic 5xx copy', () {
+      final result = CoreFailureMessageMapper.messageFor(
+        const InternalServerErrorFailure('Error, please try again later'),
+        l10n,
+      );
+
+      expect(result, l10n.errorServer);
+    });
+  });
 }
