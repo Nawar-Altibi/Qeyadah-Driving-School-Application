@@ -19,11 +19,24 @@ abstract final class CoreFailureMessageMapper {
       CacheFailure() => l10n.errorGeneric,
       BusinessFailure(:final message) =>
         message.isNotEmpty ? message : l10n.errorGeneric,
-      InternalServerErrorFailure() ||
-      BadGatewayFailure() ||
-      ServiceUnavailableFailure() ||
-      GatewayTimeoutFailure() => l10n.errorServer,
+      InternalServerErrorFailure(:final message) ||
+      BadGatewayFailure(:final message) ||
+      ServiceUnavailableFailure(:final message) ||
+      GatewayTimeoutFailure(
+        :final message,
+      ) => _usableServerMessage(message) ?? l10n.errorServer,
       _ => l10n.errorGeneric,
     };
+  }
+
+  static String? _usableServerMessage(String message) {
+    final trimmed = message.trim();
+    if (trimmed.isEmpty) return null;
+    final normalized = trimmed.replaceAll('\u00a0', ' ').toLowerCase();
+    if (normalized == 'error, please try again later' ||
+        normalized == 'internal server error') {
+      return null;
+    }
+    return trimmed;
   }
 }

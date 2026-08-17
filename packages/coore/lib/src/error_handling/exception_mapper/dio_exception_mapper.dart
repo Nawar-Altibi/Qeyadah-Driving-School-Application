@@ -49,18 +49,27 @@ class DioNetworkExceptionMapper implements NetworkExceptionMapper {
 
     500: (ErrorResponseModel error, StackTrace? stackTrace) =>
         InternalServerErrorFailure(
-          _defaultErrorMessage,
+          _messageOrDefault(error.message),
           stackTrace: stackTrace,
         ),
 
     502: (ErrorResponseModel error, StackTrace? stackTrace) =>
-        BadGatewayFailure(_defaultErrorMessage, stackTrace: stackTrace),
+        BadGatewayFailure(
+          _messageOrDefault(error.message),
+          stackTrace: stackTrace,
+        ),
 
     503: (ErrorResponseModel error, StackTrace? stackTrace) =>
-        ServiceUnavailableFailure(_defaultErrorMessage, stackTrace: stackTrace),
+        ServiceUnavailableFailure(
+          _messageOrDefault(error.message),
+          stackTrace: stackTrace,
+        ),
 
     504: (ErrorResponseModel error, StackTrace? stackTrace) =>
-        GatewayTimeoutFailure(_defaultErrorMessage, stackTrace: stackTrace),
+        GatewayTimeoutFailure(
+          _messageOrDefault(error.message),
+          stackTrace: stackTrace,
+        ),
 
     505: (ErrorResponseModel error, StackTrace? stackTrace) =>
         HttpVersionNotSupportedFailure(
@@ -148,5 +157,10 @@ class DioNetworkExceptionMapper implements NetworkExceptionMapper {
     return normalized;
   }
 
-  static String get _defaultErrorMessage => 'Error, please try again later';
+  static String _messageOrDefault(String message) {
+    final trimmed = message.trim();
+    return trimmed.isEmpty ? _defaultErrorMessage : trimmed;
+  }
+
+  static String get _defaultErrorMessage => 'Error, please try again later';
 }
