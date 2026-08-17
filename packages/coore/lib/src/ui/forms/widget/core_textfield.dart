@@ -140,6 +140,7 @@ class CoreTextField extends StatefulWidget {
     this.magnifierConfiguration,
     this.undoController,
     this.restorationId,
+    this.enableInteractiveSelection = true,
     this.stylusHandwritingEnabled = true,
     this.enableIMEPersonalizedLearning = true,
     this.spellCheckConfiguration,
@@ -366,6 +367,9 @@ class CoreTextField extends StatefulWidget {
   /// Restoration ID to save and restore the state of the text field.
   final String? restorationId;
 
+  /// Whether the user can select, copy, cut, and paste text.
+  final bool enableInteractiveSelection;
+
   /// Whether to enable scribble for Apple Pencil.
   final bool stylusHandwritingEnabled;
 
@@ -463,12 +467,17 @@ class _CoreTextFieldState extends State<CoreTextField> {
         // Store the updateValue callback for use in helper methods
         _currentUpdateValue = updateValue;
 
-        // Update controller text if value changed from form state
-        if (textEditingController.text != (value ?? '')) {
+        // Keep the controller as source of truth while focused so copy/paste
+        // and selection are not wiped by form-state rebuilds.
+        if (!_focusNode.hasFocus &&
+            textEditingController.text != (value ?? '')) {
           final formattedValue = widget.formatText != null && value != null
               ? widget.formatText!(value)
               : value ?? '';
-          textEditingController.text = formattedValue;
+          textEditingController.value = TextEditingValue(
+            text: formattedValue,
+            selection: TextSelection.collapsed(offset: formattedValue.length),
+          );
         }
 
         // Build label text with required indicator if needed
@@ -568,10 +577,17 @@ class _CoreTextFieldState extends State<CoreTextField> {
           selectionControls: widget.selectionControls,
           onAppPrivateCommand: widget.onAppPrivateCommand,
           mouseCursor: widget.mouseCursor,
-          contextMenuBuilder: widget.contextMenuBuilder,
+          contextMenuBuilder:
+              widget.contextMenuBuilder ??
+              (context, editableTextState) {
+                return AdaptiveTextSelectionToolbar.editableText(
+                  editableTextState: editableTextState,
+                );
+              },
           magnifierConfiguration: widget.magnifierConfiguration,
           undoController: widget.undoController,
           restorationId: widget.restorationId,
+          enableInteractiveSelection: widget.enableInteractiveSelection,
           stylusHandwritingEnabled: widget.stylusHandwritingEnabled,
           enableIMEPersonalizedLearning: widget.enableIMEPersonalizedLearning,
           spellCheckConfiguration: widget.spellCheckConfiguration,
