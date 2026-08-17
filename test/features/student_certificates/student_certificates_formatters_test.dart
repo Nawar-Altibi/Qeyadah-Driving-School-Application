@@ -10,13 +10,13 @@ void main() {
   test('formats school wall-clock date and time separately', () {
     final utc = DateTime.utc(2026, 8, 18, 19, 22);
 
-    expect(StudentCertificatesFormatters.time(utc, localeName: 'ar'), '22:22');
+    expect(StudentCertificatesFormatters.time(utc), '22:22');
     expect(
-      StudentCertificatesFormatters.weekdayDate(utc, localeName: 'ar'),
+      StudentCertificatesFormatters.weekdayDate(utc),
       'الثلاثاء، 18 أغسطس 2026',
     );
     expect(
-      StudentCertificatesFormatters.dateTime(utc, localeName: 'ar'),
+      StudentCertificatesFormatters.dateTime(utc),
       'الثلاثاء، 18 أغسطس 2026 · 22:22',
     );
   });

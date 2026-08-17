@@ -202,11 +202,7 @@ class TokenAuthInterceptor extends AuthInterceptor {
       }
 
       final api = getIt<ApiHandlerInterface>();
-      final result = await api.post(
-        'auth/refresh',
-        body: {'refreshToken': rt},
-        isAuthorized: false,
-      );
+      final result = await api.post('auth/refresh', body: {'refreshToken': rt});
 
       return await result.fold(
         (_) async {

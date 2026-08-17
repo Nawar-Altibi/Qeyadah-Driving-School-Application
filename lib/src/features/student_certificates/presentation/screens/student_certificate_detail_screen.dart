@@ -384,7 +384,6 @@ class _CertificateScheduleTile extends StatelessWidget {
                 AppMetaRow(
                   icon: PhosphorIconsBold.clock,
                   label: fallbackLabel,
-                  iconSize: 16,
                   gap: 6,
                   labelColor: colors.muted,
                   labelStyle: textTheme.bodySmall?.copyWith(
@@ -400,7 +399,6 @@ class _CertificateScheduleTile extends StatelessWidget {
                     when,
                     localeName: localeName,
                   ),
-                  iconSize: 16,
                   gap: 6,
                   labelColor: colors.ink,
                   labelStyle: textTheme.bodyMedium?.copyWith(
