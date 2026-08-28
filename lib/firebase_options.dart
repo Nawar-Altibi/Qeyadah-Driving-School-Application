@@ -1,5 +1,6 @@
-// File generated for Firebase project `qeyadah`.
-// NEVER commit firebase-adminsdk service-account JSON into this mobile app.
+// Template only — not wired to a live Firebase project.
+// Run `flutterfire configure` to generate real options locally.
+// See docs/FIREBASE_SETUP.md
 
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
@@ -25,19 +26,19 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyA8Vrr_ZsOSHbIPHD1Xei5W7BrYG0q8OJU',
-    appId: '1:869422894847:android:923129f544beb2686ac6ca',
-    messagingSenderId: '869422894847',
-    projectId: 'qeyadah',
-    storageBucket: 'qeyadah.firebasestorage.app',
+    apiKey: 'REPLACE_WITH_FLUTTERFIRE_CONFIGURE',
+    appId: '1:000000000000:android:0000000000000000000000',
+    messagingSenderId: '000000000000',
+    projectId: 'your-firebase-project-id',
+    storageBucket: 'your-firebase-project-id.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCfunh0n7NIKWzzUYErg0vEWTPqA2hSvLQ',
-    appId: '1:869422894847:ios:f8ec6d1529fdae216ac6ca',
-    messagingSenderId: '869422894847',
-    projectId: 'qeyadah',
-    storageBucket: 'qeyadah.firebasestorage.app',
+    apiKey: 'REPLACE_WITH_FLUTTERFIRE_CONFIGURE',
+    appId: '1:000000000000:ios:0000000000000000000000',
+    messagingSenderId: '000000000000',
+    projectId: 'your-firebase-project-id',
+    storageBucket: 'your-firebase-project-id.appspot.com',
     iosBundleId: 'com.qeyadah.mobile',
   );
 }

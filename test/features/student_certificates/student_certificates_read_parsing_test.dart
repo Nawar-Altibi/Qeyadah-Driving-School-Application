@@ -157,17 +157,17 @@ void main() {
   });
 
   test('resolves signed document URLs without duplicating api path', () {
-    const base = 'http://20.250.144.221/api/v1/';
+    const base = 'https://api.example.com/api/v1/';
     expect(
       CertificateJsonParsers.resolveDocumentUrl(
         '/api/v1/storage/objects/file?token=x',
         baseUrl: base,
       ),
-      'http://20.250.144.221/api/v1/storage/objects/file?token=x',
+      'https://api.example.com/api/v1/storage/objects/file?token=x',
     );
     expect(
       CertificateJsonParsers.resolveDocumentUrl('storage/file', baseUrl: base),
-      'http://20.250.144.221/api/v1/storage/file',
+      'https://api.example.com/api/v1/storage/file',
     );
   });
 }

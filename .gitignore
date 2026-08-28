@@ -45,3 +45,15 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Environment secrets (use .env.example as template)
+.env
+.env.*
+!.env.example
+
+# Signing & credentials — never commit
+*.jks
+*.keystore
+key.properties
+**/qeyadah-firebase-adminsdk-*.json
+**/serviceAccountKey.json

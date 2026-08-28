@@ -3,6 +3,10 @@
 Backend service-account JSON (`qeyadah-firebase-adminsdk-*.json`) is **server-only**.
 Never copy it into this Flutter app or commit it to Git.
 
+Committed Firebase client files (`firebase_options.dart`, `google-services.json`,
+`GoogleService-Info.plist`) contain **placeholder values** so the public repo stays safe.
+Push notifications require regenerating them locally.
+
 ## One-time client setup
 
 1. Install FlutterFire CLI and sign in to Firebase.

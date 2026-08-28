@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "869422894847",
-    "project_id": "qeyadah",
-    "storage_bucket": "qeyadah.firebasestorage.app"
+    "project_number": "000000000000",
+    "project_id": "your-firebase-project-id",
+    "storage_bucket": "your-firebase-project-id.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:869422894847:android:923129f544beb2686ac6ca",
+        "mobilesdk_app_id": "1:000000000000:android:0000000000000000000000",
         "android_client_info": {
           "package_name": "com.qeyadah.mobile"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyA8Vrr_ZsOSHbIPHD1Xei5W7BrYG0q8OJU"
+          "current_key": "REPLACE_WITH_FLUTTERFIRE_CONFIGURE"
         }
       ],
       "services": {

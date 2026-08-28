@@ -32,7 +32,7 @@ void main() {
     test('reads accountStatus from JSON', () {
       final model = AuthSessionModel.fromJson({
         'userId': '1',
-        'phone': '0999400001',
+        'phone': '0500000001',
         'displayName': 'Demo',
         'roles': ['STUDENT'],
         'permissions': ['bookings.create'],
@@ -52,7 +52,7 @@ void main() {
     test('defaults missing accountStatus to ACTIVE', () {
       final model = AuthSessionModel.fromJson({
         'userId': '1',
-        'phone': '0999400001',
+        'phone': '0500000001',
         'displayName': 'Demo',
         'roles': ['STUDENT'],
         'permissions': <String>[],
@@ -71,7 +71,7 @@ void main() {
     test('round-trips accountStatus through toJson', () {
       const model = AuthSessionModel(
         userId: '1',
-        phone: '0999400001',
+        phone: '0500000001',
         displayName: 'Demo',
         roles: ['STUDENT'],
         permissions: <String>[],

@@ -16,7 +16,7 @@ class _MockLocalDatabase extends Mock implements LocalDatabaseInterface {}
 const _session = AuthSessionEntity(
   user: UserEntity(
     id: 'student-1',
-    phone: '0999400001',
+    phone: '0500000001',
     displayName: 'Student',
     roles: [UserRole.student],
     permissions: ['bookings.create'],

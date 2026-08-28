@@ -275,7 +275,7 @@ void main() {
             'student': {
               'id': '1',
               'name': 'طالب تجريبي 1',
-              'phone': '0999400001',
+              'phone': '0500000001',
             },
             'instructor': {'id': '4', 'name': 'نور حسين', 'gender': 'FEMALE'},
             'vehicle': {
@@ -309,7 +309,7 @@ void main() {
       expect(result.isRight(), isTrue);
       final detail = result.fold((_) => null, (value) => value)!;
       expect(detail.booking.id, 542);
-      expect(detail.student.phone, '0999400001');
+      expect(detail.student.phone, '0500000001');
       expect(detail.vehicle?.plateNumber, 'أ ب ج 103');
       expect(detail.charges.single.amountDue, '3080.00');
     });

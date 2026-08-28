@@ -31,7 +31,7 @@ class MockPushNotificationsCoordinator extends Mock
 const _demoSession = AuthSessionEntity(
   user: UserEntity(
     id: '1',
-    phone: '0999400001',
+    phone: '0500000001',
     displayName: 'Demo',
     roles: [UserRole.student],
     permissions: ['bookings.create'],
@@ -64,7 +64,7 @@ void main() {
       ).thenAnswer((_) async => right(_demoSession));
 
       final result = await useCase(
-        const LoginParams(phone: '0999400001', password: 'Test@12345'),
+        const LoginParams(phone: '0500000001', password: 'TestPassword1'),
       );
 
       expect(result.isRight(), isTrue);
@@ -75,10 +75,10 @@ void main() {
     test('includes optional fcmToken and platform in props', () {
       const params = RegisterStudentParams(
         name: 'Demo',
-        phone: '0999400001',
+        phone: '0500000001',
         email: 'demo@example.com',
         code: '123456',
-        password: 'Test@12345',
+        password: 'TestPassword1',
         fcmToken: 'fcm-token',
         platform: 'ANDROID',
       );
@@ -152,7 +152,7 @@ void main() {
     blocTest<AuthSessionCubit, AuthSessionState>(
       'login emits succeeded session on success',
       build: buildCubit,
-      act: (cubit) => cubit.login(phone: '0999400001', password: 'Test@12345'),
+      act: (cubit) => cubit.login(phone: '0500000001', password: 'TestPassword1'),
       expect: () => [
         isA<AuthSessionState>().having((s) => s.isLoggingIn, 'loading', true),
         isA<AuthSessionState>().having(

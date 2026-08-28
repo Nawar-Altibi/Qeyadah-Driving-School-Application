@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyCfunh0n7NIKWzzUYErg0vEWTPqA2hSvLQ</string>
+	<string>REPLACE_WITH_FLUTTERFIRE_CONFIGURE</string>
 	<key>GCM_SENDER_ID</key>
-	<string>869422894847</string>
+	<string>000000000000</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.qeyadah.mobile</string>
 	<key>PROJECT_ID</key>
-	<string>qeyadah</string>
+	<string>your-firebase-project-id</string>
 	<key>STORAGE_BUCKET</key>
-	<string>qeyadah.firebasestorage.app</string>
+	<string>your-firebase-project-id.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:869422894847:ios:f8ec6d1529fdae216ac6ca</string>
+	<string>1:000000000000:ios:0000000000000000000000</string>
 </dict>
 </plist>
