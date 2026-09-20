@@ -6,6 +6,15 @@
 [![Dart](https://img.shields.io/badge/Dart-3.9+-0175C2?logo=dart&logoColor=white)](https://dart.dev)
 [![Architecture](https://img.shields.io/badge/Architecture-Clean%20%2B%20Feature--first-5C4EE5)](docs/ARCHITECTURE.md)
 [![CI](https://img.shields.io/badge/CI-GitHub%20Actions-2088FF?logo=githubactions&logoColor=white)](.github/workflows/ci.yml)
+[![Localization](https://img.shields.io/badge/i18n-AR%20%7C%20EN-2D5339)](assets/l10n)
+
+<p align="center">
+  <img src="docs/screenshots/student-home.jpg" alt="Student home dashboard" width="220" />
+  &nbsp;
+  <img src="docs/screenshots/student-available-slots.jpg" alt="Available appointment slots" width="220" />
+  &nbsp;
+  <img src="docs/screenshots/instructor-day-schedule.jpg" alt="Instructor day schedule" width="220" />
+</p>
 
 ---
 
@@ -17,9 +26,42 @@ The codebase is structured for **maintainability at scale**: feature-first modul
 
 | Role | Capabilities |
 |------|-------------|
-| **Student** | Home dashboard, book driving sessions, manage bookings, pay online, theory quiz, certificate requests & tracking, notifications |
-| **Instructor** | Schedule management, weekly calendar, leave requests, earnings & dues, invoices, profile |
-| **Shared** | Auth (login, register, OTP, password reset), profile, bilingual UI, offline queue (optional) |
+| **Student** | Home dashboard, book driving sessions, manage bookings, pay online (Sham Cash), theory quiz, certificate requests & tracking, notifications |
+| **Instructor** | Daily & weekly schedule, working hours, leave history, earnings & dues, invoices, profile |
+| **Shared** | Auth (login, register, OTP, password reset), profile, bilingual RTL/LTR UI, light/dark appearance, offline queue (optional) |
+
+---
+
+## App screenshots
+
+### Student experience
+
+| Home | Book a session | Pick a slot |
+|:---:|:---:|:---:|
+| <img src="docs/screenshots/student-home.jpg" width="200" alt="Student home" /> | <img src="docs/screenshots/student-booking-preferences.jpg" width="200" alt="Booking preferences" /> | <img src="docs/screenshots/student-available-slots.jpg" width="200" alt="Available slots" /> |
+| Upcoming session, quick actions, bottom nav | Training type, vehicle, instructor preference | Pricing, instructor, date & time selection |
+
+| Review booking | Sham Cash payment | My bookings |
+|:---:|:---:|:---:|
+| <img src="docs/screenshots/student-booking-review.jpg" width="200" alt="Booking review" /> | <img src="docs/screenshots/student-sham-cash-payment.jpg" width="200" alt="Sham Cash payment" /> | <img src="docs/screenshots/student-my-bookings.jpg" width="200" alt="My bookings" /> |
+| Confirm instructor, date, vehicle | Deposit transfer with hold timer | Search, status filters, payment badges |
+
+| Booking details | Certificates | Theory quiz | Notifications |
+|:---:|:---:|:---:|:---:|
+| <img src="docs/screenshots/student-booking-details.jpg" width="180" alt="Booking details" /> | <img src="docs/screenshots/student-certificates.jpg" width="180" alt="Certificates" /> | <img src="docs/screenshots/student-theory-quiz.jpg" width="180" alt="Theory quiz" /> | <img src="docs/screenshots/student-notifications.jpg" width="180" alt="Notifications" /> |
+| Fees, vehicle, cancel flow | License hub & new requests | 20-question practice exam | Unread badges & mark-all-read |
+
+### Instructor experience
+
+| Day schedule | Week view | Working hours |
+|:---:|:---:|:---:|
+| <img src="docs/screenshots/instructor-day-schedule.jpg" width="200" alt="Day schedule" /> | <img src="docs/screenshots/instructor-week-schedule.jpg" width="200" alt="Week schedule" /> | <img src="docs/screenshots/instructor-working-hours.jpg" width="200" alt="Working hours" /> |
+| Load %, sessions, attendance status | Confirmed & awaiting-payment cards | Multi-shift weekly availability |
+
+| Earnings | Invoices | Profile |
+|:---:|:---:|:---:|
+| <img src="docs/screenshots/instructor-earnings.jpg" width="200" alt="Earnings" /> | <img src="docs/screenshots/instructor-invoices.jpg" width="200" alt="Invoices" /> | <img src="docs/screenshots/instructor-profile.jpg" width="200" alt="Instructor profile" /> |
+| Day/month totals & session list | Disbursement history & summaries | Fee, status, theme, today’s load |
 
 ---
 
@@ -30,8 +72,9 @@ The codebase is structured for **maintainability at scale**: feature-first modul
 - **Type-safe errors** — `Either<Failure, T>` end-to-end via `fpdart`
 - **Dependency injection** — `get_it` + `injectable` code generation
 - **Declarative routing** — `GoRouter` through `CoreNavigator` with feature navigation facades
-- **Localization** — Arabic & English with ARB files and generated `AppLocalizations`
+- **Localization** — Arabic & English with ARB files and generated `AppLocalizations` (full RTL support)
 - **Push notifications** — Firebase Cloud Messaging with graceful fallback when Firebase is not configured
+- **Payments** — Sham Cash deposit flow with hold timer and transaction verification
 - **Automated quality gates** — format, analyze, unit tests, and debug builds in CI
 
 ---
@@ -119,6 +162,7 @@ lib/
     └── shared/                # Cross-feature entities & types
 
 packages/coore/                # Vendored internal framework
+docs/screenshots/              # App UI screenshots used in this README
 test/                          # Unit & widget tests
 integration_test/              # End-to-end tests
 docs/                          # Architecture, CI, best practices
